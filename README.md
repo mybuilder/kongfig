@@ -8,6 +8,8 @@ A tool for [Kong](https://getkong.org/) to allow declarative configuration.
 
 **[Puppet](https://puppetlabs.com) module soon to follow!**
 
+[![Build Status](https://travis-ci.org/mybuilder/kongfig.svg)](https://travis-ci.org/mybuilder/kongfig)
+
 ## Install
 
 ```
