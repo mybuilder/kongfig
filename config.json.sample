@@ -1,0 +1,37 @@
+{
+    "host": "localhost:8001",
+    "apis": [
+        {
+            "name": "mockbin",
+            "ensure": "present",
+            "attributes": {
+                "upstream_url": "http://mockbin.com/",
+                "request_host": "mockbin.com"
+            },
+            "plugins": [
+                {
+                    "name": "key-auth"
+                }
+            ]
+        }
+    ],
+    "consumers": [
+        {
+            "username": "iphone-app",
+            "ensure": "present",
+            "credentials": [
+                {
+                    "name": "key-auth",
+                    "ensure": "present",
+                    "attributes": {
+                        "key": "very-secret-key"
+                    }
+                }
+            ]
+        },
+        {
+            "username": "ie",
+            "ensure": "removed"
+        }
+    ]
+}
