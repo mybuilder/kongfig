@@ -11,7 +11,7 @@ A tool for [Kong](https://getkong.org/) to allow declarative configuration.
 ## Install
 
 ```
-npm install -g mybuilder/kongfig
+npm install -g kongfig
 ```
 
 ## Loosely following the Kong's 5-minute Quickstart guide

@@ -1,6 +1,6 @@
 {
   "name": "kongfig",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A tool for Kong to allow declarative configuration.",
   "repository": "https://github.com/mybuilder/kongfig",
   "bin": {
@@ -13,6 +13,8 @@
   "author": "MyBuilder Ltd",
   "license": "MIT",
   "dependencies": {
+  },
+  "devDependencies": {
     "webpack": "^1.12.2",
     "babel": "^5.8.23",
     "babel-loader": "^5.3.2",
@@ -22,9 +24,7 @@
     "imports-loader": "^0.6.4",
     "isomorphic-fetch": "^2.1.1",
     "minimist": "^1.2.0",
-    "object-assign": "^4.0.1"
-  },
-  "devDependencies": {
+    "object-assign": "^4.0.1",
     "expect.js": "^0.3.1",
     "mocha": "^2.3.3"
   }
