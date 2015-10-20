@@ -6,6 +6,8 @@
 
 A tool for [Kong](https://getkong.org/) to allow declarative configuration.
 
+Simply define your list of api's and consumers in json and then run kongfig to ensure that your Kong is configured correctly.
+
 **[Puppet](https://puppetlabs.com) module soon to follow!**
 
 [![Build Status](https://travis-ci.org/mybuilder/kongfig.svg)](https://travis-ci.org/mybuilder/kongfig)
