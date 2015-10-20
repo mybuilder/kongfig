@@ -222,6 +222,33 @@ curl -i -X GET \
   --header "apikey: very-secret-key"
 ```
 
+## Specifying the Kong Host
+
+You can alternatively specify the desired host in the configuration file itself, like so:
+
+```json
+{
+    "host": "localhost:8001",
+    "apis": [
+        "..."
+    ]
+}
+```
+
+## Removing Declarations
+
+You are able to ensure that previous declarations have been removed, like so:
+
+```json
+{
+    "apis": [
+        {
+            "name": "mockbin",
+            "ensure": "removed"
+        }
+    ]
+}
+```
 
 
 ---
