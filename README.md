@@ -74,7 +74,7 @@ curl -i -X GET \
 
 ## Enabling Plugins
 
-> Prerequisite: Ensure plugin enabled with Kong configuration - [Enabling Plugins](https://getkong.org/docs/latest/getting-started/enabling-plugins)
+> Prerequisite: Ensure any plugin you want to use has been enabled within Kong's configuration - [Enabling Plugins](https://getkong.org/docs/latest/getting-started/enabling-plugins)
 
 ### Configure the plugin for your API
 
@@ -221,3 +221,8 @@ curl -i -X GET \
   --header "Host: mockbin.com" \
   --header "apikey: very-secret-key"
 ```
+
+
+
+---
+Created by [MyBuilder](http://www.mybuilder.com/) - Check out our [blog](http://tech.mybuilder.com/) for more information and our other open-source projects.
