@@ -6,6 +6,7 @@
   "bin": {
     "kongfig": "./bin/kongfig"
   },
+  "preferGlobal": true,
   "scripts": {
     "test": "./node_modules/webpack/bin/webpack.js --target=node && ./node_modules/mocha/bin/mocha dist/test.js",
     "build": "./node_modules/webpack/bin/webpack.js --target=node"
