@@ -35,9 +35,9 @@ export function addApiPlugin(apiName, pluginName, params) {
     };
 }
 
-export function removeApiPlugin(apiName, pluginName) {
+export function removeApiPlugin(apiName, pluginId) {
     return {
-        endpoint: {name: 'api-plugin', params: {apiName, pluginName}},
+        endpoint: {name: 'api-plugin', params: {apiName, pluginId}},
         method: 'DELETE',
     };
 }

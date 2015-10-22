@@ -13650,9 +13650,9 @@
 	    };
 	}
 
-	function removeApiPlugin(apiName, pluginName) {
+	function removeApiPlugin(apiName, pluginId) {
 	    return {
-	        endpoint: { name: 'api-plugin', params: { apiName: apiName, pluginName: pluginName } },
+	        endpoint: { name: 'api-plugin', params: { apiName: apiName, pluginId: pluginId } },
 	        method: 'DELETE'
 	    };
 	}
