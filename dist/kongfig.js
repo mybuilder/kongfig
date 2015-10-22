@@ -215,7 +215,7 @@
 	                            }
 
 	                            return response.text().then(function (content) {
-	                                throw new Error('' + response.statusText, JSON.parse(content));
+	                                throw new Error(response.statusText + '\n' + content);
 	                            });
 	                        } else {
 	                            response.text().then(function (content) {
