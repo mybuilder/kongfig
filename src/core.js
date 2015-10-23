@@ -73,7 +73,7 @@ function _executeActionOnApi(action, adminApi) {
 
                     return response.text()
                         .then(content => {
-                            throw new Error(`${response.statusText}`, JSON.parse(content));
+                            throw new Error(`${response.statusText}\n${content}`);
                         });
                 } else {
                     response.text()
