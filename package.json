@@ -9,7 +9,7 @@
   "preferGlobal": true,
   "scripts": {
     "test": "./node_modules/webpack/bin/webpack.js --target=node && ./node_modules/mocha/bin/mocha dist/test.js",
-    "build": "./node_modules/webpack/bin/webpack.js --target=node"
+    "build": "NODE_ENV=production ./node_modules/webpack/bin/webpack.js -p --target=node"
   },
   "author": "MyBuilder Ltd",
   "license": "MIT",
