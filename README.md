@@ -8,15 +8,24 @@ A tool for [Kong](https://getkong.org/) to allow declarative configuration.
 
 Simply define your list of api's and consumers in json and then run kongfig to ensure that your Kong is configured correctly.
 
-**[Puppet](https://puppetlabs.com) module soon to follow!**
-
 [![Build Status](https://travis-ci.org/mybuilder/kongfig.svg)](https://travis-ci.org/mybuilder/kongfig)
 
 ## Install
 
+### Manually 
+We recommend installing Kongfig globally
+
 ```
 npm install -g kongfig
 ```
+
+### Puppet
+Use our [Puppet-Kongfig](https://forge.puppetlabs.com/mybuilder/kongfig) module to install and configure Kongfig
+
+```
+puppet module install mybuilder-kongfig
+```
+
 
 ## Loosely following the Kong's 5-minute Quickstart guide
 
