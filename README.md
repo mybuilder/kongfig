@@ -24,7 +24,17 @@ Read more on [Kong's docs - 5-minute Quickstart](https://getkong.org/docs/latest
 
 ## Add your API using the declarative config
 
-Create a `config.json` file and describe your api.
+Create a `config.json` or `config.yml` file and describe your api.
+
+```yaml
+---
+  apis:
+    -
+      name: "mockbin"
+      attributes:
+        upstream_url: "http://mockbin.com/"
+        request_host: "mockbin.com"
+```
 
 ```json
 {
