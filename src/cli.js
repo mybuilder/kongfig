@@ -2,6 +2,7 @@ import execute from 'core';
 import adminApi from 'adminApi';
 import fs from 'fs';
 import colors from 'colors';
+import yaml from 'js-yaml';
 
 const argv = require('minimist')(process.argv.slice(2), { string: ['path', 'host'] });
 
@@ -15,7 +16,14 @@ if (!fs.existsSync(argv.path)) {
     process.exit(1);
 }
 
-var config = JSON.parse(fs.readFileSync(argv.path));
+var config = {};
+
+if(/(\.yml)|(\.yaml)/.test(argv.path)) {
+    config = yaml.safeLoad(fs.readFileSync(argv.path));
+}
+else {
+    config = JSON.parse(fs.readFileSync(argv.path));
+}
 
 var host = argv.host || config.host;
 
