@@ -112,8 +112,9 @@ async function _getKongState({fetchApis, fetchPlugins, fetchConsumers, fetchCons
 
         const oauth2 = await fetchConsumerCredentials(consumer.username, 'oauth2');
         const keyAuth = await fetchConsumerCredentials(consumer.username, 'key-auth');
+        const jwt = await fetchConsumerCredentials(consumer.username, 'jwt');
 
-        return {...consumer, credentials: {oauth2, keyAuth}};
+        return {...consumer, credentials: {oauth2, keyAuth, jwt}};
     }));
 
     return {
@@ -157,6 +158,11 @@ function _createWorld({apis, consumers}) {
                     return consumers.some(
                         c => c.username === username
                         && c.credentials.keyAuth.some(k => k.key == attributes.key));
+                }
+                case 'jwt': {
+                    return consumers.some(
+                        c => c.username === username
+                        && c.credentials.jwt.some(k => k.key == attributes.key));
                 }
             }
 

@@ -85,4 +85,55 @@ describe("consumers", () => {
             ]);
         });
     });
+
+    describe("jwt credentials", () => {
+        it("should add jwt credential", () => {
+            var actual = credentials('app-name', [{
+                    "name": "jwt",
+                    'attributes': {
+                        "key": 'somekey',
+                        "secret": 'super-secret'
+                    }
+                }]
+            ).map(x => x({hasConsumerCredential: () => false}));
+
+            expect(actual).to.be.eql([
+                addConsumerCredentials('app-name', 'jwt', {"key": 'somekey', "secret": 'super-secret'})
+            ]);
+        });
+
+        it("should update the jwt credential", () => {
+            var actual = credentials('app-name', [{
+                    "name": "jwt",
+                    'attributes': {
+                        "key": 'somekey',
+                        "secret": 'new-super-secret'
+                    }
+                }]
+            ).map(x => x({
+                getConsumerCredentialId: () => '1234',
+                hasConsumerCredential: () => true}));
+
+            expect(actual).to.be.eql([
+                updateConsumerCredentials('app-name', 'jwt', '1234', {"key": 'somekey', "secret": 'new-super-secret'})
+            ]);
+        });
+
+        it("should remove consumer", () => {
+            var actual = credentials('app-name', [{
+                    "name": "jwt",
+                    "ensure": 'removed',
+                    'attributes': {
+                    }
+                }]
+            ).map(x => x({
+                getConsumerCredentialId: () => '1234',
+                hasConsumerCredential: () => true})
+            );
+
+            expect(actual).to.be.eql([
+                removeConsumerCredentials('app-name', 'jwt', '1234')
+            ]);
+        });
+    });
 });
