@@ -272,3 +272,8 @@ You are able to ensure that previous declarations have been removed, like so:
 
 ---
 Created by [MyBuilder](http://www.mybuilder.com/) - Check out our [blog](http://tech.mybuilder.com/) for more information and our other open-source projects.
+
+## Contributing to Kongfig
+
+We are very grateful for any contributions you can make to the project.
+Visit the [Contributing](CONTRIBUTING.md) documentation for submission guidelines.
