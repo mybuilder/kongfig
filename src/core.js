@@ -190,6 +190,7 @@ function extractCredentialId(credentials, name, attributes) {
     switch (name) {
         case 'oauth2': return credentials.oauth2.find(oa => oa.client_id == attributes.client_id);
         case 'key-auth': return credentials.keyAuth.find(k => k.key == attributes.key);
+        case 'jwt': return credentials.jwt.find(k => k.key == attributes.key);
     }
 
     throw new Error(`Unknown credential "${name}"`);
