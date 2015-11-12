@@ -28,3 +28,6 @@ build/Release
 node_modules
 
 dist/test.js
+
+# IDE(s)
+.idea
