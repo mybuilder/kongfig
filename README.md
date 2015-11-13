@@ -270,5 +270,14 @@ You are able to ensure that previous declarations have been removed, like so:
 ```
 
 
+## Development environment
+
+To setup a development environment make sure you have Node/Npm installed and then:
+
+    $ npm install
+
+    $ NODE_PATH=./src ./node_modules/.bin/babel-node src/cli.js -- --path config.yml --host localhost:8000
+
+
 ---
 Created by [MyBuilder](http://www.mybuilder.com/) - Check out our [blog](http://tech.mybuilder.com/) for more information and our other open-source projects.

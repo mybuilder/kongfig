@@ -8,7 +8,7 @@ export default function mergeConfig(baseConfig, overrideConfig) {
         return;
     }
 
-    var mergedConfig = _.clone(baseConfig);
+    var mergedConfig = merge.clone(baseConfig);
 
     for (var key in overrideConfig) {
         if (!overrideConfig.hasOwnProperty(key)) {
@@ -22,26 +22,31 @@ export default function mergeConfig(baseConfig, overrideConfig) {
         }
 
         if (_.isArray(baseConfig[key])) {
-            var baseElements = baseConfig[key];
+            var elements = merge.clone(baseConfig[key]);
             var overrideElements = overrideConfig[key];
 
-            var newElements = [];
+            for (var i = 0; i < overrideElements.length; i++) {
+                let currentElement = overrideElements[i];
 
-            for (var i = 0; i < baseElements.length; i++) {
-                let currentElement = baseElements[i];
+                var pos = -1;
+                var matchingElement = null;
 
-                var matchingElement = _.find(overrideElements, (element) => {
-                    return currentElement.name === element.name;
-                });
+                for (var j = 0; j < baseConfig[key].length; j++) {
+                    if (currentElement.name == baseConfig[key][j].name) {
+                        pos = j;
+                        matchingElement = baseConfig[key][j];
+                        break;
+                    }
+                }
 
-                if (matchingElement) {
-                    newElements.push(mergeConfig(currentElement, matchingElement));
+                if (pos != -1) {
+                    elements[pos] = mergeConfig(matchingElement, currentElement);
                 } else {
-                    newElements.push(currentElement);
+                    elements.push(currentElement);
                 }
             }
 
-            mergedConfig[key] = newElements;
+            mergedConfig[key] = elements;
         } else if (_.isObject(baseConfig[key])) {
             mergedConfig[key] = mergeConfig(baseConfig[key], overrideConfig[key]);
         } else {
