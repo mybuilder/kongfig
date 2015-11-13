@@ -5,7 +5,7 @@ import adminApi from 'adminApi';
 import fs from 'fs';
 import colors from 'colors';
 
-const argv = require('minimist')(process.argv.slice(3), {string: ['path', 'host', 'override']});
+const argv = require('minimist')(process.argv.slice(2), {string: ['path', 'host', 'override']});
 
 if (!argv.path) {
     console.log('--path to the config file is required'.red);
