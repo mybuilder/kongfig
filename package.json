@@ -13,7 +13,10 @@
   },
   "author": "MyBuilder Ltd",
   "license": "MIT",
-  "dependencies": {},
+  "dependencies": {
+    "merge": "^1.2.0",
+    "underscore": "^1.8.3"
+  },
   "devDependencies": {
     "babel": "^5.8.23",
     "babel-core": "^5.8.25",

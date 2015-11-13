@@ -28,3 +28,10 @@ build/Release
 node_modules
 
 dist/test.js
+
+# IDE(s)
+.idea
+
+# Test files
+config.yml
+override.yml

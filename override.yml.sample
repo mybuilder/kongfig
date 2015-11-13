@@ -1,0 +1,9 @@
+---
+  host: "localhost:8002"
+  apis:
+    -
+      name: "mockbin"
+      ensure: "deleted"
+      attributes:
+        upstream_url: "http://mockbin1.com/"
+        request_host: "mockbin1.com"
