@@ -8,9 +8,9 @@ describe("consumers", () => {
             "ensure": "present",
             "username": "marketplace"
         }])
-            .map(x => x({
-                hasConsumer: () => false
-            }));
+        .map(x => x({
+            hasConsumer: () => false
+        }));
 
         expect(actual).to.be.eql([
             createConsumer('marketplace')
@@ -60,9 +60,8 @@ describe("consumers", () => {
                     }
                 }]
             ).map(x => x({
-                    getConsumerCredentialId: () => '1234',
-                    hasConsumerCredential: () => true
-                }));
+                getConsumerCredentialId: () => '1234',
+                hasConsumerCredential: () => true}));
 
             expect(actual).to.be.eql([
                 updateConsumerCredentials('app-name', 'oauth2', '1234', {"client_id": 'foo', "redirect-uri": 'foo/bar'})
@@ -73,12 +72,12 @@ describe("consumers", () => {
             var actual = credentials('app-name', [{
                     "name": "oauth2",
                     "ensure": 'removed',
-                    'attributes': {}
+                    'attributes': {
+                    }
                 }]
             ).map(x => x({
-                    getConsumerCredentialId: () => '1234',
-                    hasConsumerCredential: () => true
-                })
+                getConsumerCredentialId: () => '1234',
+                hasConsumerCredential: () => true})
             );
 
             expect(actual).to.be.eql([
@@ -112,9 +111,8 @@ describe("consumers", () => {
                     }
                 }]
             ).map(x => x({
-                    getConsumerCredentialId: () => '1234',
-                    hasConsumerCredential: () => true
-                }));
+                getConsumerCredentialId: () => '1234',
+                hasConsumerCredential: () => true}));
 
             expect(actual).to.be.eql([
                 updateConsumerCredentials('app-name', 'jwt', '1234', {"key": 'somekey', "secret": 'new-super-secret'})
@@ -125,12 +123,12 @@ describe("consumers", () => {
             var actual = credentials('app-name', [{
                     "name": "jwt",
                     "ensure": 'removed',
-                    'attributes': {}
+                    'attributes': {
+                    }
                 }]
             ).map(x => x({
-                    getConsumerCredentialId: () => '1234',
-                    hasConsumerCredential: () => true
-                })
+                getConsumerCredentialId: () => '1234',
+                hasConsumerCredential: () => true})
             );
 
             expect(actual).to.be.eql([
