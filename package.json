@@ -9,7 +9,11 @@
   "preferGlobal": true,
   "scripts": {
     "test": "./node_modules/webpack/bin/webpack.js --target=node && ./node_modules/mocha/bin/mocha dist/test.js",
-    "build": "NODE_ENV=production ./node_modules/webpack/bin/webpack.js -p --target=node"
+    "build": "NODE_ENV=production ./node_modules/webpack/bin/webpack.js -p --target=node",
+    "preversion": "npm test",
+    "version": "npm run build && git add -A dist",
+    "postversion": "git push && git push --tags",
+    "publish-patch": "npm version patch && npm publish"
   },
   "author": "MyBuilder Ltd",
   "license": "MIT",
