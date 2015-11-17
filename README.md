@@ -82,6 +82,83 @@ Response status Created:
    request_host: 'mockbin.com' }
 ```
 
+### Override configuration
+
+It's also possible to override an existing configuration from an existing .yml or .json file. Example, given this API definition:
+
+```yaml
+---
+  apis:
+    -
+      name: "mockbin"
+      attributes:
+        upstream_url: "http://mockbin.com/"
+        request_host: "mockbin.com"
+```
+
+```json
+{
+    "apis": [
+        {
+            "name": "mockbin",
+            "attributes": {
+                "upstream_url": "http://mockbin.com/",
+                "request_host": "mockbin.com"
+            }
+        }
+    ]
+}
+```
+
+and this override configuration: 
+
+```yaml
+---
+  apis:
+    -
+      name: "mockbin"
+      attributes:
+        upstream_url: "http://dev.mockbin.com/"
+        request_host: "dev.mockbin.com"
+```
+
+```json
+{
+    "apis": [
+        {
+            "name": "mockbin",
+            "attributes": {
+                "upstream_url": "http://dev.mockbin.com/",
+                "request_host": "dev.mockbin.com"
+            }
+        }
+    ]
+}
+```
+
+we can apply this configuration/override set with:
+
+```bash
+kongfig --path ./config.json --override ./override.json --host localhost:8001
+```
+
+You should see a similar command output when applying the config:
+
+```bash
+...
+
+POST 201 http://localhost:8001/apis
+ { upstream_url: 'http://dev.mockbin.com/',
+   request_host: 'dev.mockbin.com',
+   name: 'mockbin' }
+Response status Created:
+ { upstream_url: 'http://dev.mockbin.com/',
+   id: '94219b08-e70e-44a4-c4cd-bf3c9bc31ca1',
+   name: 'mockbin',
+   created_at: 1445247516000,
+   request_host: 'dev.mockbin.com' }
+```
+
 ### Forward your requests through Kong
 
 ```bash
@@ -268,6 +345,15 @@ You are able to ensure that previous declarations have been removed, like so:
     ]
 }
 ```
+
+
+## Development environment
+
+To setup a development environment make sure you have Node/Npm installed and then:
+
+    $ npm install
+
+    $ NODE_PATH=./src ./node_modules/.bin/babel-node src/cli.js -- --path config.yml --host localhost:8000
 
 
 ---
