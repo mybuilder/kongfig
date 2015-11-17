@@ -1,0 +1,5 @@
+dist/test.js
+src
+test
+.travis.yml
+webpack.config.js
