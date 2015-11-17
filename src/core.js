@@ -113,8 +113,9 @@ async function _getKongState({fetchApis, fetchPlugins, fetchConsumers, fetchCons
         const oauth2 = await fetchConsumerCredentials(consumer.username, 'oauth2');
         const keyAuth = await fetchConsumerCredentials(consumer.username, 'key-auth');
         const jwt = await fetchConsumerCredentials(consumer.username, 'jwt');
+        const basicAuth = await fetchConsumerCredentials(consumer.username, 'basic-auth');
 
-        return {...consumer, credentials: {oauth2, keyAuth, jwt}};
+        return {...consumer, credentials: {oauth2, keyAuth, jwt, basicAuth}};
     }));
 
     return {
@@ -164,6 +165,12 @@ function _createWorld({apis, consumers}) {
                         c => c.username === username
                         && c.credentials.jwt.some(k => k.key == attributes.key));
                 }
+                case 'basic-auth': {
+                    return consumers.some(
+                            c => c.username === username &&
+                            c.credentials.basicAuth.some(k => k.username == attributes.username)
+                    );
+                }
             }
 
             throw new Error(`Unknown credential "${name}"`);
@@ -191,6 +198,7 @@ function extractCredentialId(credentials, name, attributes) {
         case 'oauth2': return credentials.oauth2.find(oa => oa.client_id == attributes.client_id);
         case 'key-auth': return credentials.keyAuth.find(k => k.key == attributes.key);
         case 'jwt': return credentials.jwt.find(k => k.key == attributes.key);
+        case 'basic-auth': return credentials.basicAuth.find(k => k.username == attributes.username);
     }
 
     throw new Error(`Unknown credential "${name}"`);

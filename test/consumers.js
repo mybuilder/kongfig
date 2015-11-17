@@ -136,4 +136,56 @@ describe("consumers", () => {
             ]);
         });
     });
+
+    describe('basic-auth', () => {
+        it("should add basic auth credential", () => {
+            var actual = credentials('app-name', [{
+                    "name": "basic-auth",
+                    'attributes': {
+                        "username": 'user',
+                        "password": 'password'
+                    }
+                }]
+            ).map(x => x({hasConsumerCredential: () => false}));
+
+            expect(actual).to.be.eql([
+                addConsumerCredentials('app-name', 'basic-auth', {"username": 'user', "password": 'password'})
+            ]);
+        });
+
+        it("should update the basic auth credential", () => {
+            var actual = credentials('app-name', [{
+                    "name": "basic-auth",
+                    'attributes': {
+                        "username": 'user',
+                        "password": 'new-password'
+                    }
+                }]
+            ).map(x => x({
+                    getConsumerCredentialId: () => '1234',
+                    hasConsumerCredential: () => true
+                }));
+
+            expect(actual).to.be.eql([
+                updateConsumerCredentials('app-name', 'basic-auth', '1234', {"username": 'user', "password": 'new-password'})
+            ]);
+        });
+
+        it("should remove consumer credential", () => {
+            var actual = credentials('app-name', [{
+                    "name": "basic-auth",
+                    "ensure": 'removed',
+                    'attributes': {}
+                }]
+            ).map(x => x({
+                    getConsumerCredentialId: () => '1234',
+                    hasConsumerCredential: () => true
+                })
+            );
+
+            expect(actual).to.be.eql([
+                removeConsumerCredentials('app-name', 'basic-auth', '1234')
+            ]);
+        });
+    });
 });
