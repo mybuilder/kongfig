@@ -1,6 +1,6 @@
 import expect from 'expect.js';
-import {consumers, credentials} from 'core';
-import {createConsumer, removeConsumer, addConsumerCredentials, updateConsumerCredentials, removeConsumerCredentials} from 'actions';
+import {consumers, credentials} from '../src/core.js';
+import {createConsumer, removeConsumer, addConsumerCredentials, updateConsumerCredentials, removeConsumerCredentials} from '../src/actions.js';
 
 describe("consumers", () => {
     it("should add new consumer", () => {

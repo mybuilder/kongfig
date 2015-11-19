@@ -1,5 +1,5 @@
-import execute from 'core';
-import adminApi from 'adminApi';
+import execute from './core';
+import adminApi from './adminApi';
 import fs from 'fs';
 import colors from 'colors';
 import yaml from 'js-yaml';

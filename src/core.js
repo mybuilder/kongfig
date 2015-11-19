@@ -1,7 +1,7 @@
 'use strict';
 
 import colors from 'colors';
-import createAdminApi from 'adminApi';
+import createAdminApi from './adminApi';
 import assign from 'object-assign';
 import {
     noop,
@@ -16,7 +16,7 @@ import {
     addConsumerCredentials,
     updateConsumerCredentials,
     removeConsumerCredentials
-} from 'actions';
+} from './actions';
 
 export default async function execute(config, adminApi) {
     const actions = [

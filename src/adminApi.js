@@ -1,6 +1,5 @@
-import createRouter from 'router';
+import createRouter from './router';
 
-require('babel/polyfill');
 require('isomorphic-fetch');
 
 export default host => {

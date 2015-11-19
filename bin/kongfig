@@ -1,3 +1,4 @@
 #!/usr/bin/env node
 
-require('../dist/kongfig.js');
+require("babel-polyfill");
+require('../lib/cli.js');
