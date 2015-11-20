@@ -12,7 +12,7 @@ Simply define your list of api's and consumers in json and then run kongfig to e
 
 ## Install
 
-### Manually 
+### Manually
 We recommend installing Kongfig globally
 
 ```
@@ -276,7 +276,5 @@ Created by [MyBuilder](http://www.mybuilder.com/) - Check out our [blog](http://
 ## Contributing to Kongfig
 
 We are very grateful for any contributions you can make to the project.
-
-To run a development build of the application execute `./dev-kongfig`.
 
 Visit the [Contributing](CONTRIBUTING.md) documentation for submission guidelines.
