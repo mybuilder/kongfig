@@ -9,7 +9,7 @@
   "preferGlobal": true,
   "scripts": {
     "test": "mocha --compilers js:babel-core/register test/index.js",
-    "build": "babel src --out-dir lib --compact",
+    "build": "babel src --out-dir lib",
     "preversion": "npm test",
     "version": "npm run build && git add -A dist",
     "postversion": "git push && git push --tags",
