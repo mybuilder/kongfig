@@ -1,5 +1,5 @@
 import expect from 'expect.js';
-import {apis, plugins} from 'core';
+import {apis, plugins} from '../src/core.js';
 import {
     noop,
     createApi,
@@ -8,7 +8,7 @@ import {
     addApiPlugin,
     removeApiPlugin,
     updateApiPlugin
-} from 'actions';
+} from '../src/actions.js';
 
 describe("apis", () => {
     it("should add new api", () => {
