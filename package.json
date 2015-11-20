@@ -11,7 +11,7 @@
     "test": "mocha --compilers js:babel-core/register test/index.js",
     "build": "babel src --out-dir lib",
     "preversion": "npm test",
-    "version": "npm run build && git add -A dist",
+    "version": "npm run build",
     "postversion": "git push && git push --tags",
     "publish-patch": "npm version patch && npm publish"
   },
