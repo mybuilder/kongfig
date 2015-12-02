@@ -2,6 +2,8 @@ import createRouter from './router';
 
 require('isomorphic-fetch');
 
+let pluginSchemasCache;
+
 export default host => {
     const router = createRouter(host);
 
@@ -11,8 +13,24 @@ export default host => {
         fetchPlugins: apiName => getJson(router({name: 'api-plugins', params: {apiName}})),
         fetchConsumers: () => getJson(router({name: 'consumers'})),
         fetchConsumerCredentials: (username, plugin) => getJson(router({name: 'consumer-credentials', params: {username, plugin}})),
+
+        // this is very chatty call and doesn't change so its cached
+        fetchPluginSchemas: () => {
+            if (pluginSchemasCache) {
+                return Promise.resolve(pluginSchemasCache);
+            }
+
+            return getJson(router({name: 'plugins-enabled'}))
+                .then(json => Promise.all(json.enabled_plugins.map(plugin => getPluginScheme(plugin, plugin => router({name: 'plugins-scheme', params: {plugin}})))))
+                .then(all => pluginSchemasCache = new Map(all));
+        },
         requestEndpoint: (endpoint, params) => fetch(router(endpoint), prepareOptions(params))
     }
+}
+
+function getPluginScheme(plugin, schemaRoute) {
+    return getJson(schemaRoute(plugin))
+        .then(({fields}) => [plugin, fields]);
 }
 
 function getJson(uri) {
@@ -28,7 +46,7 @@ function getJson(uri) {
             throw new Error(`Content overflow on ${uri}, paggination not supported`);
         }
 
-        return json.data;
+        return json.data ? json.data : json;
     });
 }
 

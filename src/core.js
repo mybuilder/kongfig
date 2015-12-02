@@ -3,6 +3,7 @@
 import colors from 'colors';
 import createAdminApi from './adminApi';
 import assign from 'object-assign';
+import kongState from './kongState';
 import {
     noop,
     createApi,
@@ -89,58 +90,37 @@ function _executeActionOnApi(action, adminApi) {
 
 function _bindWorldState(adminApi) {
     return f => async () => {
-        const state = await _getKongState(adminApi);
+        const state = await kongState(adminApi);
         return f(_createWorld(state));
     }
 }
 
-async function _getKongState({fetchApis, fetchPlugins, fetchConsumers, fetchConsumerCredentials}) {
-    const apis = await fetchApis();
-    const apisWithPlugins = await Promise.all(apis.map(async item => {
-        const plugins =  await fetchPlugins(item.name);
-
-        return {...item, plugins};
-    }));
-
-    const consumers = await fetchConsumers();
-    const consumersWithCredentials = await Promise.all(consumers.map(async consumer => {
-        if (consumer.custom_id && !consumer.username) {
-            console.log(`Consumers with only custom_id not supported: ${consumer.custom_id}`);
-
-            return consumer;
-        }
-
-        const oauth2 = await fetchConsumerCredentials(consumer.username, 'oauth2');
-        const keyAuth = await fetchConsumerCredentials(consumer.username, 'key-auth');
-        const jwt = await fetchConsumerCredentials(consumer.username, 'jwt');
-        const basicAuth = await fetchConsumerCredentials(consumer.username, 'basic-auth');
-
-        return {...consumer, credentials: {oauth2, keyAuth, jwt, basicAuth}};
-    }));
-
-    return {
-        apis: apisWithPlugins,
-        consumers: consumersWithCredentials
-    };
-}
-
 function _createWorld({apis, consumers}) {
-    return {
+    const world = {
         hasApi: apiName => apis.some(api => api.name === apiName),
-        getPluginId: (apiName, pluginName) => {
+        getApi: apiName => {
             const api = apis.find(api => api.name === apiName);
 
             if (!api) {
                 throw new Error(`Unable to find api ${apiName}`);
             }
 
-            const plugin = api.plugins.find(plugin => plugin.name == pluginName);
+            return api;
+        },
+        getPlugin: (apiName, pluginName) => {
+            const plugin = world.getApi(apiName).plugins.find(plugin => plugin.name == pluginName);
 
             if (!plugin) {
                 throw new Error(`Unable to find plugin ${pluginName}`);
             }
 
-            return plugin.id;
+            return plugin;
+        },
+        getPluginId: (apiName, pluginName) => {
+            return world.getPlugin(apiName, pluginName).id;
+        },
+        getPluginAttributes: (apiName, pluginName) => {
+            return world.getPlugin(apiName, pluginName).config;
         },
         hasPlugin: (apiName, pluginName) => {
             return apis.some(api => api.name === apiName && api.plugins.some(plugin => plugin.name == pluginName));
@@ -191,6 +171,8 @@ function _createWorld({apis, consumers}) {
             return credential.id;
         }
     };
+
+    return world;
 }
 
 function extractCredentialId(credentials, name, attributes) {

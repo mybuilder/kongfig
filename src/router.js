@@ -10,6 +10,9 @@ export default function createRouter(host) {
             case 'consumer-credentials': return `http://${host}/consumers/${params.username}/${params.plugin}`;
             case 'consumer-credential': return `http://${host}/consumers/${params.username}/${params.plugin}/${params.credentialId}`;
 
+            case 'plugins-enabled': return `http://${host}/plugins/enabled`;
+            case 'plugins-scheme': return `http://${host}/plugins/schema/${params.plugin}`;
+
             default:
                 throw new Error(`Unknown route "${name}"`);
         }
