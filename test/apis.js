@@ -58,7 +58,7 @@ describe("apis", () => {
                 "foo": "bar"
             }
         }])
-        .map(x => x({hasApi: () => true}));
+        .map(x => x({hasApi: () => true, isApiUpToDate: () => false}));
 
         expect(actual).to.be.eql([
             updateApi('leads', {foo: "bar"})
@@ -136,7 +136,8 @@ describe("apis", () => {
                     }}]
             ).map(x => x({
                 hasPlugin: () => true,
-                getPluginId: () => 123
+                getPluginId: () => 123,
+                isApiPluginUpToDate: () => false
             }));
 
             expect(actual).to.be.eql([

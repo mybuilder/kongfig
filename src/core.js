@@ -169,6 +169,27 @@ function _createWorld({apis, consumers}) {
             }
 
             return credential.id;
+        },
+
+        isApiUpToDate: (api) => {
+            let current = world.getApi(api.name);
+
+            let different = Object.keys(api.attributes).filter(key => {
+                return api.attributes[key] !== current[key];
+            });
+
+            return different.length == 0;
+        },
+
+        isApiPluginUpToDate: (apiName, plugin) => {
+            let current = world.getPluginAttributes(apiName, plugin.name);
+
+            // TODO keys can be in form of "config.somefoo: value"
+            let different = Object.keys(plugin.attributes.config).filter(key => {
+                return JSON.stringify(plugin.attributes.config[key]) !== JSON.stringify(current[key]);
+            });
+
+            return different.length === 0;
         }
     };
 
@@ -195,6 +216,12 @@ function _api(api) {
         }
 
         if (world.hasApi(api.name)) {
+            if (world.isApiUpToDate(api)) {
+                console.log("api", `${api.name}`.bold, "is up-to-date");
+
+                return noop();
+            }
+
             return updateApi(api.name, api.attributes);
         }
 
@@ -229,11 +256,28 @@ function _plugin(apiName, plugin) {
         }
 
         if (world.hasPlugin(apiName, plugin.name)) {
+            if (world.isApiPluginUpToDate(apiName, plugin)) {
+                console.log("  - plugin", `${plugin.name}`.bold, "is up-to-date".green);
+
+                return noop();
+            }
+
             return updateApiPlugin(apiName, world.getPluginId(apiName, plugin.name), plugin.attributes);
         }
 
         return addApiPlugin(apiName, plugin.name, plugin.attributes);
     }
+}
+
+function _isApiPluginUpToDate(world, apiName, plugin) {
+    let current = world.getPluginAttributes(apiName, plugin.name);
+
+    // TODO keys can be in form of "config.somefoo: value"
+    let different = Object.keys(plugin.attributes.config).filter(key => {
+        return JSON.stringify(plugin.attributes.config[key]) !== JSON.stringify(current[key]);
+    });
+
+    return different.length === 0;
 }
 
 function _consumer(consumer) {
