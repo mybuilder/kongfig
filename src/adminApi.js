@@ -37,6 +37,7 @@ function getJson(uri) {
     return fetch(uri, {
         method: 'GET',
         headers: {
+            'Connection': 'keep-alive',
             'Accept': 'application/json'
         }
     })
