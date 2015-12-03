@@ -1,3 +1,5 @@
+import {getSupportedCredentials} from './core'
+
 export default async ({fetchApis, fetchPlugins, fetchConsumers, fetchConsumerCredentials}) => {
     const apis = await fetchApis();
     const apisWithPlugins = await Promise.all(apis.map(async item => {
@@ -14,12 +16,20 @@ export default async ({fetchApis, fetchPlugins, fetchConsumers, fetchConsumerCre
             return consumer;
         }
 
-        const oauth2 = await fetchConsumerCredentials(consumer.username, 'oauth2');
-        const keyAuth = await fetchConsumerCredentials(consumer.username, 'key-auth');
-        const jwt = await fetchConsumerCredentials(consumer.username, 'jwt');
-        const basicAuth = await fetchConsumerCredentials(consumer.username, 'basic-auth');
+        const allCredentials = Promise.all(getSupportedCredentials().map(name => {
+            return fetchConsumerCredentials(consumer.username, name)
+                .then(credentials => [name, credentials]);
+        }));
 
-        return {...consumer, credentials: {oauth2, keyAuth, jwt, basicAuth}};
+        return allCredentials
+            .then(result => {
+                return {
+                    ...consumer,
+                    credentials: result.reduce((acc, [name, credentials]) => {
+                        return {...acc, [name]: credentials};
+                    }, {})
+                };
+            });
     }));
 
     return {

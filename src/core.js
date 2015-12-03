@@ -19,6 +19,33 @@ import {
     removeConsumerCredentials
 } from './actions';
 
+export const consumerCredentialSchema = {
+    oauth2: {
+        id: 'client_id'
+    },
+    'key-auth': {
+        id: 'key'
+    },
+    'jwt': {
+        id: 'key'
+    },
+    'basic-auth': {
+        id: 'username'
+    }
+};
+
+export function getSupportedCredentials() {
+    return Object.keys(consumerCredentialSchema);
+}
+
+export function getCredentialSchema(name) {
+    if (false === consumerCredentialSchema.hasOwnProperty(name)) {
+        throw new Error(`Unknown credential "${name}"`);
+    }
+
+    return consumerCredentialSchema[name];
+}
+
 export default async function execute(config, adminApi) {
     const actions = [
         ...apis(config.apis),
@@ -129,31 +156,11 @@ function _createWorld({apis, consumers}) {
             return consumers.some(consumer => consumer.username === username);
         },
         hasConsumerCredential: (username, name, attributes) => {
-            switch(name) {
-                case 'oauth2': {
-                    return consumers.some(
-                        c => c.username === username
-                        && c.credentials.oauth2.some(oa => oa.client_id == attributes.client_id));
-                }
-                case 'key-auth': {
-                    return consumers.some(
-                        c => c.username === username
-                        && c.credentials.keyAuth.some(k => k.key == attributes.key));
-                }
-                case 'jwt': {
-                    return consumers.some(
-                        c => c.username === username
-                        && c.credentials.jwt.some(k => k.key == attributes.key));
-                }
-                case 'basic-auth': {
-                    return consumers.some(
-                            c => c.username === username &&
-                            c.credentials.basicAuth.some(k => k.username == attributes.username)
-                    );
-                }
-            }
+            const schema = getCredentialSchema(name);
 
-            throw new Error(`Unknown credential "${name}"`);
+            return consumers.some(
+                c => c.username === username
+                && c.credentials[name].some(oa => oa[schema.id] == attributes[schema.id]));
         },
         getConsumerCredentialId: (username, name, attributes) => {
             const consumer = consumers.find(c => c.username === username);
@@ -202,14 +209,9 @@ function _createWorld({apis, consumers}) {
 }
 
 function extractCredentialId(credentials, name, attributes) {
-    switch (name) {
-        case 'oauth2': return credentials.oauth2.find(oa => oa.client_id == attributes.client_id);
-        case 'key-auth': return credentials.keyAuth.find(k => k.key == attributes.key);
-        case 'jwt': return credentials.jwt.find(k => k.key == attributes.key);
-        case 'basic-auth': return credentials.basicAuth.find(k => k.username == attributes.username);
-    }
+    const idName = getCredentialSchema(name).id;
 
-    throw new Error(`Unknown credential "${name}"`);
+    return credentials[name].find(x => x[idName] == attributes[idName]);
 }
 
 function _api(api) {
@@ -330,6 +332,7 @@ function _consumerCredentials(consumer) {
 
 function _consumerCredential(username, credential) {
     validateEnsure(credential.ensure);
+    validateCredentialRequiredAttributes(credential);
 
     return world => {
         if (credential.ensure == 'removed') {
@@ -349,5 +352,17 @@ function _consumerCredential(username, credential) {
         }
 
         return addConsumerCredentials(username, credential.name, credential.attributes);
+    }
+}
+
+function validateCredentialRequiredAttributes(credential) {
+    const credentialIdName = getCredentialSchema(credential.name).id;
+
+    if (false == credential.hasOwnProperty('attributes')) {
+        throw Error(`${credential.name} has to declare attributes.${credentialIdName}`);
+    }
+
+    if (false == credential.attributes.hasOwnProperty(credentialIdName)) {
+        throw Error(`${credential.name} has to declare attributes.${credentialIdName}`);
     }
 }

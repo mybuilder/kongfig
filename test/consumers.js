@@ -73,6 +73,7 @@ describe("consumers", () => {
                     "name": "oauth2",
                     "ensure": 'removed',
                     'attributes': {
+                        "client_id": 'foo'
                     }
                 }]
             ).map(x => x({
@@ -124,6 +125,7 @@ describe("consumers", () => {
                     "name": "jwt",
                     "ensure": 'removed',
                     'attributes': {
+                        key: 'somekey'
                     }
                 }]
             ).map(x => x({
@@ -175,7 +177,9 @@ describe("consumers", () => {
             var actual = credentials('app-name', [{
                     "name": "basic-auth",
                     "ensure": 'removed',
-                    'attributes': {}
+                    'attributes': {
+                        username: 'user'
+                    }
                 }]
             ).map(x => x({
                     getConsumerCredentialId: () => '1234',
