@@ -184,6 +184,11 @@ function _createWorld({apis, consumers}) {
         isApiPluginUpToDate: (apiName, plugin) => {
             let current = world.getPluginAttributes(apiName, plugin.name);
 
+            if (false == plugin.hasOwnProperty('attributes')) {
+                // of a plugin has no attributes, and its been added then it is up to date
+                return true;
+            }
+
             // TODO keys can be in form of "config.somefoo: value"
             let different = Object.keys(plugin.attributes.config).filter(key => {
                 return JSON.stringify(plugin.attributes.config[key]) !== JSON.stringify(current[key]);
