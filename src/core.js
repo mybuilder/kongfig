@@ -31,6 +31,9 @@ export const consumerCredentialSchema = {
     },
     'basic-auth': {
         id: 'username'
+    },
+    'hmac-auth': {
+        id: 'username'
     }
 };
 
