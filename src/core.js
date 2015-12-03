@@ -165,7 +165,8 @@ function _createWorld({apis, consumers}) {
                 c => c.username === username
                 && c.credentials[name].some(oa => oa[schema.id] == attributes[schema.id]));
         },
-        getConsumerCredentialId: (username, name, attributes) => {
+
+        getConsumerCredential: (username, name, attributes) => {
             const consumer = consumers.find(c => c.username === username);
 
             if (!consumer) {
@@ -178,7 +179,11 @@ function _createWorld({apis, consumers}) {
                 throw new Error(`Unable to find credential`);
             }
 
-            return credential.id;
+            return credential;
+        },
+
+        getConsumerCredentialId: (username, name, attributes) => {
+            return world.getConsumerCredential(username, name, attributes).id;
         },
 
         isApiUpToDate: (api) => {
@@ -202,6 +207,16 @@ function _createWorld({apis, consumers}) {
             // TODO keys can be in form of "config.somefoo: value"
             let different = Object.keys(plugin.attributes.config).filter(key => {
                 return JSON.stringify(plugin.attributes.config[key]) !== JSON.stringify(current[key]);
+            });
+
+            return different.length === 0;
+        },
+
+        isConsumerCredentialUpToDate: (username, credential) => {
+            const current = world.getConsumerCredential(username, credential.name, credential.attributes);
+
+            let different = Object.keys(credential.attributes).filter(key => {
+                return JSON.stringify(credential.attributes[key]) !== JSON.stringify(current[key]);
             });
 
             return different.length === 0;
@@ -319,6 +334,8 @@ function _consumer(consumer) {
             return createConsumer(consumer.username);
         }
 
+        console.log("consumer", `${consumer.username}`.bold);
+
         return noop();
     }
 
@@ -362,6 +379,13 @@ function _consumerCredential(username, credential) {
 
         if (world.hasConsumerCredential(username, credential.name, credential.attributes)) {
             const credentialId = world.getConsumerCredentialId(username, credential.name, credential.attributes);
+
+            if (world.isConsumerCredentialUpToDate(username, credential)) {
+                const credentialIdName = getCredentialSchema(credential.name).id;
+                console.log("  - credential", `${credential.name}`.bold, `with ${credentialIdName}:`, `${credential.attributes[credentialIdName]}`.bold, "is up-to-date".green);
+
+                return noop();
+            }
 
             return updateConsumerCredentials(username, credential.name, credentialId, credential.attributes);
         }
