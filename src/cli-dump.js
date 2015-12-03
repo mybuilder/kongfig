@@ -17,14 +17,14 @@ if (!program.host) {
 }
 
 readKongApi(adminApi(program.host))
-    .then(apis => {
-        return {host: program.host, apis};
+    .then(results => {
+        return {host: program.host, ...results};
     })
     .then(pretty(program.format))
     .then(config => {
         process.stdout.write(config + '\n');
     })
     .catch(error => {
-        console.log(`${error}`.red);
+        console.log(`${error}`.red, '\n', error.stack);
         process.exit(1);
     });

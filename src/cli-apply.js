@@ -27,6 +27,6 @@ console.log(`Apply config to ${host}`.green);
 
 execute(config, adminApi(host))
   .catch(error => {
-      console.log(`${error}`.red);
+      console.log(`${error}`.red, '\n', error.stack);
       process.exit(1);
   });
