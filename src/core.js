@@ -219,6 +219,7 @@ function extractCredentialId(credentials, name, attributes) {
 
 function _api(api) {
     validateEnsure(api.ensure);
+    validateApiRequiredAttributes(api);
 
     return world => {
         if (api.ensure == 'removed') {
@@ -251,6 +252,17 @@ function validateEnsure(ensure) {
     if (['removed', 'present'].indexOf(ensure) === -1) {
         throw new Error(`Invalid ensure "${ensure}"`);
     }
+}
+
+function validateApiRequiredAttributes(api) {
+    if (false == api.hasOwnProperty('attributes')) {
+        throw Error(`"${api.name}" api has to declare "upstream_url" attribute`);
+    }
+
+    if (false == api.attributes.hasOwnProperty('upstream_url')) {
+        throw Error(`"${api.name}" api has to declare "upstream_url" attribute`);
+    }
+
 }
 
 function _plugin(apiName, plugin) {

@@ -16,20 +16,23 @@ describe("apis", () => {
             "ensure": "present",
             "name": "leads",
             "attributes": {
-                "foo": "bar"
+                "upstream_url": "bar"
             }
         }])
         .map(x => x({hasApi: () => false}));
 
         expect(actual).to.be.eql([
-            createApi('leads', {foo: "bar"})
+            createApi('leads', {upstream_url: "bar"})
         ]);
     });
 
     it("should remove api", () => {
         var actual = apis([{
             "name": "leads",
-            "ensure": "removed"
+            "ensure": "removed",
+            "attributes": {
+                "upstream_url": "bar"
+            }
         }])
         .map(x => x({hasApi: () => true}));
 
@@ -41,7 +44,10 @@ describe("apis", () => {
     it("should do no op if api is already removed", () => {
         var actual = apis([{
             "name": "leads",
-            "ensure": "removed"
+            "ensure": "removed",
+            "attributes": {
+                "upstream_url": "bar"
+            }
         }])
         .map(x => x({hasApi: () => false}));
 
@@ -55,13 +61,13 @@ describe("apis", () => {
             "ensure": "present",
             "name": "leads",
             "attributes": {
-                "foo": "bar"
+                "upstream_url": "bar"
             }
         }])
         .map(x => x({hasApi: () => true, isApiUpToDate: () => false}));
 
         expect(actual).to.be.eql([
-            updateApi('leads', {foo: "bar"})
+            updateApi('leads', {upstream_url: "bar"})
         ]);
     });
 
@@ -77,7 +83,7 @@ describe("apis", () => {
             "ensure": "present",
             "name": "leads",
             "attributes": {
-                "foo": "bar"
+                "upstream_url": "bar"
             },
             'plugins': [{
                 "name": 'cors',
@@ -92,7 +98,7 @@ describe("apis", () => {
         }));
 
         expect(actual).to.be.eql([
-            createApi('leads', {foo: "bar"}),
+            createApi('leads', {upstream_url: "bar"}),
             addApiPlugin('leads', 'cors', {'config.foo': "bar"})
         ]);
     });
