@@ -6,9 +6,38 @@ export default async (adminApi) => {
             const prepareConfig = (plugin, config) => stripConfig(config, schemas.get(plugin));
             const parseApiPluginsForSchemes = plugins => parseApiPlugins(plugins, prepareConfig);
 
-            return parseApis(state.apis, parseApiPluginsForSchemes);
+            return {
+                apis: parseApis(state.apis, parseApiPluginsForSchemes),
+                consumers: parseConsumers(state.consumers)
+            }
         })
 };
+
+function parseConsumers(consumers) {
+    return consumers.map(({username, credentials, ..._info}) => {
+        return {
+            username,
+            _info,
+            credentials: zip(Object.keys(credentials), Object.values(credentials))
+                .map(parseCredential)
+                .reduce((acc, x) => acc.concat(x), [])
+        };
+    });
+}
+
+function zip(a, b) {
+    return a.map((n, index) => [n, b[index]]);
+}
+
+function parseCredential([credentialName, credentials]) {
+    return credentials.map(({consumer_id, id, created_at, ...attributes}) => {
+        return {
+            name: credentialName,
+            attributes,
+            _info: {id, consumer_id, created_at}
+        }
+    });
+}
 
 function parseApis(apis, parseApiPlugins) {
     return apis.map(({
