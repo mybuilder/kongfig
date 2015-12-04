@@ -7,7 +7,7 @@ import program from 'commander';
 program
     .version(require("../package.json").version)
     .option('--path <value>', 'Path to the configuration file')
-    .option('--host <value>', 'Kong admin host (default: localhost:8001)', 'localhost:8001')
+    .option('--host <value>', 'Kong admin host (default: localhost:8001)')
     .parse(process.argv);
 
 if (!program.path) {
@@ -16,7 +16,7 @@ if (!program.path) {
 }
 
 let config = configLoader(program.path);
-let host = program.host || config.host;
+let host = program.host || config.host || 'localhost:8001';
 
 if (!host) {
   console.log('Kong admin host must be specified in config or --host'.red);
