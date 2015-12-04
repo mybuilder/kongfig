@@ -4,6 +4,7 @@ import colors from 'colors';
 import createAdminApi from './adminApi';
 import assign from 'object-assign';
 import kongState from './kongState';
+import {normalize as normalizeAttributes} from './utils';
 import {
     noop,
     createApi,
@@ -197,19 +198,19 @@ function _createWorld({apis, consumers}) {
         },
 
         isApiPluginUpToDate: (apiName, plugin) => {
-            let current = world.getPluginAttributes(apiName, plugin.name);
-
             if (false == plugin.hasOwnProperty('attributes')) {
                 // of a plugin has no attributes, and its been added then it is up to date
                 return true;
             }
 
-            // TODO keys can be in form of "config.somefoo: value"
-            let different = Object.keys(plugin.attributes.config).filter(key => {
-                return JSON.stringify(plugin.attributes.config[key]) !== JSON.stringify(current[key]);
+            const diff = (a, b) => Object.keys(a).filter(key => {
+                return JSON.stringify(a[key]) !== JSON.stringify(b[key]);
             });
 
-            return different.length === 0;
+            let current = world.getPlugin(apiName, plugin.name);
+            let {config, ...rest} = normalizeAttributes(plugin.attributes);
+
+            return diff(config, current.config).length === 0 && diff(rest, current).length === 0;
         },
 
         isConsumerCredentialUpToDate: (username, credential) => {
@@ -304,17 +305,6 @@ function _plugin(apiName, plugin) {
 
         return addApiPlugin(apiName, plugin.name, plugin.attributes);
     }
-}
-
-function _isApiPluginUpToDate(world, apiName, plugin) {
-    let current = world.getPluginAttributes(apiName, plugin.name);
-
-    // TODO keys can be in form of "config.somefoo: value"
-    let different = Object.keys(plugin.attributes.config).filter(key => {
-        return JSON.stringify(plugin.attributes.config[key]) !== JSON.stringify(current[key]);
-    });
-
-    return different.length === 0;
 }
 
 function _consumer(consumer) {
