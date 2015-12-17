@@ -1,7 +1,6 @@
 'use strict';
 
 import colors from 'colors';
-import createAdminApi from './adminApi';
 import assign from 'object-assign';
 import kongState from './kongState';
 import {normalize as normalizeAttributes} from './utils';

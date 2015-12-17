@@ -8,6 +8,7 @@ program
     .version(require("../package.json").version)
     .option('--path <value>', 'Path to the configuration file')
     .option('--host <value>', 'Kong admin host (default: localhost:8001)')
+    .option('--protocol <value>', 'Kong admin protocol (default: http)')
     .parse(process.argv);
 
 if (!program.path) {
@@ -17,6 +18,7 @@ if (!program.path) {
 
 let config = configLoader(program.path);
 let host = program.host || config.host || 'localhost:8001';
+let protocol = program.protocol || config.protocol || 'http';
 
 if (!host) {
   console.log('Kong admin host must be specified in config or --host'.red);
@@ -25,7 +27,7 @@ if (!host) {
 
 console.log(`Apply config to ${host}`.green);
 
-execute(config, adminApi(host))
+execute(config, adminApi(host, protocol))
   .catch(error => {
       console.log(`${error}`.red, '\n', error.stack);
       process.exit(1);
