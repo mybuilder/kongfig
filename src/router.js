@@ -1,4 +1,5 @@
-export default function createRouter(host, protocol) {
+export default function createRouter(host, https) {
+    const protocol = https ? 'https' : 'http';
     const adminApiRoot = `${protocol}://${host}`;
     return ({name, params}) => {
         switch (name) {

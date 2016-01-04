@@ -9,7 +9,7 @@ program
     .version(require("../package.json").version)
     .option('-f, --format <value>', 'Export format [screen, json, yaml] (default: yaml)', /^(screen|json|yaml|yml)$/, 'yaml')
     .option('--host <value>', 'Kong admin host (default: localhost:8001)', 'localhost:8001')
-    .option('--protocol <value>', 'Kong admin protocol (default: http)', 'http')
+    .option('--https', 'Use https for admin API requests')
     .parse(process.argv);
 
 if (!program.host) {
@@ -17,9 +17,9 @@ if (!program.host) {
     process.exit(1);
 }
 
-readKongApi(adminApi(program.host, program.protocol))
+readKongApi(adminApi(program.host, program.https))
     .then(results => {
-        return {host: program.host, protocol: program.protocol, ...results};
+        return {host: program.host, https: program.https, ...results};
     })
     .then(pretty(program.format))
     .then(config => {
