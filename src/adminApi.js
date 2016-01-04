@@ -4,8 +4,8 @@ require('isomorphic-fetch');
 
 let pluginSchemasCache;
 
-export default host => {
-    const router = createRouter(host);
+export default (host, https) => {
+    const router = createRouter(host, https);
 
     return {
         router,
