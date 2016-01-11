@@ -11,6 +11,8 @@ export default function createRouter(host, https) {
             case 'consumer': return `${adminApiRoot}/consumers/${params.username}`;
             case 'consumer-credentials': return `${adminApiRoot}/consumers/${params.username}/${params.plugin}`;
             case 'consumer-credential': return `${adminApiRoot}/consumers/${params.username}/${params.plugin}/${params.credentialId}`;
+            case 'consumer-acls': return `${adminApiRoot}/consumers/${params.username}/acls`;
+            case 'consumer-acl': return `${adminApiRoot}/consumers/${params.username}/acls/${params.aclId}`;
 
             case 'plugins-enabled': return `${adminApiRoot}/plugins/enabled`;
             case 'plugins-scheme': return `${adminApiRoot}/plugins/schema/${params.plugin}`;

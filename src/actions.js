@@ -87,3 +87,20 @@ export function removeConsumerCredentials(username, plugin, credentialId) {
         method: 'DELETE'
     };
 }
+
+export function addConsumerAcls(username, groupName) {
+    return {
+        endpoint: {name: 'consumer-acls', params: {username}},
+        method: 'POST',
+        body: {
+            group: groupName
+        }
+    };
+}
+
+export function removeConsumerAcls(username, aclId) {
+    return {
+        endpoint: {name: 'consumer-acl', params: {username, aclId}},
+        method: 'DELETE'
+    };
+}

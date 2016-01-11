@@ -1,6 +1,6 @@
 import {getSupportedCredentials} from './core'
 
-export default async ({fetchApis, fetchPlugins, fetchConsumers, fetchConsumerCredentials}) => {
+export default async ({fetchApis, fetchPlugins, fetchConsumers, fetchConsumerCredentials, fetchConsumerAcls}) => {
     const apis = await fetchApis();
     const apisWithPlugins = await Promise.all(apis.map(async item => {
         const plugins =  await fetchPlugins(item.name);
@@ -9,7 +9,7 @@ export default async ({fetchApis, fetchPlugins, fetchConsumers, fetchConsumerCre
     }));
 
     const consumers = await fetchConsumers();
-    const consumersWithCredentials = await Promise.all(consumers.map(async consumer => {
+    const consumersWithCredentialsAndAcls = await Promise.all(consumers.map(async consumer => {
         if (consumer.custom_id && !consumer.username) {
             console.log(`Consumers with only custom_id not supported: ${consumer.custom_id}`);
 
@@ -21,19 +21,26 @@ export default async ({fetchApis, fetchPlugins, fetchConsumers, fetchConsumerCre
                 .then(credentials => [name, credentials]);
         }));
 
-        return allCredentials
+        var aclsFetched = await fetchConsumerAcls(consumer.username);
+
+        var consumerWithCredentials = allCredentials
             .then(result => {
                 return {
                     ...consumer,
                     credentials: result.reduce((acc, [name, credentials]) => {
                         return {...acc, [name]: credentials};
-                    }, {})
+                    }, {}),
+                    acls: aclsFetched
+
                 };
             });
+
+        return consumerWithCredentials;
+
     }));
 
     return {
         apis: apisWithPlugins,
-        consumers: consumersWithCredentials
+        consumers: consumersWithCredentialsAndAcls
     };
 };
