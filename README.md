@@ -221,6 +221,34 @@ consumers:
           secret:
 ```
 
+### Support ACL
+
+```yaml
+apis:
+  - name: mockbin
+    attributes: # ...
+    plugins:
+      -
+        name: "acl"
+        ensure: "present"
+        attributes:
+          config.whitelist: "api1-group"
+consumers:
+    -
+      username: "some-username"
+      ensure: "present"
+      acls:
+        -
+          ensure: "present"
+          group: "api1-group"
+        -
+          ensure: "present"
+          group: "api2-group"
+        -
+          ensure: "removed"
+          group: "api3-group"
+```
+
 ---
 Created by [MyBuilder](http://www.mybuilder.com/) - Check out our [blog](http://tech.mybuilder.com/) for more information and our other open-source projects.
 
