@@ -1,6 +1,6 @@
 import expect from 'expect.js';
-import {consumers, credentials} from '../src/core.js';
-import {createConsumer, removeConsumer, addConsumerCredentials, updateConsumerCredentials, removeConsumerCredentials} from '../src/actions.js';
+import {consumers, credentials, acls} from '../src/core.js';
+import {createConsumer, removeConsumer, addConsumerCredentials, updateConsumerCredentials, removeConsumerCredentials, addConsumerAcls, removeConsumerAcls} from '../src/actions.js';
 
 describe("consumers", () => {
     it("should add new consumer", () => {
@@ -191,6 +191,37 @@ describe("consumers", () => {
 
             expect(actual).to.be.eql([
                 removeConsumerCredentials('app-name', 'basic-auth', '1234')
+            ]);
+        });
+    });
+
+    describe('acl', () => {
+        it("should add acl", () => {
+            var actual = acls('app-name', [{
+                    "name": "acls",
+                    'group': 'super-group-name'
+                }]
+              ).map(x => x({hasConsumerAcl: () => false})
+            );
+
+            expect(actual).to.be.eql([
+                addConsumerAcls('app-name', "super-group-name")
+            ]);
+        });
+
+        it("should remove consumer acl", () => {
+            var actual = acls('app-name', [{
+                    "name": "acls",
+                    "ensure": 'removed',
+                    'group': 'super-group-name'
+                }]
+              ).map(x => x({
+                    getConsumerAclId: () => '1234',
+                    hasConsumerAcl: () => true
+            }));
+
+            expect(actual).to.be.eql([
+                removeConsumerAcls('app-name', '1234')
             ]);
         });
     });

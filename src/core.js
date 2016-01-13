@@ -16,7 +16,9 @@ import {
     removeConsumer,
     addConsumerCredentials,
     updateConsumerCredentials,
-    removeConsumerCredentials
+    removeConsumerCredentials,
+    addConsumerAcls,
+    removeConsumerAcls
 } from './actions';
 
 export const consumerCredentialSchema = {
@@ -37,6 +39,10 @@ export const consumerCredentialSchema = {
     }
 };
 
+export const consumerAclSchema = {
+    id: 'group'
+};
+
 export function getSupportedCredentials() {
     return Object.keys(consumerCredentialSchema);
 }
@@ -47,6 +53,10 @@ export function getCredentialSchema(name) {
     }
 
     return consumerCredentialSchema[name];
+}
+
+export function getAclSchema() {
+    return consumerAclSchema;
 }
 
 export default async function execute(config, adminApi) {
@@ -69,11 +79,15 @@ export function plugins(apiName, plugins) {
 }
 
 export function consumers(consumers = []) {
-    return consumers.reduce((calls, consumer) => [...calls, _consumer(consumer), ..._consumerCredentials(consumer)], []);
+    return consumers.reduce((calls, consumer) => [...calls, _consumer(consumer), ..._consumerCredentials(consumer), ..._consumerAcls(consumer)], []);
 }
 
 export function credentials(username, credentials) {
     return credentials.reduce((actions, credential) => [...actions, _consumerCredential(username, credential)], []);
+}
+
+export function acls(username, acls) {
+    return acls.reduce((actions, acl) => [...actions, _consumerAcl(username, acl)], []);
 }
 
 function _executeActionOnApi(action, adminApi) {
@@ -165,6 +179,22 @@ function _createWorld({apis, consumers}) {
                 c => c.username === username
                 && c.credentials[name].some(oa => oa[schema.id] == attributes[schema.id]));
         },
+        hasConsumerAcl: (username, groupName) => {
+            const schema = getAclSchema();
+
+            var aclFound = false;
+            var i;
+
+            consumers.some(function (c) {
+                for (i = 0; i < c.acls.length; i++) {
+                    aclFound = c.username === username && c.acls[i][schema.id] == groupName;
+                    if (aclFound) break;
+                }
+            });
+
+            return aclFound;
+
+        },
 
         getConsumerCredential: (username, name, attributes) => {
             const consumer = consumers.find(c => c.username === username);
@@ -182,8 +212,28 @@ function _createWorld({apis, consumers}) {
             return credential;
         },
 
+        getConsumerAcl: (username, groupName) => {
+            const consumer = consumers.find(c => c.username === username);
+
+            if (!consumer) {
+                throw new Error(`Unable to find consumer ${username}`);
+            }
+
+            const acl = extractAclId(consumer.acls, groupName);
+
+            if (!acl) {
+                throw new Error(`Unable to find acl`);
+            }
+
+            return acl;
+        },
+
         getConsumerCredentialId: (username, name, attributes) => {
             return world.getConsumerCredential(username, name, attributes).id;
+        },
+
+        getConsumerAclId: (username, groupName) => {
+            return world.getConsumerAcl(username, groupName).id;
         },
 
         isApiUpToDate: (api) => {
@@ -230,6 +280,11 @@ function extractCredentialId(credentials, name, attributes) {
     const idName = getCredentialSchema(name).id;
 
     return credentials[name].find(x => x[idName] == attributes[idName]);
+}
+
+function extractAclId(acls, groupName) {
+    const idName = getAclSchema().id;
+    return acls.find(x => x[idName] == groupName);
 }
 
 function _api(api) {
@@ -334,7 +389,13 @@ function _consumer(consumer) {
         _credentials = consumerCredentials(consumer.username, consumer.credentials);
     }
 
-    return [consumerAction, ..._credentials];
+    let _acls = [];
+
+    if (consumer.acls && consumer.ensure != 'removed') {
+        _acls = consumerAcls(consumer.username, consumer.acls);
+    }
+
+    return [consumerAction, ..._credentials, ..._acls];
 }
 
 function validateConsumer({username}) {
@@ -392,5 +453,45 @@ function validateCredentialRequiredAttributes(credential) {
 
     if (false == credential.attributes.hasOwnProperty(credentialIdName)) {
         throw Error(`${credential.name} has to declare attributes.${credentialIdName}`);
+    }
+}
+
+function validateAclRequiredAttributes(acl) {
+    const aclIdName = getAclSchema().id;
+
+    if (false == acl.hasOwnProperty(aclIdName)) {
+        throw Error(`ACLs has to declare property ${aclIdName}`);
+    }
+}
+
+function _consumerAcls(consumer) {
+    if (!consumer.acls || consumer.ensure == 'removed') {
+        return [];
+    }
+
+    return acls(consumer.username, consumer.acls);
+}
+
+function _consumerAcl(username, acl) {
+
+    validateEnsure(acl.ensure);
+    validateAclRequiredAttributes(acl);
+
+    return world => {
+        if (acl.ensure == 'removed') {
+            if (world.hasConsumerAcl(username, acl.group)) {
+                const aclId = world.getConsumerAclId(username, acl.group);
+
+                return removeConsumerAcls(username, aclId);
+            }
+
+            return noop();
+        }
+
+        if (world.hasConsumerAcl(username, acl.group)) {
+            return noop();
+        }
+
+        return addConsumerAcls(username, acl.group);
     }
 }

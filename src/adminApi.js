@@ -13,6 +13,7 @@ export default (host, https) => {
         fetchPlugins: apiName => getJson(router({name: 'api-plugins', params: {apiName}})),
         fetchConsumers: () => getJson(router({name: 'consumers'})),
         fetchConsumerCredentials: (username, plugin) => getJson(router({name: 'consumer-credentials', params: {username, plugin}})),
+        fetchConsumerAcls: (username) => getJson(router({name: 'consumer-acls', params: {username}})),
 
         // this is very chatty call and doesn't change so its cached
         fetchPluginSchemas: () => {
@@ -44,7 +45,7 @@ function getJson(uri) {
     .then(r => r.json())
     .then(json => {
         if (json.next) {
-            throw new Error(`Content overflow on ${uri}, paggination not supported`);
+            throw new Error(`Content overflow on ${uri}, pagination not supported`);
         }
 
         return json.data ? json.data : json;
