@@ -193,6 +193,59 @@ describe("consumers", () => {
                 removeConsumerCredentials('app-name', 'basic-auth', '1234')
             ]);
         });
+
+        it("should add an acl credential", () => {
+
+            var actual = credentials('app-name', [{
+                    "name": "acls",
+                    'attributes': {
+                        "group": 'internal'
+                    }
+                }]
+            ).map(x => x({hasConsumerCredential: () => false}));
+
+            expect(actual).to.be.eql([
+                addConsumerCredentials('app-name', 'acls', {"group": "internal"})
+            ]);
+
+        });
+
+
+        it("should update an acl credential", () => {
+          var actual = credentials('app-name', [{
+                    "name": "acls",
+                    'attributes': {
+                        "group": 'visitor',
+                    }
+                }]
+            ).map(x => x({
+                getConsumerCredentialId: () => '1234',
+                hasConsumerCredential: () => true,
+                isConsumerCredentialUpToDate: () => false
+            }));
+
+            expect(actual).to.be.eql([
+                updateConsumerCredentials('app-name', 'acls', '1234', {"group": "visitor"})
+            ]);
+        });
+
+        it("should remove acl credential", () => {
+            var actual = credentials('app-name', [{
+                    "name": "acls",
+                    "ensure": 'removed',
+                    'attributes': {
+                        group: 'internal'
+                    }
+                }]
+            ).map(x => x({
+                getConsumerCredentialId: () => '1234',
+                hasConsumerCredential: () => true
+            }));
+
+            expect(actual).to.be.eql([
+                removeConsumerCredentials('app-name', 'acls', '1234')
+            ]);
+        });
     });
 
     describe('acl', () => {

@@ -36,6 +36,9 @@ export const consumerCredentialSchema = {
     },
     'hmac-auth': {
         id: 'username'
+    },
+    acls: {
+        id: 'group'
     }
 };
 
