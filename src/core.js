@@ -182,18 +182,11 @@ function _createWorld({apis, consumers}) {
         hasConsumerAcl: (username, groupName) => {
             const schema = getAclSchema();
 
-            var aclFound = false;
-            var i;
-
-            consumers.some(function (c) {
-                for (i = 0; i < c.acls.length; i++) {
-                    aclFound = c.username === username && c.acls[i][schema.id] == groupName;
-                    if (aclFound) break;
-                }
+            return consumers.some(function (consumer) {
+                return consumer.acls.some(function (acl) {
+                    return consumer.username === username && acl[schema.id] == groupName;
+                });
             });
-
-            return aclFound;
-
         },
 
         getConsumerCredential: (username, name, attributes) => {
