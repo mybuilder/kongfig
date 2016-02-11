@@ -33,7 +33,6 @@ if [ $? -ne 0 ];
     echo -e "\e[0;42mTask build docker image successfully executed\e[0m"
 fi
 
-
 echo -e "Do you want to push the new image to the repository? [Y/n]"
 read push
 
