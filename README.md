@@ -103,9 +103,18 @@ consumers:
         attributes: # credential config attributes
 ```
 
+Consumer ACL schema:
+
+```yaml
+consumers:
+  - username: iphone-app
+    acls:
+      - group: acl-group-name
+```
+
 ### Supported consumer credentials
 
-Key Authentication
+[Key Authentication](https://getkong.org/plugins/key-authentication/)
 
 ```yaml
 apis:
@@ -126,7 +135,7 @@ consumers:
           key: # required
 ```
 
-Basic Authentication
+[Basic Authentication](https://getkong.org/plugins/basic-authentication/)
 
 ```yaml
 apis:
@@ -147,7 +156,7 @@ consumers:
           password:
 ```
 
-OAuth 2.0 Authentication
+[OAuth 2.0 Authentication](https://getkong.org/plugins/oauth2-authentication/)
 
 ```yaml
 apis:
@@ -177,7 +186,7 @@ consumers:
           redirect_uri: # required by kong
 ```
 
-HMAC Authentication
+[HMAC Authentication](https://getkong.org/plugins/hmac-authentication/)
 
 ```yaml
 apis:
@@ -199,7 +208,7 @@ consumers:
           secret:
 ```
 
-JWT
+[JWT](https://getkong.org/plugins/jwt/)
 
 ```yaml
 apis:
@@ -221,32 +230,29 @@ consumers:
           secret:
 ```
 
-### Support ACL
+### ACL Support
+
+[Kong ACL documentation](https://getkong.org/plugins/acl/)
 
 ```yaml
 apis:
   - name: mockbin
     attributes: # ...
     plugins:
-      -
-        name: "acl"
+      - name: "acl"
         ensure: "present"
         attributes:
-          config.whitelist: "api1-group"
+          config.whitelist: "foo-group"
+
 consumers:
-    -
-      username: "some-username"
-      ensure: "present"
-      acls:
-        -
-          ensure: "present"
-          group: "api1-group"
-        -
-          ensure: "present"
-          group: "api2-group"
-        -
-          ensure: "removed"
-          group: "api3-group"
+  - username: "some-username"
+    ensure: "present"
+    acls:
+      - group: "foo-group"
+        ensure: "present"
+
+      - group: "bar-group"
+        ensure: "present"
 ```
 
 ---

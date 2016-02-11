@@ -14,10 +14,11 @@ export default async (adminApi) => {
 };
 
 function parseConsumers(consumers) {
-    return consumers.map(({username, credentials, ..._info}) => {
+    return consumers.map(({username, credentials, acls, ..._info}) => {
         return {
             username,
             _info,
+            acls: acls.map(({group, ..._info}) => ({group, _info})),
             credentials: zip(Object.keys(credentials), Object.values(credentials))
                 .map(parseCredential)
                 .reduce((acc, x) => acc.concat(x), [])
