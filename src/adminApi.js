@@ -4,14 +4,14 @@ require('isomorphic-fetch');
 
 let pluginSchemasCache;
 
-export default (host, https) => {
+export default ({host, https, ignoreConsumers}) => {
     const router = createRouter(host, https);
 
     return {
         router,
         fetchApis: () => getJson(router({name: 'apis'})),
         fetchPlugins: apiName => getJson(router({name: 'api-plugins', params: {apiName}})),
-        fetchConsumers: () => getJson(router({name: 'consumers'})),
+        fetchConsumers: () => ignoreConsumers ? Promise.resolve([]) : getJson(router({name: 'consumers'})),
         fetchConsumerCredentials: (username, plugin) => getJson(router({name: 'consumer-credentials', params: {username, plugin}})),
         fetchConsumerAcls: (username) => getJson(router({name: 'consumer-acls', params: {username}})),
 
