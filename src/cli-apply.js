@@ -9,6 +9,7 @@ program
     .option('--path <value>', 'Path to the configuration file')
     .option('--host <value>', 'Kong admin host (default: localhost:8001)')
     .option('--https', 'Use https for admin API requests')
+    .option('--no-cache', 'Do not cache kong state in memory')
     .option('--ignore-consumers', 'Do not sync consumers')
     .parse(process.argv);
 
@@ -21,6 +22,7 @@ let config = configLoader(program.path);
 let host = program.host || config.host || 'localhost:8001';
 let https = program.https || config.https || false;
 let ignoreConsumers = program.ignoreConsumers || !config.consumers || config.consumers.length === 0 || false;
+let cache = program.cache;
 
 if (!host) {
   console.log('Kong admin host must be specified in config or --host'.red);
@@ -33,7 +35,7 @@ if (ignoreConsumers) {
 
 console.log(`Apply config to ${host}`.green);
 
-execute(config, adminApi({host, https, ignoreConsumers}))
+execute(config, adminApi({host, https, ignoreConsumers, cache}))
   .catch(error => {
       console.log(`${error}`.red, '\n', error.stack);
       process.exit(1);

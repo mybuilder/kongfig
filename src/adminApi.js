@@ -3,10 +3,19 @@ import createRouter from './router';
 require('isomorphic-fetch');
 
 let pluginSchemasCache;
+let resultsCache = {};
 
-export default ({host, https, ignoreConsumers}) => {
+export default ({host, https, ignoreConsumers, cache}) => {
     const router = createRouter(host, https);
 
+    return createApi({
+        router,
+        ignoreConsumers,
+        getJson: cache ? getJsonCache : getJson,
+    });
+}
+
+function createApi({ router, getJson, ignoreConsumers }) {
     return {
         router,
         fetchApis: () => getJson(router({name: 'apis'})),
@@ -25,8 +34,22 @@ export default ({host, https, ignoreConsumers}) => {
                 .then(json => Promise.all(json.enabled_plugins.map(plugin => getPluginScheme(plugin, plugin => router({name: 'plugins-scheme', params: {plugin}})))))
                 .then(all => pluginSchemasCache = new Map(all));
         },
-        requestEndpoint: (endpoint, params) => fetch(router(endpoint), prepareOptions(params))
+        requestEndpoint: (endpoint, params) => {
+            resultsCache = {};
+            return fetch(router(endpoint), prepareOptions(params));
+        }
+    };
+}
+
+function getJsonCache(uri) {
+    if (resultsCache.hasOwnProperty(uri)) {
+        return resultsCache[uri];
     }
+
+    let result = getJson(uri);
+    resultsCache[uri] = result;
+
+    return result;
 }
 
 function getPluginScheme(plugin, schemaRoute) {
