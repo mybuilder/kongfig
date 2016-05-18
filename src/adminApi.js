@@ -3,15 +3,24 @@ import createRouter from './router';
 require('isomorphic-fetch');
 
 let pluginSchemasCache;
+let resultsCache = {};
 
-export default (host, https) => {
+export default ({host, https, ignoreConsumers, cache}) => {
     const router = createRouter(host, https);
 
+    return createApi({
+        router,
+        ignoreConsumers,
+        getJson: cache ? getJsonCache : getJson,
+    });
+}
+
+function createApi({ router, getJson, ignoreConsumers }) {
     return {
         router,
         fetchApis: () => getJson(router({name: 'apis'})),
         fetchPlugins: apiName => getJson(router({name: 'api-plugins', params: {apiName}})),
-        fetchConsumers: () => getJson(router({name: 'consumers'})),
+        fetchConsumers: () => ignoreConsumers ? Promise.resolve([]) : getJson(router({name: 'consumers'})),
         fetchConsumerCredentials: (username, plugin) => getJson(router({name: 'consumer-credentials', params: {username, plugin}})),
         fetchConsumerAcls: (username) => getJson(router({name: 'consumer-acls', params: {username}})),
 
@@ -25,8 +34,22 @@ export default (host, https) => {
                 .then(json => Promise.all(json.enabled_plugins.map(plugin => getPluginScheme(plugin, plugin => router({name: 'plugins-scheme', params: {plugin}})))))
                 .then(all => pluginSchemasCache = new Map(all));
         },
-        requestEndpoint: (endpoint, params) => fetch(router(endpoint), prepareOptions(params))
+        requestEndpoint: (endpoint, params) => {
+            resultsCache = {};
+            return fetch(router(endpoint), prepareOptions(params));
+        }
+    };
+}
+
+function getJsonCache(uri) {
+    if (resultsCache.hasOwnProperty(uri)) {
+        return resultsCache[uri];
     }
+
+    let result = getJson(uri);
+    resultsCache[uri] = result;
+
+    return result;
 }
 
 function getPluginScheme(plugin, schemaRoute) {
