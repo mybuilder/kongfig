@@ -1,5 +1,5 @@
 export function normalize(attr) {
-    if (attr === null || typeof attr !== 'object') {
+    if (attr === null || typeof attr !== 'object' || Object.prototype.toString.call(attr) === '[object Array]') {
         return attr;
     }
 
