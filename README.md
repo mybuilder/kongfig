@@ -78,7 +78,7 @@ apis:
     attributes: # ...
     plugins:
       - name: rate-limiting # kong plugin name
-      - attributes: # the plugin attributes
+        attributes: # the plugin attributes
           consumer_id:
           config:
 
@@ -122,7 +122,7 @@ apis:
     attributes: # ...
     plugins:
       - name: key-auth
-      - attributes:
+        attributes:
           config:
             key_names:
             hide_credentials:
@@ -142,8 +142,8 @@ apis:
   - name: mockbin
     attributes: # ...
     plugins:
-      - name: key-auth
-      - attributes:
+      - name: basic-auth
+        attributes:
           config:
             hide_credentials:
 
@@ -164,7 +164,7 @@ apis:
     attributes: # ...
     plugins:
       - name: oauth2
-      - attributes:
+        attributes:
           config:
             scopes:
             mandatory_scope:
@@ -194,7 +194,7 @@ apis:
     attributes: # ...
     plugins:
       - name: hmac-auth
-      - attributes:
+        attributes:
           config:
             hide_credentials:
             clock_skew:
@@ -216,7 +216,7 @@ apis:
     attributes: # ...
     plugins:
       - name: jwt
-      - attributes:
+        attributes:
           config:
             uri_param_names:
             claims_to_verify:
