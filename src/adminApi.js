@@ -1,6 +1,5 @@
 import createRouter from './router';
-
-require('isomorphic-fetch');
+import requester from './requester';
 
 let pluginSchemasCache;
 let resultsCache = {};
@@ -36,7 +35,7 @@ function createApi({ router, getJson, ignoreConsumers }) {
         },
         requestEndpoint: (endpoint, params) => {
             resultsCache = {};
-            return fetch(router(endpoint), prepareOptions(params));
+            return requester.request(router(endpoint), prepareOptions(params));
         }
     };
 }
@@ -58,13 +57,7 @@ function getPluginScheme(plugin, schemaRoute) {
 }
 
 function getJson(uri) {
-    return fetch(uri, {
-        method: 'GET',
-        headers: {
-            'Connection': 'keep-alive',
-            'Accept': 'application/json'
-        }
-    })
+    return requester.get(uri)
     .then(r => r.json())
     .then(json => {
         if (json.next) {

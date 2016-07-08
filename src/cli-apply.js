@@ -3,6 +3,7 @@ import adminApi from './adminApi';
 import colors from 'colors';
 import configLoader from './configLoader';
 import program from 'commander';
+import requester from './requester';
 
 program
     .version(require("../package.json").version)
@@ -11,6 +12,7 @@ program
     .option('--https', 'Use https for admin API requests')
     .option('--no-cache', 'Do not cache kong state in memory')
     .option('--ignore-consumers', 'Do not sync consumers')
+    .option('--header [value]', 'Custom headers to be added to all requests', (nextHeader, headers) => { headers.push(nextHeader); return headers }, [])
     .parse(process.argv);
 
 if (!program.path) {
@@ -23,6 +25,11 @@ let host = program.host || config.host || 'localhost:8001';
 let https = program.https || config.https || false;
 let ignoreConsumers = program.ignoreConsumers || !config.consumers || config.consumers.length === 0 || false;
 let cache = program.cache;
+let headers = program.header.length > 0 ? program.header : (config.headers || []);
+
+headers
+    .map((h) => h.split(':'))
+    .forEach(([name, value]) => requester.addHeader(name, value));
 
 if (!host) {
   console.log('Kong admin host must be specified in config or --host'.red);
