@@ -25,11 +25,16 @@ let host = program.host || config.host || 'localhost:8001';
 let https = program.https || config.https || false;
 let ignoreConsumers = program.ignoreConsumers || !config.consumers || config.consumers.length === 0 || false;
 let cache = program.cache;
-let headers = program.header.length > 0 ? program.header : (config.headers || []);
+
+config.headers = config.headers || [];
+
+let headers = new Map();
+([...config.headers, ...program.header])
+  .map((h) => h.split(':'))
+  .forEach(([name, value]) => headers.set(name, value));
 
 headers
-    .map((h) => h.split(':'))
-    .forEach(([name, value]) => requester.addHeader(name, value));
+  .forEach((value, name) => requester.addHeader(name, value));
 
 if (!host) {
   console.log('Kong admin host must be specified in config or --host'.red);
