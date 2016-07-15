@@ -1,6 +1,7 @@
 import expect from 'expect.js';
 import {consumers, credentials, acls} from '../src/core.js';
 import {createConsumer, removeConsumer, addConsumerCredentials, updateConsumerCredentials, removeConsumerCredentials, addConsumerAcls, removeConsumerAcls} from '../src/actions.js';
+import {getSupportedCredentials, addSchema, getSchema, addSchemasFromOptions, addSchemasFromConfig} from '../src/consumerCredentials.js';
 
 describe("consumers", () => {
     it("should add new consumer", () => {
@@ -223,6 +224,73 @@ describe("consumers", () => {
             expect(actual).to.be.eql([
                 removeConsumerAcls('app-name', '1234')
             ]);
+        });
+    });
+
+    describe('consumer credentials', () => {
+        it("should get credentials", () => {
+            const credentials = getSupportedCredentials();
+            credentials.forEach(name => {
+                const schema = getSchema(name);
+                expect(schema).not.to.be.null;
+                expect(schema).to.have.property('id');
+            })
+        });
+
+        it("should add custom credential", () => {
+            const name = 'custom_jwt';
+            const schema = {
+                "id": "key"
+            }
+
+            addSchema(name, schema);
+            expect(getSchema(name)).to.be.eql(schema);
+        });
+
+        it("should not add custom credential without id", () => {
+            const name = 'custom_jwt2';
+            const schema = {
+                "noid": "value"
+            }
+
+            expect(() => { addSchema(name, schema) }).to.throwException(Error);
+        });
+
+        it("should not update credential", () => {
+            const name = 'jwt';
+            const schema = {
+                "id": "key"
+            }
+
+            expect(() => { addSchema(name, schema) }).to.throwException(Error);
+        });
+
+        it("should add custom credentials from cli options", () => {
+            const opts = ['custom_jwt3:key', 'custom_oauth2:client_id'];
+
+            expect(() => { addSchemasFromOptions(opts) }).to.not.throwException(Error);
+            expect(getSchema('custom_jwt3')).to.be.eql({id: 'key'});
+            expect(getSchema('custom_oauth2')).to.be.eql({id: 'client_id'});
+        });
+
+        it("should validate custom credentials from cli options", () => {
+            ['custom_jwt4|nocolon', 'custom_oauth2_2:client_id:extracolon']
+                .forEach((opt) => {
+                    expect(() => { addSchemasFromOptions([opt]) }).to.throwException(Error);
+                })
+        });
+
+        it("should add custom credentials from config", () => {
+            const conf = {
+                credentialSchemas: {
+                    custom_jwt5: {id: 'key'},
+                    custom_oauth2_3: {id: 'client_id'},
+                }
+            }
+
+            expect(() => {  addSchemasFromConfig(conf) }).to.not.throwException(Error);
+            expect(getSchema('custom_jwt5')).to.be.eql({id: 'key'});
+            expect(getSchema('custom_oauth2_3')).to.be.eql({id: 'client_id'});
         });
     });
 });

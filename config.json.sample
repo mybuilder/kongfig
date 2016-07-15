@@ -43,5 +43,10 @@
             "username": "ie",
             "ensure": "removed"
         }
-    ]
+    ],
+    "credentialSchemas": {
+        "custom_jwt": {
+          "id": "key"
+        }
+    }
 }

@@ -1,4 +1,4 @@
-import {getSupportedCredentials} from './core'
+import {getSupportedCredentials} from './consumerCredentials'
 
 export default async ({fetchApis, fetchPlugins, fetchConsumers, fetchConsumerCredentials, fetchConsumerAcls}) => {
     const apis = await fetchApis();
