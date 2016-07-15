@@ -3,6 +3,7 @@
 import colors from 'colors';
 import assign from 'object-assign';
 import kongState from './kongState';
+import {getSchema as getConsumerCredentialSchema} from './consumerCredentials';
 import {normalize as normalizeAttributes} from './utils';
 import {
     noop,
@@ -21,39 +22,10 @@ import {
     removeConsumerAcls
 } from './actions';
 
-export const consumerCredentialSchema = {
-    oauth2: {
-        id: 'client_id'
-    },
-    'key-auth': {
-        id: 'key'
-    },
-    'jwt': {
-        id: 'key'
-    },
-    'basic-auth': {
-        id: 'username'
-    },
-    'hmac-auth': {
-        id: 'username'
-    }
-};
-
 export const consumerAclSchema = {
     id: 'group'
 };
 
-export function getSupportedCredentials() {
-    return Object.keys(consumerCredentialSchema);
-}
-
-export function getCredentialSchema(name) {
-    if (false === consumerCredentialSchema.hasOwnProperty(name)) {
-        throw new Error(`Unknown credential "${name}"`);
-    }
-
-    return consumerCredentialSchema[name];
-}
 
 export function getAclSchema() {
     return consumerAclSchema;
@@ -173,7 +145,7 @@ function _createWorld({apis, consumers}) {
             return consumers.some(consumer => consumer.username === username);
         },
         hasConsumerCredential: (username, name, attributes) => {
-            const schema = getCredentialSchema(name);
+            const schema = getConsumerCredentialSchema(name);
 
             return consumers.some(
                 c => c.username === username
@@ -270,7 +242,7 @@ function _createWorld({apis, consumers}) {
 }
 
 function extractCredentialId(credentials, name, attributes) {
-    const idName = getCredentialSchema(name).id;
+    const idName = getConsumerCredentialSchema(name).id;
 
     return credentials[name].find(x => x[idName] == attributes[idName]);
 }
@@ -424,7 +396,7 @@ function _consumerCredential(username, credential) {
             const credentialId = world.getConsumerCredentialId(username, credential.name, credential.attributes);
 
             if (world.isConsumerCredentialUpToDate(username, credential)) {
-                const credentialIdName = getCredentialSchema(credential.name).id;
+                const credentialIdName = getConsumerCredentialSchema(credential.name).id;
                 console.log("  - credential", `${credential.name}`.bold, `with ${credentialIdName}:`, `${credential.attributes[credentialIdName]}`.bold, "is up-to-date".green);
 
                 return noop();
@@ -438,7 +410,7 @@ function _consumerCredential(username, credential) {
 }
 
 function validateCredentialRequiredAttributes(credential) {
-    const credentialIdName = getCredentialSchema(credential.name).id;
+    const credentialIdName = getConsumerCredentialSchema(credential.name).id;
 
     if (false == credential.hasOwnProperty('attributes')) {
         throw Error(`${credential.name} has to declare attributes.${credentialIdName}`);
