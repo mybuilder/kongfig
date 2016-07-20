@@ -55,6 +55,18 @@ You can specify the desired format by giving `--format` option with possible opt
 kongfig dump --format screen
 ```
 
+For APIs which uses custom consumer credential pluings, specify plugin and id name in <plugin>:<idValue> format with `--credential-schema` option.
+
+```
+kongfig apply --path config.yml --host localhost:8001 --credential-schema custom_jwt:key
+```
+
+For multiple plugins use --credential-schema as many as necessary
+
+```
+kongfig apply --path config.yml --host localhost:8001 --credential-schema "custom_jwt:key" --credential-schema "custom_oauth2:client_id"
+```
+
 ## Schema
 
 Api schema:
@@ -229,6 +241,35 @@ consumers:
           key: # required
           secret:
 ```
+
+### Custom Credential Schemas
+
+It is possible to work with custom consumer credential plugins.
+
+```yaml
+apis:
+  - name: mockbin
+    attributes: # ...
+    plugins:
+      - name: custom_jwt
+        attributes:
+          config:
+            uri_param_names:
+            claims_to_verify:
+
+consumers:
+  - username: iphone-app
+    credentials:
+      - name: custom_jwt
+        attributes:
+          key: # required
+          secret:
+
+credentialSchema:
+  custom_jwt:
+    id: "key" # credential id name           
+```
+
 
 ### ACL Support
 
