@@ -19,9 +19,9 @@ function createApi({ router, getJson, ignoreConsumers }) {
         router,
         fetchApis: () => getJson(router({name: 'apis'})),
         fetchPlugins: apiName => getJson(router({name: 'api-plugins', params: {apiName}})),
-        fetchConsumers: () => ignoreConsumers ? Promise.resolve([]) : getJson(router({name: 'consumers'})),
-        fetchConsumerCredentials: (username, plugin) => getJson(router({name: 'consumer-credentials', params: {username, plugin}})),
-        fetchConsumerAcls: (username) => getJson(router({name: 'consumer-acls', params: {username}})),
+        fetchConsumers: () => ignoreConsumers ? Promise.resolve([]) : getPaginatedJson(router({name: 'consumers'})),
+        fetchConsumerCredentials: (username, plugin) => getPaginatedJson(router({name: 'consumer-credentials', params: {username, plugin}})),
+        fetchConsumerAcls: (username) => getPaginatedJson(router({name: 'consumer-acls', params: {username}})),
 
         // this is very chatty call and doesn't change so its cached
         fetchPluginSchemas: () => {
@@ -54,6 +54,17 @@ function getJsonCache(uri) {
 function getPluginScheme(plugin, schemaRoute) {
     return getJson(schemaRoute(plugin))
         .then(({fields}) => [plugin, fields]);
+}
+
+function getPaginatedJson(uri) {
+    return requester.get(uri)
+    .then(r => r.json())
+    .then(json => {
+        if (!json.data) return json;
+        if (!json.next) return json.data;
+
+        return json.data.concat(getPaginatedJson(json.next));
+    });
 }
 
 function getJson(uri) {
