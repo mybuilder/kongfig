@@ -113,7 +113,7 @@ function _bindWorldState(adminApi) {
 
 function _createWorld({apis, consumers}) {
     const world = {
-        hasApi: apiName => apis.some(api => api.name === apiName),
+        hasApi: apiName => Array.isArray(apis) && apis.some(api => api.name === apiName),
         getApi: apiName => {
             const api = apis.find(api => api.name === apiName);
 
@@ -139,23 +139,24 @@ function _createWorld({apis, consumers}) {
             return world.getPlugin(apiName, pluginName).config;
         },
         hasPlugin: (apiName, pluginName) => {
-            return apis.some(api => api.name === apiName && api.plugins.some(plugin => plugin.name == pluginName));
+            return Array.isArray(apis) && apis.some(api => api.name === apiName && Array.isArray(api.plugins) && api.plugins.some(plugin => plugin.name == pluginName));
         },
         hasConsumer: (username) => {
-            return consumers.some(consumer => consumer.username === username);
+            return Array.isArray(consumers) && consumers.some(consumer => consumer.username === username);
         },
         hasConsumerCredential: (username, name, attributes) => {
             const schema = getConsumerCredentialSchema(name);
 
-            return consumers.some(
+            return Array.isArray(consumers) && consumers.some(
                 c => c.username === username
+                && Array.isArray(c.credentials[name])
                 && c.credentials[name].some(oa => oa[schema.id] == attributes[schema.id]));
         },
         hasConsumerAcl: (username, groupName) => {
             const schema = getAclSchema();
 
-            return consumers.some(function (consumer) {
-                return consumer.acls.some(function (acl) {
+            return Array.isArray(consumers) && consumers.some(function (consumer) {
+                return Array.isArray(consumer.acls) && consumer.acls.some(function (acl) {
                     return consumer.username === username && acl[schema.id] == groupName;
                 });
             });

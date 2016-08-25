@@ -10,15 +10,15 @@ export default ({host, https, ignoreConsumers, cache}) => {
     return createApi({
         router,
         ignoreConsumers,
-        getJson: cache ? getJsonCache : getJson,
+        getPaginatedJson: cache ? getPaginatedJsonCache : getPaginatedJson,
     });
 }
 
-function createApi({ router, getJson, ignoreConsumers }) {
+function createApi({ router, getPaginatedJson, ignoreConsumers }) {
     return {
         router,
-        fetchApis: () => getJson(router({name: 'apis'})),
-        fetchPlugins: apiName => getJson(router({name: 'api-plugins', params: {apiName}})),
+        fetchApis: () => getPaginatedJson(router({name: 'apis'})),
+        fetchPlugins: apiName => getPaginatedJson(router({name: 'api-plugins', params: {apiName}})),
         fetchConsumers: () => ignoreConsumers ? Promise.resolve([]) : getPaginatedJson(router({name: 'consumers'})),
         fetchConsumerCredentials: (username, plugin) => getPaginatedJson(router({name: 'consumer-credentials', params: {username, plugin}})),
         fetchConsumerAcls: (username) => getPaginatedJson(router({name: 'consumer-acls', params: {username}})),
@@ -29,7 +29,7 @@ function createApi({ router, getJson, ignoreConsumers }) {
                 return Promise.resolve(pluginSchemasCache);
             }
 
-            return getJson(router({name: 'plugins-enabled'}))
+            return getPaginatedJson(router({name: 'plugins-enabled'}))
                 .then(json => Promise.all(json.enabled_plugins.map(plugin => getPluginScheme(plugin, plugin => router({name: 'plugins-scheme', params: {plugin}})))))
                 .then(all => pluginSchemasCache = new Map(all));
         },
@@ -40,19 +40,19 @@ function createApi({ router, getJson, ignoreConsumers }) {
     };
 }
 
-function getJsonCache(uri) {
+function getPaginatedJsonCache(uri) {
     if (resultsCache.hasOwnProperty(uri)) {
         return resultsCache[uri];
     }
 
-    let result = getJson(uri);
+    let result = getPaginatedJson(uri);
     resultsCache[uri] = result;
 
     return result;
 }
 
 function getPluginScheme(plugin, schemaRoute) {
-    return getJson(schemaRoute(plugin))
+    return getPaginatedJson(schemaRoute(plugin))
         .then(({fields}) => [plugin, fields]);
 }
 
@@ -64,18 +64,6 @@ function getPaginatedJson(uri) {
         if (!json.next) return json.data;
 
         return json.data.concat(getPaginatedJson(json.next));
-    });
-}
-
-function getJson(uri) {
-    return requester.get(uri)
-    .then(r => r.json())
-    .then(json => {
-        if (json.next) {
-            throw new Error(`Content overflow on ${uri}, pagination not supported`);
-        }
-
-        return json.data ? json.data : json;
     });
 }
 
