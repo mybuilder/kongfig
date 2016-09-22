@@ -69,11 +69,14 @@ kongfig apply --path config.yml --host localhost:8001 --credential-schema "custo
 
 ## Schema
 
+Note: If you change the name of an API/Plugin/Consumer and want to ensure the old one is removed automatically, do not delete or modify the old API/Plugin/Consumer section, other than to add the `ensure: "removed"` flag. Examples shown below.
+
 Api schema:
 
 ```yaml
 apis:
   - name: mockbin # unique api name
+    ensure: "present" # Set to "removed" to have Kongfig ensure the API is removed. Default is present.
     attributes:
       request_host:
       request_path:
@@ -90,6 +93,7 @@ apis:
     attributes: # ...
     plugins:
       - name: rate-limiting # kong plugin name
+        ensure: "present" # Set to "removed" to have Kongfig ensure the plugin is removed. Default is present.
         attributes: # the plugin attributes
           consumer_id:
           config:
