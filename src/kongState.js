@@ -10,11 +10,6 @@ export default async ({fetchApis, fetchPlugins, fetchConsumers, fetchConsumerCre
 
     const consumers = await fetchConsumers();
     const consumersWithCredentialsAndAcls = await Promise.all(consumers.map(async consumer => {
-        if (consumer.custom_id && !consumer.username) {
-            console.log(`Consumers with only custom_id not supported: ${consumer.custom_id}`);
-
-            return consumer;
-        }
 
         const allCredentials = Promise.all(getSupportedCredentials().map(name => {
             return fetchConsumerCredentials(consumer.username, name)
