@@ -5,10 +5,12 @@ export default async (adminApi) => {
         .then(([state, schemas]) => {
             const prepareConfig = (plugin, config) => stripConfig(config, schemas.get(plugin));
             const parseApiPluginsForSchemes = plugins => parseApiPlugins(plugins, prepareConfig);
+            const parsePluginsForSchemes = plugins => parseGlobalPlugins(plugins, prepareConfig);
 
             return {
                 apis: parseApis(state.apis, parseApiPluginsForSchemes),
-                consumers: parseConsumers(state.consumers)
+                consumers: parseConsumers(state.consumers),
+                plugins: parsePluginsForSchemes(state.plugins)
             }
         })
 };
@@ -78,6 +80,28 @@ function parseApiPlugins(plugins, prepareConfig) {
             _info: {
                 id,
                 //api_id,
+                consumer_id,
+                enabled,
+                created_at
+            }
+        };
+    });
+}
+
+function parseGlobalPlugins(plugins, prepareConfig) {
+    return plugins.map(({
+        name,
+        config,
+        id, api_id, consumer_id, enabled, created_at
+    }) => {
+        return {
+            name,
+            attributes: {
+                config: prepareConfig(name, config)
+            },
+            _info: {
+                id,
+                api_id,
                 consumer_id,
                 enabled,
                 created_at
