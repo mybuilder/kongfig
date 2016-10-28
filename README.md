@@ -55,7 +55,7 @@ You can specify the desired format by giving `--format` option with possible opt
 kongfig dump --format screen
 ```
 
-For APIs which uses custom consumer credential pluings, specify plugin and id name in <plugin>:<idValue> format with `--credential-schema` option.
+For APIs which uses custom consumer credential plugins, specify plugin and id name in <plugin>:<idValue> format with `--credential-schema` option.
 
 ```
 kongfig apply --path config.yml --host localhost:8001 --credential-schema custom_jwt:key
@@ -98,6 +98,18 @@ apis:
           consumer_id:
           config:
 
+```
+
+Global plugin schema:
+
+```yaml
+plugins:
+  - name: cors
+    attributes:
+      config:
+        credentials: false
+        preflight_continue: false
+        max_age: 7000
 ```
 
 All of the kong plugins should be supported if you find one that doesn't work please [add an issue](https://github.com/mybuilder/kongfig/issues/new).
