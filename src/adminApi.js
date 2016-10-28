@@ -31,7 +31,7 @@ function createApi({ router, getPaginatedJson, ignoreConsumers }) {
             }
 
             return getPaginatedJson(router({name: 'plugins-enabled'}))
-                .then(json => Promise.all(json.enabled_plugins.map(plugin => getPluginScheme(plugin, plugin => router({name: 'plugins-scheme', params: {plugin}})))))
+                .then(json => Promise.all(Object.keys(json.enabled_plugins).map(plugin => getPluginScheme(plugin, plugin => router({name: 'plugins-scheme', params: {plugin}})))))
                 .then(all => pluginSchemasCache = new Map(all));
         },
         requestEndpoint: (endpoint, params) => {
