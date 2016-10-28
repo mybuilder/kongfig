@@ -1,6 +1,6 @@
 {
   "name": "kongfig",
-  "version": "1.2.11",
+  "version": "1.2.12",
   "description": "A tool for Kong to allow declarative configuration.",
   "repository": "https://github.com/mybuilder/kongfig",
   "bin": {
