@@ -106,6 +106,7 @@ Global plugin schema:
 plugins:
   - name: cors
     attributes:
+      enabled: true
       config:
         credentials: false
         preflight_continue: false
