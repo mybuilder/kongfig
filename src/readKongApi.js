@@ -91,19 +91,20 @@ function parseApiPlugins(plugins, prepareConfig) {
 function parseGlobalPlugins(plugins, prepareConfig) {
     return plugins.map(({
         name,
+        enabled,
         config,
-        id, api_id, consumer_id, enabled, created_at
+        id, api_id, consumer_id, created_at
     }) => {
         return {
             name,
             attributes: {
+                enabled,
                 config: prepareConfig(name, config)
             },
             _info: {
                 id,
                 api_id,
                 consumer_id,
-                enabled,
                 created_at
             }
         };
