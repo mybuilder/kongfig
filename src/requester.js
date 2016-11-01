@@ -30,8 +30,40 @@ const request = (uri, opts) => {
         { headers: requestHeaders }
     );
 
-    return fetch(uri, options);
+    return fetchWithRetry(uri, options);
 };
+
+function fetchWithRetry(url, options) {
+  var retries = 3;
+  var retryDelay = 1000;
+
+  if (options && options.retries) {
+    retries = options.retries;
+  }
+
+  if (options && options.retryDelay) {
+    retryDelay = options.retryDelay;
+  }
+
+  return new Promise(function(resolve, reject) {
+    var wrappedFetch = (n) => {
+      fetch(url, options)
+        .then(response => {
+          resolve(response);
+        })
+        .catch(error => {
+          if (n > 0) {
+            setTimeout(() => {
+              wrappedFetch(--n);
+            }, retryDelay);
+          } else {
+            reject(error);
+          }
+        });
+    };
+    wrappedFetch(retries);
+  });
+}
 
 export default {
     addHeader,

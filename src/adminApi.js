@@ -67,7 +67,16 @@ function getPluginScheme(plugin, schemaRoute) {
 
 function getPaginatedJson(uri) {
     return requester.get(uri)
-    .then(handleError)
+    .then(response => {
+      if (!response.ok) {
+          const error = new Error(`${uri}: ${response.statusText}`);
+          error.response = response;
+
+          throw error;
+      }
+
+      return response;
+    })
     .then(r => r.json())
     .then(json => {
         if (!json.data) return json;
@@ -75,17 +84,6 @@ function getPaginatedJson(uri) {
 
         return json.data.concat(getPaginatedJson(json.next));
     });
-}
-
-function handleError(response) {
-    if (!response.ok) {
-        const error = new Error(response.statusText);
-        error.response = response;
-
-        throw error;
-    }
-
-    return response;
 }
 
 const prepareOptions = ({method, body}) => {
