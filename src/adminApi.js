@@ -19,7 +19,7 @@ function createApi({ router, getPaginatedJson, ignoreConsumers }) {
         router,
         fetchApis: () => getPaginatedJson(router({name: 'apis'})),
         fetchGlobalPlugins: () => getPaginatedJson(router({name: 'plugins'})),
-        fetchPlugins: apiName => getPaginatedJson(router({name: 'api-plugins', params: {apiName}})),
+        fetchPlugins: apiId => getPaginatedJson(router({name: 'api-plugins', params: {apiId}})),
         fetchConsumers: () => ignoreConsumers ? Promise.resolve([]) : getPaginatedJson(router({name: 'consumers'})),
         fetchConsumerCredentials: (username, plugin) => getPaginatedJson(router({name: 'consumer-credentials', params: {username, plugin}})),
         fetchConsumerAcls: (username) => getPaginatedJson(router({name: 'consumer-acls', params: {username}})),
