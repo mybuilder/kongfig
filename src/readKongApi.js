@@ -33,7 +33,10 @@ function zip(a, b) {
 }
 
 function parseCredential([credentialName, credentials]) {
-    if(!Array.isArray(credentials)) return [];
+    if (!Array.isArray(credentials)) {
+      return [];
+    }
+
     return credentials.map(({consumer_id, id, created_at, ...attributes}) => {
         return {
             name: credentialName,
@@ -89,6 +92,10 @@ function parseApiPlugins(plugins, prepareConfig) {
 }
 
 function parseGlobalPlugins(plugins, prepareConfig) {
+    if (!Array.isArray(plugins)) {
+      return [];
+    }
+
     return plugins.map(({
         name,
         enabled,
@@ -108,7 +115,8 @@ function parseGlobalPlugins(plugins, prepareConfig) {
                 created_at
             }
         };
-    });
+    })
+    .filter(x => x.name);
 }
 
 function stripConfig(config, schema) {
