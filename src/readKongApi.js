@@ -70,6 +70,10 @@ function parseApis(apis, parseApiPlugins) {
 }
 
 function parseApiPlugins(plugins, prepareConfig) {
+    if (!Array.isArray(plugins)) {
+      return [];
+    }
+
     return plugins.map(({
         name,
         config,
