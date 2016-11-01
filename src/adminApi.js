@@ -31,7 +31,7 @@ function createApi({ router, getPaginatedJson, ignoreConsumers }) {
             }
 
             return getPaginatedJson(router({name: 'plugins-enabled'}))
-                .then(json => Promise.all(json.enabled_plugins.map(plugin => getPluginScheme(plugin, plugin => router({name: 'plugins-scheme', params: {plugin}})))))
+                .then(json => Promise.all(getEnabledPluginNames(json.enabled_plugins).map(plugin => getPluginScheme(plugin, plugin => router({name: 'plugins-scheme', params: {plugin}})))))
                 .then(all => pluginSchemasCache = new Map(all));
         },
         requestEndpoint: (endpoint, params) => {
@@ -39,6 +39,14 @@ function createApi({ router, getPaginatedJson, ignoreConsumers }) {
             return requester.request(router(endpoint), prepareOptions(params));
         }
     };
+}
+
+function getEnabledPluginNames(enabledPlugins) {
+  if (!Array.isArray(enabledPlugins)) {
+    return Object.keys(enabledPlugins);
+  }
+
+  return enabledPlugins;
 }
 
 function getPaginatedJsonCache(uri) {
