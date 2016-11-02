@@ -82,7 +82,7 @@ function getPaginatedJson(uri) {
         if (!json.data) return json;
         if (!json.next) return json.data;
 
-        return json.data.concat(getPaginatedJson(json.next));
+        return getPaginatedJson(json.next).then(data => json.data.concat(data));
     });
 }
 
