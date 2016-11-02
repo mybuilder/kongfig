@@ -131,6 +131,15 @@ function _createWorld({apis, consumers, plugins}) {
 
             return api;
         },
+        getApiId: apiName => {
+            const id = world.getApi(apiName).id;
+
+            if (!id) {
+                throw new Error(`API ${apiName} doesn't have an Id`);
+            }
+
+            return id;
+        },
         getGlobalPlugin: (pluginName) => {
             const plugin = plugins.find(plugin => plugin.api_id === undefined && plugin.name === pluginName);
 
@@ -333,6 +342,10 @@ function validateEnsure(ensure) {
 }
 
 function validateApiRequiredAttributes(api) {
+    if (false == api.hasOwnProperty('name')) {
+        throw Error(`"Api name is required: ${JSON.stringify(api, null, '  ')}`);
+    }
+
     if (false == api.hasOwnProperty('attributes')) {
         throw Error(`"${api.name}" api has to declare "upstream_url" attribute`);
     }
@@ -349,7 +362,7 @@ function _plugin(apiName, plugin) {
     return world => {
         if (plugin.ensure == 'removed') {
             if (world.hasPlugin(apiName, plugin.name)) {
-                return removeApiPlugin(apiName, world.getPluginId(apiName, plugin.name));
+                return removeApiPlugin(world.getApiId(apiName), world.getPluginId(apiName, plugin.name));
             }
 
             return noop();
@@ -362,10 +375,10 @@ function _plugin(apiName, plugin) {
                 return noop();
             }
 
-            return updateApiPlugin(apiName, world.getPluginId(apiName, plugin.name), plugin.attributes);
+            return updateApiPlugin(world.getApiId(apiName), world.getPluginId(apiName, plugin.name), plugin.attributes);
         }
 
-        return addApiPlugin(apiName, plugin.name, plugin.attributes);
+        return addApiPlugin(world.getApiId(apiName), plugin.name, plugin.attributes);
     }
 }
 
