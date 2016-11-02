@@ -69,7 +69,7 @@ function getPaginatedJson(uri) {
     return requester.get(uri)
     .then(response => {
       if (!response.ok) {
-          const error = new Error(`${uri}: ${response.statusText}`);
+          const error = new Error(`${uri}: ${response.status} ${response.statusText}`);
           error.response = response;
 
           throw error;

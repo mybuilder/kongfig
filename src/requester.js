@@ -35,7 +35,7 @@ const request = (uri, opts) => {
 
 function fetchWithRetry(url, options) {
   var retries = 3;
-  var retryDelay = 1000;
+  var retryDelay = 500;
 
   if (options && options.retries) {
     retries = options.retries;
@@ -52,16 +52,16 @@ function fetchWithRetry(url, options) {
           resolve(response);
         })
         .catch(error => {
-          if (n > 0) {
+          if (n <= retries) {
             setTimeout(() => {
-              wrappedFetch(--n);
-            }, retryDelay);
+              wrappedFetch(n + 1);
+            }, retryDelay * Math.pow(2, n));
           } else {
             reject(error);
           }
         });
     };
-    wrappedFetch(retries);
+    wrappedFetch(0);
   });
 }
 
