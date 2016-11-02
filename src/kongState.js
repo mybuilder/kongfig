@@ -3,10 +3,6 @@ import {getSupportedCredentials} from './consumerCredentials'
 export default async ({fetchApis, fetchPlugins, fetchGlobalPlugins, fetchConsumers, fetchConsumerCredentials, fetchConsumerAcls}) => {
     const apis = await fetchApis();
     const apisWithPlugins = await Promise.all(apis.map(async item => {
-        if (!item.hasOwnProperty('id')) {
-            throw Error(`"API doesn't have an Id: ${JSON.stringify(item, null, '  ')}`);
-        }
-
         const plugins =  await fetchPlugins(item.id);
 
         return {...item, plugins};
