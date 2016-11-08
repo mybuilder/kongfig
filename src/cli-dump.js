@@ -2,6 +2,9 @@ import readKongApi from './readKongApi';
 import {pretty} from './prettyConfig';
 import adminApi from './adminApi';
 import colors from 'colors';
+import requester from './requester';
+import {repeatableOptionCallback} from './utils';
+import {addSchemasFromOptions} from './consumerCredentials';
 
 import program from 'commander';
 
@@ -11,6 +14,8 @@ program
     .option('--host <value>', 'Kong admin host (default: localhost:8001)', 'localhost:8001')
     .option('--https', 'Use https for admin API requests')
     .option('--ignore-consumers', 'Ignore consumers in kong')
+    .option('--header [value]', 'Custom headers to be added to all requests', (nextHeader, headers) => { headers.push(nextHeader); return headers }, [])
+    .option('--credential-schema <value>', 'Add custom auth plugin in <name>:<key> format. Ex: custom_jwt:key. Repeat option for multiple custom plugins', repeatableOptionCallback, [])
     .parse(process.argv);
 
 if (!program.host) {
@@ -18,9 +23,22 @@ if (!program.host) {
     process.exit(1);
 }
 
+try {
+    addSchemasFromOptions(program.credentialSchema);
+} catch(e){
+    console.log(e.message.red);
+    process.exit(1);
+}
+
+let headers = program.header || [];
+
+headers
+    .map((h) => h.split(':'))
+    .forEach(([name, value]) => requester.addHeader(name, value));
+
 readKongApi(adminApi({ host: program.host, https: program.https, ignoreConsumers: program.ignoreConsumers }))
     .then(results => {
-        return {host: program.host, https: program.https, ...results};
+        return {host: program.host, https: program.https, headers, ...results};
     })
     .then(pretty(program.format))
     .then(config => {

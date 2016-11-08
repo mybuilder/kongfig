@@ -55,13 +55,28 @@ You can specify the desired format by giving `--format` option with possible opt
 kongfig dump --format screen
 ```
 
+For APIs which uses custom consumer credential plugins, specify plugin and id name in <plugin>:<idValue> format with `--credential-schema` option.
+
+```
+kongfig apply --path config.yml --host localhost:8001 --credential-schema custom_jwt:key
+```
+
+For multiple plugins use --credential-schema as many as necessary
+
+```
+kongfig apply --path config.yml --host localhost:8001 --credential-schema "custom_jwt:key" --credential-schema "custom_oauth2:client_id"
+```
+
 ## Schema
+
+Note: If you change the name of an API/Plugin/Consumer and want to ensure the old one is removed automatically, do not delete or modify the old API/Plugin/Consumer section, other than to add the `ensure: "removed"` flag. Examples shown below.
 
 Api schema:
 
 ```yaml
 apis:
   - name: mockbin # unique api name
+    ensure: "present" # Set to "removed" to have Kongfig ensure the API is removed. Default is present.
     attributes:
       request_host:
       request_path:
@@ -78,10 +93,24 @@ apis:
     attributes: # ...
     plugins:
       - name: rate-limiting # kong plugin name
-      - attributes: # the plugin attributes
+        ensure: "present" # Set to "removed" to have Kongfig ensure the plugin is removed. Default is present.
+        attributes: # the plugin attributes
           consumer_id:
           config:
 
+```
+
+Global plugin schema:
+
+```yaml
+plugins:
+  - name: cors
+    attributes:
+      enabled: true
+      config:
+        credentials: false
+        preflight_continue: false
+        max_age: 7000
 ```
 
 All of the kong plugins should be supported if you find one that doesn't work please [add an issue](https://github.com/mybuilder/kongfig/issues/new).
@@ -122,7 +151,7 @@ apis:
     attributes: # ...
     plugins:
       - name: key-auth
-      - attributes:
+        attributes:
           config:
             key_names:
             hide_credentials:
@@ -142,8 +171,8 @@ apis:
   - name: mockbin
     attributes: # ...
     plugins:
-      - name: key-auth
-      - attributes:
+      - name: basic-auth
+        attributes:
           config:
             hide_credentials:
 
@@ -164,7 +193,7 @@ apis:
     attributes: # ...
     plugins:
       - name: oauth2
-      - attributes:
+        attributes:
           config:
             scopes:
             mandatory_scope:
@@ -194,7 +223,7 @@ apis:
     attributes: # ...
     plugins:
       - name: hmac-auth
-      - attributes:
+        attributes:
           config:
             hide_credentials:
             clock_skew:
@@ -216,7 +245,7 @@ apis:
     attributes: # ...
     plugins:
       - name: jwt
-      - attributes:
+        attributes:
           config:
             uri_param_names:
             claims_to_verify:
@@ -229,6 +258,35 @@ consumers:
           key: # required
           secret:
 ```
+
+### Custom Credential Schemas
+
+It is possible to work with custom consumer credential plugins.
+
+```yaml
+apis:
+  - name: mockbin
+    attributes: # ...
+    plugins:
+      - name: custom_jwt
+        attributes:
+          config:
+            uri_param_names:
+            claims_to_verify:
+
+consumers:
+  - username: iphone-app
+    credentials:
+      - name: custom_jwt
+        attributes:
+          key: # required
+          secret:
+
+credentialSchema:
+  custom_jwt:
+    id: "key" # credential id name           
+```
+
 
 ### ACL Support
 

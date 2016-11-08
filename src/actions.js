@@ -27,24 +27,47 @@ export function updateApi(name, params) {
     };
 }
 
-export function addApiPlugin(apiName, pluginName, params) {
+export function addApiPlugin(apiId, pluginName, params) {
     return {
-        endpoint: {name: 'api-plugins', params: {apiName, pluginName}},
+        endpoint: {name: 'api-plugins', params: {apiId, pluginName}},
         method: 'POST',
         body: assign({}, params, {name: pluginName})
     };
 }
 
-export function removeApiPlugin(apiName, pluginId) {
+export function removeApiPlugin(apiId, pluginId) {
     return {
-        endpoint: {name: 'api-plugin', params: {apiName, pluginId}},
+        endpoint: {name: 'api-plugin', params: {apiId, pluginId}},
         method: 'DELETE',
     };
 }
 
-export function updateApiPlugin(apiName, pluginId, params) {
+export function updateApiPlugin(apiId, pluginId, params) {
     return {
-        endpoint: {name: 'api-plugin', params: {apiName, pluginId}},
+        endpoint: {name: 'api-plugin', params: {apiId, pluginId}},
+        method: 'PATCH',
+        body: params
+    };
+}
+
+export function addGlobalPlugin(pluginName, params) {
+    return {
+        endpoint: {name: 'plugins', params: {pluginName}},
+        method: 'POST',
+        body: assign({}, params, {name: pluginName})
+    };
+}
+
+export function removeGlobalPlugin(pluginId) {
+    return {
+        endpoint: {name: 'plugin', params: {pluginId}},
+        method: 'DELETE',
+    };
+}
+
+export function updateGlobalPlugin(pluginId, params) {
+    return {
+        endpoint: {name: 'plugin', params: {pluginId}},
         method: 'PATCH',
         body: params
     };

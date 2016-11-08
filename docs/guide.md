@@ -239,3 +239,29 @@ You are able to ensure that previous declarations have been removed, like so:
     ]
 }
 ```
+
+## Using Custom Headers
+
+You can specify any number of custom headers to be included with every request made by Kongfig.
+
+These can be used via the command line, like so:
+
+```bash
+kongfig apply --host localhost:8001 --path config.yaml --header apikey:secret --header name:value
+```
+
+or via the config file, like so:
+
+```yaml
+---
+  headers:
+    - 'apikey:secret'
+    - 'name:value'
+
+  apis:
+    -
+      name: "mockbin"
+      attributes:
+        upstream_url: "http://mockbin.com/"
+        request_host: "mockbin.com"
+```

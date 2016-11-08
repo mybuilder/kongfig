@@ -33,3 +33,8 @@ function _setOnPath(obj, path, value){
 
     return _setOnPath(obj[currentPath], path.slice(1), value);
 }
+
+export function repeatableOptionCallback(val, result){
+    result.push(val);
+    return result;
+}

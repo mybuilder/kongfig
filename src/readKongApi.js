@@ -5,10 +5,12 @@ export default async (adminApi) => {
         .then(([state, schemas]) => {
             const prepareConfig = (plugin, config) => stripConfig(config, schemas.get(plugin));
             const parseApiPluginsForSchemes = plugins => parseApiPlugins(plugins, prepareConfig);
+            const parsePluginsForSchemes = plugins => parseGlobalPlugins(plugins, prepareConfig);
 
             return {
                 apis: parseApis(state.apis, parseApiPluginsForSchemes),
-                consumers: parseConsumers(state.consumers)
+                consumers: parseConsumers(state.consumers),
+                plugins: parsePluginsForSchemes(state.plugins)
             }
         })
 };
@@ -18,7 +20,7 @@ function parseConsumers(consumers) {
         return {
             username,
             _info,
-            acls: acls.map(({group, ..._info}) => ({group, _info})),
+            acls: Array.isArray(acls) ? acls.map(({group, ..._info}) => ({group, _info})) : [],
             credentials: zip(Object.keys(credentials), Object.values(credentials))
                 .map(parseCredential)
                 .reduce((acc, x) => acc.concat(x), [])
@@ -31,6 +33,10 @@ function zip(a, b) {
 }
 
 function parseCredential([credentialName, credentials]) {
+    if (!Array.isArray(credentials)) {
+      return [];
+    }
+
     return credentials.map(({consumer_id, id, created_at, ...attributes}) => {
         return {
             name: credentialName,
@@ -64,6 +70,10 @@ function parseApis(apis, parseApiPlugins) {
 }
 
 function parseApiPlugins(plugins, prepareConfig) {
+    if (!Array.isArray(plugins)) {
+      return [];
+    }
+
     return plugins.map(({
         name,
         config,
@@ -83,6 +93,34 @@ function parseApiPlugins(plugins, prepareConfig) {
             }
         };
     });
+}
+
+function parseGlobalPlugins(plugins, prepareConfig) {
+    if (!Array.isArray(plugins)) {
+      return [];
+    }
+
+    return plugins.map(({
+        name,
+        enabled,
+        config,
+        id, api_id, consumer_id, created_at
+    }) => {
+        return {
+            name,
+            attributes: {
+                enabled,
+                config: prepareConfig(name, config)
+            },
+            _info: {
+                id,
+                api_id,
+                consumer_id,
+                created_at
+            }
+        };
+    })
+    .filter(x => x.name);
 }
 
 function stripConfig(config, schema) {

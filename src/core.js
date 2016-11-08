@@ -3,6 +3,7 @@
 import colors from 'colors';
 import assign from 'object-assign';
 import kongState from './kongState';
+import {getSchema as getConsumerCredentialSchema} from './consumerCredentials';
 import {normalize as normalizeAttributes} from './utils';
 import {
     noop,
@@ -12,6 +13,9 @@ import {
     addApiPlugin,
     removeApiPlugin,
     updateApiPlugin,
+    addGlobalPlugin,
+    removeGlobalPlugin,
+    updateGlobalPlugin,
     createConsumer,
     removeConsumer,
     addConsumerCredentials,
@@ -21,39 +25,10 @@ import {
     removeConsumerAcls
 } from './actions';
 
-export const consumerCredentialSchema = {
-    oauth2: {
-        id: 'client_id'
-    },
-    'key-auth': {
-        id: 'key'
-    },
-    'jwt': {
-        id: 'key'
-    },
-    'basic-auth': {
-        id: 'username'
-    },
-    'hmac-auth': {
-        id: 'username'
-    }
-};
-
 export const consumerAclSchema = {
     id: 'group'
 };
 
-export function getSupportedCredentials() {
-    return Object.keys(consumerCredentialSchema);
-}
-
-export function getCredentialSchema(name) {
-    if (false === consumerCredentialSchema.hasOwnProperty(name)) {
-        throw new Error(`Unknown credential "${name}"`);
-    }
-
-    return consumerCredentialSchema[name];
-}
 
 export function getAclSchema() {
     return consumerAclSchema;
@@ -62,7 +37,8 @@ export function getAclSchema() {
 export default async function execute(config, adminApi) {
     const actions = [
         ...apis(config.apis),
-        ...consumers(config.consumers)
+        ...consumers(config.consumers),
+        ...globalPlugins(config.plugins)
     ];
 
     return actions
@@ -73,6 +49,10 @@ export default async function execute(config, adminApi) {
 export function apis(apis = []) {
     return apis.reduce((actions, api) => [...actions, _api(api), ..._apiPlugins(api)], []);
 };
+
+export function globalPlugins(globalPlugins = []) {
+    return globalPlugins.reduce((actions, plugin) => [...actions, _globalPlugin(plugin)], []);
+}
 
 export function plugins(apiName, plugins) {
     return plugins.reduce((actions, plugin) => [...actions, _plugin(apiName, plugin)], []);
@@ -139,9 +119,9 @@ function _bindWorldState(adminApi) {
     }
 }
 
-function _createWorld({apis, consumers}) {
+function _createWorld({apis, consumers, plugins}) {
     const world = {
-        hasApi: apiName => apis.some(api => api.name === apiName),
+        hasApi: apiName => Array.isArray(apis) && apis.some(api => api.name === apiName),
         getApi: apiName => {
             const api = apis.find(api => api.name === apiName);
 
@@ -150,6 +130,24 @@ function _createWorld({apis, consumers}) {
             }
 
             return api;
+        },
+        getApiId: apiName => {
+            const id = world.getApi(apiName).id;
+
+            if (!id) {
+                throw new Error(`API ${apiName} doesn't have an Id`);
+            }
+
+            return id;
+        },
+        getGlobalPlugin: (pluginName) => {
+            const plugin = plugins.find(plugin => plugin.api_id === undefined && plugin.name === pluginName);
+
+            if (!plugin) {
+                throw new Error(`Unable to find global plugin ${pluginName}`);
+            }
+
+            return plugin;
         },
         getPlugin: (apiName, pluginName) => {
             const plugin = world.getApi(apiName).plugins.find(plugin => plugin.name == pluginName);
@@ -163,27 +161,37 @@ function _createWorld({apis, consumers}) {
         getPluginId: (apiName, pluginName) => {
             return world.getPlugin(apiName, pluginName).id;
         },
+        getGlobalPluginId: (pluginName) => {
+            return world.getGlobalPlugin(pluginName).id;
+        },
         getPluginAttributes: (apiName, pluginName) => {
             return world.getPlugin(apiName, pluginName).config;
         },
+        getGlobalPluginAttributes: (pluginName) => {
+            return world.getGlobalPlugin(pluginName).config;
+        },
         hasPlugin: (apiName, pluginName) => {
-            return apis.some(api => api.name === apiName && api.plugins.some(plugin => plugin.name == pluginName));
+            return Array.isArray(apis) && apis.some(api => api.name === apiName && Array.isArray(api.plugins) && api.plugins.some(plugin => plugin.name == pluginName));
+        },
+        hasGlobalPlugin: (pluginName) => {
+            return Array.isArray(plugins) && plugins.some(plugin => plugin.api_id === undefined && plugin.name === pluginName);
         },
         hasConsumer: (username) => {
-            return consumers.some(consumer => consumer.username === username);
+            return Array.isArray(consumers) && consumers.some(consumer => consumer.username === username);
         },
         hasConsumerCredential: (username, name, attributes) => {
-            const schema = getCredentialSchema(name);
+            const schema = getConsumerCredentialSchema(name);
 
-            return consumers.some(
+            return Array.isArray(consumers) && consumers.some(
                 c => c.username === username
+                && Array.isArray(c.credentials[name])
                 && c.credentials[name].some(oa => oa[schema.id] == attributes[schema.id]));
         },
         hasConsumerAcl: (username, groupName) => {
             const schema = getAclSchema();
 
-            return consumers.some(function (consumer) {
-                return consumer.acls.some(function (acl) {
+            return Array.isArray(consumers) && consumers.some(function (consumer) {
+                return Array.isArray(consumer.acls) && consumer.acls.some(function (acl) {
                     return consumer.username === username && acl[schema.id] == groupName;
                 });
             });
@@ -255,6 +263,22 @@ function _createWorld({apis, consumers}) {
             return diff(config, current.config).length === 0 && diff(rest, current).length === 0;
         },
 
+        isGlobalPluginUpToDate: (plugin) => {
+            if (false == plugin.hasOwnProperty('attributes')) {
+                // of a plugin has no attributes, and its been added then it is up to date
+                return true;
+            }
+
+            const diff = (a, b) => Object.keys(a).filter(key => {
+                return JSON.stringify(a[key]) !== JSON.stringify(b[key]);
+            });
+
+            let current = world.getGlobalPlugin(plugin.name);
+            let {config, ...rest} = normalizeAttributes(plugin.attributes);
+
+            return diff(config, current.config).length === 0 && diff(rest, current).length === 0;
+        },
+
         isConsumerCredentialUpToDate: (username, credential) => {
             const current = world.getConsumerCredential(username, credential.name, credential.attributes);
 
@@ -270,7 +294,7 @@ function _createWorld({apis, consumers}) {
 }
 
 function extractCredentialId(credentials, name, attributes) {
-    const idName = getCredentialSchema(name).id;
+    const idName = getConsumerCredentialSchema(name).id;
 
     return credentials[name].find(x => x[idName] == attributes[idName]);
 }
@@ -318,6 +342,10 @@ function validateEnsure(ensure) {
 }
 
 function validateApiRequiredAttributes(api) {
+    if (false == api.hasOwnProperty('name')) {
+        throw Error(`"Api name is required: ${JSON.stringify(api, null, '  ')}`);
+    }
+
     if (false == api.hasOwnProperty('attributes')) {
         throw Error(`"${api.name}" api has to declare "upstream_url" attribute`);
     }
@@ -334,7 +362,7 @@ function _plugin(apiName, plugin) {
     return world => {
         if (plugin.ensure == 'removed') {
             if (world.hasPlugin(apiName, plugin.name)) {
-                return removeApiPlugin(apiName, world.getPluginId(apiName, plugin.name));
+                return removeApiPlugin(world.getApiId(apiName), world.getPluginId(apiName, plugin.name));
             }
 
             return noop();
@@ -347,10 +375,36 @@ function _plugin(apiName, plugin) {
                 return noop();
             }
 
-            return updateApiPlugin(apiName, world.getPluginId(apiName, plugin.name), plugin.attributes);
+            return updateApiPlugin(world.getApiId(apiName), world.getPluginId(apiName, plugin.name), plugin.attributes);
         }
 
-        return addApiPlugin(apiName, plugin.name, plugin.attributes);
+        return addApiPlugin(world.getApiId(apiName), plugin.name, plugin.attributes);
+    }
+}
+
+function _globalPlugin(plugin) {
+    validateEnsure(plugin.ensure);
+
+    return world => {
+        if (plugin.ensure == 'removed') {
+            if (world.hasGlobalPlugin(plugin.name)) {
+                return removeGlobalPlugin(world.getGlobalPluginId(plugin.name));
+            }
+
+            return noop();
+        }
+
+        if (world.hasGlobalPlugin(plugin.name)) {
+            if (world.isGlobalPluginUpToDate(plugin)) {
+                console.log("  - global plugin", `${plugin.name}`.bold, "is up-to-date".green);
+
+                return noop();
+            }
+
+            return updateGlobalPlugin(world.getGlobalPluginId(plugin.name), plugin.attributes);
+        }
+
+        return addGlobalPlugin(plugin.name, plugin.attributes);
     }
 }
 
@@ -424,7 +478,7 @@ function _consumerCredential(username, credential) {
             const credentialId = world.getConsumerCredentialId(username, credential.name, credential.attributes);
 
             if (world.isConsumerCredentialUpToDate(username, credential)) {
-                const credentialIdName = getCredentialSchema(credential.name).id;
+                const credentialIdName = getConsumerCredentialSchema(credential.name).id;
                 console.log("  - credential", `${credential.name}`.bold, `with ${credentialIdName}:`, `${credential.attributes[credentialIdName]}`.bold, "is up-to-date".green);
 
                 return noop();
@@ -438,7 +492,7 @@ function _consumerCredential(username, credential) {
 }
 
 function validateCredentialRequiredAttributes(credential) {
-    const credentialIdName = getCredentialSchema(credential.name).id;
+    const credentialIdName = getConsumerCredentialSchema(credential.name).id;
 
     if (false == credential.hasOwnProperty('attributes')) {
         throw Error(`${credential.name} has to declare attributes.${credentialIdName}`);
