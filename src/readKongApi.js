@@ -82,13 +82,13 @@ function parseApiPlugins(plugins, prepareConfig) {
         return {
             name,
             attributes: {
+                enabled,
                 config: prepareConfig(name, config)
             },
             _info: {
                 id,
                 //api_id,
                 consumer_id,
-                enabled,
                 created_at
             }
         };
