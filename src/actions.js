@@ -81,39 +81,39 @@ export function createConsumer(username) {
     };
 }
 
-export function removeConsumer(username) {
+export function removeConsumer(consumerId) {
     return {
-        endpoint: {name: 'consumer', params: {username}},
+        endpoint: {name: 'consumer', params: {consumerId}},
         method: 'DELETE'
     };
 }
 
-export function addConsumerCredentials(username, plugin, params) {
+export function addConsumerCredentials(consumerId, plugin, params) {
     return {
-        endpoint: {name: 'consumer-credentials', params: {username, plugin}},
+        endpoint: {name: 'consumer-credentials', params: {consumerId, plugin}},
         method: 'POST',
         body: params
     };
 }
 
-export function updateConsumerCredentials(username, plugin, credentialId, params) {
+export function updateConsumerCredentials(consumerId, plugin, credentialId, params) {
     return {
-        endpoint: {name: 'consumer-credential', params: {username, plugin, credentialId}},
+        endpoint: {name: 'consumer-credential', params: {consumerId, plugin, credentialId}},
         method: 'PATCH',
         body: params
     };
 }
 
-export function removeConsumerCredentials(username, plugin, credentialId) {
+export function removeConsumerCredentials(consumerId, plugin, credentialId) {
     return {
-        endpoint: {name: 'consumer-credential', params: {username, plugin, credentialId}},
+        endpoint: {name: 'consumer-credential', params: {consumerId, plugin, credentialId}},
         method: 'DELETE'
     };
 }
 
-export function addConsumerAcls(username, groupName) {
+export function addConsumerAcls(consumerId, groupName) {
     return {
-        endpoint: {name: 'consumer-acls', params: {username}},
+        endpoint: {name: 'consumer-acls', params: {consumerId}},
         method: 'POST',
         body: {
             group: groupName
@@ -121,9 +121,9 @@ export function addConsumerAcls(username, groupName) {
     };
 }
 
-export function removeConsumerAcls(username, aclId) {
+export function removeConsumerAcls(consumerId, aclId) {
     return {
-        endpoint: {name: 'consumer-acl', params: {username, aclId}},
+        endpoint: {name: 'consumer-acl', params: {consumerId, aclId}},
         method: 'DELETE'
     };
 }

@@ -21,8 +21,8 @@ function createApi({ router, getPaginatedJson, ignoreConsumers }) {
         fetchGlobalPlugins: () => getPaginatedJson(router({name: 'plugins'})),
         fetchPlugins: apiId => getPaginatedJson(router({name: 'api-plugins', params: {apiId}})),
         fetchConsumers: () => ignoreConsumers ? Promise.resolve([]) : getPaginatedJson(router({name: 'consumers'})),
-        fetchConsumerCredentials: (username, plugin) => getPaginatedJson(router({name: 'consumer-credentials', params: {username, plugin}})),
-        fetchConsumerAcls: (username) => getPaginatedJson(router({name: 'consumer-acls', params: {username}})),
+        fetchConsumerCredentials: (consumerId, plugin) => getPaginatedJson(router({name: 'consumer-credentials', params: {consumerId, plugin}})),
+        fetchConsumerAcls: (consumerId) => getPaginatedJson(router({name: 'consumer-acls', params: {consumerId}})),
 
         // this is very chatty call and doesn't change so its cached
         fetchPluginSchemas: () => {

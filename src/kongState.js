@@ -17,11 +17,11 @@ export default async ({fetchApis, fetchPlugins, fetchGlobalPlugins, fetchConsume
         }
 
         const allCredentials = Promise.all(getSupportedCredentials().map(name => {
-            return fetchConsumerCredentials(consumer.username, name)
+            return fetchConsumerCredentials(consumer.id, name)
                 .then(credentials => [name, credentials]);
         }));
 
-        var aclsFetched = await fetchConsumerAcls(consumer.username);
+        var aclsFetched = await fetchConsumerAcls(consumer.id);
 
         var consumerWithCredentials = allCredentials
             .then(result => {

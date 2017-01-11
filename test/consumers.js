@@ -23,11 +23,12 @@ describe("consumers", () => {
             "ensure": "removed",
             "username": "marketplace"
         }]).map(x => x({
-            hasConsumer: (name) => name == 'marketplace'
+            hasConsumer: (name) => name == 'marketplace',
+            getConsumerId: username => 'user-1234',
         }));
 
         expect(actual).to.be.eql([
-            removeConsumer('marketplace')
+            removeConsumer('user-1234')
         ]);
     });
 
@@ -45,10 +46,13 @@ describe("consumers", () => {
                         "client_id": 'foo'
                     }
                 }]
-            ).map(x => x({hasConsumerCredential: () => false}));
+            ).map(x => x({
+                getConsumerId: username => 'user-1234',
+                hasConsumerCredential: () => false,
+            }));
 
             expect(actual).to.be.eql([
-                addConsumerCredentials('app-name', 'oauth2', {"client_id": 'foo'})
+                addConsumerCredentials('user-1234', 'oauth2', {"client_id": 'foo'})
             ]);
         });
 
@@ -61,16 +65,17 @@ describe("consumers", () => {
                     }
                 }]
             ).map(x => x({
+                getConsumerId: username => 'user-1234',
                 getConsumerCredentialId: () => '1234',
                 hasConsumerCredential: () => true,
                 isConsumerCredentialUpToDate: () => false}));
 
             expect(actual).to.be.eql([
-                updateConsumerCredentials('app-name', 'oauth2', '1234', {"client_id": 'foo', "redirect-uri": 'foo/bar'})
+                updateConsumerCredentials('user-1234', 'oauth2', '1234', {"client_id": 'foo', "redirect-uri": 'foo/bar'})
             ]);
         });
 
-        it("should remove consumer", () => {
+        it("should remove consumer credentials", () => {
             var actual = credentials('app-name', [{
                     "name": "oauth2",
                     "ensure": 'removed',
@@ -79,12 +84,13 @@ describe("consumers", () => {
                     }
                 }]
             ).map(x => x({
+                getConsumerId: username => 'user-1234',
                 getConsumerCredentialId: () => '1234',
-                hasConsumerCredential: () => true})
+                hasConsumerCredential: () => true}),
             );
 
             expect(actual).to.be.eql([
-                removeConsumerCredentials('app-name', 'oauth2', '1234')
+                removeConsumerCredentials('user-1234', 'oauth2', '1234')
             ]);
         });
     });
@@ -98,10 +104,13 @@ describe("consumers", () => {
                         "secret": 'super-secret'
                     }
                 }]
-            ).map(x => x({hasConsumerCredential: () => false}));
+            ).map(x => x({
+                getConsumerId: username => 'user-1234',
+                hasConsumerCredential: () => false,
+            }));
 
             expect(actual).to.be.eql([
-                addConsumerCredentials('app-name', 'jwt', {"key": 'somekey', "secret": 'super-secret'})
+                addConsumerCredentials('user-1234', 'jwt', {"key": 'somekey', "secret": 'super-secret'})
             ]);
         });
 
@@ -114,12 +123,13 @@ describe("consumers", () => {
                     }
                 }]
             ).map(x => x({
+                getConsumerId: username => 'user-1234',
                 getConsumerCredentialId: () => '1234',
                 hasConsumerCredential: () => true,
                 isConsumerCredentialUpToDate: () => false}));
 
             expect(actual).to.be.eql([
-                updateConsumerCredentials('app-name', 'jwt', '1234', {"key": 'somekey', "secret": 'new-super-secret'})
+                updateConsumerCredentials('user-1234', 'jwt', '1234', {"key": 'somekey', "secret": 'new-super-secret'})
             ]);
         });
 
@@ -132,12 +142,13 @@ describe("consumers", () => {
                     }
                 }]
             ).map(x => x({
+                getConsumerId: username => 'user-1234',
                 getConsumerCredentialId: () => '1234',
                 hasConsumerCredential: () => true})
             );
 
             expect(actual).to.be.eql([
-                removeConsumerCredentials('app-name', 'jwt', '1234')
+                removeConsumerCredentials('user-1234', 'jwt', '1234')
             ]);
         });
     });
@@ -151,10 +162,13 @@ describe("consumers", () => {
                         "password": 'password'
                     }
                 }]
-            ).map(x => x({hasConsumerCredential: () => false}));
+            ).map(x => x({
+                getConsumerId: username => 'user-1234',
+                hasConsumerCredential: () => false,
+            }));
 
             expect(actual).to.be.eql([
-                addConsumerCredentials('app-name', 'basic-auth', {"username": 'user', "password": 'password'})
+                addConsumerCredentials('user-1234', 'basic-auth', {"username": 'user', "password": 'password'})
             ]);
         });
 
@@ -167,13 +181,14 @@ describe("consumers", () => {
                     }
                 }]
             ).map(x => x({
+                getConsumerId: username => 'user-1234',
                 getConsumerCredentialId: () => '1234',
                 hasConsumerCredential: () => true,
                 isConsumerCredentialUpToDate: () => false
             }));
 
             expect(actual).to.be.eql([
-                updateConsumerCredentials('app-name', 'basic-auth', '1234', {"username": 'user', "password": 'new-password'})
+                updateConsumerCredentials('user-1234', 'basic-auth', '1234', {"username": 'user', "password": 'new-password'})
             ]);
         });
 
@@ -186,12 +201,13 @@ describe("consumers", () => {
                     }
                 }]
             ).map(x => x({
+                getConsumerId: username => 'user-1234',
                 getConsumerCredentialId: () => '1234',
                 hasConsumerCredential: () => true
             }));
 
             expect(actual).to.be.eql([
-                removeConsumerCredentials('app-name', 'basic-auth', '1234')
+                removeConsumerCredentials('user-1234', 'basic-auth', '1234')
             ]);
         });
     });
@@ -202,27 +218,30 @@ describe("consumers", () => {
                     "name": "acls",
                     'group': 'super-group-name'
                 }]
-              ).map(x => x({hasConsumerAcl: () => false})
+              ).map(x => x({
+                  getConsumerId: username => 'user-1234',
+                  hasConsumerAcl: () => false,
+              })
             );
 
             expect(actual).to.be.eql([
-                addConsumerAcls('app-name', "super-group-name")
+                addConsumerAcls('user-1234', "super-group-name")
             ]);
         });
 
         it("should remove consumer acl", () => {
             var actual = acls('app-name', [{
-                    "name": "acls",
-                    "ensure": 'removed',
-                    'group': 'super-group-name'
-                }]
-              ).map(x => x({
-                    getConsumerAclId: () => '1234',
-                    hasConsumerAcl: () => true
+                "name": "acls",
+                "ensure": 'removed',
+                'group': 'super-group-name',
+            }]).map(x => x({
+                getConsumerId: username => 'user-1234',
+                getConsumerAclId: () => '1234',
+                hasConsumerAcl: () => true,
             }));
 
             expect(actual).to.be.eql([
-                removeConsumerAcls('app-name', '1234')
+                removeConsumerAcls('user-1234', '1234')
             ]);
         });
     });

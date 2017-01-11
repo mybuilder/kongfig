@@ -197,6 +197,16 @@ function _createWorld({apis, consumers, plugins}) {
             });
         },
 
+        getConsumerId: username => {
+            const consumer = consumers.find(c => c.username === username);
+
+            if (!consumer) {
+                throw new Error(`Unable to find consumer ${username}`);
+            }
+
+            return consumer.id;
+        },
+
         getConsumerCredential: (username, name, attributes) => {
             const consumer = consumers.find(c => c.username === username);
 
@@ -415,7 +425,9 @@ function _consumer(consumer) {
     return world => {
         if (consumer.ensure == 'removed') {
             if (world.hasConsumer(consumer.username)) {
-                return removeConsumer(consumer.username);
+                console.log("consumer", `${consumer.username}`.bold);
+
+                return removeConsumer(world.getConsumerId(consumer.username));
             }
 
             return noop();
@@ -468,7 +480,7 @@ function _consumerCredential(username, credential) {
             if (world.hasConsumerCredential(username, credential.name, credential.attributes)) {
                 const credentialId = world.getConsumerCredentialId(username, credential.name, credential.attributes);
 
-                return removeConsumerCredentials(username, credential.name, credentialId);
+                return removeConsumerCredentials(world.getConsumerId(username), credential.name, credentialId);
             }
 
             return noop();
@@ -484,10 +496,10 @@ function _consumerCredential(username, credential) {
                 return noop();
             }
 
-            return updateConsumerCredentials(username, credential.name, credentialId, credential.attributes);
+            return updateConsumerCredentials(world.getConsumerId(username), credential.name, credentialId, credential.attributes);
         }
 
-        return addConsumerCredentials(username, credential.name, credential.attributes);
+        return addConsumerCredentials(world.getConsumerId(username), credential.name, credential.attributes);
     }
 }
 
@@ -529,16 +541,16 @@ function _consumerAcl(username, acl) {
             if (world.hasConsumerAcl(username, acl.group)) {
                 const aclId = world.getConsumerAclId(username, acl.group);
 
-                return removeConsumerAcls(username, aclId);
+                return removeConsumerAcls(world.getConsumerId(username), aclId);
             }
 
             return noop();
         }
 
-        if (world.hasConsumerAcl(username, acl.group)) {
+        if (world.hasConsumerAcl(world.getConsumerId(username), acl.group)) {
             return noop();
         }
 
-        return addConsumerAcls(username, acl.group);
+        return addConsumerAcls(world.getConsumerId(username), acl.group);
     }
 }

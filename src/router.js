@@ -8,11 +8,11 @@ export default function createRouter(host, https) {
             case 'api-plugins': return `${adminApiRoot}/apis/${params.apiId}/plugins`;
             case 'api-plugin': return `${adminApiRoot}/apis/${params.apiId}/plugins/${params.pluginId}`;
             case 'consumers': return `${adminApiRoot}/consumers`;
-            case 'consumer': return `${adminApiRoot}/consumers/${params.username}`;
-            case 'consumer-credentials': return `${adminApiRoot}/consumers/${params.username}/${params.plugin}`;
-            case 'consumer-credential': return `${adminApiRoot}/consumers/${params.username}/${params.plugin}/${params.credentialId}`;
-            case 'consumer-acls': return `${adminApiRoot}/consumers/${params.username}/acls`;
-            case 'consumer-acl': return `${adminApiRoot}/consumers/${params.username}/acls/${params.aclId}`;
+            case 'consumer': return `${adminApiRoot}/consumers/${params.consumerId}`;
+            case 'consumer-credentials': return `${adminApiRoot}/consumers/${params.consumerId}/${params.plugin}`;
+            case 'consumer-credential': return `${adminApiRoot}/consumers/${params.consumerId}/${params.plugin}/${params.credentialId}`;
+            case 'consumer-acls': return `${adminApiRoot}/consumers/${params.consumerId}/acls`;
+            case 'consumer-acl': return `${adminApiRoot}/consumers/${params.consumerId}/acls/${params.aclId}`;
 
             case 'plugins': return `${adminApiRoot}/plugins`;
             case 'plugin': return `${adminApiRoot}/plugins/${params.pluginId}`;
