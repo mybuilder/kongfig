@@ -547,7 +547,7 @@ function _consumerAcl(username, acl) {
             return noop();
         }
 
-        if (world.hasConsumerAcl(world.getConsumerId(username), acl.group)) {
+        if (world.hasConsumerAcl(username, acl.group)) {
             return noop();
         }
 
