@@ -17,6 +17,7 @@ import {
     removeGlobalPlugin,
     updateGlobalPlugin,
     createConsumer,
+    updateConsumer,
     removeConsumer,
     addConsumerCredentials,
     updateConsumerCredentials,
@@ -197,14 +198,18 @@ function _createWorld({apis, consumers, plugins}) {
             });
         },
 
-        getConsumerId: username => {
+        getConsumer: username => {
             const consumer = consumers.find(c => c.username === username);
 
             if (!consumer) {
                 throw new Error(`Unable to find consumer ${username}`);
             }
 
-            return consumer.id;
+            return consumer;
+        },
+
+        getConsumerId: username => {
+            return world.getConsumer(username).id;
         },
 
         getConsumerCredential: (username, name, attributes) => {
@@ -245,6 +250,12 @@ function _createWorld({apis, consumers, plugins}) {
 
         getConsumerAclId: (username, groupName) => {
             return world.getConsumerAcl(username, groupName).id;
+        },
+
+        isConsumerUpToDate: (username, custom_id) => {
+            const consumer = consumers.find(c => c.username === username);
+
+            return consumer.custom_id == custom_id;
         },
 
         isApiUpToDate: (api) => {
@@ -425,8 +436,6 @@ function _consumer(consumer) {
     return world => {
         if (consumer.ensure == 'removed') {
             if (world.hasConsumer(consumer.username)) {
-                console.log("consumer", `${consumer.username}`.bold);
-
                 return removeConsumer(world.getConsumerId(consumer.username));
             }
 
@@ -434,7 +443,11 @@ function _consumer(consumer) {
         }
 
         if (!world.hasConsumer(consumer.username)) {
-            return createConsumer(consumer.username);
+            return createConsumer(consumer.username, consumer.custom_id);
+        }
+
+        if (!world.isConsumerUpToDate(consumer.username, consumer.custom_id)) {
+            return updateConsumer(world.getConsumerId(consumer.username), { username: consumer.username, custom_id: consumer.custom_id });
         }
 
         console.log("consumer", `${consumer.username}`.bold);

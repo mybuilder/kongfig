@@ -73,11 +73,19 @@ export function updateGlobalPlugin(pluginId, params) {
     };
 }
 
-export function createConsumer(username) {
-        return {
+export function createConsumer(username, custom_id) {
+    return {
         endpoint: { name: 'consumers' },
         method: 'POST',
-        body: { username }
+        body: { username, custom_id }
+    };
+}
+
+export function updateConsumer(consumerId, params) {
+    return {
+        endpoint: {name: 'consumer', params: {consumerId}},
+        method: 'PATCH',
+        body: params
     };
 }
 
