@@ -120,6 +120,7 @@ Consumer schema:
 ```yaml
 consumers:
   - username: iphone-app
+    custom_id: foobar-1234 # optional
 ```
 
 Consumer credential schema:
