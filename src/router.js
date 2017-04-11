@@ -19,6 +19,8 @@ export default function createRouter(host, https) {
             case 'plugins-enabled': return `${adminApiRoot}/plugins/enabled`;
             case 'plugins-scheme': return `${adminApiRoot}/plugins/schema/${params.plugin}`;
 
+            case 'root': return `${adminApiRoot}`;
+
             default:
                 throw new Error(`Unknown route "${name}"`);
         }
