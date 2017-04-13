@@ -1,6 +1,7 @@
 import {getSupportedCredentials} from './consumerCredentials'
 
-export default async ({fetchApis, fetchPlugins, fetchGlobalPlugins, fetchConsumers, fetchConsumerCredentials, fetchConsumerAcls}) => {
+export default async ({fetchApis, fetchPlugins, fetchGlobalPlugins, fetchConsumers, fetchConsumerCredentials, fetchConsumerAcls, fetchKongVersion}) => {
+    const version = await fetchKongVersion();
     const apis = await fetchApis();
     const apisWithPlugins = await Promise.all(apis.map(async item => {
         const plugins =  await fetchPlugins(item.id);
@@ -47,6 +48,7 @@ export default async ({fetchApis, fetchPlugins, fetchGlobalPlugins, fetchConsume
     return {
         apis: apisWithPlugins,
         consumers: consumersWithCredentialsAndAcls,
-        plugins: globalPlugins
+        plugins: globalPlugins,
+        version,
     };
 };

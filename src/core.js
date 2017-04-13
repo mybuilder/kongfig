@@ -5,6 +5,8 @@ import assign from 'object-assign';
 import kongState from './kongState';
 import {getSchema as getConsumerCredentialSchema} from './consumerCredentials';
 import {normalize as normalizeAttributes} from './utils';
+import { migrateApiDefinition } from './migrate';
+import diff from './diff';
 import {
     noop,
     createApi,
@@ -120,8 +122,10 @@ function _bindWorldState(adminApi) {
     }
 }
 
-function _createWorld({apis, consumers, plugins}) {
+function _createWorld({apis, consumers, plugins, version}) {
     const world = {
+        getVersion: () => version,
+
         hasApi: apiName => Array.isArray(apis) && apis.some(api => api.name === apiName),
         getApi: apiName => {
             const api = apis.find(api => api.name === apiName);
@@ -258,25 +262,13 @@ function _createWorld({apis, consumers, plugins}) {
             return consumer.custom_id == custom_id;
         },
 
-        isApiUpToDate: (api) => {
-            let current = world.getApi(api.name);
-
-            let different = Object.keys(api.attributes).filter(key => {
-                return api.attributes[key] !== current[key];
-            });
-
-            return different.length == 0;
-        },
+        isApiUpToDate: (api) => diff(api.attributes, world.getApi(api.name)).length == 0,
 
         isApiPluginUpToDate: (apiName, plugin) => {
             if (false == plugin.hasOwnProperty('attributes')) {
                 // of a plugin has no attributes, and its been added then it is up to date
                 return true;
             }
-
-            const diff = (a, b) => Object.keys(a).filter(key => {
-                return JSON.stringify(a[key]) !== JSON.stringify(b[key]);
-            });
 
             let current = world.getPlugin(apiName, plugin.name);
             let {config, ...rest} = normalizeAttributes(plugin.attributes);
@@ -290,10 +282,6 @@ function _createWorld({apis, consumers, plugins}) {
                 return true;
             }
 
-            const diff = (a, b) => Object.keys(a).filter(key => {
-                return JSON.stringify(a[key]) !== JSON.stringify(b[key]);
-            });
-
             let current = world.getGlobalPlugin(plugin.name);
             let {config, ...rest} = normalizeAttributes(plugin.attributes);
 
@@ -303,12 +291,8 @@ function _createWorld({apis, consumers, plugins}) {
         isConsumerCredentialUpToDate: (username, credential) => {
             const current = world.getConsumerCredential(username, credential.name, credential.attributes);
 
-            let different = Object.keys(credential.attributes).filter(key => {
-                return JSON.stringify(credential.attributes[key]) !== JSON.stringify(current[key]);
-            });
-
-            return different.length === 0;
-        }
+            return diff(credential.attributes, current).length === 0;
+        },
     };
 
     return world;
@@ -329,7 +313,7 @@ function _api(api) {
     validateEnsure(api.ensure);
     validateApiRequiredAttributes(api);
 
-    return world => {
+    return migrateApiDefinition(api, (api, world) => {
         if (api.ensure == 'removed') {
             return world.hasApi(api.name) ? removeApi(api.name) : noop();
         }
@@ -345,7 +329,7 @@ function _api(api) {
         }
 
         return createApi(api.name, api.attributes);
-    };
+    });
 }
 
 function _apiPlugins(api) {
