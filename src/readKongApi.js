@@ -1,14 +1,15 @@
+import semVer from 'semver';
 import kongState from './kongState';
 
 export default async (adminApi) => {
-    return Promise.all([kongState(adminApi), adminApi.fetchPluginSchemas()])
-        .then(([state, schemas]) => {
+    return Promise.all([kongState(adminApi), adminApi.fetchPluginSchemas(), adminApi.fetchKongVersion()])
+        .then(([state, schemas, version]) => {
             const prepareConfig = (plugin, config) => stripConfig(config, schemas.get(plugin));
             const parseApiPluginsForSchemes = plugins => parseApiPlugins(plugins, prepareConfig);
             const parsePluginsForSchemes = plugins => parseGlobalPlugins(plugins, prepareConfig);
 
             return {
-                apis: parseApis(state.apis, parseApiPluginsForSchemes),
+                apis: parseApis(state.apis, parseApiPluginsForSchemes, version),
                 consumers: parseConsumers(state.consumers),
                 plugins: parsePluginsForSchemes(state.plugins)
             }
@@ -47,7 +48,14 @@ function parseCredential([credentialName, credentials]) {
     });
 }
 
-function parseApis(apis, parseApiPlugins) {
+function parseApis(apis, parseApiPlugins, kongVersion) {
+    if (semVer.gt(kongVersion, '0.10.0')) {
+        return parseApisV10(apis, parseApiPlugins);
+    }
+    return parseApisBeforeV10(apis, parseApiPlugins);
+}
+
+function parseApisBeforeV10(apis, parseApiPlugins) {
     return apis.map(({
         name, plugins,
         request_host, request_path, strip_request_path, preserve_host, upstream_url,
@@ -61,6 +69,38 @@ function parseApis(apis, parseApiPlugins) {
                 strip_request_path,
                 preserve_host,
                 upstream_url,
+            },
+            _info: {
+                id,
+                created_at
+            }
+        };
+    });
+}
+
+function parseApisV10(apis, parseApiPlugins) {
+    return apis.map(({
+        name, plugins,
+        hosts, uris, methods,
+        strip_uri, preserve_host, upstream_url, id, created_at,
+        https_only, http_if_terminated,
+        retries, upstream_connect_timeout, upstream_read_timeout, upstream_send_timeout}) => {
+        return {
+            name,
+            plugins: parseApiPlugins(plugins),
+            attributes: {
+                hosts,
+                uris,
+                methods,
+                strip_uri,
+                preserve_host,
+                upstream_url,
+                retries,
+                upstream_connect_timeout,
+                upstream_read_timeout,
+                upstream_send_timeout,
+                https_only,
+                http_if_terminated
             },
             _info: {
                 id,

@@ -2,6 +2,7 @@ import createRouter from './router';
 import requester from './requester';
 
 let pluginSchemasCache;
+let kongVersionCache;
 let resultsCache = {};
 
 export default ({host, https, ignoreConsumers, cache}) => {
@@ -33,6 +34,15 @@ function createApi({ router, getPaginatedJson, ignoreConsumers }) {
             return getPaginatedJson(router({name: 'plugins-enabled'}))
                 .then(json => Promise.all(getEnabledPluginNames(json.enabled_plugins).map(plugin => getPluginScheme(plugin, plugin => router({name: 'plugins-scheme', params: {plugin}})))))
                 .then(all => pluginSchemasCache = new Map(all));
+        },
+        fetchKongVersion: () => {
+            if (kongVersionCache) {
+                return Promise.resolve(kongVersionCache);
+            }
+
+            return getPaginatedJson(router({name: 'root'}))
+                .then(json => Promise.resolve(json.version))
+                .then(version => kongVersionCache = version);
         },
         requestEndpoint: (endpoint, params) => {
             resultsCache = {};
