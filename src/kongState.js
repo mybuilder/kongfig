@@ -42,7 +42,7 @@ export default async ({fetchApis, fetchPlugins, fetchGlobalPlugins, fetchConsume
 
     const allPlugins = await fetchGlobalPlugins();
     const globalPlugins = allPlugins.filter(plugin => {
-        return plugin.api_id === undefined && plugin.consumer_id === undefined;
+        return plugin.api_id === undefined;
     });
 
     return {
