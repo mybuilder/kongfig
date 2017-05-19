@@ -365,22 +365,23 @@ function _plugin(apiName, plugin) {
     validateEnsure(plugin.ensure);
 
     return world => {
+        const consumerID = plugin.hasOwnProperty('attributes') ? plugin.attributes.consumer_id : undefined;
         if (plugin.ensure == 'removed') {
-            if (world.hasPlugin(apiName, plugin.name, plugin.attributes.consumer_id)) {
-                return removeApiPlugin(world.getApiId(apiName), world.getPluginId(apiName, plugin.name, plugin.attributes.consumer_id));
+            if (world.hasPlugin(apiName, plugin.name, consumerID)) {
+                return removeApiPlugin(world.getApiId(apiName), world.getPluginId(apiName, plugin.name, consumerID));
             }
 
             return noop();
         }
 
-        if (world.hasPlugin(apiName, plugin.name, plugin.attributes.consumer_id)) {
+        if (world.hasPlugin(apiName, plugin.name, consumerID)) {
             if (world.isApiPluginUpToDate(apiName, plugin)) {
                 console.log("  - plugin", `${plugin.name}`.bold, "is up-to-date".green);
 
                 return noop();
             }
 
-            return updateApiPlugin(world.getApiId(apiName), world.getPluginId(apiName, plugin.name, plugin.attributes.consumer_id), plugin.attributes);
+            return updateApiPlugin(world.getApiId(apiName), world.getPluginId(apiName, plugin.name, consumerID), plugin.attributes);
         }
 
         return addApiPlugin(world.getApiId(apiName), plugin.name, plugin.attributes);
@@ -391,22 +392,23 @@ function _globalPlugin(plugin) {
     validateEnsure(plugin.ensure);
 
     return world => {
+        const consumerID = plugin.hasOwnProperty('attributes') ? plugin.attributes.consumer_id : undefined;
         if (plugin.ensure == 'removed') {
-            if (world.hasGlobalPlugin(plugin.name, plugin.attributes.consumer_id)) {
-                return removeGlobalPlugin(world.getGlobalPluginId(plugin.name, plugin.attributes.consumer_id));
+            if (world.hasGlobalPlugin(plugin.name, consumerID)) {
+                return removeGlobalPlugin(world.getGlobalPluginId(plugin.name, consumerID));
             }
 
             return noop();
         }
 
-        if (world.hasGlobalPlugin(plugin.name, plugin.attributes.consumer_id)) {
+        if (world.hasGlobalPlugin(plugin.name, consumerID)) {
             if (world.isGlobalPluginUpToDate(plugin)) {
                 console.log("  - global plugin", `${plugin.name}`.bold, "is up-to-date".green);
 
                 return noop();
             }
 
-            return updateGlobalPlugin(world.getGlobalPluginId(plugin.name, plugin.attributes.consumer_id), plugin.attributes);
+            return updateGlobalPlugin(world.getGlobalPluginId(plugin.name, consumerID), plugin.attributes);
         }
 
         return addGlobalPlugin(plugin.name, plugin.attributes);
