@@ -1,3 +1,4 @@
+const util = require('util')
 import semVer from 'semver';
 import kongState from './kongState';
 
@@ -134,6 +135,7 @@ export const parsePlugin = ({
         name,
         attributes: {
             enabled,
+            consumer_id,
             config: stripConfig(config)
         },
         _info: {
@@ -163,6 +165,7 @@ export const parseGlobalPlugin = ({
         name,
         attributes: {
             enabled,
+            consumer_id,
             config: stripConfig(config)
         },
         _info: {
