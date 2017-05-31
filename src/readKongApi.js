@@ -1,4 +1,3 @@
-const util = require('util')
 import semVer from 'semver';
 import kongState from './kongState';
 
