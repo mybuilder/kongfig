@@ -39,8 +39,8 @@ export function getAclSchema() {
 
 export default async function execute(config, adminApi) {
     const actions = [
-        ...apis(config.apis),
         ...consumers(config.consumers),
+        ...apis(config.apis),
         ...globalPlugins(config.plugins)
     ];
 
