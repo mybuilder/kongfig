@@ -9,10 +9,9 @@ node_js:
     - "0.12"
     - "0.11"
     - "0.10"
-before_script:
-    -  docker run -d --name kong-database -e "POSTGRES_USER=kong" -e "POSTGRES_DB=kong" postgres
+before_install:
+    -  docker run -d --name kong-database -e "POSTGRES_USER=kong" -e "POSTGRES_DB=kong"  postgres:9.4
     -  sleep 5
-    -  docker run -d --name kong --link kong-database:kong-database -e "KONG_DATABASE=postgres" -e "KONG_PG_HOST=kong-database" kong:latest
+    -  docker run -d --name kong --link kong-database:kong-database -e "KONG_DATABASE=postgres" -e "KONG_PG_HOST=kong-database" -p 127.0.0.1:8001:8001 -p 127.0.0.1:8000:8000 kong:latest
     -  sleep 5
-script:
-    -  docker exec kong curl localhost:8001
+    -  curl localhost:8001
