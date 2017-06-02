@@ -4,11 +4,8 @@ services:
 language: node_js
 node_js:
     - "stable"
-    - "4.1"
-    - "4.0"
-    - "0.12"
-    - "0.11"
-    - "0.10"
+    - "4"
+    - "6"
 before_install:
     -  docker run -d --name kong-database -e "POSTGRES_USER=kong" -e "POSTGRES_DB=kong"  postgres:9.4
     -  sleep 5
