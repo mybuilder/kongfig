@@ -46,7 +46,12 @@ describe("API", () => {
                     hosts: ["mockbin.com"]
                 },
                 plugins: [{
-                    name: "key-auth"
+                    name: "key-auth",
+                    attributes: {
+                        config: {
+                            key_names: ['foobar']
+                        }
+                    }
                 }, {
                     name: "cors",
                     attributes: {
