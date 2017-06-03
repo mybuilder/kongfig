@@ -2,6 +2,8 @@ sudo: required
 services:
   - docker
 language: node_js
+env:
+    TEST_INTEGRATION_KONG_HOST="127.0.0.1:8001"
 node_js:
     - "stable"
     - "4"

@@ -37,7 +37,7 @@ export function getAclSchema() {
     return consumerAclSchema;
 }
 
-export default async function execute(config, adminApi) {
+export default async function execute(config, adminApi, logger = () => {}) {
     const actions = [
         ...consumers(config.consumers),
         ...apis(config.apis),
@@ -46,7 +46,7 @@ export default async function execute(config, adminApi) {
 
     return actions
         .map(_bindWorldState(adminApi))
-        .reduce((promise, action) => promise.then(_executeActionOnApi(action, adminApi)), Promise.resolve(''));
+        .reduce((promise, action) => promise.then(_executeActionOnApi(action, adminApi, logger)), Promise.resolve(''));
 }
 
 export function apis(apis = []) {
@@ -73,9 +73,11 @@ export function acls(username, acls) {
     return acls.reduce((actions, acl) => [...actions, _consumerAcl(username, acl)], []);
 }
 
-function _executeActionOnApi(action, adminApi) {
+function _executeActionOnApi(action, adminApi, logger) {
     return async () => {
         const params = await action();
+
+        logger({ type: 'action', params });
 
         if (params.noop) {
             return Promise.resolve('No-op');
@@ -101,11 +103,15 @@ function _executeActionOnApi(action, adminApi) {
 
                     return response.text()
                         .then(content => {
+                            logger({ type: 'response-error', content: JSON.parse(content) });
+
                             throw new Error(`${response.statusText}\n${content}`);
                         });
                 } else {
                     response.text()
                         .then(content => {
+                            logger({ type: 'response-ok', content: JSON.parse(content) });
+
                             console.info(`Response status ${response.statusText}:`.green, "\n", JSON.parse(content));
                         });
                 }
