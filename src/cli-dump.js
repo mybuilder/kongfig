@@ -19,14 +19,14 @@ program
     .parse(process.argv);
 
 if (!program.host) {
-    console.log('--host to the kong admin is required e.g. localhost:8001'.red);
+    console.error('--host to the kong admin is required e.g. localhost:8001'.red);
     process.exit(1);
 }
 
 try {
     addSchemasFromOptions(program.credentialSchema);
 } catch(e){
-    console.log(e.message.red);
+    console.error(e.message.red);
     process.exit(1);
 }
 
@@ -45,6 +45,6 @@ readKongApi(adminApi({ host: program.host, https: program.https, ignoreConsumers
         process.stdout.write(config + '\n');
     })
     .catch(error => {
-        console.log(`${error}`.red, '\n', error.stack);
+        console.error(`${error}`.red, '\n', error.stack);
         process.exit(1);
     });

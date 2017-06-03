@@ -19,14 +19,14 @@ program
     .parse(process.argv);
 
 if (!program.path) {
-  console.log('--path to the config file is required'.red);
+  console.error('--path to the config file is required'.red);
   process.exit(1);
 }
 
 try{
     addSchemasFromOptions(program.credentialSchema);
 }catch(e){
-    console.log(e.message.red);
+    console.error(e.message.red);
     process.exit(1);
 }
 
@@ -47,7 +47,7 @@ headers
   .forEach((value, name) => requester.addHeader(name, value));
 
 if (!host) {
-  console.log('Kong admin host must be specified in config or --host'.red);
+  console.error('Kong admin host must be specified in config or --host'.red);
   process.exit(1);
 }
 
@@ -58,7 +58,7 @@ else {
   try{
       addSchemasFromConfig(config);
   } catch(e) {
-      console.log(e.message.red);
+      console.error(e.message.red);
       process.exit(1);
   }
 }
@@ -67,6 +67,6 @@ console.log(`Apply config to ${host}`.green);
 
 execute(config, adminApi({host, https, ignoreConsumers, cache}))
   .catch(error => {
-      console.log(`${error}`.red, '\n', error.stack);
+      console.error(`${error}`.red, '\n', error.stack);
       process.exit(1);
   });

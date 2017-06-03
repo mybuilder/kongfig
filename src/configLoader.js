@@ -4,7 +4,7 @@ import yaml from 'js-yaml';
 
 const log = {
     info: message => console.log(message.green),
-    error: message => console.log(message.red)
+    error: message => console.error(message.red)
 }
 
 export default (configPath) => {
