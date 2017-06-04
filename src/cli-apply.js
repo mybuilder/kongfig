@@ -31,6 +31,8 @@ try{
     process.exit(1);
 }
 
+console.log(`Loading config ${program.path}`);
+
 let config = configLoader(program.path);
 let host = program.host || config.host || 'localhost:8001';
 let https = program.https || config.https || false;

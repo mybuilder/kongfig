@@ -83,15 +83,6 @@ describe("API", () => {
                             key_names: ['foobar']
                         }
                     }
-                }, {
-                    name: "cors",
-                    attributes: {
-                        config: {
-                            credentials: false,
-                            preflight_continue: false,
-                            max_age: 7000
-                        }
-                    }
                 }]
             }]
         };

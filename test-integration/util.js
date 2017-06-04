@@ -49,7 +49,7 @@ const _ignoreKeys = (obj, keys) => {
 
                 obj[key] = obj[key].replace(uuid, uuids[uuid]);
             } else if (keys.indexOf(key) !== -1) {
-                obj[key] = '___IGNORED___';
+                obj[key] = `___${key}___`;
             } else {
                 _ignoreKeys(obj[key], keys);
             }

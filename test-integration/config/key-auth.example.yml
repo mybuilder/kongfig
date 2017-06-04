@@ -1,0 +1,22 @@
+apis:
+  - name: "mockbin"
+    ensure: "present"
+    attributes:
+      upstream_url: "http://mockbin.com"
+      hosts:
+          - "mockbin.com"
+    plugins:
+      - name: "key-auth"
+        attributes:
+          config:
+            key_names:
+              - very-secret-key
+
+consumers:
+  - username: "iphone-app"
+    ensure: "present"
+    credentials:
+      - name: "key-auth"
+        ensure: "present"
+        attributes:
+          key: "very-secret-key"

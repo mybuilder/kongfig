@@ -8,8 +8,6 @@ const log = {
 }
 
 export default (configPath) => {
-    log.info(`Loading config ${configPath}`);
-
     if (!fs.existsSync(configPath)) {
         log.error(`Supplied --path '${configPath}' doesn't exist`.red);
         return process.exit(1);
