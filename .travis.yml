@@ -7,7 +7,6 @@ env:
     - TEST_INTEGRATION_KONG_HOST="127.0.0.1:8001"
   matrix:
     - KONG_VERSION=latest
-    - KONG_VERSION=0.9
 node_js:
     - "stable"
     - "4"
