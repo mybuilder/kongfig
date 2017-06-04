@@ -1,3 +1,6 @@
+sudo: required
+services:
+  - docker
 language: node_js
 node_js:
     - "stable"
@@ -6,3 +9,10 @@ node_js:
     - "0.12"
     - "0.11"
     - "0.10"
+before_script:
+    -  docker run -d --name kong-database -e "POSTGRES_USER=kong" -e "POSTGRES_DB=kong" postgres
+    -  sleep 5
+    -  docker run -d --name kong --link kong-database:kong-database -e "KONG_DATABASE=postgres" -e "KONG_PG_HOST=kong-database" kong:latest
+    -  sleep 5
+script:
+    -  docker exec kong curl localhost:8001
