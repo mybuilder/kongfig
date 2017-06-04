@@ -1,0 +1,11 @@
+consumers:
+  - username: "iphone-app"
+    ensure: "present"
+    acls:
+      - group: "foo-group"
+        ensure: "present"
+    credentials:
+      - name: "key-auth"
+        ensure: "present"
+        attributes:
+          key: "very-secret-key"

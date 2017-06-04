@@ -5,6 +5,7 @@ import configLoader from './configLoader';
 import program from 'commander';
 import requester from './requester';
 import {repeatableOptionCallback} from './utils';
+import { screenLogger } from './logger';
 import {addSchemasFromOptions, addSchemasFromConfig} from './consumerCredentials';
 
 program
@@ -29,6 +30,8 @@ try{
     console.error(e.message.red);
     process.exit(1);
 }
+
+console.log(`Loading config ${program.path}`);
 
 let config = configLoader(program.path);
 let host = program.host || config.host || 'localhost:8001';
@@ -65,7 +68,7 @@ else {
 
 console.log(`Apply config to ${host}`.green);
 
-execute(config, adminApi({host, https, ignoreConsumers, cache}))
+execute(config, adminApi({host, https, ignoreConsumers, cache}), screenLogger)
   .catch(error => {
       console.error(`${error}`.red, '\n', error.stack);
       process.exit(1);

@@ -1,0 +1,111 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should allow updating a global plugin with no attributes 1`] = `
+Array [
+  Object {
+    "params": Object {
+      "body": Object {
+        "enabled": true,
+        "name": "cors",
+      },
+      "endpoint": Object {
+        "name": "plugins",
+        "params": Object {
+          "pluginName": "cors",
+        },
+      },
+      "method": "POST",
+      "type": "add-global-plugin",
+    },
+    "type": "action",
+  },
+  Object {
+    "params": Object {
+      "body": Object {
+        "enabled": true,
+        "name": "cors",
+      },
+      "endpoint": Object {
+        "name": "plugins",
+        "params": Object {
+          "pluginName": "cors",
+        },
+      },
+      "method": "POST",
+      "type": "add-global-plugin",
+    },
+    "type": "request",
+    "uri": "http://localhost:8001/plugins",
+  },
+  Object {
+    "ok": true,
+    "params": Object {
+      "body": Object {
+        "enabled": true,
+        "name": "cors",
+      },
+      "endpoint": Object {
+        "name": "plugins",
+        "params": Object {
+          "pluginName": "cors",
+        },
+      },
+      "method": "POST",
+      "type": "add-global-plugin",
+    },
+    "status": 201,
+    "statusText": "Created",
+    "type": "response",
+    "uri": "http://localhost:8001/plugins",
+  },
+  Object {
+    "content": Object {
+      "config": Object {
+        "credentials": false,
+        "preflight_continue": false,
+      },
+      "created_at": "___created_at___",
+      "enabled": true,
+      "id": "2b47ba9b-761a-492d-9a0c-000000000001",
+      "name": "cors",
+    },
+    "type": "response-content",
+  },
+  Object {
+    "params": Object {
+      "noop": true,
+      "plugin": Object {
+        "attributes": Object {
+          "enabled": true,
+        },
+        "name": "cors",
+      },
+      "type": "noop-global-plugin",
+    },
+    "type": "action",
+  },
+]
+`;
+
+exports[`should allow updating a global plugin with no attributes 2`] = `
+Object {
+  "apis": Array [],
+  "consumers": Array [],
+  "plugins": Array [
+    Object {
+      "_info": Object {
+        "created_at": "___created_at___",
+        "id": "2b47ba9b-761a-492d-9a0c-000000000002",
+      },
+      "attributes": Object {
+        "config": Object {
+          "credentials": false,
+          "preflight_continue": false,
+        },
+        "enabled": true,
+      },
+      "name": "cors",
+    },
+  ],
+}
+`;
