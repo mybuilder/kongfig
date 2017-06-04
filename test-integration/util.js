@@ -2,6 +2,7 @@ import adminApi from '../lib/adminApi';
 import readKongApi from '../lib/readKongApi';
 import execute from '../lib/core';
 import invariant from 'invariant';
+import pad from 'pad';
 
 invariant(process.env.TEST_INTEGRATION_KONG_HOST, `
     Please set ${'TEST_INTEGRATION_KONG_HOST'.bold} env variable
@@ -44,7 +45,7 @@ const _ignoreKeys = (obj, keys) => {
                 const uuid = obj[key].match(UUIDRegex)[0];
 
                 if (!uuids.hasOwnProperty(obj[uuid])) {
-                    const id = `${Object.keys(uuids).length + 1}`.padStart(12, '0');
+                    const id = pad(12, `${Object.keys(uuids).length + 1}`, '0');
                     uuids[obj[key]] = `2b47ba9b-761a-492d-9a0c-${id}`;
                 }
 
