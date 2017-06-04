@@ -46,10 +46,10 @@ const _ignoreKeys = (obj, keys) => {
 
                 if (!uuids.hasOwnProperty(obj[uuid])) {
                     const id = pad(12, `${Object.keys(uuids).length + 1}`, '0');
-                    uuids[obj[key]] = `2b47ba9b-761a-492d-9a0c-${id}`;
+                    uuids[uuid] = `2b47ba9b-761a-492d-9a0c-${id}`;
                 }
 
-                obj[key] = obj[key].replace(uuid, uuids[obj[key]]);
+                obj[key] = obj[key].replace(uuid, uuids[uuid]);
             } else if (keys.indexOf(key) !== -1) {
                 obj[key] = '___IGNORED___';
             } else {
