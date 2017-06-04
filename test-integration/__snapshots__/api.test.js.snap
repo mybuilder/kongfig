@@ -35,7 +35,7 @@ Array [
       "type": "create-api",
     },
     "type": "request",
-    "uri": "http://kong-admin-host/apis",
+    "uri": "http://localhost:8001/apis",
   },
   Object {
     "ok": true,
@@ -56,7 +56,7 @@ Array [
     "status": 201,
     "statusText": "Created",
     "type": "response",
-    "uri": "http://kong-admin-host/apis",
+    "uri": "http://localhost:8001/apis",
   },
   Object {
     "content": Object {
@@ -121,7 +121,7 @@ Array [
       "type": "add-api-plugin",
     },
     "type": "request",
-    "uri": "http://kong-admin-host/apis/2b47ba9b-761a-492d-9a0c-000000000002/plugins",
+    "uri": "http://localhost:8001/apis/2b47ba9b-761a-492d-9a0c-000000000002/plugins",
   },
   Object {
     "ok": true,
@@ -147,7 +147,7 @@ Array [
     "status": 201,
     "statusText": "Created",
     "type": "response",
-    "uri": "http://kong-admin-host/apis/2b47ba9b-761a-492d-9a0c-000000000002/plugins",
+    "uri": "http://localhost:8001/apis/2b47ba9b-761a-492d-9a0c-000000000002/plugins",
   },
   Object {
     "content": Object {
@@ -210,7 +210,7 @@ Array [
       "type": "add-api-plugin",
     },
     "type": "request",
-    "uri": "http://kong-admin-host/apis/2b47ba9b-761a-492d-9a0c-000000000003/plugins",
+    "uri": "http://localhost:8001/apis/2b47ba9b-761a-492d-9a0c-000000000003/plugins",
   },
   Object {
     "ok": true,
@@ -236,7 +236,7 @@ Array [
     "status": 201,
     "statusText": "Created",
     "type": "response",
-    "uri": "http://kong-admin-host/apis/2b47ba9b-761a-492d-9a0c-000000000003/plugins",
+    "uri": "http://localhost:8001/apis/2b47ba9b-761a-492d-9a0c-000000000003/plugins",
   },
   Object {
     "content": Object {
@@ -356,7 +356,7 @@ Array [
       "type": "create-api",
     },
     "type": "request",
-    "uri": "http://kong-admin-host/apis",
+    "uri": "http://localhost:8001/apis",
   },
   Object {
     "ok": true,
@@ -377,7 +377,7 @@ Array [
     "status": 201,
     "statusText": "Created",
     "type": "response",
-    "uri": "http://kong-admin-host/apis",
+    "uri": "http://localhost:8001/apis",
   },
   Object {
     "content": Object {
@@ -468,7 +468,7 @@ Array [
       "type": "create-api",
     },
     "type": "request",
-    "uri": "http://kong-admin-host/apis",
+    "uri": "http://localhost:8001/apis",
   },
   Object {
     "ok": true,
@@ -489,7 +489,7 @@ Array [
     "status": 201,
     "statusText": "Created",
     "type": "response",
-    "uri": "http://kong-admin-host/apis",
+    "uri": "http://localhost:8001/apis",
   },
   Object {
     "content": Object {
@@ -597,7 +597,7 @@ Array [
       "type": "create-api",
     },
     "type": "request",
-    "uri": "http://kong-admin-host/apis",
+    "uri": "http://localhost:8001/apis",
   },
   Object {
     "ok": true,
@@ -618,7 +618,7 @@ Array [
     "status": 201,
     "statusText": "Created",
     "type": "response",
-    "uri": "http://kong-admin-host/apis",
+    "uri": "http://localhost:8001/apis",
   },
   Object {
     "content": Object {
@@ -665,7 +665,7 @@ Array [
       "type": "remove-api",
     },
     "type": "request",
-    "uri": "http://kong-admin-host/apis/mockbin",
+    "uri": "http://localhost:8001/apis/mockbin",
   },
   Object {
     "ok": true,
@@ -682,7 +682,7 @@ Array [
     "status": 204,
     "statusText": "No Content",
     "type": "response",
-    "uri": "http://kong-admin-host/apis/mockbin",
+    "uri": "http://localhost:8001/apis/mockbin",
   },
   Object {
     "content": "",

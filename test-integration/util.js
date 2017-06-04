@@ -13,7 +13,6 @@ invariant(process.env.TEST_INTEGRATION_KONG_HOST, `
 `);
 
 const UUIDRegex = /[a-f0-9]{8}-?[a-f0-9]{4}-?4[a-f0-9]{3}-?[89ab][a-f0-9]{3}-?[a-f0-9]{12}/;
-const IPRegex = /(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5]):[0-9]+/;
 let uuids = {};
 let log = [];
 
@@ -29,8 +28,7 @@ export const logger = message => {
     const m = cloneObject(message);
 
     if (m.hasOwnProperty('uri')) {
-        m.uri = m.uri
-            .replace(IPRegex, 'kong-admin-host');
+        m.uri = m.uri.replace(process.env.TEST_INTEGRATION_KONG_HOST, 'localhost:8001');
     }
 
     log.push(ignoreKeys(m, ['created_at']));
