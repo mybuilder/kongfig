@@ -42,17 +42,18 @@ describe("apis", () => {
     });
 
     it("should do no op if api is already removed", () => {
-        var actual = apis([{
+        const api = {
             "name": "leads",
             "ensure": "removed",
             "attributes": {
                 "upstream_url": "bar"
             }
-        }])
+        };
+        var actual = apis([api])
         .map(x => x({hasApi: () => false, getVersion: () => '0.10.0'}));
 
         expect(actual).to.be.eql([
-            noop()
+            noop({ type: 'noop-api', api })
         ]);
     });
 

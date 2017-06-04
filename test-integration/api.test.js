@@ -1,23 +1,11 @@
 import execute from '../src/core';
-import { testAdminApi, ignoreKeys, cleanupKong } from './util';
+import { testAdminApi, logger, ignoreKeys, getLog, tearDown } from './util';
 import readKongApi from '../src/readKongApi';
 
-let log = [];
-const logger = message => {
-    log.push(ignoreKeys(message, ['apiId', 'id', 'api_id', 'created_at']));
-};
-
-beforeAll(async () => {
-    await cleanupKong();
-});
-
-afterEach(async () => {
-    log = [];
-    await cleanupKong();
-});
+beforeEach(tearDown);
 
 describe("API", () => {
-    it("should add an API", async () => {
+    it("should add the API", async () => {
         const config = {
             apis: [{
                 name: "mockbin",
@@ -32,11 +20,54 @@ describe("API", () => {
         await execute(config, testAdminApi, logger);
         const kongState = await readKongApi(testAdminApi);
 
-        expect(log).toMatchSnapshot();
+        expect(getLog()).toMatchSnapshot();
+        expect(ignoreKeys(kongState, ['created_at'])).toMatchSnapshot();
+    });
+
+    it("should not update if already up to date", async () => {
+        const config = {
+            apis: [{
+                name: "mockbin",
+                ensure: "present",
+                attributes: {
+                    upstream_url: "http://mockbin.com",
+                    hosts: ["mockbin.com"]
+                }
+            }]
+        };
+
+        await execute(config, testAdminApi, logger);
+        await execute(config, testAdminApi, logger);
+        const kongState = await readKongApi(testAdminApi);
+
+        expect(getLog()).toMatchSnapshot();
+        expect(ignoreKeys(kongState, ['created_at'])).toMatchSnapshot();
+    });
+
+    it("should remove the api", async () => {
+        const config = {
+            apis: [{
+                name: "mockbin",
+                ensure: "present",
+                attributes: {
+                    upstream_url: "http://mockbin.com",
+                    hosts: ["mockbin.com"]
+                }
+            }]
+        };
+
+        await execute(config, testAdminApi, logger);
+
+        config.apis[0].ensure = 'removed';
+
+        await execute(config, testAdminApi, logger);
+        const kongState = await readKongApi(testAdminApi);
+
+        expect(getLog()).toMatchSnapshot();
         expect(ignoreKeys(kongState, ['created_at', 'id'])).toMatchSnapshot();
     });
 
-    it("should add an API with a plugins", async () => {
+    it("should add mockbin API with a plugins", async () => {
         const config = {
             apis: [{
                 name: "mockbin",
@@ -68,7 +99,7 @@ describe("API", () => {
         await execute(config, testAdminApi, logger);
         const kongState = await readKongApi(testAdminApi);
 
-        expect(log).toMatchSnapshot();
+        expect(getLog()).toMatchSnapshot();
         expect(ignoreKeys(kongState, ['created_at', 'id'])).toMatchSnapshot();
     });
 });

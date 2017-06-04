@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`API should add an API 1`] = `
+exports[`API should add mockbin API with a plugins 1`] = `
 Array [
   Object {
     "params": Object {
@@ -15,8 +15,48 @@ Array [
         "name": "apis",
       },
       "method": "POST",
+      "type": "create-api",
     },
     "type": "action",
+  },
+  Object {
+    "params": Object {
+      "body": Object {
+        "hosts": Array [
+          "mockbin.com",
+        ],
+        "name": "mockbin",
+        "upstream_url": "http://mockbin.com",
+      },
+      "endpoint": Object {
+        "name": "apis",
+      },
+      "method": "POST",
+      "type": "create-api",
+    },
+    "type": "request",
+    "uri": "http://kong-admin-host/apis",
+  },
+  Object {
+    "ok": true,
+    "params": Object {
+      "body": Object {
+        "hosts": Array [
+          "mockbin.com",
+        ],
+        "name": "mockbin",
+        "upstream_url": "http://mockbin.com",
+      },
+      "endpoint": Object {
+        "name": "apis",
+      },
+      "method": "POST",
+      "type": "create-api",
+    },
+    "status": 201,
+    "statusText": "Created",
+    "type": "response",
+    "uri": "http://kong-admin-host/apis",
   },
   Object {
     "content": Object {
@@ -26,7 +66,7 @@ Array [
       ],
       "http_if_terminated": true,
       "https_only": false,
-      "id": "___IGNORED___",
+      "id": "2b47ba9b-761a-492d-9a0c-000000000001",
       "name": "mockbin",
       "preserve_host": false,
       "retries": 5,
@@ -36,18 +76,339 @@ Array [
       "upstream_send_timeout": 60000,
       "upstream_url": "http://mockbin.com",
     },
-    "type": "response-ok",
+    "type": "response-content",
+  },
+  Object {
+    "params": Object {
+      "body": Object {
+        "config": Object {
+          "key_names": Array [
+            "foobar",
+          ],
+        },
+        "name": "key-auth",
+      },
+      "endpoint": Object {
+        "name": "api-plugins",
+        "params": Object {
+          "apiId": "2b47ba9b-761a-492d-9a0c-000000000002",
+          "pluginName": "key-auth",
+        },
+      },
+      "method": "POST",
+      "type": "add-api-plugin",
+    },
+    "type": "action",
+  },
+  Object {
+    "params": Object {
+      "body": Object {
+        "config": Object {
+          "key_names": Array [
+            "foobar",
+          ],
+        },
+        "name": "key-auth",
+      },
+      "endpoint": Object {
+        "name": "api-plugins",
+        "params": Object {
+          "apiId": "2b47ba9b-761a-492d-9a0c-000000000002",
+          "pluginName": "key-auth",
+        },
+      },
+      "method": "POST",
+      "type": "add-api-plugin",
+    },
+    "type": "request",
+    "uri": "http://kong-admin-host/apis/2b47ba9b-761a-492d-9a0c-000000000002/plugins",
+  },
+  Object {
+    "ok": true,
+    "params": Object {
+      "body": Object {
+        "config": Object {
+          "key_names": Array [
+            "foobar",
+          ],
+        },
+        "name": "key-auth",
+      },
+      "endpoint": Object {
+        "name": "api-plugins",
+        "params": Object {
+          "apiId": "2b47ba9b-761a-492d-9a0c-000000000003",
+          "pluginName": "key-auth",
+        },
+      },
+      "method": "POST",
+      "type": "add-api-plugin",
+    },
+    "status": 201,
+    "statusText": "Created",
+    "type": "response",
+    "uri": "http://kong-admin-host/apis/2b47ba9b-761a-492d-9a0c-000000000003/plugins",
+  },
+  Object {
+    "content": Object {
+      "api_id": "2b47ba9b-761a-492d-9a0c-000000000003",
+      "config": Object {
+        "anonymous": "",
+        "hide_credentials": false,
+        "key_in_body": false,
+        "key_names": Array [
+          "foobar",
+        ],
+      },
+      "created_at": "___IGNORED___",
+      "enabled": true,
+      "id": "2b47ba9b-761a-492d-9a0c-000000000003",
+      "name": "key-auth",
+    },
+    "type": "response-content",
+  },
+  Object {
+    "params": Object {
+      "body": Object {
+        "config": Object {
+          "credentials": false,
+          "max_age": 7000,
+          "preflight_continue": false,
+        },
+        "name": "cors",
+      },
+      "endpoint": Object {
+        "name": "api-plugins",
+        "params": Object {
+          "apiId": "2b47ba9b-761a-492d-9a0c-000000000004",
+          "pluginName": "cors",
+        },
+      },
+      "method": "POST",
+      "type": "add-api-plugin",
+    },
+    "type": "action",
+  },
+  Object {
+    "params": Object {
+      "body": Object {
+        "config": Object {
+          "credentials": false,
+          "max_age": 7000,
+          "preflight_continue": false,
+        },
+        "name": "cors",
+      },
+      "endpoint": Object {
+        "name": "api-plugins",
+        "params": Object {
+          "apiId": "2b47ba9b-761a-492d-9a0c-000000000004",
+          "pluginName": "cors",
+        },
+      },
+      "method": "POST",
+      "type": "add-api-plugin",
+    },
+    "type": "request",
+    "uri": "http://kong-admin-host/apis/2b47ba9b-761a-492d-9a0c-000000000004/plugins",
+  },
+  Object {
+    "ok": true,
+    "params": Object {
+      "body": Object {
+        "config": Object {
+          "credentials": false,
+          "max_age": 7000,
+          "preflight_continue": false,
+        },
+        "name": "cors",
+      },
+      "endpoint": Object {
+        "name": "api-plugins",
+        "params": Object {
+          "apiId": "2b47ba9b-761a-492d-9a0c-000000000004",
+          "pluginName": "cors",
+        },
+      },
+      "method": "POST",
+      "type": "add-api-plugin",
+    },
+    "status": 201,
+    "statusText": "Created",
+    "type": "response",
+    "uri": "http://kong-admin-host/apis/2b47ba9b-761a-492d-9a0c-000000000004/plugins",
+  },
+  Object {
+    "content": Object {
+      "api_id": "2b47ba9b-761a-492d-9a0c-000000000004",
+      "config": Object {
+        "credentials": false,
+        "max_age": 7000,
+        "preflight_continue": false,
+      },
+      "created_at": "___IGNORED___",
+      "enabled": true,
+      "id": "2b47ba9b-761a-492d-9a0c-000000000004",
+      "name": "cors",
+    },
+    "type": "response-content",
   },
 ]
 `;
 
-exports[`API should add an API 2`] = `
+exports[`API should add mockbin API with a plugins 2`] = `
 Object {
   "apis": Array [
     Object {
       "_info": Object {
         "created_at": "___IGNORED___",
-        "id": "___IGNORED___",
+        "id": "2b47ba9b-761a-492d-9a0c-000000000005",
+      },
+      "attributes": Object {
+        "hosts": Array [
+          "mockbin.com",
+        ],
+        "http_if_terminated": true,
+        "https_only": false,
+        "preserve_host": false,
+        "retries": 5,
+        "strip_uri": true,
+        "upstream_connect_timeout": 60000,
+        "upstream_read_timeout": 60000,
+        "upstream_send_timeout": 60000,
+        "upstream_url": "http://mockbin.com",
+      },
+      "name": "mockbin",
+      "plugins": Array [
+        Object {
+          "_info": Object {
+            "created_at": "___IGNORED___",
+            "id": "2b47ba9b-761a-492d-9a0c-000000000005",
+          },
+          "attributes": Object {
+            "config": Object {
+              "anonymous": "",
+              "hide_credentials": false,
+              "key_in_body": false,
+              "key_names": Array [
+                "foobar",
+              ],
+            },
+            "enabled": true,
+          },
+          "name": "key-auth",
+        },
+        Object {
+          "_info": Object {
+            "created_at": "___IGNORED___",
+            "id": "2b47ba9b-761a-492d-9a0c-000000000005",
+          },
+          "attributes": Object {
+            "config": Object {
+              "credentials": false,
+              "max_age": 7000,
+              "preflight_continue": false,
+            },
+            "enabled": true,
+          },
+          "name": "cors",
+        },
+      ],
+    },
+  ],
+  "consumers": Array [],
+  "plugins": Array [],
+}
+`;
+
+exports[`API should add the API 1`] = `
+Array [
+  Object {
+    "params": Object {
+      "body": Object {
+        "hosts": Array [
+          "mockbin.com",
+        ],
+        "name": "mockbin",
+        "upstream_url": "http://mockbin.com",
+      },
+      "endpoint": Object {
+        "name": "apis",
+      },
+      "method": "POST",
+      "type": "create-api",
+    },
+    "type": "action",
+  },
+  Object {
+    "params": Object {
+      "body": Object {
+        "hosts": Array [
+          "mockbin.com",
+        ],
+        "name": "mockbin",
+        "upstream_url": "http://mockbin.com",
+      },
+      "endpoint": Object {
+        "name": "apis",
+      },
+      "method": "POST",
+      "type": "create-api",
+    },
+    "type": "request",
+    "uri": "http://kong-admin-host/apis",
+  },
+  Object {
+    "ok": true,
+    "params": Object {
+      "body": Object {
+        "hosts": Array [
+          "mockbin.com",
+        ],
+        "name": "mockbin",
+        "upstream_url": "http://mockbin.com",
+      },
+      "endpoint": Object {
+        "name": "apis",
+      },
+      "method": "POST",
+      "type": "create-api",
+    },
+    "status": 201,
+    "statusText": "Created",
+    "type": "response",
+    "uri": "http://kong-admin-host/apis",
+  },
+  Object {
+    "content": Object {
+      "created_at": "___IGNORED___",
+      "hosts": Array [
+        "mockbin.com",
+      ],
+      "http_if_terminated": true,
+      "https_only": false,
+      "id": "2b47ba9b-761a-492d-9a0c-000000000001",
+      "name": "mockbin",
+      "preserve_host": false,
+      "retries": 5,
+      "strip_uri": true,
+      "upstream_connect_timeout": 60000,
+      "upstream_read_timeout": 60000,
+      "upstream_send_timeout": 60000,
+      "upstream_url": "http://mockbin.com",
+    },
+    "type": "response-content",
+  },
+]
+`;
+
+exports[`API should add the API 2`] = `
+Object {
+  "apis": Array [
+    Object {
+      "_info": Object {
+        "created_at": "___IGNORED___",
+        "id": "2b47ba9b-761a-492d-9a0c-000000000002",
       },
       "attributes": Object {
         "hosts": Array [
@@ -72,7 +433,7 @@ Object {
 }
 `;
 
-exports[`API should add an API with a plugins 1`] = `
+exports[`API should not update if already up to date 1`] = `
 Array [
   Object {
     "params": Object {
@@ -87,8 +448,48 @@ Array [
         "name": "apis",
       },
       "method": "POST",
+      "type": "create-api",
     },
     "type": "action",
+  },
+  Object {
+    "params": Object {
+      "body": Object {
+        "hosts": Array [
+          "mockbin.com",
+        ],
+        "name": "mockbin",
+        "upstream_url": "http://mockbin.com",
+      },
+      "endpoint": Object {
+        "name": "apis",
+      },
+      "method": "POST",
+      "type": "create-api",
+    },
+    "type": "request",
+    "uri": "http://kong-admin-host/apis",
+  },
+  Object {
+    "ok": true,
+    "params": Object {
+      "body": Object {
+        "hosts": Array [
+          "mockbin.com",
+        ],
+        "name": "mockbin",
+        "upstream_url": "http://mockbin.com",
+      },
+      "endpoint": Object {
+        "name": "apis",
+      },
+      "method": "POST",
+      "type": "create-api",
+    },
+    "status": 201,
+    "statusText": "Created",
+    "type": "response",
+    "uri": "http://kong-admin-host/apis",
   },
   Object {
     "content": Object {
@@ -98,7 +499,7 @@ Array [
       ],
       "http_if_terminated": true,
       "https_only": false,
-      "id": "___IGNORED___",
+      "id": "2b47ba9b-761a-492d-9a0c-000000000001",
       "name": "mockbin",
       "preserve_host": false,
       "retries": 5,
@@ -108,93 +509,35 @@ Array [
       "upstream_send_timeout": 60000,
       "upstream_url": "http://mockbin.com",
     },
-    "type": "response-ok",
+    "type": "response-content",
   },
   Object {
     "params": Object {
-      "body": Object {
-        "config": Object {
-          "key_names": Array [
-            "foobar",
+      "api": Object {
+        "attributes": Object {
+          "hosts": Array [
+            "mockbin.com",
           ],
+          "upstream_url": "http://mockbin.com",
         },
-        "name": "key-auth",
+        "ensure": "present",
+        "name": "mockbin",
       },
-      "endpoint": Object {
-        "name": "api-plugins",
-        "params": Object {
-          "apiId": "___IGNORED___",
-          "pluginName": "key-auth",
-        },
-      },
-      "method": "POST",
+      "noop": true,
+      "type": "noop-api",
     },
     "type": "action",
-  },
-  Object {
-    "content": Object {
-      "api_id": "___IGNORED___",
-      "config": Object {
-        "anonymous": "",
-        "hide_credentials": false,
-        "key_in_body": false,
-        "key_names": Array [
-          "foobar",
-        ],
-      },
-      "created_at": "___IGNORED___",
-      "enabled": true,
-      "id": "___IGNORED___",
-      "name": "key-auth",
-    },
-    "type": "response-ok",
-  },
-  Object {
-    "params": Object {
-      "body": Object {
-        "config": Object {
-          "credentials": false,
-          "max_age": 7000,
-          "preflight_continue": false,
-        },
-        "name": "cors",
-      },
-      "endpoint": Object {
-        "name": "api-plugins",
-        "params": Object {
-          "apiId": "___IGNORED___",
-          "pluginName": "cors",
-        },
-      },
-      "method": "POST",
-    },
-    "type": "action",
-  },
-  Object {
-    "content": Object {
-      "api_id": "___IGNORED___",
-      "config": Object {
-        "credentials": false,
-        "max_age": 7000,
-        "preflight_continue": false,
-      },
-      "created_at": "___IGNORED___",
-      "enabled": true,
-      "id": "___IGNORED___",
-      "name": "cors",
-    },
-    "type": "response-ok",
   },
 ]
 `;
 
-exports[`API should add an API with a plugins 2`] = `
+exports[`API should not update if already up to date 2`] = `
 Object {
   "apis": Array [
     Object {
       "_info": Object {
         "created_at": "___IGNORED___",
-        "id": "___IGNORED___",
+        "id": "2b47ba9b-761a-492d-9a0c-000000000002",
       },
       "attributes": Object {
         "hosts": Array [
@@ -211,43 +554,146 @@ Object {
         "upstream_url": "http://mockbin.com",
       },
       "name": "mockbin",
-      "plugins": Array [
-        Object {
-          "_info": Object {
-            "created_at": "___IGNORED___",
-            "id": "___IGNORED___",
-          },
-          "attributes": Object {
-            "config": Object {
-              "anonymous": "",
-              "hide_credentials": false,
-              "key_in_body": false,
-              "key_names": Array [
-                "foobar",
-              ],
-            },
-            "enabled": true,
-          },
-          "name": "key-auth",
-        },
-        Object {
-          "_info": Object {
-            "created_at": "___IGNORED___",
-            "id": "___IGNORED___",
-          },
-          "attributes": Object {
-            "config": Object {
-              "credentials": false,
-              "max_age": 7000,
-              "preflight_continue": false,
-            },
-            "enabled": true,
-          },
-          "name": "cors",
-        },
-      ],
+      "plugins": Array [],
     },
   ],
+  "consumers": Array [],
+  "plugins": Array [],
+}
+`;
+
+exports[`API should remove the api 1`] = `
+Array [
+  Object {
+    "params": Object {
+      "body": Object {
+        "hosts": Array [
+          "mockbin.com",
+        ],
+        "name": "mockbin",
+        "upstream_url": "http://mockbin.com",
+      },
+      "endpoint": Object {
+        "name": "apis",
+      },
+      "method": "POST",
+      "type": "create-api",
+    },
+    "type": "action",
+  },
+  Object {
+    "params": Object {
+      "body": Object {
+        "hosts": Array [
+          "mockbin.com",
+        ],
+        "name": "mockbin",
+        "upstream_url": "http://mockbin.com",
+      },
+      "endpoint": Object {
+        "name": "apis",
+      },
+      "method": "POST",
+      "type": "create-api",
+    },
+    "type": "request",
+    "uri": "http://kong-admin-host/apis",
+  },
+  Object {
+    "ok": true,
+    "params": Object {
+      "body": Object {
+        "hosts": Array [
+          "mockbin.com",
+        ],
+        "name": "mockbin",
+        "upstream_url": "http://mockbin.com",
+      },
+      "endpoint": Object {
+        "name": "apis",
+      },
+      "method": "POST",
+      "type": "create-api",
+    },
+    "status": 201,
+    "statusText": "Created",
+    "type": "response",
+    "uri": "http://kong-admin-host/apis",
+  },
+  Object {
+    "content": Object {
+      "created_at": "___IGNORED___",
+      "hosts": Array [
+        "mockbin.com",
+      ],
+      "http_if_terminated": true,
+      "https_only": false,
+      "id": "2b47ba9b-761a-492d-9a0c-000000000001",
+      "name": "mockbin",
+      "preserve_host": false,
+      "retries": 5,
+      "strip_uri": true,
+      "upstream_connect_timeout": 60000,
+      "upstream_read_timeout": 60000,
+      "upstream_send_timeout": 60000,
+      "upstream_url": "http://mockbin.com",
+    },
+    "type": "response-content",
+  },
+  Object {
+    "params": Object {
+      "endpoint": Object {
+        "name": "api",
+        "params": Object {
+          "name": "mockbin",
+        },
+      },
+      "method": "DELETE",
+      "type": "remove-api",
+    },
+    "type": "action",
+  },
+  Object {
+    "params": Object {
+      "endpoint": Object {
+        "name": "api",
+        "params": Object {
+          "name": "mockbin",
+        },
+      },
+      "method": "DELETE",
+      "type": "remove-api",
+    },
+    "type": "request",
+    "uri": "http://kong-admin-host/apis/mockbin",
+  },
+  Object {
+    "ok": true,
+    "params": Object {
+      "endpoint": Object {
+        "name": "api",
+        "params": Object {
+          "name": "mockbin",
+        },
+      },
+      "method": "DELETE",
+      "type": "remove-api",
+    },
+    "status": 204,
+    "statusText": "No Content",
+    "type": "response",
+    "uri": "http://kong-admin-host/apis/mockbin",
+  },
+  Object {
+    "content": "",
+    "type": "response-content",
+  },
+]
+`;
+
+exports[`API should remove the api 2`] = `
+Object {
+  "apis": Array [],
   "consumers": Array [],
   "plugins": Array [],
 }

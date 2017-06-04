@@ -73,6 +73,14 @@ export function acls(username, acls) {
     return acls.reduce((actions, acl) => [...actions, _consumerAcl(username, acl)], []);
 }
 
+function parseResponseContent(content) {
+    try {
+        return JSON.parse(content);
+    } catch (e) {}
+
+    return content;
+}
+
 function _executeActionOnApi(action, adminApi, logger) {
     return async () => {
         const params = await action();
@@ -83,36 +91,37 @@ function _executeActionOnApi(action, adminApi, logger) {
             return Promise.resolve('No-op');
         }
 
+        logger({ type: 'request', params, uri: adminApi.router(params.endpoint) });
+
         return adminApi
             .requestEndpoint(params.endpoint, params)
             .then(response => {
-                console.info(
-                    `\n${params.method.blue}`,
-                    response.ok ? ('' + response.status).bold.green : ('' + response.status).bold.red,
-                    adminApi.router(params.endpoint).blue,
-                    "\n",
-                    params.body ? params.body : ''
-                );
+                logger({
+                    type: 'response',
+                    ok: response.ok,
+                    uri: adminApi.router(params.endpoint),
+                    status: response.status,
+                    statusText: response.statusText,
+                    params,
+                });
 
                 if (!response.ok) {
                     if (params.endpoint.name == 'consumer' && params.method == 'DELETE') {
-                        console.log('Bug in Kong throws error, Consumer has still been removed will continue'.bold.green);
+                        logger({ type: 'debug', message: 'Bug in Kong throws error, Consumer has still been removed will continue'});
 
                         return response;
                     }
 
                     return response.text()
                         .then(content => {
-                            logger({ type: 'response-error', content: JSON.parse(content) });
+                            logger({ type: 'response-error', statusText: response.statusText, content: parseResponseContent(content) });
 
                             throw new Error(`${response.statusText}\n${content}`);
                         });
                 } else {
                     response.text()
                         .then(content => {
-                            logger({ type: 'response-ok', content: JSON.parse(content) });
-
-                            console.info(`Response status ${response.statusText}:`.green, "\n", JSON.parse(content));
+                            logger({ type: 'response-content', content: parseResponseContent(content) });
                         });
                 }
 
@@ -321,14 +330,12 @@ function _api(api) {
 
     return migrateApiDefinition(api, (api, world) => {
         if (api.ensure == 'removed') {
-            return world.hasApi(api.name) ? removeApi(api.name) : noop();
+            return world.hasApi(api.name) ? removeApi(api.name) : noop({ type: 'noop-api', api });
         }
 
         if (world.hasApi(api.name)) {
             if (world.isApiUpToDate(api)) {
-                console.log("api", `${api.name}`.bold, "is up-to-date");
-
-                return noop();
+                return noop({ type: 'noop-api', api });
             }
 
             return updateApi(api.name, api.attributes);
@@ -376,14 +383,12 @@ function _plugin(apiName, plugin) {
                 return removeApiPlugin(world.getApiId(apiName), world.getPluginId(apiName, plugin.name));
             }
 
-            return noop();
+            return noop({ type: 'noop-plugin', plugin });
         }
 
         if (world.hasPlugin(apiName, plugin.name)) {
             if (world.isApiPluginUpToDate(apiName, plugin)) {
-                console.log("  - plugin", `${plugin.name}`.bold, "is up-to-date".green);
-
-                return noop();
+                return noop({ type: 'noop-plugin', plugin });
             }
 
             return updateApiPlugin(world.getApiId(apiName), world.getPluginId(apiName, plugin.name), plugin.attributes);
@@ -402,14 +407,12 @@ function _globalPlugin(plugin) {
                 return removeGlobalPlugin(world.getGlobalPluginId(plugin.name));
             }
 
-            return noop();
+            return noop({ type: 'noop-global-plugin', plugin });
         }
 
         if (world.hasGlobalPlugin(plugin.name)) {
             if (world.isGlobalPluginUpToDate(plugin)) {
-                console.log("  - global plugin", `${plugin.name}`.bold, "is up-to-date".green);
-
-                return noop();
+                return noop({ type: 'noop-global-plugin', plugin });
             }
 
             return updateGlobalPlugin(world.getGlobalPluginId(plugin.name), plugin.attributes);
@@ -429,7 +432,7 @@ function _consumer(consumer) {
                 return removeConsumer(world.getConsumerId(consumer.username));
             }
 
-            return noop();
+            return noop({ type: 'noop-consumer', consumer });
         }
 
         if (!world.hasConsumer(consumer.username)) {
@@ -440,9 +443,7 @@ function _consumer(consumer) {
             return updateConsumer(world.getConsumerId(consumer.username), { username: consumer.username, custom_id: consumer.custom_id });
         }
 
-        console.log("consumer", `${consumer.username}`.bold);
-
-        return noop();
+        return noop({ type: 'noop-consumer', consumer });
     }
 
     let _credentials = [];
@@ -486,7 +487,7 @@ function _consumerCredential(username, credential) {
                 return removeConsumerCredentials(world.getConsumerId(username), credential.name, credentialId);
             }
 
-            return noop();
+            return noop({ type: 'noop-credential', credential, credentialIdName });
         }
 
         if (world.hasConsumerCredential(username, credential.name, credential.attributes)) {
@@ -494,9 +495,8 @@ function _consumerCredential(username, credential) {
 
             if (world.isConsumerCredentialUpToDate(username, credential)) {
                 const credentialIdName = getConsumerCredentialSchema(credential.name).id;
-                console.log("  - credential", `${credential.name}`.bold, `with ${credentialIdName}:`, `${credential.attributes[credentialIdName]}`.bold, "is up-to-date".green);
 
-                return noop();
+                return noop({ type: 'noop-credential', credential, credentialIdName });
             }
 
             return updateConsumerCredentials(world.getConsumerId(username), credential.name, credentialId, credential.attributes);
@@ -547,11 +547,11 @@ function _consumerAcl(username, acl) {
                 return removeConsumerAcls(world.getConsumerId(username), aclId);
             }
 
-            return noop();
+            return noop({ type: 'noop-acl', acl });
         }
 
         if (world.hasConsumerAcl(username, acl.group)) {
-            return noop();
+            return noop({ type: 'noop-acl', acl });
         }
 
         return addConsumerAcls(world.getConsumerId(username), acl.group);
