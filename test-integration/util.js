@@ -7,7 +7,7 @@ import pad from 'pad';
 invariant(process.env.TEST_INTEGRATION_KONG_HOST, `
     Please set ${'TEST_INTEGRATION_KONG_HOST'.bold} env variable
 
-    TEST_INTEGRATION_KONG_HOST=localhost:8001 npm test
+    TEST_INTEGRATION_KONG_HOST=localhost:8001 yarn test
 
     ${'WARNING! Running integration tests are going to remove all data from the kong'.red.bold}.
 `);
