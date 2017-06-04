@@ -1,6 +1,6 @@
-import adminApi from '../src/adminApi';
-import readKongApi from '../src/readKongApi';
-import execute from '../src/core';
+import adminApi from '../lib/adminApi';
+import readKongApi from '../lib/readKongApi';
+import execute from '../lib/core';
 import invariant from 'invariant';
 
 invariant(process.env.TEST_INTEGRATION_KONG_HOST, `

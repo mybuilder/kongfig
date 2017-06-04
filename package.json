@@ -8,6 +8,7 @@
   },
   "preferGlobal": true,
   "scripts": {
+    "pretest": "npm run build",
     "test": "jest",
     "build": "babel src --out-dir lib",
     "preversion": "npm test",
@@ -40,6 +41,10 @@
     "testMatch": [
       "<rootDir>/test/*.js",
       "<rootDir>/test-integration/*.test.js"
+    ],
+    "transformIgnorePatterns": [
+      "<rootDir>/node_modules/",
+      "<rootDir>/lib/"
     ]
   }
 }
