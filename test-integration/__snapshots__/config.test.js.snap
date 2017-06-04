@@ -339,6 +339,123 @@ Array [
   Object {
     "params": Object {
       "body": Object {
+        "username": "iphone-app",
+      },
+      "endpoint": Object {
+        "name": "consumers",
+      },
+      "method": "POST",
+      "type": "create-customer",
+    },
+    "type": "action",
+  },
+  Object {
+    "params": Object {
+      "body": Object {
+        "username": "iphone-app",
+      },
+      "endpoint": Object {
+        "name": "consumers",
+      },
+      "method": "POST",
+      "type": "create-customer",
+    },
+    "type": "request",
+    "uri": "http://localhost:8001/consumers",
+  },
+  Object {
+    "ok": true,
+    "params": Object {
+      "body": Object {
+        "username": "iphone-app",
+      },
+      "endpoint": Object {
+        "name": "consumers",
+      },
+      "method": "POST",
+      "type": "create-customer",
+    },
+    "status": 201,
+    "statusText": "Created",
+    "type": "response",
+    "uri": "http://localhost:8001/consumers",
+  },
+  Object {
+    "content": Object {
+      "created_at": "___created_at___",
+      "id": "2b47ba9b-761a-492d-9a0c-000000000001",
+      "username": "iphone-app",
+    },
+    "type": "response-content",
+  },
+  Object {
+    "params": Object {
+      "body": Object {
+        "key": "very-secret-key",
+      },
+      "endpoint": Object {
+        "name": "consumer-credentials",
+        "params": Object {
+          "consumerId": "2b47ba9b-761a-492d-9a0c-000000000002",
+          "plugin": "key-auth",
+        },
+      },
+      "method": "POST",
+      "type": "add-customer-credential",
+    },
+    "type": "action",
+  },
+  Object {
+    "params": Object {
+      "body": Object {
+        "key": "very-secret-key",
+      },
+      "endpoint": Object {
+        "name": "consumer-credentials",
+        "params": Object {
+          "consumerId": "2b47ba9b-761a-492d-9a0c-000000000002",
+          "plugin": "key-auth",
+        },
+      },
+      "method": "POST",
+      "type": "add-customer-credential",
+    },
+    "type": "request",
+    "uri": "http://localhost:8001/consumers/2b47ba9b-761a-492d-9a0c-000000000002/key-auth",
+  },
+  Object {
+    "ok": true,
+    "params": Object {
+      "body": Object {
+        "key": "very-secret-key",
+      },
+      "endpoint": Object {
+        "name": "consumer-credentials",
+        "params": Object {
+          "consumerId": "2b47ba9b-761a-492d-9a0c-000000000002",
+          "plugin": "key-auth",
+        },
+      },
+      "method": "POST",
+      "type": "add-customer-credential",
+    },
+    "status": 201,
+    "statusText": "Created",
+    "type": "response",
+    "uri": "http://localhost:8001/consumers/2b47ba9b-761a-492d-9a0c-000000000002/key-auth",
+  },
+  Object {
+    "content": Object {
+      "consumer_id": "2b47ba9b-761a-492d-9a0c-000000000002",
+      "created_at": "___created_at___",
+      "id": "2b47ba9b-761a-492d-9a0c-000000000002",
+      "key": "very-secret-key",
+    },
+    "type": "response-content",
+  },
+  Object {
+    "params": Object {
+      "body": Object {
         "hosts": Array [
           "mockbin.com",
         ],
@@ -400,7 +517,7 @@ Array [
       ],
       "http_if_terminated": true,
       "https_only": false,
-      "id": "2b47ba9b-761a-492d-9a0c-000000000001",
+      "id": "2b47ba9b-761a-492d-9a0c-000000000003",
       "name": "mockbin",
       "preserve_host": false,
       "retries": 5,
@@ -425,7 +542,7 @@ Array [
       "endpoint": Object {
         "name": "api-plugins",
         "params": Object {
-          "apiId": "2b47ba9b-761a-492d-9a0c-000000000002",
+          "apiId": "2b47ba9b-761a-492d-9a0c-000000000004",
           "pluginName": "key-auth",
         },
       },
@@ -447,7 +564,7 @@ Array [
       "endpoint": Object {
         "name": "api-plugins",
         "params": Object {
-          "apiId": "2b47ba9b-761a-492d-9a0c-000000000002",
+          "apiId": "2b47ba9b-761a-492d-9a0c-000000000004",
           "pluginName": "key-auth",
         },
       },
@@ -455,7 +572,7 @@ Array [
       "type": "add-api-plugin",
     },
     "type": "request",
-    "uri": "http://localhost:8001/apis/2b47ba9b-761a-492d-9a0c-000000000002/plugins",
+    "uri": "http://localhost:8001/apis/2b47ba9b-761a-492d-9a0c-000000000004/plugins",
   },
   Object {
     "ok": true,
@@ -471,7 +588,7 @@ Array [
       "endpoint": Object {
         "name": "api-plugins",
         "params": Object {
-          "apiId": "2b47ba9b-761a-492d-9a0c-000000000002",
+          "apiId": "2b47ba9b-761a-492d-9a0c-000000000004",
           "pluginName": "key-auth",
         },
       },
@@ -481,11 +598,11 @@ Array [
     "status": 201,
     "statusText": "Created",
     "type": "response",
-    "uri": "http://localhost:8001/apis/2b47ba9b-761a-492d-9a0c-000000000002/plugins",
+    "uri": "http://localhost:8001/apis/2b47ba9b-761a-492d-9a0c-000000000004/plugins",
   },
   Object {
     "content": Object {
-      "api_id": "2b47ba9b-761a-492d-9a0c-000000000002",
+      "api_id": "2b47ba9b-761a-492d-9a0c-000000000004",
       "config": Object {
         "anonymous": "",
         "hide_credentials": false,
@@ -496,125 +613,8 @@ Array [
       },
       "created_at": "___created_at___",
       "enabled": true,
-      "id": "2b47ba9b-761a-492d-9a0c-000000000002",
-      "name": "key-auth",
-    },
-    "type": "response-content",
-  },
-  Object {
-    "params": Object {
-      "body": Object {
-        "username": "iphone-app",
-      },
-      "endpoint": Object {
-        "name": "consumers",
-      },
-      "method": "POST",
-      "type": "create-customer",
-    },
-    "type": "action",
-  },
-  Object {
-    "params": Object {
-      "body": Object {
-        "username": "iphone-app",
-      },
-      "endpoint": Object {
-        "name": "consumers",
-      },
-      "method": "POST",
-      "type": "create-customer",
-    },
-    "type": "request",
-    "uri": "http://localhost:8001/consumers",
-  },
-  Object {
-    "ok": true,
-    "params": Object {
-      "body": Object {
-        "username": "iphone-app",
-      },
-      "endpoint": Object {
-        "name": "consumers",
-      },
-      "method": "POST",
-      "type": "create-customer",
-    },
-    "status": 201,
-    "statusText": "Created",
-    "type": "response",
-    "uri": "http://localhost:8001/consumers",
-  },
-  Object {
-    "content": Object {
-      "created_at": "___created_at___",
-      "id": "2b47ba9b-761a-492d-9a0c-000000000003",
-      "username": "iphone-app",
-    },
-    "type": "response-content",
-  },
-  Object {
-    "params": Object {
-      "body": Object {
-        "key": "very-secret-key",
-      },
-      "endpoint": Object {
-        "name": "consumer-credentials",
-        "params": Object {
-          "consumerId": "2b47ba9b-761a-492d-9a0c-000000000004",
-          "plugin": "key-auth",
-        },
-      },
-      "method": "POST",
-      "type": "add-customer-credential",
-    },
-    "type": "action",
-  },
-  Object {
-    "params": Object {
-      "body": Object {
-        "key": "very-secret-key",
-      },
-      "endpoint": Object {
-        "name": "consumer-credentials",
-        "params": Object {
-          "consumerId": "2b47ba9b-761a-492d-9a0c-000000000004",
-          "plugin": "key-auth",
-        },
-      },
-      "method": "POST",
-      "type": "add-customer-credential",
-    },
-    "type": "request",
-    "uri": "http://localhost:8001/consumers/2b47ba9b-761a-492d-9a0c-000000000004/key-auth",
-  },
-  Object {
-    "ok": true,
-    "params": Object {
-      "body": Object {
-        "key": "very-secret-key",
-      },
-      "endpoint": Object {
-        "name": "consumer-credentials",
-        "params": Object {
-          "consumerId": "2b47ba9b-761a-492d-9a0c-000000000004",
-          "plugin": "key-auth",
-        },
-      },
-      "method": "POST",
-      "type": "add-customer-credential",
-    },
-    "status": 201,
-    "statusText": "Created",
-    "type": "response",
-    "uri": "http://localhost:8001/consumers/2b47ba9b-761a-492d-9a0c-000000000004/key-auth",
-  },
-  Object {
-    "content": Object {
-      "consumer_id": "2b47ba9b-761a-492d-9a0c-000000000004",
-      "created_at": "___created_at___",
       "id": "2b47ba9b-761a-492d-9a0c-000000000004",
-      "key": "very-secret-key",
+      "name": "key-auth",
     },
     "type": "response-content",
   },
