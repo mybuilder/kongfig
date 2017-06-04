@@ -15,7 +15,7 @@ const isValueDifferent = (a, b) => {
     return JSON.stringify(a) !== JSON.stringify(b);
 }
 
-export default (defined, server) => {
+export default (defined = {}, server = {}) => {
     const keys = Object.keys(defined);
 
     return keys.reduce((changed, key) => {
