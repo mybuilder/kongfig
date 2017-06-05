@@ -95,37 +95,26 @@ function _executeActionOnApi(action, adminApi, logger) {
 
         return adminApi
             .requestEndpoint(params.endpoint, params)
-            .then(response => {
-                logger({
+            .then(response => Promise.all([
+                {
                     type: 'response',
                     ok: response.ok,
                     uri: adminApi.router(params.endpoint),
                     status: response.status,
                     statusText: response.statusText,
                     params,
-                });
+                },
+                response.text()
+            ]))
+            .then(([response, content]) => {
+                logger({ ...response, content: parseResponseContent(content) });
 
                 if (!response.ok) {
-                    if (params.endpoint.name == 'consumer' && params.method == 'DELETE') {
-                        logger({ type: 'debug', message: 'Bug in Kong throws error, Consumer has still been removed will continue'});
+                    const error = new Error(`${response.statusText}\n${content}`);
+                    error.response = response;
 
-                        return response;
-                    }
-
-                    return response.text()
-                        .then(content => {
-                            logger({ type: 'response-error', statusText: response.statusText, content: parseResponseContent(content) });
-
-                            throw new Error(`${response.statusText}\n${content}`);
-                        });
-                } else {
-                    response.text()
-                        .then(content => {
-                            logger({ type: 'response-content', content: parseResponseContent(content) });
-                        });
+                    throw error;
                 }
-
-                return response;
             });
         }
 }

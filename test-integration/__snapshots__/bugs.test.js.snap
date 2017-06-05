@@ -38,6 +38,16 @@ Array [
     "uri": "http://localhost:8001/plugins",
   },
   Object {
+    "content": Object {
+      "config": Object {
+        "credentials": false,
+        "preflight_continue": false,
+      },
+      "created_at": "___created_at___",
+      "enabled": true,
+      "id": "2b47ba9b-761a-492d-9a0c-000000000001",
+      "name": "cors",
+    },
     "ok": true,
     "params": Object {
       "body": Object {
@@ -57,19 +67,6 @@ Array [
     "statusText": "Created",
     "type": "response",
     "uri": "http://localhost:8001/plugins",
-  },
-  Object {
-    "content": Object {
-      "config": Object {
-        "credentials": false,
-        "preflight_continue": false,
-      },
-      "created_at": "___created_at___",
-      "enabled": true,
-      "id": "2b47ba9b-761a-492d-9a0c-000000000001",
-      "name": "cors",
-    },
-    "type": "response-content",
   },
   Object {
     "params": Object {

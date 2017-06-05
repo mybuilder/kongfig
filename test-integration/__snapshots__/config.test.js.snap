@@ -30,6 +30,11 @@ Array [
     "uri": "http://localhost:8001/consumers",
   },
   Object {
+    "content": Object {
+      "created_at": "___created_at___",
+      "id": "2b47ba9b-761a-492d-9a0c-000000000001",
+      "username": "iphone-app",
+    },
     "ok": true,
     "params": Object {
       "body": Object {
@@ -47,14 +52,6 @@ Array [
     "uri": "http://localhost:8001/consumers",
   },
   Object {
-    "content": Object {
-      "created_at": "___created_at___",
-      "id": "2b47ba9b-761a-492d-9a0c-000000000001",
-      "username": "iphone-app",
-    },
-    "type": "response-content",
-  },
-  Object {
     "params": Object {
       "body": Object {
         "key": "very-secret-key",
@@ -87,27 +84,6 @@ Array [
       "type": "add-customer-credential",
     },
     "type": "request",
-    "uri": "http://localhost:8001/consumers/2b47ba9b-761a-492d-9a0c-000000000002/key-auth",
-  },
-  Object {
-    "ok": true,
-    "params": Object {
-      "body": Object {
-        "key": "very-secret-key",
-      },
-      "endpoint": Object {
-        "name": "consumer-credentials",
-        "params": Object {
-          "consumerId": "2b47ba9b-761a-492d-9a0c-000000000002",
-          "plugin": "key-auth",
-        },
-      },
-      "method": "POST",
-      "type": "add-customer-credential",
-    },
-    "status": 201,
-    "statusText": "Created",
-    "type": "response",
     "uri": "http://localhost:8001/consumers/2b47ba9b-761a-492d-9a0c-000000000002/key-auth",
   },
   Object {
@@ -117,7 +93,25 @@ Array [
       "id": "2b47ba9b-761a-492d-9a0c-000000000002",
       "key": "very-secret-key",
     },
-    "type": "response-content",
+    "ok": true,
+    "params": Object {
+      "body": Object {
+        "key": "very-secret-key",
+      },
+      "endpoint": Object {
+        "name": "consumer-credentials",
+        "params": Object {
+          "consumerId": "2b47ba9b-761a-492d-9a0c-000000000002",
+          "plugin": "key-auth",
+        },
+      },
+      "method": "POST",
+      "type": "add-customer-credential",
+    },
+    "status": 201,
+    "statusText": "Created",
+    "type": "response",
+    "uri": "http://localhost:8001/consumers/2b47ba9b-761a-492d-9a0c-000000000002/key-auth",
   },
   Object {
     "params": Object {
@@ -153,6 +147,12 @@ Array [
     "uri": "http://localhost:8001/consumers/2b47ba9b-761a-492d-9a0c-000000000003/acls",
   },
   Object {
+    "content": Object {
+      "consumer_id": "2b47ba9b-761a-492d-9a0c-000000000003",
+      "created_at": "___created_at___",
+      "group": "foo-group",
+      "id": "2b47ba9b-761a-492d-9a0c-000000000003",
+    },
     "ok": true,
     "params": Object {
       "body": Object {
@@ -171,15 +171,6 @@ Array [
     "statusText": "Created",
     "type": "response",
     "uri": "http://localhost:8001/consumers/2b47ba9b-761a-492d-9a0c-000000000003/acls",
-  },
-  Object {
-    "content": Object {
-      "consumer_id": "2b47ba9b-761a-492d-9a0c-000000000003",
-      "created_at": "___created_at___",
-      "group": "foo-group",
-      "id": "2b47ba9b-761a-492d-9a0c-000000000003",
-    },
-    "type": "response-content",
   },
 ]
 `;
@@ -269,6 +260,17 @@ Array [
     "uri": "http://localhost:8001/plugins",
   },
   Object {
+    "content": Object {
+      "config": Object {
+        "credentials": false,
+        "max_age": 7000,
+        "preflight_continue": false,
+      },
+      "created_at": "___created_at___",
+      "enabled": true,
+      "id": "2b47ba9b-761a-492d-9a0c-000000000001",
+      "name": "cors",
+    },
     "ok": true,
     "params": Object {
       "body": Object {
@@ -292,20 +294,6 @@ Array [
     "statusText": "Created",
     "type": "response",
     "uri": "http://localhost:8001/plugins",
-  },
-  Object {
-    "content": Object {
-      "config": Object {
-        "credentials": false,
-        "max_age": 7000,
-        "preflight_continue": false,
-      },
-      "created_at": "___created_at___",
-      "enabled": true,
-      "id": "2b47ba9b-761a-492d-9a0c-000000000001",
-      "name": "cors",
-    },
-    "type": "response-content",
   },
 ]
 `;
@@ -364,6 +352,11 @@ Array [
     "uri": "http://localhost:8001/consumers",
   },
   Object {
+    "content": Object {
+      "created_at": "___created_at___",
+      "id": "2b47ba9b-761a-492d-9a0c-000000000001",
+      "username": "iphone-app",
+    },
     "ok": true,
     "params": Object {
       "body": Object {
@@ -381,14 +374,6 @@ Array [
     "uri": "http://localhost:8001/consumers",
   },
   Object {
-    "content": Object {
-      "created_at": "___created_at___",
-      "id": "2b47ba9b-761a-492d-9a0c-000000000001",
-      "username": "iphone-app",
-    },
-    "type": "response-content",
-  },
-  Object {
     "params": Object {
       "body": Object {
         "key": "very-secret-key",
@@ -421,27 +406,6 @@ Array [
       "type": "add-customer-credential",
     },
     "type": "request",
-    "uri": "http://localhost:8001/consumers/2b47ba9b-761a-492d-9a0c-000000000002/key-auth",
-  },
-  Object {
-    "ok": true,
-    "params": Object {
-      "body": Object {
-        "key": "very-secret-key",
-      },
-      "endpoint": Object {
-        "name": "consumer-credentials",
-        "params": Object {
-          "consumerId": "2b47ba9b-761a-492d-9a0c-000000000002",
-          "plugin": "key-auth",
-        },
-      },
-      "method": "POST",
-      "type": "add-customer-credential",
-    },
-    "status": 201,
-    "statusText": "Created",
-    "type": "response",
     "uri": "http://localhost:8001/consumers/2b47ba9b-761a-492d-9a0c-000000000002/key-auth",
   },
   Object {
@@ -451,7 +415,25 @@ Array [
       "id": "2b47ba9b-761a-492d-9a0c-000000000002",
       "key": "very-secret-key",
     },
-    "type": "response-content",
+    "ok": true,
+    "params": Object {
+      "body": Object {
+        "key": "very-secret-key",
+      },
+      "endpoint": Object {
+        "name": "consumer-credentials",
+        "params": Object {
+          "consumerId": "2b47ba9b-761a-492d-9a0c-000000000002",
+          "plugin": "key-auth",
+        },
+      },
+      "method": "POST",
+      "type": "add-customer-credential",
+    },
+    "status": 201,
+    "statusText": "Created",
+    "type": "response",
+    "uri": "http://localhost:8001/consumers/2b47ba9b-761a-492d-9a0c-000000000002/key-auth",
   },
   Object {
     "params": Object {
@@ -486,27 +468,6 @@ Array [
       "type": "create-api",
     },
     "type": "request",
-    "uri": "http://localhost:8001/apis",
-  },
-  Object {
-    "ok": true,
-    "params": Object {
-      "body": Object {
-        "hosts": Array [
-          "mockbin.com",
-        ],
-        "name": "mockbin",
-        "upstream_url": "http://mockbin.com",
-      },
-      "endpoint": Object {
-        "name": "apis",
-      },
-      "method": "POST",
-      "type": "create-api",
-    },
-    "status": 201,
-    "statusText": "Created",
-    "type": "response",
     "uri": "http://localhost:8001/apis",
   },
   Object {
@@ -527,7 +488,25 @@ Array [
       "upstream_send_timeout": 60000,
       "upstream_url": "http://mockbin.com",
     },
-    "type": "response-content",
+    "ok": true,
+    "params": Object {
+      "body": Object {
+        "hosts": Array [
+          "mockbin.com",
+        ],
+        "name": "mockbin",
+        "upstream_url": "http://mockbin.com",
+      },
+      "endpoint": Object {
+        "name": "apis",
+      },
+      "method": "POST",
+      "type": "create-api",
+    },
+    "status": 201,
+    "statusText": "Created",
+    "type": "response",
+    "uri": "http://localhost:8001/apis",
   },
   Object {
     "params": Object {
@@ -575,6 +554,21 @@ Array [
     "uri": "http://localhost:8001/apis/2b47ba9b-761a-492d-9a0c-000000000004/plugins",
   },
   Object {
+    "content": Object {
+      "api_id": "2b47ba9b-761a-492d-9a0c-000000000004",
+      "config": Object {
+        "anonymous": "",
+        "hide_credentials": false,
+        "key_in_body": false,
+        "key_names": Array [
+          "very-secret-key",
+        ],
+      },
+      "created_at": "___created_at___",
+      "enabled": true,
+      "id": "2b47ba9b-761a-492d-9a0c-000000000004",
+      "name": "key-auth",
+    },
     "ok": true,
     "params": Object {
       "body": Object {
@@ -599,24 +593,6 @@ Array [
     "statusText": "Created",
     "type": "response",
     "uri": "http://localhost:8001/apis/2b47ba9b-761a-492d-9a0c-000000000004/plugins",
-  },
-  Object {
-    "content": Object {
-      "api_id": "2b47ba9b-761a-492d-9a0c-000000000004",
-      "config": Object {
-        "anonymous": "",
-        "hide_credentials": false,
-        "key_in_body": false,
-        "key_names": Array [
-          "very-secret-key",
-        ],
-      },
-      "created_at": "___created_at___",
-      "enabled": true,
-      "id": "2b47ba9b-761a-492d-9a0c-000000000004",
-      "name": "key-auth",
-    },
-    "type": "response-content",
   },
 ]
 `;
@@ -731,6 +707,23 @@ Array [
     "uri": "http://localhost:8001/apis",
   },
   Object {
+    "content": Object {
+      "created_at": "___created_at___",
+      "hosts": Array [
+        "mockbin.com",
+      ],
+      "http_if_terminated": true,
+      "https_only": false,
+      "id": "2b47ba9b-761a-492d-9a0c-000000000001",
+      "name": "mockbin",
+      "preserve_host": false,
+      "retries": 5,
+      "strip_uri": true,
+      "upstream_connect_timeout": 60000,
+      "upstream_read_timeout": 60000,
+      "upstream_send_timeout": 60000,
+      "upstream_url": "http://mockbin.com",
+    },
     "ok": true,
     "params": Object {
       "body": Object {
@@ -750,26 +743,6 @@ Array [
     "statusText": "Created",
     "type": "response",
     "uri": "http://localhost:8001/apis",
-  },
-  Object {
-    "content": Object {
-      "created_at": "___created_at___",
-      "hosts": Array [
-        "mockbin.com",
-      ],
-      "http_if_terminated": true,
-      "https_only": false,
-      "id": "2b47ba9b-761a-492d-9a0c-000000000001",
-      "name": "mockbin",
-      "preserve_host": false,
-      "retries": 5,
-      "strip_uri": true,
-      "upstream_connect_timeout": 60000,
-      "upstream_read_timeout": 60000,
-      "upstream_send_timeout": 60000,
-      "upstream_url": "http://mockbin.com",
-    },
-    "type": "response-content",
   },
 ]
 `;

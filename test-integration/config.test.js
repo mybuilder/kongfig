@@ -29,8 +29,7 @@ const addExampleFile = (configPath, filename, log) => {
         switch (log.type) {
         case 'action': return append(content, header(replaceDashWithSpace(log.params.type), 3));
         case 'request': return append(content, codeBlock(requestToCurl(log.uri, log.params.method, log.params.body), 'sh'));
-        case 'response': return append(content, codeBlock(`HTTP ${log.status} ${log.statusText}`));
-        case 'response-content': return append(content, codeBlock(JSON.stringify(log.content, null, 2)));
+        case 'response': return append(content, codeBlock(`HTTP ${log.status} ${log.statusText}`), codeBlock(JSON.stringify(log.content, null, 2)));
 
         default: return content;
         }

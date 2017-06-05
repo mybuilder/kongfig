@@ -37,11 +37,10 @@ export const screenLogger = createLogHandler({
     request: ({ uri, params: { method, body } }) => console.log(
         `\n${method.bold.blue}`, uri.blue, "\n", body ? body : ''
     ),
-    response: ({ ok, status, statusText }) => console.log(
+    response: ({ ok, status, statusText, content }) => console.log(
         ok ? `${status} ${statusText.bold}`.green : `${status} ${statusText.bold}`.red,
+        content
     ),
-    'response-content': ({ content }) => console.log(content),
-    'response-error': ({ statusText, content }) => console.error(`${statusText.bold}`.red, content),
     debug: () => {},
     unknown: message => console.log('unknown', message),
 });

@@ -38,6 +38,23 @@ Array [
     "uri": "http://localhost:8001/apis",
   },
   Object {
+    "content": Object {
+      "created_at": "___created_at___",
+      "hosts": Array [
+        "mockbin.com",
+      ],
+      "http_if_terminated": true,
+      "https_only": false,
+      "id": "2b47ba9b-761a-492d-9a0c-000000000001",
+      "name": "mockbin",
+      "preserve_host": false,
+      "retries": 5,
+      "strip_uri": true,
+      "upstream_connect_timeout": 60000,
+      "upstream_read_timeout": 60000,
+      "upstream_send_timeout": 60000,
+      "upstream_url": "http://mockbin.com",
+    },
     "ok": true,
     "params": Object {
       "body": Object {
@@ -57,26 +74,6 @@ Array [
     "statusText": "Created",
     "type": "response",
     "uri": "http://localhost:8001/apis",
-  },
-  Object {
-    "content": Object {
-      "created_at": "___created_at___",
-      "hosts": Array [
-        "mockbin.com",
-      ],
-      "http_if_terminated": true,
-      "https_only": false,
-      "id": "2b47ba9b-761a-492d-9a0c-000000000001",
-      "name": "mockbin",
-      "preserve_host": false,
-      "retries": 5,
-      "strip_uri": true,
-      "upstream_connect_timeout": 60000,
-      "upstream_read_timeout": 60000,
-      "upstream_send_timeout": 60000,
-      "upstream_url": "http://mockbin.com",
-    },
-    "type": "response-content",
   },
   Object {
     "params": Object {
@@ -124,6 +121,21 @@ Array [
     "uri": "http://localhost:8001/apis/2b47ba9b-761a-492d-9a0c-000000000002/plugins",
   },
   Object {
+    "content": Object {
+      "api_id": "2b47ba9b-761a-492d-9a0c-000000000002",
+      "config": Object {
+        "anonymous": "",
+        "hide_credentials": false,
+        "key_in_body": false,
+        "key_names": Array [
+          "foobar",
+        ],
+      },
+      "created_at": "___created_at___",
+      "enabled": true,
+      "id": "2b47ba9b-761a-492d-9a0c-000000000002",
+      "name": "key-auth",
+    },
     "ok": true,
     "params": Object {
       "body": Object {
@@ -148,24 +160,6 @@ Array [
     "statusText": "Created",
     "type": "response",
     "uri": "http://localhost:8001/apis/2b47ba9b-761a-492d-9a0c-000000000002/plugins",
-  },
-  Object {
-    "content": Object {
-      "api_id": "2b47ba9b-761a-492d-9a0c-000000000002",
-      "config": Object {
-        "anonymous": "",
-        "hide_credentials": false,
-        "key_in_body": false,
-        "key_names": Array [
-          "foobar",
-        ],
-      },
-      "created_at": "___created_at___",
-      "enabled": true,
-      "id": "2b47ba9b-761a-492d-9a0c-000000000002",
-      "name": "key-auth",
-    },
-    "type": "response-content",
   },
 ]
 `;
@@ -258,6 +252,23 @@ Array [
     "uri": "http://localhost:8001/apis",
   },
   Object {
+    "content": Object {
+      "created_at": "___created_at___",
+      "hosts": Array [
+        "mockbin.com",
+      ],
+      "http_if_terminated": true,
+      "https_only": false,
+      "id": "2b47ba9b-761a-492d-9a0c-000000000001",
+      "name": "mockbin",
+      "preserve_host": false,
+      "retries": 5,
+      "strip_uri": true,
+      "upstream_connect_timeout": 60000,
+      "upstream_read_timeout": 60000,
+      "upstream_send_timeout": 60000,
+      "upstream_url": "http://mockbin.com",
+    },
     "ok": true,
     "params": Object {
       "body": Object {
@@ -277,26 +288,6 @@ Array [
     "statusText": "Created",
     "type": "response",
     "uri": "http://localhost:8001/apis",
-  },
-  Object {
-    "content": Object {
-      "created_at": "___created_at___",
-      "hosts": Array [
-        "mockbin.com",
-      ],
-      "http_if_terminated": true,
-      "https_only": false,
-      "id": "2b47ba9b-761a-492d-9a0c-000000000001",
-      "name": "mockbin",
-      "preserve_host": false,
-      "retries": 5,
-      "strip_uri": true,
-      "upstream_connect_timeout": 60000,
-      "upstream_read_timeout": 60000,
-      "upstream_send_timeout": 60000,
-      "upstream_url": "http://mockbin.com",
-    },
-    "type": "response-content",
   },
 ]
 `;
@@ -370,6 +361,23 @@ Array [
     "uri": "http://localhost:8001/apis",
   },
   Object {
+    "content": Object {
+      "created_at": "___created_at___",
+      "hosts": Array [
+        "mockbin.com",
+      ],
+      "http_if_terminated": true,
+      "https_only": false,
+      "id": "2b47ba9b-761a-492d-9a0c-000000000001",
+      "name": "mockbin",
+      "preserve_host": false,
+      "retries": 5,
+      "strip_uri": true,
+      "upstream_connect_timeout": 60000,
+      "upstream_read_timeout": 60000,
+      "upstream_send_timeout": 60000,
+      "upstream_url": "http://mockbin.com",
+    },
     "ok": true,
     "params": Object {
       "body": Object {
@@ -389,26 +397,6 @@ Array [
     "statusText": "Created",
     "type": "response",
     "uri": "http://localhost:8001/apis",
-  },
-  Object {
-    "content": Object {
-      "created_at": "___created_at___",
-      "hosts": Array [
-        "mockbin.com",
-      ],
-      "http_if_terminated": true,
-      "https_only": false,
-      "id": "2b47ba9b-761a-492d-9a0c-000000000001",
-      "name": "mockbin",
-      "preserve_host": false,
-      "retries": 5,
-      "strip_uri": true,
-      "upstream_connect_timeout": 60000,
-      "upstream_read_timeout": 60000,
-      "upstream_send_timeout": 60000,
-      "upstream_url": "http://mockbin.com",
-    },
-    "type": "response-content",
   },
   Object {
     "params": Object {
@@ -499,6 +487,23 @@ Array [
     "uri": "http://localhost:8001/apis",
   },
   Object {
+    "content": Object {
+      "created_at": "___created_at___",
+      "hosts": Array [
+        "mockbin.com",
+      ],
+      "http_if_terminated": true,
+      "https_only": false,
+      "id": "2b47ba9b-761a-492d-9a0c-000000000001",
+      "name": "mockbin",
+      "preserve_host": false,
+      "retries": 5,
+      "strip_uri": true,
+      "upstream_connect_timeout": 60000,
+      "upstream_read_timeout": 60000,
+      "upstream_send_timeout": 60000,
+      "upstream_url": "http://mockbin.com",
+    },
     "ok": true,
     "params": Object {
       "body": Object {
@@ -518,26 +523,6 @@ Array [
     "statusText": "Created",
     "type": "response",
     "uri": "http://localhost:8001/apis",
-  },
-  Object {
-    "content": Object {
-      "created_at": "___created_at___",
-      "hosts": Array [
-        "mockbin.com",
-      ],
-      "http_if_terminated": true,
-      "https_only": false,
-      "id": "2b47ba9b-761a-492d-9a0c-000000000001",
-      "name": "mockbin",
-      "preserve_host": false,
-      "retries": 5,
-      "strip_uri": true,
-      "upstream_connect_timeout": 60000,
-      "upstream_read_timeout": 60000,
-      "upstream_send_timeout": 60000,
-      "upstream_url": "http://mockbin.com",
-    },
-    "type": "response-content",
   },
   Object {
     "params": Object {
@@ -567,6 +552,7 @@ Array [
     "uri": "http://localhost:8001/apis/mockbin",
   },
   Object {
+    "content": "",
     "ok": true,
     "params": Object {
       "endpoint": Object {
@@ -582,10 +568,6 @@ Array [
     "statusText": "No Content",
     "type": "response",
     "uri": "http://localhost:8001/apis/mockbin",
-  },
-  Object {
-    "content": "",
-    "type": "response-content",
   },
 ]
 `;
