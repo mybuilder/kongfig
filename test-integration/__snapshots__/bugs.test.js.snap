@@ -68,24 +68,14 @@ Array [
 `;
 
 exports[`should allow updating a global plugin with no attributes 2`] = `
-Object {
-  "apis": Array [],
-  "consumers": Array [],
-  "plugins": Array [
-    Object {
-      "_info": Object {
-        "created_at": "___created_at___",
-        "id": "2b47ba9b-761a-492d-9a0c-000000000002",
-      },
-      "attributes": Object {
-        "config": Object {
-          "credentials": false,
-          "preflight_continue": false,
-        },
-        "enabled": true,
-      },
-      "name": "cors",
-    },
-  ],
-}
+"apis: []
+consumers: []
+plugins:
+  - name: cors
+    attributes:
+      enabled: true
+      config:
+        preflight_continue: false
+        credentials: false
+"
 `;

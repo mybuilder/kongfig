@@ -3,6 +3,7 @@ import readKongApi from '../lib/readKongApi';
 import execute from '../lib/core';
 import invariant from 'invariant';
 import pad from 'pad';
+import { pretty } from '../lib/prettyConfig';
 
 invariant(process.env.TEST_INTEGRATION_KONG_HOST, `
     Please set ${'TEST_INTEGRATION_KONG_HOST'.bold} env variable
@@ -15,6 +16,8 @@ invariant(process.env.TEST_INTEGRATION_KONG_HOST, `
 const UUIDRegex = /[a-f0-9]{8}-?[a-f0-9]{4}-?4[a-f0-9]{3}-?[89ab][a-f0-9]{3}-?[a-f0-9]{12}/;
 let uuids = {};
 let log = [];
+
+export const exportToYaml = pretty('yaml');
 
 export const testAdminApi = adminApi({
     host: process.env.TEST_INTEGRATION_KONG_HOST,

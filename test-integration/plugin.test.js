@@ -1,5 +1,5 @@
 import execute from '../lib/core';
-import { testAdminApi, logger, ignoreKeys, getLog, tearDown } from './util';
+import { testAdminApi, logger, exportToYaml, getLog, tearDown } from './util';
 import readKongApi from '../lib/readKongApi';
 
 beforeEach(tearDown);
@@ -23,7 +23,7 @@ describe("Integration global plugin", () => {
         const kongState = await readKongApi(testAdminApi);
 
         expect(getLog()).toMatchSnapshot();
-        expect(ignoreKeys(kongState, ['created_at'])).toMatchSnapshot();
+        expect(exportToYaml(kongState)).toMatchSnapshot();
     });
 
     it("should not update if already up to date", async () => {
@@ -45,7 +45,7 @@ describe("Integration global plugin", () => {
         const kongState = await readKongApi(testAdminApi);
 
         expect(getLog()).toMatchSnapshot();
-        expect(ignoreKeys(kongState, ['created_at'])).toMatchSnapshot();
+        expect(exportToYaml(kongState)).toMatchSnapshot();
     });
 
     it("should remove the api", async () => {
@@ -70,6 +70,6 @@ describe("Integration global plugin", () => {
         const kongState = await readKongApi(testAdminApi);
 
         expect(getLog()).toMatchSnapshot();
-        expect(ignoreKeys(kongState, ['created_at', 'id'])).toMatchSnapshot();
+        expect(exportToYaml(kongState)).toMatchSnapshot();
     });
 });

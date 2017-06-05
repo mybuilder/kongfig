@@ -130,42 +130,17 @@ Array [
 `;
 
 exports[`should apply consumer.example.yml 2`] = `
-Object {
-  "apis": Array [],
-  "consumers": Array [
-    Object {
-      "_info": Object {
-        "created_at": "___created_at___",
-        "id": "2b47ba9b-761a-492d-9a0c-000000000004",
-      },
-      "acls": Array [
-        Object {
-          "_info": Object {
-            "consumer_id": "2b47ba9b-761a-492d-9a0c-000000000004",
-            "created_at": "___created_at___",
-            "id": "2b47ba9b-761a-492d-9a0c-000000000004",
-          },
-          "group": "foo-group",
-        },
-      ],
-      "credentials": Array [
-        Object {
-          "_info": Object {
-            "consumer_id": "2b47ba9b-761a-492d-9a0c-000000000004",
-            "created_at": "___created_at___",
-            "id": "2b47ba9b-761a-492d-9a0c-000000000004",
-          },
-          "attributes": Object {
-            "key": "very-secret-key",
-          },
-          "name": "key-auth",
-        },
-      ],
-      "username": "iphone-app",
-    },
-  ],
-  "plugins": Array [],
-}
+"apis: []
+consumers:
+  - username: iphone-app
+    acls:
+      - group: foo-group
+    credentials:
+      - name: key-auth
+        attributes:
+          key: very-secret-key
+plugins: []
+"
 `;
 
 exports[`should apply global-plugin.example.yml 1`] = `
@@ -232,27 +207,17 @@ Array [
 `;
 
 exports[`should apply global-plugin.example.yml 2`] = `
-Object {
-  "apis": Array [],
-  "consumers": Array [],
-  "plugins": Array [
-    Object {
-      "_info": Object {
-        "created_at": "___created_at___",
-        "id": "2b47ba9b-761a-492d-9a0c-000000000002",
-      },
-      "attributes": Object {
-        "config": Object {
-          "credentials": false,
-          "max_age": 7000,
-          "preflight_continue": false,
-        },
-        "enabled": true,
-      },
-      "name": "cors",
-    },
-  ],
-}
+"apis: []
+consumers: []
+plugins:
+  - name: cors
+    attributes:
+      enabled: true
+      config:
+        credentials: false
+        preflight_continue: false
+        max_age: 7000
+"
 `;
 
 exports[`should apply key-auth.example.yml 1`] = `
@@ -462,75 +427,39 @@ Array [
 `;
 
 exports[`should apply key-auth.example.yml 2`] = `
-Object {
-  "apis": Array [
-    Object {
-      "_info": Object {
-        "created_at": "___created_at___",
-        "id": "2b47ba9b-761a-492d-9a0c-000000000005",
-      },
-      "attributes": Object {
-        "hosts": Array [
-          "mockbin.com",
-        ],
-        "http_if_terminated": true,
-        "https_only": false,
-        "preserve_host": false,
-        "retries": 5,
-        "strip_uri": true,
-        "upstream_connect_timeout": 60000,
-        "upstream_read_timeout": 60000,
-        "upstream_send_timeout": 60000,
-        "upstream_url": "http://mockbin.com",
-      },
-      "name": "mockbin",
-      "plugins": Array [
-        Object {
-          "_info": Object {
-            "created_at": "___created_at___",
-            "id": "2b47ba9b-761a-492d-9a0c-000000000005",
-          },
-          "attributes": Object {
-            "config": Object {
-              "anonymous": "",
-              "hide_credentials": false,
-              "key_in_body": false,
-              "key_names": Array [
-                "very-secret-key",
-              ],
-            },
-            "enabled": true,
-          },
-          "name": "key-auth",
-        },
-      ],
-    },
-  ],
-  "consumers": Array [
-    Object {
-      "_info": Object {
-        "created_at": "___created_at___",
-        "id": "2b47ba9b-761a-492d-9a0c-000000000005",
-      },
-      "acls": Array [],
-      "credentials": Array [
-        Object {
-          "_info": Object {
-            "consumer_id": "2b47ba9b-761a-492d-9a0c-000000000005",
-            "created_at": "___created_at___",
-            "id": "2b47ba9b-761a-492d-9a0c-000000000005",
-          },
-          "attributes": Object {
-            "key": "very-secret-key",
-          },
-          "name": "key-auth",
-        },
-      ],
-      "username": "iphone-app",
-    },
-  ],
-  "plugins": Array [],
-}
+"apis:
+  - name: mockbin
+    plugins:
+      - name: key-auth
+        attributes:
+          enabled: true
+          config:
+            hide_credentials: false
+            anonymous: ''
+            key_names:
+              - very-secret-key
+            key_in_body: false
+    attributes:
+      hosts:
+        - mockbin.com
+      strip_uri: true
+      preserve_host: false
+      upstream_url: 'http://mockbin.com'
+      retries: 5
+      upstream_connect_timeout: 60000
+      upstream_read_timeout: 60000
+      upstream_send_timeout: 60000
+      https_only: false
+      http_if_terminated: true
+consumers:
+  - username: iphone-app
+    acls: []
+    credentials:
+      - name: key-auth
+        attributes:
+          key: very-secret-key
+plugins: []
+"
 `;
 
 exports[`should apply simple-api.example.yml 1`] = `
@@ -595,32 +524,22 @@ Array [
 `;
 
 exports[`should apply simple-api.example.yml 2`] = `
-Object {
-  "apis": Array [
-    Object {
-      "_info": Object {
-        "created_at": "___created_at___",
-        "id": "2b47ba9b-761a-492d-9a0c-000000000002",
-      },
-      "attributes": Object {
-        "hosts": Array [
-          "mockbin.com",
-        ],
-        "http_if_terminated": true,
-        "https_only": false,
-        "preserve_host": false,
-        "retries": 5,
-        "strip_uri": true,
-        "upstream_connect_timeout": 60000,
-        "upstream_read_timeout": 60000,
-        "upstream_send_timeout": 60000,
-        "upstream_url": "http://mockbin.com",
-      },
-      "name": "mockbin",
-      "plugins": Array [],
-    },
-  ],
-  "consumers": Array [],
-  "plugins": Array [],
-}
+"apis:
+  - name: mockbin
+    plugins: []
+    attributes:
+      hosts:
+        - mockbin.com
+      strip_uri: true
+      preserve_host: false
+      upstream_url: 'http://mockbin.com'
+      retries: 5
+      upstream_connect_timeout: 60000
+      upstream_read_timeout: 60000
+      upstream_send_timeout: 60000
+      https_only: false
+      http_if_terminated: true
+consumers: []
+plugins: []
+"
 `;
