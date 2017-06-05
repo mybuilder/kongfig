@@ -125,6 +125,7 @@ function parseApiPlugins(plugins, prepareConfig) {
             name,
             attributes: {
                 enabled,
+                consumer_id,
                 config: prepareConfig(name, config)
             },
             _info: {
@@ -152,6 +153,7 @@ function parseGlobalPlugins(plugins, prepareConfig) {
             name,
             attributes: {
                 enabled,
+                consumer_id,
                 config: prepareConfig(name, config)
             },
             _info: {
