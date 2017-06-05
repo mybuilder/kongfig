@@ -236,14 +236,14 @@ Array [
       "endpoint": Object {
         "name": "plugin",
         "params": Object {
-          "pluginId": "2b47ba9b-761a-492d-9a0c-000000000002",
+          "pluginId": "2b47ba9b-761a-492d-9a0c-000000000001",
         },
       },
       "method": "DELETE",
       "type": "remove-global-plugin",
     },
     "type": "request",
-    "uri": "http://localhost:8001/plugins/2b47ba9b-761a-492d-9a0c-000000000002",
+    "uri": "http://localhost:8001/plugins/2b47ba9b-761a-492d-9a0c-000000000001",
   },
   Object {
     "content": "",
@@ -252,7 +252,7 @@ Array [
       "endpoint": Object {
         "name": "plugin",
         "params": Object {
-          "pluginId": "2b47ba9b-761a-492d-9a0c-000000000002",
+          "pluginId": "2b47ba9b-761a-492d-9a0c-000000000001",
         },
       },
       "method": "DELETE",
@@ -261,7 +261,7 @@ Array [
     "status": 204,
     "statusText": "No Content",
     "type": "response",
-    "uri": "http://localhost:8001/plugins/2b47ba9b-761a-492d-9a0c-000000000002",
+    "uri": "http://localhost:8001/plugins/2b47ba9b-761a-492d-9a0c-000000000001",
   },
 ]
 `;

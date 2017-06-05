@@ -13,7 +13,7 @@ invariant(process.env.TEST_INTEGRATION_KONG_HOST, `
     ${'WARNING! Running integration tests are going to remove all data from the kong'.red.bold}.
 `);
 
-const UUIDRegex = /[a-f0-9]{8}-?[a-f0-9]{4}-?4[a-f0-9]{3}-?[89ab][a-f0-9]{3}-?[a-f0-9]{12}/;
+const UUIDRegex = /[a-f0-9]{8}-?[a-f0-9]{4}-?4[a-f0-9]{3}-?[89ab][a-f0-9]{3}-?[a-f0-9]{12}/g;
 let uuids = {};
 let log = [];
 
@@ -43,14 +43,14 @@ const _ignoreKeys = (obj, keys) => {
     } else if (typeof obj === 'object') {
         Object.getOwnPropertyNames(obj).forEach(key => {
             if (typeof obj[key] === 'string' && obj[key].match(UUIDRegex)) {
-                const uuid = obj[key].match(UUIDRegex)[0];
+                obj[key].match(UUIDRegex).forEach(uuid => {
+                    if (!uuids.hasOwnProperty(uuid)) {
+                        const id = pad(12, `${Object.keys(uuids).length + 1}`, '0');
+                        uuids[uuid] = `2b47ba9b-761a-492d-9a0c-${id}`;
+                    }
 
-                if (!uuids.hasOwnProperty(obj[uuid])) {
-                    const id = pad(12, `${Object.keys(uuids).length + 1}`, '0');
-                    uuids[uuid] = `2b47ba9b-761a-492d-9a0c-${id}`;
-                }
-
-                obj[key] = obj[key].replace(uuid, uuids[uuid]);
+                    obj[key] = obj[key].replace(uuid, uuids[uuid]);
+                });
             } else if (keys.indexOf(key) !== -1) {
                 obj[key] = `___${key}___`;
             } else {

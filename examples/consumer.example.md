@@ -46,7 +46,7 @@ HTTP 201 Created
 
 ```sh
 $ curl -i -X POST -H "Content-Type: application/json" \
-  --url http://localhost:8001/consumers/2b47ba9b-761a-492d-9a0c-000000000002/key-auth \
+  --url http://localhost:8001/consumers/2b47ba9b-761a-492d-9a0c-000000000001/key-auth \
   --data '{"key":"very-secret-key"}'
 ```
 
@@ -57,7 +57,7 @@ HTTP 201 Created
 ```
 {
   "created_at": "___created_at___",
-  "consumer_id": "2b47ba9b-761a-492d-9a0c-000000000002",
+  "consumer_id": "2b47ba9b-761a-492d-9a0c-000000000001",
   "key": "very-secret-key",
   "id": "2b47ba9b-761a-492d-9a0c-000000000002"
 }
@@ -67,7 +67,7 @@ HTTP 201 Created
 
 ```sh
 $ curl -i -X POST -H "Content-Type: application/json" \
-  --url http://localhost:8001/consumers/2b47ba9b-761a-492d-9a0c-000000000003/acls \
+  --url http://localhost:8001/consumers/2b47ba9b-761a-492d-9a0c-000000000001/acls \
   --data '{"group":"foo-group"}'
 ```
 
@@ -78,7 +78,7 @@ HTTP 201 Created
 ```
 {
   "group": "foo-group",
-  "consumer_id": "2b47ba9b-761a-492d-9a0c-000000000003",
+  "consumer_id": "2b47ba9b-761a-492d-9a0c-000000000001",
   "created_at": "___created_at___",
   "id": "2b47ba9b-761a-492d-9a0c-000000000003"
 }

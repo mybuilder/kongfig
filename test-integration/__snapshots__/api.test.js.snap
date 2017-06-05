@@ -71,7 +71,7 @@ Array [
       "endpoint": Object {
         "name": "api-plugins",
         "params": Object {
-          "apiId": "2b47ba9b-761a-492d-9a0c-000000000002",
+          "apiId": "2b47ba9b-761a-492d-9a0c-000000000001",
           "pluginName": "key-auth",
         },
       },
@@ -79,11 +79,11 @@ Array [
       "type": "add-api-plugin",
     },
     "type": "request",
-    "uri": "http://localhost:8001/apis/2b47ba9b-761a-492d-9a0c-000000000002/plugins",
+    "uri": "http://localhost:8001/apis/2b47ba9b-761a-492d-9a0c-000000000001/plugins",
   },
   Object {
     "content": Object {
-      "api_id": "2b47ba9b-761a-492d-9a0c-000000000002",
+      "api_id": "2b47ba9b-761a-492d-9a0c-000000000001",
       "config": Object {
         "anonymous": "",
         "hide_credentials": false,
@@ -110,7 +110,7 @@ Array [
       "endpoint": Object {
         "name": "api-plugins",
         "params": Object {
-          "apiId": "2b47ba9b-761a-492d-9a0c-000000000002",
+          "apiId": "2b47ba9b-761a-492d-9a0c-000000000001",
           "pluginName": "key-auth",
         },
       },
@@ -120,7 +120,7 @@ Array [
     "status": 201,
     "statusText": "Created",
     "type": "response",
-    "uri": "http://localhost:8001/apis/2b47ba9b-761a-492d-9a0c-000000000002/plugins",
+    "uri": "http://localhost:8001/apis/2b47ba9b-761a-492d-9a0c-000000000001/plugins",
   },
 ]
 `;

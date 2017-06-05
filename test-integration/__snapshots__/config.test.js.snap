@@ -46,7 +46,7 @@ Array [
       "endpoint": Object {
         "name": "consumer-credentials",
         "params": Object {
-          "consumerId": "2b47ba9b-761a-492d-9a0c-000000000002",
+          "consumerId": "2b47ba9b-761a-492d-9a0c-000000000001",
           "plugin": "key-auth",
         },
       },
@@ -54,11 +54,11 @@ Array [
       "type": "add-customer-credential",
     },
     "type": "request",
-    "uri": "http://localhost:8001/consumers/2b47ba9b-761a-492d-9a0c-000000000002/key-auth",
+    "uri": "http://localhost:8001/consumers/2b47ba9b-761a-492d-9a0c-000000000001/key-auth",
   },
   Object {
     "content": Object {
-      "consumer_id": "2b47ba9b-761a-492d-9a0c-000000000002",
+      "consumer_id": "2b47ba9b-761a-492d-9a0c-000000000001",
       "created_at": "___created_at___",
       "id": "2b47ba9b-761a-492d-9a0c-000000000002",
       "key": "very-secret-key",
@@ -71,7 +71,7 @@ Array [
       "endpoint": Object {
         "name": "consumer-credentials",
         "params": Object {
-          "consumerId": "2b47ba9b-761a-492d-9a0c-000000000002",
+          "consumerId": "2b47ba9b-761a-492d-9a0c-000000000001",
           "plugin": "key-auth",
         },
       },
@@ -81,7 +81,7 @@ Array [
     "status": 201,
     "statusText": "Created",
     "type": "response",
-    "uri": "http://localhost:8001/consumers/2b47ba9b-761a-492d-9a0c-000000000002/key-auth",
+    "uri": "http://localhost:8001/consumers/2b47ba9b-761a-492d-9a0c-000000000001/key-auth",
   },
   Object {
     "params": Object {
@@ -91,18 +91,18 @@ Array [
       "endpoint": Object {
         "name": "consumer-acls",
         "params": Object {
-          "consumerId": "2b47ba9b-761a-492d-9a0c-000000000003",
+          "consumerId": "2b47ba9b-761a-492d-9a0c-000000000001",
         },
       },
       "method": "POST",
       "type": "add-customer-acls",
     },
     "type": "request",
-    "uri": "http://localhost:8001/consumers/2b47ba9b-761a-492d-9a0c-000000000003/acls",
+    "uri": "http://localhost:8001/consumers/2b47ba9b-761a-492d-9a0c-000000000001/acls",
   },
   Object {
     "content": Object {
-      "consumer_id": "2b47ba9b-761a-492d-9a0c-000000000003",
+      "consumer_id": "2b47ba9b-761a-492d-9a0c-000000000001",
       "created_at": "___created_at___",
       "group": "foo-group",
       "id": "2b47ba9b-761a-492d-9a0c-000000000003",
@@ -115,7 +115,7 @@ Array [
       "endpoint": Object {
         "name": "consumer-acls",
         "params": Object {
-          "consumerId": "2b47ba9b-761a-492d-9a0c-000000000003",
+          "consumerId": "2b47ba9b-761a-492d-9a0c-000000000001",
         },
       },
       "method": "POST",
@@ -124,7 +124,7 @@ Array [
     "status": 201,
     "statusText": "Created",
     "type": "response",
-    "uri": "http://localhost:8001/consumers/2b47ba9b-761a-492d-9a0c-000000000003/acls",
+    "uri": "http://localhost:8001/consumers/2b47ba9b-761a-492d-9a0c-000000000001/acls",
   },
   Object {
     "params": Object {
@@ -335,7 +335,7 @@ Array [
       "endpoint": Object {
         "name": "consumer-credentials",
         "params": Object {
-          "consumerId": "2b47ba9b-761a-492d-9a0c-000000000002",
+          "consumerId": "2b47ba9b-761a-492d-9a0c-000000000001",
           "plugin": "key-auth",
         },
       },
@@ -343,11 +343,11 @@ Array [
       "type": "add-customer-credential",
     },
     "type": "request",
-    "uri": "http://localhost:8001/consumers/2b47ba9b-761a-492d-9a0c-000000000002/key-auth",
+    "uri": "http://localhost:8001/consumers/2b47ba9b-761a-492d-9a0c-000000000001/key-auth",
   },
   Object {
     "content": Object {
-      "consumer_id": "2b47ba9b-761a-492d-9a0c-000000000002",
+      "consumer_id": "2b47ba9b-761a-492d-9a0c-000000000001",
       "created_at": "___created_at___",
       "id": "2b47ba9b-761a-492d-9a0c-000000000002",
       "key": "very-secret-key",
@@ -360,7 +360,7 @@ Array [
       "endpoint": Object {
         "name": "consumer-credentials",
         "params": Object {
-          "consumerId": "2b47ba9b-761a-492d-9a0c-000000000002",
+          "consumerId": "2b47ba9b-761a-492d-9a0c-000000000001",
           "plugin": "key-auth",
         },
       },
@@ -370,7 +370,7 @@ Array [
     "status": 201,
     "statusText": "Created",
     "type": "response",
-    "uri": "http://localhost:8001/consumers/2b47ba9b-761a-492d-9a0c-000000000002/key-auth",
+    "uri": "http://localhost:8001/consumers/2b47ba9b-761a-492d-9a0c-000000000001/key-auth",
   },
   Object {
     "params": Object {
@@ -441,7 +441,7 @@ Array [
       "endpoint": Object {
         "name": "api-plugins",
         "params": Object {
-          "apiId": "2b47ba9b-761a-492d-9a0c-000000000004",
+          "apiId": "2b47ba9b-761a-492d-9a0c-000000000003",
           "pluginName": "key-auth",
         },
       },
@@ -449,11 +449,11 @@ Array [
       "type": "add-api-plugin",
     },
     "type": "request",
-    "uri": "http://localhost:8001/apis/2b47ba9b-761a-492d-9a0c-000000000004/plugins",
+    "uri": "http://localhost:8001/apis/2b47ba9b-761a-492d-9a0c-000000000003/plugins",
   },
   Object {
     "content": Object {
-      "api_id": "2b47ba9b-761a-492d-9a0c-000000000004",
+      "api_id": "2b47ba9b-761a-492d-9a0c-000000000003",
       "config": Object {
         "anonymous": "",
         "hide_credentials": false,
@@ -480,7 +480,7 @@ Array [
       "endpoint": Object {
         "name": "api-plugins",
         "params": Object {
-          "apiId": "2b47ba9b-761a-492d-9a0c-000000000004",
+          "apiId": "2b47ba9b-761a-492d-9a0c-000000000003",
           "pluginName": "key-auth",
         },
       },
@@ -490,7 +490,7 @@ Array [
     "status": 201,
     "statusText": "Created",
     "type": "response",
-    "uri": "http://localhost:8001/apis/2b47ba9b-761a-492d-9a0c-000000000004/plugins",
+    "uri": "http://localhost:8001/apis/2b47ba9b-761a-492d-9a0c-000000000003/plugins",
   },
   Object {
     "params": Object {
