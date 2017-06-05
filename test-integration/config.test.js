@@ -43,6 +43,7 @@ fs.readdirSync(path.resolve(__dirname, './config')).forEach(filename => {
         const config = configLoader(configPath);
 
         await execute(config, testAdminApi, logger);
+        await execute(config, testAdminApi, logger); // all the actions should be no-op
         const kongState = await readKongApi(testAdminApi);
 
         expect(getLog()).toMatchSnapshot();
