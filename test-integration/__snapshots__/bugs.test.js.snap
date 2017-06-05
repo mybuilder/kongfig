@@ -17,23 +17,6 @@ Array [
       "method": "POST",
       "type": "add-global-plugin",
     },
-    "type": "action",
-  },
-  Object {
-    "params": Object {
-      "body": Object {
-        "enabled": true,
-        "name": "cors",
-      },
-      "endpoint": Object {
-        "name": "plugins",
-        "params": Object {
-          "pluginName": "cors",
-        },
-      },
-      "method": "POST",
-      "type": "add-global-plugin",
-    },
     "type": "request",
     "uri": "http://localhost:8001/plugins",
   },
@@ -79,7 +62,7 @@ Array [
       },
       "type": "noop-global-plugin",
     },
-    "type": "action",
+    "type": "noop",
   },
 ]
 `;

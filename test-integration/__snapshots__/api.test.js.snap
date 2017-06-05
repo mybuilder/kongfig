@@ -17,23 +17,6 @@ Array [
       "method": "POST",
       "type": "create-api",
     },
-    "type": "action",
-  },
-  Object {
-    "params": Object {
-      "body": Object {
-        "hosts": Array [
-          "mockbin.com",
-        ],
-        "name": "mockbin",
-        "upstream_url": "http://mockbin.com",
-      },
-      "endpoint": Object {
-        "name": "apis",
-      },
-      "method": "POST",
-      "type": "create-api",
-    },
     "type": "request",
     "uri": "http://localhost:8001/apis",
   },
@@ -74,28 +57,6 @@ Array [
     "statusText": "Created",
     "type": "response",
     "uri": "http://localhost:8001/apis",
-  },
-  Object {
-    "params": Object {
-      "body": Object {
-        "config": Object {
-          "key_names": Array [
-            "foobar",
-          ],
-        },
-        "name": "key-auth",
-      },
-      "endpoint": Object {
-        "name": "api-plugins",
-        "params": Object {
-          "apiId": "2b47ba9b-761a-492d-9a0c-000000000002",
-          "pluginName": "key-auth",
-        },
-      },
-      "method": "POST",
-      "type": "add-api-plugin",
-    },
-    "type": "action",
   },
   Object {
     "params": Object {
@@ -231,23 +192,6 @@ Array [
       "method": "POST",
       "type": "create-api",
     },
-    "type": "action",
-  },
-  Object {
-    "params": Object {
-      "body": Object {
-        "hosts": Array [
-          "mockbin.com",
-        ],
-        "name": "mockbin",
-        "upstream_url": "http://mockbin.com",
-      },
-      "endpoint": Object {
-        "name": "apis",
-      },
-      "method": "POST",
-      "type": "create-api",
-    },
     "type": "request",
     "uri": "http://localhost:8001/apis",
   },
@@ -340,23 +284,6 @@ Array [
       "method": "POST",
       "type": "create-api",
     },
-    "type": "action",
-  },
-  Object {
-    "params": Object {
-      "body": Object {
-        "hosts": Array [
-          "mockbin.com",
-        ],
-        "name": "mockbin",
-        "upstream_url": "http://mockbin.com",
-      },
-      "endpoint": Object {
-        "name": "apis",
-      },
-      "method": "POST",
-      "type": "create-api",
-    },
     "type": "request",
     "uri": "http://localhost:8001/apis",
   },
@@ -413,7 +340,7 @@ Array [
       "noop": true,
       "type": "noop-api",
     },
-    "type": "action",
+    "type": "noop",
   },
 ]
 `;
@@ -451,23 +378,6 @@ Object {
 
 exports[`API should remove the api 1`] = `
 Array [
-  Object {
-    "params": Object {
-      "body": Object {
-        "hosts": Array [
-          "mockbin.com",
-        ],
-        "name": "mockbin",
-        "upstream_url": "http://mockbin.com",
-      },
-      "endpoint": Object {
-        "name": "apis",
-      },
-      "method": "POST",
-      "type": "create-api",
-    },
-    "type": "action",
-  },
   Object {
     "params": Object {
       "body": Object {
@@ -523,19 +433,6 @@ Array [
     "statusText": "Created",
     "type": "response",
     "uri": "http://localhost:8001/apis",
-  },
-  Object {
-    "params": Object {
-      "endpoint": Object {
-        "name": "api",
-        "params": Object {
-          "name": "mockbin",
-        },
-      },
-      "method": "DELETE",
-      "type": "remove-api",
-    },
-    "type": "action",
   },
   Object {
     "params": Object {

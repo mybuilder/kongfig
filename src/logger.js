@@ -7,25 +7,7 @@ const createLogHandler = handlers => message => {
 };
 
 export const screenLogger = createLogHandler({
-    action: message => createLogHandler({
-        'create-api': action => {},
-        'remove-api': action => {},
-        'update-api': action => {},
-        'add-api-plugin': action => {},
-        'remove-api-plugin': action => {},
-        'update-api-plugin': action => {},
-        'add-global-plugin': action => {},
-        'remove-global-plugin': action => {},
-        'update-global-plugin': action => {},
-        'create-customer': action => {},
-        'update-customer': action => {},
-        'remove-customer': action => {},
-        'add-customer-credential': action => {},
-        'update-customer-credential': action => {},
-        'remove-customer-credential': action => {},
-        'add-customer-acls': action => {},
-        'remove-customer-acls': action => {},
-
+    noop: message => createLogHandler({
         'noop-api': ({ api }) => console.log(`api ${api.name.bold} ${'is up to date'.bold.green}`),
         'noop-plugin': ({ plugin }) => console.log(`- plugin ${plugin.name.bold} ${'is up to date'.bold.green}`),
         'noop-global-plugin': ({ plugin }) => console.log(`global plugin ${plugin.name.bold} ${'is up to date'.bold.green}`),

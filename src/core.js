@@ -85,9 +85,9 @@ function _executeActionOnApi(action, adminApi, logger) {
     return async () => {
         const params = await action();
 
-        logger({ type: 'action', params });
-
         if (params.noop) {
+            logger({ type: 'noop', params });
+
             return Promise.resolve('No-op');
         }
 
