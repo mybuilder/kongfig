@@ -1,6 +1,6 @@
 import execute from '../lib/core';
-import { testAdminApi, exportToYaml, logger, getLog, tearDown } from './util';
-import readKongApi from '../lib/readKongApi';
+import { testAdminApi, exportToYaml, logger, getLog, getLocalState, tearDown } from './util';
+import readKongApi, { parseApiPostV10, parsePlugin, parseConsumer, parseAcl, parseGlobalPlugin } from '../lib/readKongApi';
 import configLoader from '../lib/configLoader';
 import fs from 'fs';
 import path from 'path';
@@ -48,6 +48,7 @@ fs.readdirSync(path.resolve(__dirname, './config')).forEach(filename => {
 
         expect(getLog()).toMatchSnapshot();
         expect(exportToYaml(kongState)).toMatchSnapshot();
+        expect(getLocalState()).toEqual(kongState);
 
         if (filename.endsWith('example.yml')) {
             addExampleFile(configPath, filename, getLog());

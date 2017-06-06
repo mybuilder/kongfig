@@ -1,6 +1,7 @@
 import adminApi from '../lib/adminApi';
 import readKongApi from '../lib/readKongApi';
 import execute from '../lib/core';
+import { logReducer } from '../lib/kongStateLocal';
 import invariant from 'invariant';
 import pad from 'pad';
 import { pretty } from '../lib/prettyConfig';
@@ -16,8 +17,10 @@ invariant(process.env.TEST_INTEGRATION_KONG_HOST, `
 const UUIDRegex = /[a-f0-9]{8}-?[a-f0-9]{4}-?4[a-f0-9]{3}-?[89ab][a-f0-9]{3}-?[a-f0-9]{12}/g;
 let uuids = {};
 let log = [];
+let rawLog = [];
 
 export const exportToYaml = pretty('yaml');
+export const getLocalState = () => rawLog.reduce(logReducer, undefined);
 
 export const testAdminApi = adminApi({
     host: process.env.TEST_INTEGRATION_KONG_HOST,
@@ -34,6 +37,7 @@ export const logger = message => {
         m.uri = m.uri.replace(process.env.TEST_INTEGRATION_KONG_HOST, 'localhost:8001');
     }
 
+    rawLog.push(m);
     log.push(ignoreKeys(m, ['created_at']));
 };
 
@@ -78,5 +82,6 @@ const cleanupKong = async () => {
 export const tearDown = async () => {
     uuids = {};
     log = [];
+    rawLog = [];
     await cleanupKong();
 };
