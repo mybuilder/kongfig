@@ -7,7 +7,7 @@ const combine = reducers => (state = {}, log) => {
         nextState[key] = reducers[key](state[key], log);
 
         return nextState;
-    }, {});
+    }, state);
 };
 
 const _info = (state = {}, log) => {
