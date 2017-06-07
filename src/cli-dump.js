@@ -5,12 +5,14 @@ import colors from 'colors';
 import requester from './requester';
 import {repeatableOptionCallback} from './utils';
 import {addSchemasFromOptions} from './consumerCredentials';
+import mapConsumers from './mapConsumers';
 
 import program from 'commander';
 
 program
     .version(require("../package.json").version)
     .option('-f, --format <value>', 'Export format [screen, json, yaml] (default: yaml)', /^(screen|json|yaml|yml)$/, 'yaml')
+    .option('-m, --map-consumers <value>', 'Specify consumer attribute to map consumer_id to when dumping. Can be either username or custom_id. (default: no mapping)', /^(username|custom_id)$/, false)
     .option('--host <value>', 'Kong admin host (default: localhost:8001)', 'localhost:8001')
     .option('--https', 'Use https for admin API requests')
     .option('--ignore-consumers', 'Ignore consumers in kong')
@@ -36,10 +38,11 @@ headers
     .map((h) => h.split(':'))
     .forEach(([name, value]) => requester.addHeader(name, value));
 
-readKongApi(adminApi({ host: program.host, https: program.https, ignoreConsumers: program.ignoreConsumers }))
+readKongApi(adminApi({ host: program.host, https: program.https }))
     .then(results => {
         return {host: program.host, https: program.https, headers, ...results};
     })
+    .then(mapConsumers(program.ignoreConsumers, program.mapConsumers))
     .then(pretty(program.format))
     .then(config => {
         process.stdout.write(config + '\n');
