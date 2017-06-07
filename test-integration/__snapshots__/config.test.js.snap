@@ -3,6 +3,10 @@
 exports[`should apply consumer.example.yml 1`] = `
 Array [
   Object {
+    "type": "kong-info",
+    "version": "___version___",
+  },
+  Object {
     "params": Object {
       "body": Object {
         "username": "iphone-app",
@@ -127,6 +131,10 @@ Array [
     "uri": "http://localhost:8001/consumers/2b47ba9b-761a-492d-9a0c-000000000001/acls",
   },
   Object {
+    "type": "kong-info",
+    "version": "___version___",
+  },
+  Object {
     "params": Object {
       "consumer": Object {
         "acls": Array [
@@ -198,6 +206,10 @@ plugins: []
 exports[`should apply global-plugin.example.yml 1`] = `
 Array [
   Object {
+    "type": "kong-info",
+    "version": "___version___",
+  },
+  Object {
     "params": Object {
       "body": Object {
         "config": Object {
@@ -256,6 +268,10 @@ Array [
     "uri": "http://localhost:8001/plugins",
   },
   Object {
+    "type": "kong-info",
+    "version": "___version___",
+  },
+  Object {
     "params": Object {
       "noop": true,
       "plugin": Object {
@@ -291,6 +307,10 @@ plugins:
 
 exports[`should apply key-auth.example.yml 1`] = `
 Array [
+  Object {
+    "type": "kong-info",
+    "version": "___version___",
+  },
   Object {
     "params": Object {
       "body": Object {
@@ -493,6 +513,10 @@ Array [
     "uri": "http://localhost:8001/apis/2b47ba9b-761a-492d-9a0c-000000000003/plugins",
   },
   Object {
+    "type": "kong-info",
+    "version": "___version___",
+  },
+  Object {
     "params": Object {
       "consumer": Object {
         "credentials": Array [
@@ -615,6 +639,10 @@ plugins: []
 exports[`should apply simple-api.example.yml 1`] = `
 Array [
   Object {
+    "type": "kong-info",
+    "version": "___version___",
+  },
+  Object {
     "params": Object {
       "body": Object {
         "hosts": Array [
@@ -669,6 +697,10 @@ Array [
     "statusText": "Created",
     "type": "response",
     "uri": "http://localhost:8001/apis",
+  },
+  Object {
+    "type": "kong-info",
+    "version": "___version___",
   },
   Object {
     "params": Object {

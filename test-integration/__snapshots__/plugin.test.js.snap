@@ -3,6 +3,10 @@
 exports[`Integration global plugin should add the plugin 1`] = `
 Array [
   Object {
+    "type": "kong-info",
+    "version": "___version___",
+  },
+  Object {
     "params": Object {
       "body": Object {
         "config": Object {
@@ -80,6 +84,10 @@ plugins:
 exports[`Integration global plugin should not update if already up to date 1`] = `
 Array [
   Object {
+    "type": "kong-info",
+    "version": "___version___",
+  },
+  Object {
     "params": Object {
       "body": Object {
         "config": Object {
@@ -136,6 +144,10 @@ Array [
     "statusText": "Created",
     "type": "response",
     "uri": "http://localhost:8001/plugins",
+  },
+  Object {
+    "type": "kong-info",
+    "version": "___version___",
   },
   Object {
     "params": Object {
@@ -174,6 +186,10 @@ plugins:
 exports[`Integration global plugin should remove the global plugin 1`] = `
 Array [
   Object {
+    "type": "kong-info",
+    "version": "___version___",
+  },
+  Object {
     "params": Object {
       "body": Object {
         "config": Object {
@@ -230,6 +246,10 @@ Array [
     "statusText": "Created",
     "type": "response",
     "uri": "http://localhost:8001/plugins",
+  },
+  Object {
+    "type": "kong-info",
+    "version": "___version___",
   },
   Object {
     "params": Object {
@@ -276,6 +296,10 @@ plugins: []
 exports[`Integration global plugin should update the global plugin 1`] = `
 Array [
   Object {
+    "type": "kong-info",
+    "version": "___version___",
+  },
+  Object {
     "params": Object {
       "body": Object {
         "config": Object {
@@ -332,6 +356,10 @@ Array [
     "statusText": "Created",
     "type": "response",
     "uri": "http://localhost:8001/plugins",
+  },
+  Object {
+    "type": "kong-info",
+    "version": "___version___",
   },
   Object {
     "params": Object {

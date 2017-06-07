@@ -2,11 +2,9 @@ import { parseApiPostV10, parsePlugin, parseConsumer, parseAcl, parseGlobalPlugi
 import reducer from './reducers';
 
 export const logReducer = (state = {}, log) => {
-    if (log.type !== 'response') {
+    if (log.type !== 'response' && log.type !== 'kong-info') {
         return state;
     }
-
-    // console.log(log.params.type, log.params.endpoint, log.content);
 
     return reducer(state, log);
 };

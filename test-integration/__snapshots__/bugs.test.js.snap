@@ -3,6 +3,10 @@
 exports[`should allow updating a global plugin with no attributes 1`] = `
 Array [
   Object {
+    "type": "kong-info",
+    "version": "___version___",
+  },
+  Object {
     "params": Object {
       "body": Object {
         "enabled": true,
@@ -50,6 +54,10 @@ Array [
     "statusText": "Created",
     "type": "response",
     "uri": "http://localhost:8001/plugins",
+  },
+  Object {
+    "type": "kong-info",
+    "version": "___version___",
   },
   Object {
     "params": Object {

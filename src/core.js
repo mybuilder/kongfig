@@ -45,6 +45,13 @@ export default async function execute(config, adminApi, logger = () => {}) {
         ...globalPlugins(config.plugins)
     ];
 
+    const version = await adminApi.fetchKongVersion();
+
+    logger({
+        type: 'kong-info',
+        version,
+    });
+
     return actions
         .map(_bindWorldState(adminApi))
         .reduce((promise, action) => promise.then(_executeActionOnApi(action, adminApi, logger)), Promise.resolve(''));
@@ -128,7 +135,7 @@ function _bindWorldState(adminApi) {
     }
 }
 
-function _createWorld({apis, consumers, plugins, version}) {
+function _createWorld({apis, consumers, plugins, _info: { version }}) {
     const world = {
         getVersion: () => version,
 

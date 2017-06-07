@@ -3,6 +3,10 @@
 exports[`Integration consumers acls should add the acl 1`] = `
 Array [
   Object {
+    "type": "kong-info",
+    "version": "___version___",
+  },
+  Object {
     "params": Object {
       "body": Object {
         "username": "iphone-app",
@@ -98,6 +102,10 @@ plugins: []
 exports[`Integration consumers acls should remove the acl 1`] = `
 Array [
   Object {
+    "type": "kong-info",
+    "version": "___version___",
+  },
+  Object {
     "params": Object {
       "body": Object {
         "username": "iphone-app",
@@ -177,6 +185,10 @@ Array [
     "uri": "http://localhost:8001/consumers/2b47ba9b-761a-492d-9a0c-000000000001/acls",
   },
   Object {
+    "type": "kong-info",
+    "version": "___version___",
+  },
+  Object {
     "params": Object {
       "consumer": Object {
         "acls": Array [
@@ -242,6 +254,10 @@ plugins: []
 
 exports[`Integration consumers credentials should add the credential 1`] = `
 Array [
+  Object {
+    "type": "kong-info",
+    "version": "___version___",
+  },
   Object {
     "params": Object {
       "body": Object {
@@ -342,6 +358,10 @@ plugins: []
 exports[`Integration consumers credentials should remove the credential 1`] = `
 Array [
   Object {
+    "type": "kong-info",
+    "version": "___version___",
+  },
+  Object {
     "params": Object {
       "body": Object {
         "username": "iphone-app",
@@ -423,6 +443,10 @@ Array [
     "uri": "http://localhost:8001/consumers/2b47ba9b-761a-492d-9a0c-000000000001/key-auth",
   },
   Object {
+    "type": "kong-info",
+    "version": "___version___",
+  },
+  Object {
     "params": Object {
       "consumer": Object {
         "credentials": Array [
@@ -493,6 +517,10 @@ plugins: []
 
 exports[`Integration consumers credentials should update the credential 1`] = `
 Array [
+  Object {
+    "type": "kong-info",
+    "version": "___version___",
+  },
   Object {
     "params": Object {
       "body": Object {
@@ -576,6 +604,10 @@ Array [
     "statusText": "Created",
     "type": "response",
     "uri": "http://localhost:8001/consumers/2b47ba9b-761a-492d-9a0c-000000000001/hmac-auth",
+  },
+  Object {
+    "type": "kong-info",
+    "version": "___version___",
   },
   Object {
     "params": Object {
@@ -668,6 +700,10 @@ plugins: []
 exports[`Integration consumers should add the consumer 1`] = `
 Array [
   Object {
+    "type": "kong-info",
+    "version": "___version___",
+  },
+  Object {
     "params": Object {
       "body": Object {
         "username": "iphone-app",
@@ -719,6 +755,10 @@ plugins: []
 exports[`Integration consumers should remove the consumer 1`] = `
 Array [
   Object {
+    "type": "kong-info",
+    "version": "___version___",
+  },
+  Object {
     "params": Object {
       "body": Object {
         "username": "iphone-app",
@@ -753,6 +793,10 @@ Array [
     "statusText": "Created",
     "type": "response",
     "uri": "http://localhost:8001/consumers",
+  },
+  Object {
+    "type": "kong-info",
+    "version": "___version___",
   },
   Object {
     "params": Object {
@@ -799,6 +843,10 @@ plugins: []
 exports[`Integration consumers should update the consumer 1`] = `
 Array [
   Object {
+    "type": "kong-info",
+    "version": "___version___",
+  },
+  Object {
     "params": Object {
       "body": Object {
         "username": "iphone-app",
@@ -833,6 +881,10 @@ Array [
     "statusText": "Created",
     "type": "response",
     "uri": "http://localhost:8001/consumers",
+  },
+  Object {
+    "type": "kong-info",
+    "version": "___version___",
   },
   Object {
     "params": Object {

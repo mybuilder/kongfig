@@ -38,7 +38,7 @@ export const logger = message => {
     }
 
     rawLog.push(m);
-    log.push(ignoreKeys(m, ['created_at']));
+    log.push(ignoreKeys(m, ['created_at', 'version']));
 };
 
 const _ignoreKeys = (obj, keys) => {

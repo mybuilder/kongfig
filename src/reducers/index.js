@@ -10,7 +10,18 @@ const combine = reducers => (state = {}, log) => {
     }, {});
 };
 
+const _info = (state = {}, log) => {
+    const { type } = log;
+
+    switch (type) {
+    case 'kong-info':
+        return { ...state, version: log.version };
+    default: return state;
+    }
+}
+
 export default combine({
+    _info,
     apis,
     plugins,
     consumers,

@@ -79,6 +79,10 @@ const customer = (state, log) => {
 };
 
 export default (state = [], log) => {
+    if (log.type !== 'response') {
+        return state;
+    }
+
     const { params: { type, endpoint: { params } }, content } = log;
 
     switch (type) {

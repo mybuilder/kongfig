@@ -3,6 +3,10 @@
 exports[`API plugins should add mockbin API with a plugins 1`] = `
 Array [
   Object {
+    "type": "kong-info",
+    "version": "___version___",
+  },
+  Object {
     "params": Object {
       "body": Object {
         "hosts": Array [
@@ -158,6 +162,10 @@ plugins: []
 exports[`API plugins should remove mockbin api plugin 1`] = `
 Array [
   Object {
+    "type": "kong-info",
+    "version": "___version___",
+  },
+  Object {
     "params": Object {
       "body": Object {
         "hosts": Array [
@@ -276,6 +284,10 @@ Array [
     "statusText": "Created",
     "type": "response",
     "uri": "http://localhost:8001/apis/2b47ba9b-761a-492d-9a0c-000000000001/plugins",
+  },
+  Object {
+    "type": "kong-info",
+    "version": "___version___",
   },
   Object {
     "params": Object {
@@ -368,6 +380,10 @@ plugins: []
 exports[`API plugins should update mockbin api plugin 1`] = `
 Array [
   Object {
+    "type": "kong-info",
+    "version": "___version___",
+  },
+  Object {
     "params": Object {
       "body": Object {
         "hosts": Array [
@@ -486,6 +502,10 @@ Array [
     "statusText": "Created",
     "type": "response",
     "uri": "http://localhost:8001/apis/2b47ba9b-761a-492d-9a0c-000000000001/plugins",
+  },
+  Object {
+    "type": "kong-info",
+    "version": "___version___",
   },
   Object {
     "params": Object {
@@ -617,6 +637,10 @@ plugins: []
 exports[`API should add the API 1`] = `
 Array [
   Object {
+    "type": "kong-info",
+    "version": "___version___",
+  },
+  Object {
     "params": Object {
       "body": Object {
         "hosts": Array [
@@ -699,6 +723,10 @@ plugins: []
 exports[`API should not update if already up to date 1`] = `
 Array [
   Object {
+    "type": "kong-info",
+    "version": "___version___",
+  },
+  Object {
     "params": Object {
       "body": Object {
         "hosts": Array [
@@ -753,6 +781,10 @@ Array [
     "statusText": "Created",
     "type": "response",
     "uri": "http://localhost:8001/apis",
+  },
+  Object {
+    "type": "kong-info",
+    "version": "___version___",
   },
   Object {
     "params": Object {
@@ -798,6 +830,10 @@ plugins: []
 exports[`API should remove the api 1`] = `
 Array [
   Object {
+    "type": "kong-info",
+    "version": "___version___",
+  },
+  Object {
     "params": Object {
       "body": Object {
         "hosts": Array [
@@ -852,6 +888,10 @@ Array [
     "statusText": "Created",
     "type": "response",
     "uri": "http://localhost:8001/apis",
+  },
+  Object {
+    "type": "kong-info",
+    "version": "___version___",
   },
   Object {
     "params": Object {
@@ -898,6 +938,10 @@ plugins: []
 exports[`API should update the api 1`] = `
 Array [
   Object {
+    "type": "kong-info",
+    "version": "___version___",
+  },
+  Object {
     "params": Object {
       "body": Object {
         "hosts": Array [
@@ -952,6 +996,10 @@ Array [
     "statusText": "Created",
     "type": "response",
     "uri": "http://localhost:8001/apis",
+  },
+  Object {
+    "type": "kong-info",
+    "version": "___version___",
   },
   Object {
     "params": Object {
