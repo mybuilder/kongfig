@@ -231,6 +231,20 @@ function _createWorld({apis, consumers, plugins, version}) {
             return world.getConsumer(username).id;
         },
 
+        getConsumerByCustomId: custom_id => {
+            const consumer = consumers.find(c => c.custom_id === custom_id);
+
+            if (!consumer) {
+                throw new Error(`Unable to find consumer ${custom_id}`);
+            }
+
+            return consumer;
+        },
+
+        getConsumerIdByCustomId: custom_id => {
+            return world.getConsumerByCustomId(custom_id).id;
+        },
+
         getConsumerCredential: (username, name, attributes) => {
             const consumer = consumers.find(c => c.username === username);
 
@@ -374,11 +388,28 @@ function validateApiRequiredAttributes(api) {
 
 }
 
+//Determain the consumerID from a given config
+function pluginConsumerId(world, plugin) {
+        var consumerID = undefined;
+        if (plugin.username) {
+            consumerID = world.getConsumerId(plugin.username);
+            console.log("  - Found consumer_id", `${consumerID}`.bold, "for username", `${plugin.username}`.bold, ". Substituting consumer_id");
+        }
+        else if (plugin.custom_id) {
+            consumerID = world.getConsumerIdByCustomId(plugin.custom_id);
+            console.log("  - Found consumer_id", `${consumerID}`.bold, "for custom_id", `${plugin.custom_id}`.bold, ". Substituting consumer_id");
+        }
+        else if (plugin.hasOwnProperty('attributes') && plugin.attributes.consumer_id) {
+            consumerID = plugin.attributes.consumer_id;
+        }
+        return consumerID
+}
+
 function _plugin(apiName, plugin) {
     validateEnsure(plugin.ensure);
 
     return world => {
-        const consumerID = plugin.hasOwnProperty('attributes') ? plugin.attributes.consumer_id : undefined;
+        var consumerID = pluginConsumerId(world, plugin)
         if (plugin.ensure == 'removed') {
             if (world.hasPlugin(apiName, plugin.name, consumerID)) {
                 return removeApiPlugin(world.getApiId(apiName), world.getPluginId(apiName, plugin.name, consumerID));
@@ -403,7 +434,7 @@ function _globalPlugin(plugin) {
     validateEnsure(plugin.ensure);
 
     return world => {
-        const consumerID = plugin.hasOwnProperty('attributes') ? plugin.attributes.consumer_id : undefined;
+        var consumerID = pluginConsumerId(world, plugin)
         if (plugin.ensure == 'removed') {
             if (world.hasGlobalPlugin(plugin.name, consumerID)) {
                 return removeGlobalPlugin(world.getGlobalPluginId(plugin.name, consumerID));
