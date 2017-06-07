@@ -4,8 +4,9 @@
     - name: "mockbin"
       ensure: "present"
       attributes:
-        upstream_url: "http://mockbin.com/"
-        request_host: "mockbin.com"
+        upstream_url: "http://mockbin.com"
+        hosts:
+            - "mockbin.com"
       plugins:
         - name: "key-auth"
         - name: cors
@@ -26,7 +27,3 @@
 
     - username: "ie"
       ensure: "removed"
-
- credentialSchemas:
-   custom_jwt:
-    id: key

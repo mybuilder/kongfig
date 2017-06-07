@@ -1,0 +1,599 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`API should add mockbin API with a plugins 1`] = `
+Array [
+  Object {
+    "params": Object {
+      "body": Object {
+        "hosts": Array [
+          "mockbin.com",
+        ],
+        "name": "mockbin",
+        "upstream_url": "http://mockbin.com",
+      },
+      "endpoint": Object {
+        "name": "apis",
+      },
+      "method": "POST",
+      "type": "create-api",
+    },
+    "type": "action",
+  },
+  Object {
+    "params": Object {
+      "body": Object {
+        "hosts": Array [
+          "mockbin.com",
+        ],
+        "name": "mockbin",
+        "upstream_url": "http://mockbin.com",
+      },
+      "endpoint": Object {
+        "name": "apis",
+      },
+      "method": "POST",
+      "type": "create-api",
+    },
+    "type": "request",
+    "uri": "http://localhost:8001/apis",
+  },
+  Object {
+    "ok": true,
+    "params": Object {
+      "body": Object {
+        "hosts": Array [
+          "mockbin.com",
+        ],
+        "name": "mockbin",
+        "upstream_url": "http://mockbin.com",
+      },
+      "endpoint": Object {
+        "name": "apis",
+      },
+      "method": "POST",
+      "type": "create-api",
+    },
+    "status": 201,
+    "statusText": "Created",
+    "type": "response",
+    "uri": "http://localhost:8001/apis",
+  },
+  Object {
+    "content": Object {
+      "created_at": "___created_at___",
+      "hosts": Array [
+        "mockbin.com",
+      ],
+      "http_if_terminated": true,
+      "https_only": false,
+      "id": "2b47ba9b-761a-492d-9a0c-000000000001",
+      "name": "mockbin",
+      "preserve_host": false,
+      "retries": 5,
+      "strip_uri": true,
+      "upstream_connect_timeout": 60000,
+      "upstream_read_timeout": 60000,
+      "upstream_send_timeout": 60000,
+      "upstream_url": "http://mockbin.com",
+    },
+    "type": "response-content",
+  },
+  Object {
+    "params": Object {
+      "body": Object {
+        "config": Object {
+          "key_names": Array [
+            "foobar",
+          ],
+        },
+        "name": "key-auth",
+      },
+      "endpoint": Object {
+        "name": "api-plugins",
+        "params": Object {
+          "apiId": "2b47ba9b-761a-492d-9a0c-000000000002",
+          "pluginName": "key-auth",
+        },
+      },
+      "method": "POST",
+      "type": "add-api-plugin",
+    },
+    "type": "action",
+  },
+  Object {
+    "params": Object {
+      "body": Object {
+        "config": Object {
+          "key_names": Array [
+            "foobar",
+          ],
+        },
+        "name": "key-auth",
+      },
+      "endpoint": Object {
+        "name": "api-plugins",
+        "params": Object {
+          "apiId": "2b47ba9b-761a-492d-9a0c-000000000002",
+          "pluginName": "key-auth",
+        },
+      },
+      "method": "POST",
+      "type": "add-api-plugin",
+    },
+    "type": "request",
+    "uri": "http://localhost:8001/apis/2b47ba9b-761a-492d-9a0c-000000000002/plugins",
+  },
+  Object {
+    "ok": true,
+    "params": Object {
+      "body": Object {
+        "config": Object {
+          "key_names": Array [
+            "foobar",
+          ],
+        },
+        "name": "key-auth",
+      },
+      "endpoint": Object {
+        "name": "api-plugins",
+        "params": Object {
+          "apiId": "2b47ba9b-761a-492d-9a0c-000000000002",
+          "pluginName": "key-auth",
+        },
+      },
+      "method": "POST",
+      "type": "add-api-plugin",
+    },
+    "status": 201,
+    "statusText": "Created",
+    "type": "response",
+    "uri": "http://localhost:8001/apis/2b47ba9b-761a-492d-9a0c-000000000002/plugins",
+  },
+  Object {
+    "content": Object {
+      "api_id": "2b47ba9b-761a-492d-9a0c-000000000002",
+      "config": Object {
+        "anonymous": "",
+        "hide_credentials": false,
+        "key_in_body": false,
+        "key_names": Array [
+          "foobar",
+        ],
+      },
+      "created_at": "___created_at___",
+      "enabled": true,
+      "id": "2b47ba9b-761a-492d-9a0c-000000000002",
+      "name": "key-auth",
+    },
+    "type": "response-content",
+  },
+]
+`;
+
+exports[`API should add mockbin API with a plugins 2`] = `
+Object {
+  "apis": Array [
+    Object {
+      "_info": Object {
+        "created_at": "___created_at___",
+        "id": "2b47ba9b-761a-492d-9a0c-000000000003",
+      },
+      "attributes": Object {
+        "hosts": Array [
+          "mockbin.com",
+        ],
+        "http_if_terminated": true,
+        "https_only": false,
+        "preserve_host": false,
+        "retries": 5,
+        "strip_uri": true,
+        "upstream_connect_timeout": 60000,
+        "upstream_read_timeout": 60000,
+        "upstream_send_timeout": 60000,
+        "upstream_url": "http://mockbin.com",
+      },
+      "name": "mockbin",
+      "plugins": Array [
+        Object {
+          "_info": Object {
+            "created_at": "___created_at___",
+            "id": "2b47ba9b-761a-492d-9a0c-000000000003",
+          },
+          "attributes": Object {
+            "config": Object {
+              "anonymous": "",
+              "hide_credentials": false,
+              "key_in_body": false,
+              "key_names": Array [
+                "foobar",
+              ],
+            },
+            "enabled": true,
+          },
+          "name": "key-auth",
+        },
+      ],
+    },
+  ],
+  "consumers": Array [],
+  "plugins": Array [],
+}
+`;
+
+exports[`API should add the API 1`] = `
+Array [
+  Object {
+    "params": Object {
+      "body": Object {
+        "hosts": Array [
+          "mockbin.com",
+        ],
+        "name": "mockbin",
+        "upstream_url": "http://mockbin.com",
+      },
+      "endpoint": Object {
+        "name": "apis",
+      },
+      "method": "POST",
+      "type": "create-api",
+    },
+    "type": "action",
+  },
+  Object {
+    "params": Object {
+      "body": Object {
+        "hosts": Array [
+          "mockbin.com",
+        ],
+        "name": "mockbin",
+        "upstream_url": "http://mockbin.com",
+      },
+      "endpoint": Object {
+        "name": "apis",
+      },
+      "method": "POST",
+      "type": "create-api",
+    },
+    "type": "request",
+    "uri": "http://localhost:8001/apis",
+  },
+  Object {
+    "ok": true,
+    "params": Object {
+      "body": Object {
+        "hosts": Array [
+          "mockbin.com",
+        ],
+        "name": "mockbin",
+        "upstream_url": "http://mockbin.com",
+      },
+      "endpoint": Object {
+        "name": "apis",
+      },
+      "method": "POST",
+      "type": "create-api",
+    },
+    "status": 201,
+    "statusText": "Created",
+    "type": "response",
+    "uri": "http://localhost:8001/apis",
+  },
+  Object {
+    "content": Object {
+      "created_at": "___created_at___",
+      "hosts": Array [
+        "mockbin.com",
+      ],
+      "http_if_terminated": true,
+      "https_only": false,
+      "id": "2b47ba9b-761a-492d-9a0c-000000000001",
+      "name": "mockbin",
+      "preserve_host": false,
+      "retries": 5,
+      "strip_uri": true,
+      "upstream_connect_timeout": 60000,
+      "upstream_read_timeout": 60000,
+      "upstream_send_timeout": 60000,
+      "upstream_url": "http://mockbin.com",
+    },
+    "type": "response-content",
+  },
+]
+`;
+
+exports[`API should add the API 2`] = `
+Object {
+  "apis": Array [
+    Object {
+      "_info": Object {
+        "created_at": "___created_at___",
+        "id": "2b47ba9b-761a-492d-9a0c-000000000002",
+      },
+      "attributes": Object {
+        "hosts": Array [
+          "mockbin.com",
+        ],
+        "http_if_terminated": true,
+        "https_only": false,
+        "preserve_host": false,
+        "retries": 5,
+        "strip_uri": true,
+        "upstream_connect_timeout": 60000,
+        "upstream_read_timeout": 60000,
+        "upstream_send_timeout": 60000,
+        "upstream_url": "http://mockbin.com",
+      },
+      "name": "mockbin",
+      "plugins": Array [],
+    },
+  ],
+  "consumers": Array [],
+  "plugins": Array [],
+}
+`;
+
+exports[`API should not update if already up to date 1`] = `
+Array [
+  Object {
+    "params": Object {
+      "body": Object {
+        "hosts": Array [
+          "mockbin.com",
+        ],
+        "name": "mockbin",
+        "upstream_url": "http://mockbin.com",
+      },
+      "endpoint": Object {
+        "name": "apis",
+      },
+      "method": "POST",
+      "type": "create-api",
+    },
+    "type": "action",
+  },
+  Object {
+    "params": Object {
+      "body": Object {
+        "hosts": Array [
+          "mockbin.com",
+        ],
+        "name": "mockbin",
+        "upstream_url": "http://mockbin.com",
+      },
+      "endpoint": Object {
+        "name": "apis",
+      },
+      "method": "POST",
+      "type": "create-api",
+    },
+    "type": "request",
+    "uri": "http://localhost:8001/apis",
+  },
+  Object {
+    "ok": true,
+    "params": Object {
+      "body": Object {
+        "hosts": Array [
+          "mockbin.com",
+        ],
+        "name": "mockbin",
+        "upstream_url": "http://mockbin.com",
+      },
+      "endpoint": Object {
+        "name": "apis",
+      },
+      "method": "POST",
+      "type": "create-api",
+    },
+    "status": 201,
+    "statusText": "Created",
+    "type": "response",
+    "uri": "http://localhost:8001/apis",
+  },
+  Object {
+    "content": Object {
+      "created_at": "___created_at___",
+      "hosts": Array [
+        "mockbin.com",
+      ],
+      "http_if_terminated": true,
+      "https_only": false,
+      "id": "2b47ba9b-761a-492d-9a0c-000000000001",
+      "name": "mockbin",
+      "preserve_host": false,
+      "retries": 5,
+      "strip_uri": true,
+      "upstream_connect_timeout": 60000,
+      "upstream_read_timeout": 60000,
+      "upstream_send_timeout": 60000,
+      "upstream_url": "http://mockbin.com",
+    },
+    "type": "response-content",
+  },
+  Object {
+    "params": Object {
+      "api": Object {
+        "attributes": Object {
+          "hosts": Array [
+            "mockbin.com",
+          ],
+          "upstream_url": "http://mockbin.com",
+        },
+        "ensure": "present",
+        "name": "mockbin",
+      },
+      "noop": true,
+      "type": "noop-api",
+    },
+    "type": "action",
+  },
+]
+`;
+
+exports[`API should not update if already up to date 2`] = `
+Object {
+  "apis": Array [
+    Object {
+      "_info": Object {
+        "created_at": "___created_at___",
+        "id": "2b47ba9b-761a-492d-9a0c-000000000002",
+      },
+      "attributes": Object {
+        "hosts": Array [
+          "mockbin.com",
+        ],
+        "http_if_terminated": true,
+        "https_only": false,
+        "preserve_host": false,
+        "retries": 5,
+        "strip_uri": true,
+        "upstream_connect_timeout": 60000,
+        "upstream_read_timeout": 60000,
+        "upstream_send_timeout": 60000,
+        "upstream_url": "http://mockbin.com",
+      },
+      "name": "mockbin",
+      "plugins": Array [],
+    },
+  ],
+  "consumers": Array [],
+  "plugins": Array [],
+}
+`;
+
+exports[`API should remove the api 1`] = `
+Array [
+  Object {
+    "params": Object {
+      "body": Object {
+        "hosts": Array [
+          "mockbin.com",
+        ],
+        "name": "mockbin",
+        "upstream_url": "http://mockbin.com",
+      },
+      "endpoint": Object {
+        "name": "apis",
+      },
+      "method": "POST",
+      "type": "create-api",
+    },
+    "type": "action",
+  },
+  Object {
+    "params": Object {
+      "body": Object {
+        "hosts": Array [
+          "mockbin.com",
+        ],
+        "name": "mockbin",
+        "upstream_url": "http://mockbin.com",
+      },
+      "endpoint": Object {
+        "name": "apis",
+      },
+      "method": "POST",
+      "type": "create-api",
+    },
+    "type": "request",
+    "uri": "http://localhost:8001/apis",
+  },
+  Object {
+    "ok": true,
+    "params": Object {
+      "body": Object {
+        "hosts": Array [
+          "mockbin.com",
+        ],
+        "name": "mockbin",
+        "upstream_url": "http://mockbin.com",
+      },
+      "endpoint": Object {
+        "name": "apis",
+      },
+      "method": "POST",
+      "type": "create-api",
+    },
+    "status": 201,
+    "statusText": "Created",
+    "type": "response",
+    "uri": "http://localhost:8001/apis",
+  },
+  Object {
+    "content": Object {
+      "created_at": "___created_at___",
+      "hosts": Array [
+        "mockbin.com",
+      ],
+      "http_if_terminated": true,
+      "https_only": false,
+      "id": "2b47ba9b-761a-492d-9a0c-000000000001",
+      "name": "mockbin",
+      "preserve_host": false,
+      "retries": 5,
+      "strip_uri": true,
+      "upstream_connect_timeout": 60000,
+      "upstream_read_timeout": 60000,
+      "upstream_send_timeout": 60000,
+      "upstream_url": "http://mockbin.com",
+    },
+    "type": "response-content",
+  },
+  Object {
+    "params": Object {
+      "endpoint": Object {
+        "name": "api",
+        "params": Object {
+          "name": "mockbin",
+        },
+      },
+      "method": "DELETE",
+      "type": "remove-api",
+    },
+    "type": "action",
+  },
+  Object {
+    "params": Object {
+      "endpoint": Object {
+        "name": "api",
+        "params": Object {
+          "name": "mockbin",
+        },
+      },
+      "method": "DELETE",
+      "type": "remove-api",
+    },
+    "type": "request",
+    "uri": "http://localhost:8001/apis/mockbin",
+  },
+  Object {
+    "ok": true,
+    "params": Object {
+      "endpoint": Object {
+        "name": "api",
+        "params": Object {
+          "name": "mockbin",
+        },
+      },
+      "method": "DELETE",
+      "type": "remove-api",
+    },
+    "status": 204,
+    "statusText": "No Content",
+    "type": "response",
+    "uri": "http://localhost:8001/apis/mockbin",
+  },
+  Object {
+    "content": "",
+    "type": "response-content",
+  },
+]
+`;
+
+exports[`API should remove the api 2`] = `
+Object {
+  "apis": Array [],
+  "consumers": Array [],
+  "plugins": Array [],
+}
+`;

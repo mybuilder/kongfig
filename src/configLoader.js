@@ -4,12 +4,10 @@ import yaml from 'js-yaml';
 
 const log = {
     info: message => console.log(message.green),
-    error: message => console.log(message.red)
+    error: message => console.error(message.red)
 }
 
 export default (configPath) => {
-    log.info(`Loading config ${configPath}`);
-
     if (!fs.existsSync(configPath)) {
         log.error(`Supplied --path '${configPath}' doesn't exist`.red);
         return process.exit(1);

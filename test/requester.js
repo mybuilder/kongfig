@@ -8,6 +8,13 @@ global.fetch = (url, options) => {
         url,
         options
     };
+
+    const promise = {
+        then: () => promise,
+        catch: () => promise,
+    };
+
+    return promise;
 };
 
 describe('requester', () => {

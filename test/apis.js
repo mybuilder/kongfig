@@ -19,7 +19,7 @@ describe("apis", () => {
                 "upstream_url": "bar"
             }
         }])
-        .map(x => x({hasApi: () => false}));
+        .map(x => x({hasApi: () => false, getVersion: () => '0.10.0'}));
 
         expect(actual).to.be.eql([
             createApi('leads', {upstream_url: "bar"})
@@ -34,7 +34,7 @@ describe("apis", () => {
                 "upstream_url": "bar"
             }
         }])
-        .map(x => x({hasApi: () => true}));
+        .map(x => x({hasApi: () => true, getVersion: () => '0.10.0'}));
 
         expect(actual).to.be.eql([
             removeApi('leads')
@@ -42,17 +42,18 @@ describe("apis", () => {
     });
 
     it("should do no op if api is already removed", () => {
-        var actual = apis([{
+        const api = {
             "name": "leads",
             "ensure": "removed",
             "attributes": {
                 "upstream_url": "bar"
             }
-        }])
-        .map(x => x({hasApi: () => false}));
+        };
+        var actual = apis([api])
+        .map(x => x({hasApi: () => false, getVersion: () => '0.10.0'}));
 
         expect(actual).to.be.eql([
-            noop()
+            noop({ type: 'noop-api', api })
         ]);
     });
 
@@ -64,7 +65,7 @@ describe("apis", () => {
                 "upstream_url": "bar"
             }
         }])
-        .map(x => x({hasApi: () => true, isApiUpToDate: () => false}));
+        .map(x => x({hasApi: () => true, isApiUpToDate: () => false, getVersion: () => '0.10.0'}));
 
         expect(actual).to.be.eql([
             updateApi('leads', {upstream_url: "bar"})
@@ -96,6 +97,7 @@ describe("apis", () => {
             hasApi: () => false,
             hasPlugin: () => false,
             getApiId: () => 'abcd-1234',
+            getVersion: () => '0.10.0'
         }));
 
         expect(actual).to.be.eql([

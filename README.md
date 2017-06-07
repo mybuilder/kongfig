@@ -78,11 +78,19 @@ apis:
   - name: mockbin # unique api name
     ensure: "present" # Set to "removed" to have Kongfig ensure the API is removed. Default is present.
     attributes:
-      request_host:
-      request_path:
-      strip_request_path:
-      preserve_host:
-      upstream_url: # (required)
+      upstream_url: string # (required)
+      hosts: [string]
+      uris: [string]
+      methods: ["POST", "GET"]
+      strip_uri: bool
+      preserve_host: bool
+      retries: int
+      upstream_connect_timeout: int
+      upstream_read_timeout: int
+      upstream_send_timeout: int
+      https_only: bool # (required)
+      http_if_terminated: bool
+
 ```
 
 Api plugin schema:
@@ -213,7 +221,7 @@ consumers:
           name:
           client_id: # required
           client_secret:
-          redirect_uri: # required by kong
+          redirect_uri: string | [string] # required by kong
 ```
 
 [HMAC Authentication](https://getkong.org/plugins/hmac-authentication/)
@@ -285,7 +293,7 @@ consumers:
 
 credentialSchema:
   custom_jwt:
-    id: "key" # credential id name           
+    id: "key" # credential id name
 ```
 
 
@@ -313,6 +321,29 @@ consumers:
       - group: "bar-group"
         ensure: "present"
 ```
+
+
+## Migrating from Kong <=0.9 to >=0.10
+
+kongfig translates pre `>=0.10` kong config files automatically when applying them.
+
+So you can export your config from `<=0.9` kong instance by running:
+
+```bash
+kongfig dump --host kong_9:8001 > config.v9.yml
+```
+
+Then apply it to kong `0.10` instance
+
+```bash
+kongfig apply --path config.v9.yml --host kong_10:8001
+```
+
+`apis` endpoint changed between `<=0.9` and `>=0.10`:
+ * `request_host: string` to `hosts: [string]`
+ * `request_path: string` to `uris: [string]`
+ * `strip_request_path: bool` -> `strip_uri: bool`
+ * Adds `methods`, `retries`, `upstream_connect_timeout`, `upstream_read_timeout`, `upstream_send_timeout`, `https_only`, `http_if_terminated`
 
 ---
 Created by [MyBuilder](http://www.mybuilder.com/) - Check out our [blog](http://tech.mybuilder.com/) for more information and our other open-source projects.
