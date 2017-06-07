@@ -2,7 +2,8 @@
 
 import colors from 'colors';
 import assign from 'object-assign';
-import kongState from './kongState';
+import invariant from 'invariant';
+import readKongApi from './readKongApi';
 import {getSchema as getConsumerCredentialSchema} from './consumerCredentials';
 import {normalize as normalizeAttributes} from './utils';
 import { migrateApiDefinition } from './migrate';
@@ -121,7 +122,8 @@ function _executeActionOnApi(action, adminApi, logger) {
 
 function _bindWorldState(adminApi) {
     return f => async () => {
-        const state = await kongState(adminApi);
+        const state = await readKongApi(adminApi);
+
         return f(_createWorld(state));
     }
 }
@@ -134,50 +136,44 @@ function _createWorld({apis, consumers, plugins, version}) {
         getApi: apiName => {
             const api = apis.find(api => api.name === apiName);
 
-            if (!api) {
-                throw new Error(`Unable to find api ${apiName}`);
-            }
+            invariant(api, `Unable to find api ${apiName}`);
 
             return api;
         },
         getApiId: apiName => {
-            const id = world.getApi(apiName).id;
+            const id = world.getApi(apiName)._info.id;
 
-            if (!id) {
-                throw new Error(`API ${apiName} doesn't have an Id`);
-            }
+            invariant(id, `API ${apiName} doesn't have an Id`);
 
             return id;
         },
         getGlobalPlugin: (pluginName) => {
             const plugin = plugins.find(plugin => plugin.api_id === undefined && plugin.name === pluginName);
 
-            if (!plugin) {
-                throw new Error(`Unable to find global plugin ${pluginName}`);
-            }
+            invariant(plugin, `Unable to find global plugin ${pluginName}`);
 
             return plugin;
         },
         getPlugin: (apiName, pluginName) => {
             const plugin = world.getApi(apiName).plugins.find(plugin => plugin.name == pluginName);
 
-            if (!plugin) {
-                throw new Error(`Unable to find plugin ${pluginName}`);
-            }
+            invariant(plugin, `Unable to find plugin ${pluginName}`);
 
             return plugin;
         },
         getPluginId: (apiName, pluginName) => {
-            return world.getPlugin(apiName, pluginName).id;
+            const pluginId = world.getPlugin(apiName, pluginName)._info.id;
+
+            invariant(pluginId, `Unable to find plugin id for ${apiName} and ${pluginName}`);
+
+            return pluginId;
         },
         getGlobalPluginId: (pluginName) => {
-            return world.getGlobalPlugin(pluginName).id;
-        },
-        getPluginAttributes: (apiName, pluginName) => {
-            return world.getPlugin(apiName, pluginName).config;
-        },
-        getGlobalPluginAttributes: (pluginName) => {
-            return world.getGlobalPlugin(pluginName).config;
+            const globalPluginId = world.getGlobalPlugin(pluginName)._info.id
+
+            invariant(globalPluginId, `Unable to find global plugin id ${pluginName}`);
+
+            return globalPluginId;
         },
         hasPlugin: (apiName, pluginName) => {
             return Array.isArray(apis) && apis.some(api => api.name === apiName && Array.isArray(api.plugins) && api.plugins.some(plugin => plugin.name == pluginName));
@@ -189,12 +185,9 @@ function _createWorld({apis, consumers, plugins, version}) {
             return Array.isArray(consumers) && consumers.some(consumer => consumer.username === username);
         },
         hasConsumerCredential: (username, name, attributes) => {
-            const schema = getConsumerCredentialSchema(name);
+            const consumer = world.getConsumer(username);
 
-            return Array.isArray(consumers) && consumers.some(
-                c => c.username === username
-                && Array.isArray(c.credentials[name])
-                && c.credentials[name].some(oa => oa[schema.id] == attributes[schema.id]));
+            return !!extractCredential(consumer.credentials, name, attributes);
         },
         hasConsumerAcl: (username, groupName) => {
             const schema = getAclSchema();
@@ -209,64 +202,64 @@ function _createWorld({apis, consumers, plugins, version}) {
         getConsumer: username => {
             const consumer = consumers.find(c => c.username === username);
 
-            if (!consumer) {
-                throw new Error(`Unable to find consumer ${username}`);
-            }
+            invariant(consumer, `Unable to find consumer ${username}`);
 
             return consumer;
         },
 
         getConsumerId: username => {
-            return world.getConsumer(username).id;
+            const consumerId = world.getConsumer(username)._info.id;
+
+            invariant(consumerId, `Unable to find consumer id ${username}`);
+
+            return consumerId;
         },
 
         getConsumerCredential: (username, name, attributes) => {
-            const consumer = consumers.find(c => c.username === username);
+            const consumer = world.getConsumer(username);
 
-            if (!consumer) {
-                throw new Error(`Unable to find consumer ${username}`);
-            }
+            const credential = extractCredential(consumer.credentials, name, attributes);
 
-            const credential = extractCredentialId(consumer.credentials, name, attributes);
-
-            if (!credential) {
-                throw new Error(`Unable to find credential`);
-            }
+            invariant(credential, `Unable to find consumer credential ${username} ${name}`);
 
             return credential;
         },
 
         getConsumerAcl: (username, groupName) => {
-            const consumer = consumers.find(c => c.username === username);
-
-            if (!consumer) {
-                throw new Error(`Unable to find consumer ${username}`);
-            }
+            const consumer = world.getConsumer(username);
 
             const acl = extractAclId(consumer.acls, groupName);
 
-            if (!acl) {
-                throw new Error(`Unable to find acl`);
-            }
+            invariant(acl, `Unable to find consumer acl ${username} ${groupName}`);
 
             return acl;
         },
 
         getConsumerCredentialId: (username, name, attributes) => {
-            return world.getConsumerCredential(username, name, attributes).id;
+            const credentialId = world.getConsumerCredential(username, name, attributes)._info.id;
+
+            invariant(credentialId, `Unable to find consumer credential id ${username} ${name}`);
+
+            return credentialId;
         },
 
         getConsumerAclId: (username, groupName) => {
-            return world.getConsumerAcl(username, groupName).id;
+            const aclId = world.getConsumerAcl(username, groupName)._info.id;
+
+            invariant(aclId, `Unable to find consumer acl id ${username} ${groupName}`);
+
+            return aclId;
         },
 
         isConsumerUpToDate: (username, custom_id) => {
-            const consumer = consumers.find(c => c.username === username);
+            const consumer = world.getConsumer(username);
 
             return consumer.custom_id == custom_id;
         },
 
-        isApiUpToDate: (api) => diff(api.attributes, world.getApi(api.name)).length == 0,
+        isApiUpToDate: (api) => {
+            return diff(api.attributes, world.getApi(api.name).attributes).length == 0;
+        },
 
         isApiPluginUpToDate: (apiName, plugin) => {
             if (false == plugin.hasOwnProperty('attributes')) {
@@ -275,9 +268,9 @@ function _createWorld({apis, consumers, plugins, version}) {
             }
 
             let current = world.getPlugin(apiName, plugin.name);
-            let {config, ...rest} = normalizeAttributes(plugin.attributes);
+            let attributes = normalizeAttributes(plugin.attributes);
 
-            return diff(config, current.config).length === 0 && diff(rest, current).length === 0;
+            return isAttributesWithConfigUpToDate(attributes, current.attributes);
         },
 
         isGlobalPluginUpToDate: (plugin) => {
@@ -287,25 +280,38 @@ function _createWorld({apis, consumers, plugins, version}) {
             }
 
             let current = world.getGlobalPlugin(plugin.name);
-            let {config, ...rest} = normalizeAttributes(plugin.attributes);
+            let attributes = normalizeAttributes(plugin.attributes);
 
-            return diff(config, current.config).length === 0 && diff(rest, current).length === 0;
+            return isAttributesWithConfigUpToDate(attributes, current.attributes);
         },
 
         isConsumerCredentialUpToDate: (username, credential) => {
             const current = world.getConsumerCredential(username, credential.name, credential.attributes);
 
-            return diff(credential.attributes, current).length === 0;
+            return isAttributesWithConfigUpToDate(credential.attributes, current.attributes);
         },
     };
 
     return world;
 }
 
-function extractCredentialId(credentials, name, attributes) {
+function isAttributesWithConfigUpToDate(defined, current) {
+    const excludingConfig = ({ config, ...rest }) => rest;
+
+    return diff(defined.config, current.config).length === 0
+        && diff(excludingConfig(defined), excludingConfig(current)).length === 0;
+}
+
+function extractCredential(credentials, name, attributes) {
     const idName = getConsumerCredentialSchema(name).id;
 
-    return credentials[name].find(x => x[idName] == attributes[idName]);
+    const credential = credentials
+        .filter(c => c.name === name)
+        .filter(c => c.attributes[idName] === attributes[idName]);
+
+    invariant(credential.length <= 1, `consumer shouldn't have multiple ${name} credentials with ${idName} = ${attributes[idName]}`)
+
+    return credential.length ? credential[0] : undefined;
 }
 
 function extractAclId(acls, groupName) {
