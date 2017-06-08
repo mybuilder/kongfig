@@ -430,8 +430,10 @@ function pluginConsumerId(world, plugin) {
         else if (plugin.hasOwnProperty('attributes') && plugin.attributes.consumer_id) {
             consumerID = plugin.attributes.consumer_id;
         }
-        if (consumerID && !plugin.attributes) {
-            plugin.attributes = {};
+        if (consumerID) {
+            if (!plugin.attributes) {
+                plugin.attributes = {};
+            }
             plugin.attributes.consumer_id = consumerID;
         }
         return consumerID
