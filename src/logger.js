@@ -24,5 +24,7 @@ export const screenLogger = createLogHandler({
         content
     ),
     debug: () => {},
+    'experimental-features': ({ message }) => console.log(message),
+    'kong-info': ({ version }) => console.log(`Kong version: ${version}`),
     unknown: message => console.log('unknown', message),
 });

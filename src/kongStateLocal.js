@@ -1,4 +1,4 @@
-import { parseApiPostV10, parsePlugin, parseConsumer, parseAcl, parseGlobalPlugin } from '../lib/readKongApi';
+import { parseApiPostV10, parsePlugin, parseConsumer, parseAcl, parseGlobalPlugin } from './readKongApi';
 import reducer from './reducers';
 
 export const logReducer = (state = {}, log) => {
