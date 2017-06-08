@@ -31,6 +31,11 @@ export const testAdminApi = adminApi({
 
 export const getLog = () => log;
 export const logger = message => {
+    if (message.type === 'experimental-features') {
+        // cannot include these in tests because they change based on test matrix
+        return;
+    }
+
     const m = cloneObject(message);
 
     if (m.hasOwnProperty('uri')) {

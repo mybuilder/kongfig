@@ -7,6 +7,7 @@ import readKongApi from './readKongApi';
 import {getSchema as getConsumerCredentialSchema} from './consumerCredentials';
 import {normalize as normalizeAttributes} from './utils';
 import { migrateApiDefinition } from './migrate';
+import { logReducer } from './kongStateLocal';
 import diff from './diff';
 import {
     noop,
@@ -38,23 +39,48 @@ export function getAclSchema() {
     return consumerAclSchema;
 }
 
+const logFanout = () => {
+    const listeners = [];
+
+    return {
+        logger: log => listeners.forEach(f => f(log)),
+        subscribe: f => listeners.push(f),
+    };
+};
+
+const selectWorldStateBind = async (adminApi, internalLogger) => {
+    if (process.env.EXPERIMENTAL_USE_LOCAL_STATE == '1') {
+        internalLogger.logger({ type: 'experimental-features', message: `Using experimental feature: local state`.blue.bold});
+        let state = await readKongApi(adminApi);
+
+        internalLogger.subscribe(log => {
+            state = logReducer(state, log);
+        });
+
+        return f => async () => f(_createWorld(state));
+    }
+
+    return _bindWorldState(adminApi);
+};
+
 export default async function execute(config, adminApi, logger = () => {}) {
+    const internalLogger = logFanout();
     const actions = [
         ...consumers(config.consumers),
         ...apis(config.apis),
         ...globalPlugins(config.plugins)
     ];
 
-    const version = await adminApi.fetchKongVersion();
+    internalLogger.subscribe(logger);
 
-    logger({
+    internalLogger.logger({
         type: 'kong-info',
-        version,
+        version: await adminApi.fetchKongVersion(),
     });
 
     return actions
-        .map(_bindWorldState(adminApi))
-        .reduce((promise, action) => promise.then(_executeActionOnApi(action, adminApi, logger)), Promise.resolve(''));
+        .map(await selectWorldStateBind(adminApi, internalLogger))
+        .reduce((promise, action) => promise.then(_executeActionOnApi(action, adminApi, internalLogger.logger)), Promise.resolve(''));
 }
 
 export function apis(apis = []) {
