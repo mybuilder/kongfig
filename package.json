@@ -9,7 +9,7 @@
   "preferGlobal": true,
   "scripts": {
     "pretest": "yarn build",
-    "test": "jest",
+    "test": "jest --runInBand",
     "build": "babel src --out-dir lib",
     "preversion": "yarn test",
     "version": "yarn build",
