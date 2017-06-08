@@ -390,7 +390,7 @@ function validateApiRequiredAttributes(api) {
 
 //Determain the consumerID from a given config
 function pluginConsumerId(world, plugin) {
-        var consumerID = undefined;
+        let consumerID = undefined;
         if (plugin.username) {
             consumerID = world.getConsumerId(plugin.username);
             console.log("  - Found consumer_id", `${consumerID}`.bold, "for username", `${plugin.username}`.bold, ". Substituting consumer_id");
@@ -402,6 +402,10 @@ function pluginConsumerId(world, plugin) {
         else if (plugin.hasOwnProperty('attributes') && plugin.attributes.consumer_id) {
             consumerID = plugin.attributes.consumer_id;
         }
+        if (consumerID && !plugin.attributes) {
+            plugin.attributes = {};
+            plugin.attributes.consumer_id = consumerID;
+        }
         return consumerID
 }
 
@@ -409,7 +413,7 @@ function _plugin(apiName, plugin) {
     validateEnsure(plugin.ensure);
 
     return world => {
-        var consumerID = pluginConsumerId(world, plugin)
+        var consumerID = pluginConsumerId(world, plugin);
         if (plugin.ensure == 'removed') {
             if (world.hasPlugin(apiName, plugin.name, consumerID)) {
                 return removeApiPlugin(world.getApiId(apiName), world.getPluginId(apiName, plugin.name, consumerID));
@@ -434,7 +438,7 @@ function _globalPlugin(plugin) {
     validateEnsure(plugin.ensure);
 
     return world => {
-        var consumerID = pluginConsumerId(world, plugin)
+        var consumerID = pluginConsumerId(world, plugin);
         if (plugin.ensure == 'removed') {
             if (world.hasGlobalPlugin(plugin.name, consumerID)) {
                 return removeGlobalPlugin(world.getGlobalPluginId(plugin.name, consumerID));
