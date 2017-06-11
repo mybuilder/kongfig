@@ -1,0 +1,946 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Integration consumers acls should add the acl 1`] = `
+Array [
+  Object {
+    "type": "kong-info",
+    "version": "___version___",
+  },
+  Object {
+    "params": Object {
+      "body": Object {
+        "username": "iphone-app",
+      },
+      "endpoint": Object {
+        "name": "consumers",
+      },
+      "method": "POST",
+      "type": "create-customer",
+    },
+    "type": "request",
+    "uri": "http://localhost:8001/consumers",
+  },
+  Object {
+    "content": Object {
+      "created_at": "___created_at___",
+      "id": "2b47ba9b-761a-492d-9a0c-000000000001",
+      "username": "iphone-app",
+    },
+    "ok": true,
+    "params": Object {
+      "body": Object {
+        "username": "iphone-app",
+      },
+      "endpoint": Object {
+        "name": "consumers",
+      },
+      "method": "POST",
+      "type": "create-customer",
+    },
+    "status": 201,
+    "statusText": "Created",
+    "type": "response",
+    "uri": "http://localhost:8001/consumers",
+  },
+  Object {
+    "params": Object {
+      "body": Object {
+        "group": "foobar",
+      },
+      "endpoint": Object {
+        "name": "consumer-acls",
+        "params": Object {
+          "consumerId": "2b47ba9b-761a-492d-9a0c-000000000001",
+        },
+      },
+      "method": "POST",
+      "type": "add-customer-acls",
+    },
+    "type": "request",
+    "uri": "http://localhost:8001/consumers/2b47ba9b-761a-492d-9a0c-000000000001/acls",
+  },
+  Object {
+    "content": Object {
+      "consumer_id": "2b47ba9b-761a-492d-9a0c-000000000001",
+      "created_at": "___created_at___",
+      "group": "foobar",
+      "id": "2b47ba9b-761a-492d-9a0c-000000000002",
+    },
+    "ok": true,
+    "params": Object {
+      "body": Object {
+        "group": "foobar",
+      },
+      "endpoint": Object {
+        "name": "consumer-acls",
+        "params": Object {
+          "consumerId": "2b47ba9b-761a-492d-9a0c-000000000001",
+        },
+      },
+      "method": "POST",
+      "type": "add-customer-acls",
+    },
+    "status": 201,
+    "statusText": "Created",
+    "type": "response",
+    "uri": "http://localhost:8001/consumers/2b47ba9b-761a-492d-9a0c-000000000001/acls",
+  },
+]
+`;
+
+exports[`Integration consumers acls should add the acl 2`] = `
+"apis: []
+consumers:
+  - username: iphone-app
+    acls:
+      - group: foobar
+    credentials: []
+plugins: []
+"
+`;
+
+exports[`Integration consumers acls should remove the acl 1`] = `
+Array [
+  Object {
+    "type": "kong-info",
+    "version": "___version___",
+  },
+  Object {
+    "params": Object {
+      "body": Object {
+        "username": "iphone-app",
+      },
+      "endpoint": Object {
+        "name": "consumers",
+      },
+      "method": "POST",
+      "type": "create-customer",
+    },
+    "type": "request",
+    "uri": "http://localhost:8001/consumers",
+  },
+  Object {
+    "content": Object {
+      "created_at": "___created_at___",
+      "id": "2b47ba9b-761a-492d-9a0c-000000000001",
+      "username": "iphone-app",
+    },
+    "ok": true,
+    "params": Object {
+      "body": Object {
+        "username": "iphone-app",
+      },
+      "endpoint": Object {
+        "name": "consumers",
+      },
+      "method": "POST",
+      "type": "create-customer",
+    },
+    "status": 201,
+    "statusText": "Created",
+    "type": "response",
+    "uri": "http://localhost:8001/consumers",
+  },
+  Object {
+    "params": Object {
+      "body": Object {
+        "group": "foobar",
+      },
+      "endpoint": Object {
+        "name": "consumer-acls",
+        "params": Object {
+          "consumerId": "2b47ba9b-761a-492d-9a0c-000000000001",
+        },
+      },
+      "method": "POST",
+      "type": "add-customer-acls",
+    },
+    "type": "request",
+    "uri": "http://localhost:8001/consumers/2b47ba9b-761a-492d-9a0c-000000000001/acls",
+  },
+  Object {
+    "content": Object {
+      "consumer_id": "2b47ba9b-761a-492d-9a0c-000000000001",
+      "created_at": "___created_at___",
+      "group": "foobar",
+      "id": "2b47ba9b-761a-492d-9a0c-000000000002",
+    },
+    "ok": true,
+    "params": Object {
+      "body": Object {
+        "group": "foobar",
+      },
+      "endpoint": Object {
+        "name": "consumer-acls",
+        "params": Object {
+          "consumerId": "2b47ba9b-761a-492d-9a0c-000000000001",
+        },
+      },
+      "method": "POST",
+      "type": "add-customer-acls",
+    },
+    "status": 201,
+    "statusText": "Created",
+    "type": "response",
+    "uri": "http://localhost:8001/consumers/2b47ba9b-761a-492d-9a0c-000000000001/acls",
+  },
+  Object {
+    "type": "kong-info",
+    "version": "___version___",
+  },
+  Object {
+    "params": Object {
+      "consumer": Object {
+        "acls": Array [
+          Object {
+            "ensure": "removed",
+            "group": "foobar",
+          },
+        ],
+        "ensure": "present",
+        "username": "iphone-app",
+      },
+      "noop": true,
+      "type": "noop-consumer",
+    },
+    "type": "noop",
+  },
+  Object {
+    "params": Object {
+      "endpoint": Object {
+        "name": "consumer-acl",
+        "params": Object {
+          "aclId": "2b47ba9b-761a-492d-9a0c-000000000002",
+          "consumerId": "2b47ba9b-761a-492d-9a0c-000000000001",
+        },
+      },
+      "method": "DELETE",
+      "type": "remove-customer-acls",
+    },
+    "type": "request",
+    "uri": "http://localhost:8001/consumers/2b47ba9b-761a-492d-9a0c-000000000001/acls/2b47ba9b-761a-492d-9a0c-000000000002",
+  },
+  Object {
+    "content": "",
+    "ok": true,
+    "params": Object {
+      "endpoint": Object {
+        "name": "consumer-acl",
+        "params": Object {
+          "aclId": "2b47ba9b-761a-492d-9a0c-000000000002",
+          "consumerId": "2b47ba9b-761a-492d-9a0c-000000000001",
+        },
+      },
+      "method": "DELETE",
+      "type": "remove-customer-acls",
+    },
+    "status": 204,
+    "statusText": "No Content",
+    "type": "response",
+    "uri": "http://localhost:8001/consumers/2b47ba9b-761a-492d-9a0c-000000000001/acls/2b47ba9b-761a-492d-9a0c-000000000002",
+  },
+]
+`;
+
+exports[`Integration consumers acls should remove the acl 2`] = `
+"apis: []
+consumers:
+  - username: iphone-app
+    acls: []
+    credentials: []
+plugins: []
+"
+`;
+
+exports[`Integration consumers credentials should add the credential 1`] = `
+Array [
+  Object {
+    "type": "kong-info",
+    "version": "___version___",
+  },
+  Object {
+    "params": Object {
+      "body": Object {
+        "username": "iphone-app",
+      },
+      "endpoint": Object {
+        "name": "consumers",
+      },
+      "method": "POST",
+      "type": "create-customer",
+    },
+    "type": "request",
+    "uri": "http://localhost:8001/consumers",
+  },
+  Object {
+    "content": Object {
+      "created_at": "___created_at___",
+      "id": "2b47ba9b-761a-492d-9a0c-000000000001",
+      "username": "iphone-app",
+    },
+    "ok": true,
+    "params": Object {
+      "body": Object {
+        "username": "iphone-app",
+      },
+      "endpoint": Object {
+        "name": "consumers",
+      },
+      "method": "POST",
+      "type": "create-customer",
+    },
+    "status": 201,
+    "statusText": "Created",
+    "type": "response",
+    "uri": "http://localhost:8001/consumers",
+  },
+  Object {
+    "params": Object {
+      "body": Object {
+        "key": "very-secret-key",
+      },
+      "endpoint": Object {
+        "name": "consumer-credentials",
+        "params": Object {
+          "consumerId": "2b47ba9b-761a-492d-9a0c-000000000001",
+          "plugin": "key-auth",
+        },
+      },
+      "method": "POST",
+      "type": "add-customer-credential",
+    },
+    "type": "request",
+    "uri": "http://localhost:8001/consumers/2b47ba9b-761a-492d-9a0c-000000000001/key-auth",
+  },
+  Object {
+    "content": Object {
+      "consumer_id": "2b47ba9b-761a-492d-9a0c-000000000001",
+      "created_at": "___created_at___",
+      "id": "2b47ba9b-761a-492d-9a0c-000000000002",
+      "key": "very-secret-key",
+    },
+    "ok": true,
+    "params": Object {
+      "body": Object {
+        "key": "very-secret-key",
+      },
+      "endpoint": Object {
+        "name": "consumer-credentials",
+        "params": Object {
+          "consumerId": "2b47ba9b-761a-492d-9a0c-000000000001",
+          "plugin": "key-auth",
+        },
+      },
+      "method": "POST",
+      "type": "add-customer-credential",
+    },
+    "status": 201,
+    "statusText": "Created",
+    "type": "response",
+    "uri": "http://localhost:8001/consumers/2b47ba9b-761a-492d-9a0c-000000000001/key-auth",
+  },
+]
+`;
+
+exports[`Integration consumers credentials should add the credential 2`] = `
+"apis: []
+consumers:
+  - username: iphone-app
+    acls: []
+    credentials:
+      - name: key-auth
+        attributes:
+          key: very-secret-key
+plugins: []
+"
+`;
+
+exports[`Integration consumers credentials should remove the credential 1`] = `
+Array [
+  Object {
+    "type": "kong-info",
+    "version": "___version___",
+  },
+  Object {
+    "params": Object {
+      "body": Object {
+        "username": "iphone-app",
+      },
+      "endpoint": Object {
+        "name": "consumers",
+      },
+      "method": "POST",
+      "type": "create-customer",
+    },
+    "type": "request",
+    "uri": "http://localhost:8001/consumers",
+  },
+  Object {
+    "content": Object {
+      "created_at": "___created_at___",
+      "id": "2b47ba9b-761a-492d-9a0c-000000000001",
+      "username": "iphone-app",
+    },
+    "ok": true,
+    "params": Object {
+      "body": Object {
+        "username": "iphone-app",
+      },
+      "endpoint": Object {
+        "name": "consumers",
+      },
+      "method": "POST",
+      "type": "create-customer",
+    },
+    "status": 201,
+    "statusText": "Created",
+    "type": "response",
+    "uri": "http://localhost:8001/consumers",
+  },
+  Object {
+    "params": Object {
+      "body": Object {
+        "key": "very-secret-key",
+      },
+      "endpoint": Object {
+        "name": "consumer-credentials",
+        "params": Object {
+          "consumerId": "2b47ba9b-761a-492d-9a0c-000000000001",
+          "plugin": "key-auth",
+        },
+      },
+      "method": "POST",
+      "type": "add-customer-credential",
+    },
+    "type": "request",
+    "uri": "http://localhost:8001/consumers/2b47ba9b-761a-492d-9a0c-000000000001/key-auth",
+  },
+  Object {
+    "content": Object {
+      "consumer_id": "2b47ba9b-761a-492d-9a0c-000000000001",
+      "created_at": "___created_at___",
+      "id": "2b47ba9b-761a-492d-9a0c-000000000002",
+      "key": "very-secret-key",
+    },
+    "ok": true,
+    "params": Object {
+      "body": Object {
+        "key": "very-secret-key",
+      },
+      "endpoint": Object {
+        "name": "consumer-credentials",
+        "params": Object {
+          "consumerId": "2b47ba9b-761a-492d-9a0c-000000000001",
+          "plugin": "key-auth",
+        },
+      },
+      "method": "POST",
+      "type": "add-customer-credential",
+    },
+    "status": 201,
+    "statusText": "Created",
+    "type": "response",
+    "uri": "http://localhost:8001/consumers/2b47ba9b-761a-492d-9a0c-000000000001/key-auth",
+  },
+  Object {
+    "type": "kong-info",
+    "version": "___version___",
+  },
+  Object {
+    "params": Object {
+      "consumer": Object {
+        "credentials": Array [
+          Object {
+            "attributes": Object {
+              "key": "very-secret-key",
+            },
+            "ensure": "removed",
+            "name": "key-auth",
+          },
+        ],
+        "ensure": "present",
+        "username": "iphone-app",
+      },
+      "noop": true,
+      "type": "noop-consumer",
+    },
+    "type": "noop",
+  },
+  Object {
+    "params": Object {
+      "endpoint": Object {
+        "name": "consumer-credential",
+        "params": Object {
+          "consumerId": "2b47ba9b-761a-492d-9a0c-000000000001",
+          "credentialId": "2b47ba9b-761a-492d-9a0c-000000000002",
+          "plugin": "key-auth",
+        },
+      },
+      "method": "DELETE",
+      "type": "remove-customer-credential",
+    },
+    "type": "request",
+    "uri": "http://localhost:8001/consumers/2b47ba9b-761a-492d-9a0c-000000000001/key-auth/2b47ba9b-761a-492d-9a0c-000000000002",
+  },
+  Object {
+    "content": "",
+    "ok": true,
+    "params": Object {
+      "endpoint": Object {
+        "name": "consumer-credential",
+        "params": Object {
+          "consumerId": "2b47ba9b-761a-492d-9a0c-000000000001",
+          "credentialId": "2b47ba9b-761a-492d-9a0c-000000000002",
+          "plugin": "key-auth",
+        },
+      },
+      "method": "DELETE",
+      "type": "remove-customer-credential",
+    },
+    "status": 204,
+    "statusText": "No Content",
+    "type": "response",
+    "uri": "http://localhost:8001/consumers/2b47ba9b-761a-492d-9a0c-000000000001/key-auth/2b47ba9b-761a-492d-9a0c-000000000002",
+  },
+]
+`;
+
+exports[`Integration consumers credentials should remove the credential 2`] = `
+"apis: []
+consumers:
+  - username: iphone-app
+    acls: []
+    credentials: []
+plugins: []
+"
+`;
+
+exports[`Integration consumers credentials should update the credential 1`] = `
+Array [
+  Object {
+    "type": "kong-info",
+    "version": "___version___",
+  },
+  Object {
+    "params": Object {
+      "body": Object {
+        "username": "iphone-app",
+      },
+      "endpoint": Object {
+        "name": "consumers",
+      },
+      "method": "POST",
+      "type": "create-customer",
+    },
+    "type": "request",
+    "uri": "http://localhost:8001/consumers",
+  },
+  Object {
+    "content": Object {
+      "created_at": "___created_at___",
+      "id": "2b47ba9b-761a-492d-9a0c-000000000001",
+      "username": "iphone-app",
+    },
+    "ok": true,
+    "params": Object {
+      "body": Object {
+        "username": "iphone-app",
+      },
+      "endpoint": Object {
+        "name": "consumers",
+      },
+      "method": "POST",
+      "type": "create-customer",
+    },
+    "status": 201,
+    "statusText": "Created",
+    "type": "response",
+    "uri": "http://localhost:8001/consumers",
+  },
+  Object {
+    "params": Object {
+      "body": Object {
+        "secret": "the secrent",
+        "username": "my-user",
+      },
+      "endpoint": Object {
+        "name": "consumer-credentials",
+        "params": Object {
+          "consumerId": "2b47ba9b-761a-492d-9a0c-000000000001",
+          "plugin": "hmac-auth",
+        },
+      },
+      "method": "POST",
+      "type": "add-customer-credential",
+    },
+    "type": "request",
+    "uri": "http://localhost:8001/consumers/2b47ba9b-761a-492d-9a0c-000000000001/hmac-auth",
+  },
+  Object {
+    "content": Object {
+      "consumer_id": "2b47ba9b-761a-492d-9a0c-000000000001",
+      "created_at": "___created_at___",
+      "id": "2b47ba9b-761a-492d-9a0c-000000000002",
+      "secret": "the secrent",
+      "username": "my-user",
+    },
+    "ok": true,
+    "params": Object {
+      "body": Object {
+        "secret": "the secrent",
+        "username": "my-user",
+      },
+      "endpoint": Object {
+        "name": "consumer-credentials",
+        "params": Object {
+          "consumerId": "2b47ba9b-761a-492d-9a0c-000000000001",
+          "plugin": "hmac-auth",
+        },
+      },
+      "method": "POST",
+      "type": "add-customer-credential",
+    },
+    "status": 201,
+    "statusText": "Created",
+    "type": "response",
+    "uri": "http://localhost:8001/consumers/2b47ba9b-761a-492d-9a0c-000000000001/hmac-auth",
+  },
+  Object {
+    "type": "kong-info",
+    "version": "___version___",
+  },
+  Object {
+    "params": Object {
+      "consumer": Object {
+        "credentials": Array [
+          Object {
+            "attributes": Object {
+              "secret": "changed-pass",
+              "username": "my-user",
+            },
+            "ensure": "present",
+            "name": "hmac-auth",
+          },
+        ],
+        "ensure": "present",
+        "username": "iphone-app",
+      },
+      "noop": true,
+      "type": "noop-consumer",
+    },
+    "type": "noop",
+  },
+  Object {
+    "params": Object {
+      "body": Object {
+        "secret": "changed-pass",
+        "username": "my-user",
+      },
+      "endpoint": Object {
+        "name": "consumer-credential",
+        "params": Object {
+          "consumerId": "2b47ba9b-761a-492d-9a0c-000000000001",
+          "credentialId": "2b47ba9b-761a-492d-9a0c-000000000002",
+          "plugin": "hmac-auth",
+        },
+      },
+      "method": "PATCH",
+      "type": "update-customer-credential",
+    },
+    "type": "request",
+    "uri": "http://localhost:8001/consumers/2b47ba9b-761a-492d-9a0c-000000000001/hmac-auth/2b47ba9b-761a-492d-9a0c-000000000002",
+  },
+  Object {
+    "content": Object {
+      "consumer_id": "2b47ba9b-761a-492d-9a0c-000000000001",
+      "created_at": "___created_at___",
+      "id": "2b47ba9b-761a-492d-9a0c-000000000002",
+      "secret": "changed-pass",
+      "username": "my-user",
+    },
+    "ok": true,
+    "params": Object {
+      "body": Object {
+        "secret": "changed-pass",
+        "username": "my-user",
+      },
+      "endpoint": Object {
+        "name": "consumer-credential",
+        "params": Object {
+          "consumerId": "2b47ba9b-761a-492d-9a0c-000000000001",
+          "credentialId": "2b47ba9b-761a-492d-9a0c-000000000002",
+          "plugin": "hmac-auth",
+        },
+      },
+      "method": "PATCH",
+      "type": "update-customer-credential",
+    },
+    "status": 200,
+    "statusText": "OK",
+    "type": "response",
+    "uri": "http://localhost:8001/consumers/2b47ba9b-761a-492d-9a0c-000000000001/hmac-auth/2b47ba9b-761a-492d-9a0c-000000000002",
+  },
+]
+`;
+
+exports[`Integration consumers credentials should update the credential 2`] = `
+"apis: []
+consumers:
+  - username: iphone-app
+    acls: []
+    credentials:
+      - name: hmac-auth
+        attributes:
+          username: my-user
+          secret: changed-pass
+plugins: []
+"
+`;
+
+exports[`Integration consumers should add the consumer 1`] = `
+Array [
+  Object {
+    "type": "kong-info",
+    "version": "___version___",
+  },
+  Object {
+    "params": Object {
+      "body": Object {
+        "username": "iphone-app",
+      },
+      "endpoint": Object {
+        "name": "consumers",
+      },
+      "method": "POST",
+      "type": "create-customer",
+    },
+    "type": "request",
+    "uri": "http://localhost:8001/consumers",
+  },
+  Object {
+    "content": Object {
+      "created_at": "___created_at___",
+      "id": "2b47ba9b-761a-492d-9a0c-000000000001",
+      "username": "iphone-app",
+    },
+    "ok": true,
+    "params": Object {
+      "body": Object {
+        "username": "iphone-app",
+      },
+      "endpoint": Object {
+        "name": "consumers",
+      },
+      "method": "POST",
+      "type": "create-customer",
+    },
+    "status": 201,
+    "statusText": "Created",
+    "type": "response",
+    "uri": "http://localhost:8001/consumers",
+  },
+]
+`;
+
+exports[`Integration consumers should add the consumer 2`] = `
+"apis: []
+consumers:
+  - username: iphone-app
+    acls: []
+    credentials: []
+plugins: []
+"
+`;
+
+exports[`Integration consumers should remove the consumer 1`] = `
+Array [
+  Object {
+    "type": "kong-info",
+    "version": "___version___",
+  },
+  Object {
+    "params": Object {
+      "body": Object {
+        "username": "iphone-app",
+      },
+      "endpoint": Object {
+        "name": "consumers",
+      },
+      "method": "POST",
+      "type": "create-customer",
+    },
+    "type": "request",
+    "uri": "http://localhost:8001/consumers",
+  },
+  Object {
+    "content": Object {
+      "created_at": "___created_at___",
+      "id": "2b47ba9b-761a-492d-9a0c-000000000001",
+      "username": "iphone-app",
+    },
+    "ok": true,
+    "params": Object {
+      "body": Object {
+        "username": "iphone-app",
+      },
+      "endpoint": Object {
+        "name": "consumers",
+      },
+      "method": "POST",
+      "type": "create-customer",
+    },
+    "status": 201,
+    "statusText": "Created",
+    "type": "response",
+    "uri": "http://localhost:8001/consumers",
+  },
+  Object {
+    "type": "kong-info",
+    "version": "___version___",
+  },
+  Object {
+    "params": Object {
+      "endpoint": Object {
+        "name": "consumer",
+        "params": Object {
+          "consumerId": "2b47ba9b-761a-492d-9a0c-000000000001",
+        },
+      },
+      "method": "DELETE",
+      "type": "remove-customer",
+    },
+    "type": "request",
+    "uri": "http://localhost:8001/consumers/2b47ba9b-761a-492d-9a0c-000000000001",
+  },
+  Object {
+    "content": "",
+    "ok": true,
+    "params": Object {
+      "endpoint": Object {
+        "name": "consumer",
+        "params": Object {
+          "consumerId": "2b47ba9b-761a-492d-9a0c-000000000001",
+        },
+      },
+      "method": "DELETE",
+      "type": "remove-customer",
+    },
+    "status": 204,
+    "statusText": "No Content",
+    "type": "response",
+    "uri": "http://localhost:8001/consumers/2b47ba9b-761a-492d-9a0c-000000000001",
+  },
+]
+`;
+
+exports[`Integration consumers should remove the consumer 2`] = `
+"apis: []
+consumers: []
+plugins: []
+"
+`;
+
+exports[`Integration consumers should update the consumer 1`] = `
+Array [
+  Object {
+    "type": "kong-info",
+    "version": "___version___",
+  },
+  Object {
+    "params": Object {
+      "body": Object {
+        "username": "iphone-app",
+      },
+      "endpoint": Object {
+        "name": "consumers",
+      },
+      "method": "POST",
+      "type": "create-customer",
+    },
+    "type": "request",
+    "uri": "http://localhost:8001/consumers",
+  },
+  Object {
+    "content": Object {
+      "created_at": "___created_at___",
+      "id": "2b47ba9b-761a-492d-9a0c-000000000001",
+      "username": "iphone-app",
+    },
+    "ok": true,
+    "params": Object {
+      "body": Object {
+        "username": "iphone-app",
+      },
+      "endpoint": Object {
+        "name": "consumers",
+      },
+      "method": "POST",
+      "type": "create-customer",
+    },
+    "status": 201,
+    "statusText": "Created",
+    "type": "response",
+    "uri": "http://localhost:8001/consumers",
+  },
+  Object {
+    "type": "kong-info",
+    "version": "___version___",
+  },
+  Object {
+    "params": Object {
+      "body": Object {
+        "custom_id": "foobar123",
+        "username": "iphone-app",
+      },
+      "endpoint": Object {
+        "name": "consumer",
+        "params": Object {
+          "consumerId": "2b47ba9b-761a-492d-9a0c-000000000001",
+        },
+      },
+      "method": "PATCH",
+      "type": "update-customer",
+    },
+    "type": "request",
+    "uri": "http://localhost:8001/consumers/2b47ba9b-761a-492d-9a0c-000000000001",
+  },
+  Object {
+    "content": Object {
+      "created_at": "___created_at___",
+      "custom_id": "foobar123",
+      "id": "2b47ba9b-761a-492d-9a0c-000000000001",
+      "username": "iphone-app",
+    },
+    "ok": true,
+    "params": Object {
+      "body": Object {
+        "custom_id": "foobar123",
+        "username": "iphone-app",
+      },
+      "endpoint": Object {
+        "name": "consumer",
+        "params": Object {
+          "consumerId": "2b47ba9b-761a-492d-9a0c-000000000001",
+        },
+      },
+      "method": "PATCH",
+      "type": "update-customer",
+    },
+    "status": 200,
+    "statusText": "OK",
+    "type": "response",
+    "uri": "http://localhost:8001/consumers/2b47ba9b-761a-492d-9a0c-000000000001",
+  },
+]
+`;
+
+exports[`Integration consumers should update the consumer 2`] = `
+"apis: []
+consumers:
+  - username: iphone-app
+    custom_id: foobar123
+    acls: []
+    credentials: []
+plugins: []
+"
+`;

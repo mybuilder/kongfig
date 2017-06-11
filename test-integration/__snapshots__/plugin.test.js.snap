@@ -3,25 +3,8 @@
 exports[`Integration global plugin should add the plugin 1`] = `
 Array [
   Object {
-    "params": Object {
-      "body": Object {
-        "config": Object {
-          "credentials": false,
-          "max_age": 7000,
-          "preflight_continue": false,
-        },
-        "name": "cors",
-      },
-      "endpoint": Object {
-        "name": "plugins",
-        "params": Object {
-          "pluginName": "cors",
-        },
-      },
-      "method": "POST",
-      "type": "add-global-plugin",
-    },
-    "type": "action",
+    "type": "kong-info",
+    "version": "___version___",
   },
   Object {
     "params": Object {
@@ -46,6 +29,17 @@ Array [
     "uri": "http://localhost:8001/plugins",
   },
   Object {
+    "content": Object {
+      "config": Object {
+        "credentials": false,
+        "max_age": 7000,
+        "preflight_continue": false,
+      },
+      "created_at": "___created_at___",
+      "enabled": true,
+      "id": "2b47ba9b-761a-492d-9a0c-000000000001",
+      "name": "cors",
+    },
     "ok": true,
     "params": Object {
       "body": Object {
@@ -69,70 +63,29 @@ Array [
     "statusText": "Created",
     "type": "response",
     "uri": "http://localhost:8001/plugins",
-  },
-  Object {
-    "content": Object {
-      "config": Object {
-        "credentials": false,
-        "max_age": 7000,
-        "preflight_continue": false,
-      },
-      "created_at": "___created_at___",
-      "enabled": true,
-      "id": "2b47ba9b-761a-492d-9a0c-000000000001",
-      "name": "cors",
-    },
-    "type": "response-content",
   },
 ]
 `;
 
 exports[`Integration global plugin should add the plugin 2`] = `
-Object {
-  "apis": Array [],
-  "consumers": Array [],
-  "plugins": Array [
-    Object {
-      "_info": Object {
-        "created_at": "___created_at___",
-        "id": "2b47ba9b-761a-492d-9a0c-000000000002",
-      },
-      "attributes": Object {
-        "config": Object {
-          "credentials": false,
-          "max_age": 7000,
-          "preflight_continue": false,
-        },
-        "enabled": true,
-      },
-      "name": "cors",
-    },
-  ],
-}
+"apis: []
+consumers: []
+plugins:
+  - name: cors
+    attributes:
+      enabled: true
+      config:
+        credentials: false
+        preflight_continue: false
+        max_age: 7000
+"
 `;
 
 exports[`Integration global plugin should not update if already up to date 1`] = `
 Array [
   Object {
-    "params": Object {
-      "body": Object {
-        "config": Object {
-          "credentials": false,
-          "max_age": 7000,
-          "preflight_continue": false,
-        },
-        "name": "cors",
-      },
-      "endpoint": Object {
-        "name": "plugins",
-        "params": Object {
-          "pluginName": "cors",
-        },
-      },
-      "method": "POST",
-      "type": "add-global-plugin",
-    },
-    "type": "action",
+    "type": "kong-info",
+    "version": "___version___",
   },
   Object {
     "params": Object {
@@ -157,6 +110,17 @@ Array [
     "uri": "http://localhost:8001/plugins",
   },
   Object {
+    "content": Object {
+      "config": Object {
+        "credentials": false,
+        "max_age": 7000,
+        "preflight_continue": false,
+      },
+      "created_at": "___created_at___",
+      "enabled": true,
+      "id": "2b47ba9b-761a-492d-9a0c-000000000001",
+      "name": "cors",
+    },
     "ok": true,
     "params": Object {
       "body": Object {
@@ -182,18 +146,8 @@ Array [
     "uri": "http://localhost:8001/plugins",
   },
   Object {
-    "content": Object {
-      "config": Object {
-        "credentials": false,
-        "max_age": 7000,
-        "preflight_continue": false,
-      },
-      "created_at": "___created_at___",
-      "enabled": true,
-      "id": "2b47ba9b-761a-492d-9a0c-000000000001",
-      "name": "cors",
-    },
-    "type": "response-content",
+    "type": "kong-info",
+    "version": "___version___",
   },
   Object {
     "params": Object {
@@ -210,57 +164,30 @@ Array [
       },
       "type": "noop-global-plugin",
     },
-    "type": "action",
+    "type": "noop",
   },
 ]
 `;
 
 exports[`Integration global plugin should not update if already up to date 2`] = `
-Object {
-  "apis": Array [],
-  "consumers": Array [],
-  "plugins": Array [
-    Object {
-      "_info": Object {
-        "created_at": "___created_at___",
-        "id": "2b47ba9b-761a-492d-9a0c-000000000002",
-      },
-      "attributes": Object {
-        "config": Object {
-          "credentials": false,
-          "max_age": 7000,
-          "preflight_continue": false,
-        },
-        "enabled": true,
-      },
-      "name": "cors",
-    },
-  ],
-}
+"apis: []
+consumers: []
+plugins:
+  - name: cors
+    attributes:
+      enabled: true
+      config:
+        credentials: false
+        preflight_continue: false
+        max_age: 7000
+"
 `;
 
-exports[`Integration global plugin should remove the api 1`] = `
+exports[`Integration global plugin should remove the global plugin 1`] = `
 Array [
   Object {
-    "params": Object {
-      "body": Object {
-        "config": Object {
-          "credentials": false,
-          "max_age": 7000,
-          "preflight_continue": false,
-        },
-        "name": "cors",
-      },
-      "endpoint": Object {
-        "name": "plugins",
-        "params": Object {
-          "pluginName": "cors",
-        },
-      },
-      "method": "POST",
-      "type": "add-global-plugin",
-    },
-    "type": "action",
+    "type": "kong-info",
+    "version": "___version___",
   },
   Object {
     "params": Object {
@@ -285,6 +212,17 @@ Array [
     "uri": "http://localhost:8001/plugins",
   },
   Object {
+    "content": Object {
+      "config": Object {
+        "credentials": false,
+        "max_age": 7000,
+        "preflight_continue": false,
+      },
+      "created_at": "___created_at___",
+      "enabled": true,
+      "id": "2b47ba9b-761a-492d-9a0c-000000000001",
+      "name": "cors",
+    },
     "ok": true,
     "params": Object {
       "body": Object {
@@ -310,6 +248,80 @@ Array [
     "uri": "http://localhost:8001/plugins",
   },
   Object {
+    "type": "kong-info",
+    "version": "___version___",
+  },
+  Object {
+    "params": Object {
+      "endpoint": Object {
+        "name": "plugin",
+        "params": Object {
+          "pluginId": "2b47ba9b-761a-492d-9a0c-000000000001",
+        },
+      },
+      "method": "DELETE",
+      "type": "remove-global-plugin",
+    },
+    "type": "request",
+    "uri": "http://localhost:8001/plugins/2b47ba9b-761a-492d-9a0c-000000000001",
+  },
+  Object {
+    "content": "",
+    "ok": true,
+    "params": Object {
+      "endpoint": Object {
+        "name": "plugin",
+        "params": Object {
+          "pluginId": "2b47ba9b-761a-492d-9a0c-000000000001",
+        },
+      },
+      "method": "DELETE",
+      "type": "remove-global-plugin",
+    },
+    "status": 204,
+    "statusText": "No Content",
+    "type": "response",
+    "uri": "http://localhost:8001/plugins/2b47ba9b-761a-492d-9a0c-000000000001",
+  },
+]
+`;
+
+exports[`Integration global plugin should remove the global plugin 2`] = `
+"apis: []
+consumers: []
+plugins: []
+"
+`;
+
+exports[`Integration global plugin should update the global plugin 1`] = `
+Array [
+  Object {
+    "type": "kong-info",
+    "version": "___version___",
+  },
+  Object {
+    "params": Object {
+      "body": Object {
+        "config": Object {
+          "credentials": false,
+          "max_age": 7000,
+          "preflight_continue": false,
+        },
+        "name": "cors",
+      },
+      "endpoint": Object {
+        "name": "plugins",
+        "params": Object {
+          "pluginName": "cors",
+        },
+      },
+      "method": "POST",
+      "type": "add-global-plugin",
+    },
+    "type": "request",
+    "uri": "http://localhost:8001/plugins",
+  },
+  Object {
     "content": Object {
       "config": Object {
         "credentials": false,
@@ -321,63 +333,105 @@ Array [
       "id": "2b47ba9b-761a-492d-9a0c-000000000001",
       "name": "cors",
     },
-    "type": "response-content",
-  },
-  Object {
-    "params": Object {
-      "endpoint": Object {
-        "name": "plugin",
-        "params": Object {
-          "pluginId": "2b47ba9b-761a-492d-9a0c-000000000002",
-        },
-      },
-      "method": "DELETE",
-      "type": "remove-global-plugin",
-    },
-    "type": "action",
-  },
-  Object {
-    "params": Object {
-      "endpoint": Object {
-        "name": "plugin",
-        "params": Object {
-          "pluginId": "2b47ba9b-761a-492d-9a0c-000000000002",
-        },
-      },
-      "method": "DELETE",
-      "type": "remove-global-plugin",
-    },
-    "type": "request",
-    "uri": "http://localhost:8001/plugins/2b47ba9b-761a-492d-9a0c-000000000002",
-  },
-  Object {
     "ok": true,
     "params": Object {
+      "body": Object {
+        "config": Object {
+          "credentials": false,
+          "max_age": 7000,
+          "preflight_continue": false,
+        },
+        "name": "cors",
+      },
+      "endpoint": Object {
+        "name": "plugins",
+        "params": Object {
+          "pluginName": "cors",
+        },
+      },
+      "method": "POST",
+      "type": "add-global-plugin",
+    },
+    "status": 201,
+    "statusText": "Created",
+    "type": "response",
+    "uri": "http://localhost:8001/plugins",
+  },
+  Object {
+    "type": "kong-info",
+    "version": "___version___",
+  },
+  Object {
+    "params": Object {
+      "body": Object {
+        "config": Object {
+          "credentials": false,
+          "max_age": 7000,
+          "preflight_continue": false,
+        },
+        "enabled": false,
+      },
       "endpoint": Object {
         "name": "plugin",
         "params": Object {
-          "pluginId": "2b47ba9b-761a-492d-9a0c-000000000002",
+          "pluginId": "2b47ba9b-761a-492d-9a0c-000000000001",
         },
       },
-      "method": "DELETE",
-      "type": "remove-global-plugin",
+      "method": "PATCH",
+      "type": "update-global-plugin",
     },
-    "status": 204,
-    "statusText": "No Content",
-    "type": "response",
-    "uri": "http://localhost:8001/plugins/2b47ba9b-761a-492d-9a0c-000000000002",
+    "type": "request",
+    "uri": "http://localhost:8001/plugins/2b47ba9b-761a-492d-9a0c-000000000001",
   },
   Object {
-    "content": "",
-    "type": "response-content",
+    "content": Object {
+      "config": Object {
+        "credentials": false,
+        "max_age": 7000,
+        "preflight_continue": false,
+      },
+      "created_at": "___created_at___",
+      "enabled": false,
+      "id": "2b47ba9b-761a-492d-9a0c-000000000001",
+      "name": "cors",
+    },
+    "ok": true,
+    "params": Object {
+      "body": Object {
+        "config": Object {
+          "credentials": false,
+          "max_age": 7000,
+          "preflight_continue": false,
+        },
+        "enabled": false,
+      },
+      "endpoint": Object {
+        "name": "plugin",
+        "params": Object {
+          "pluginId": "2b47ba9b-761a-492d-9a0c-000000000001",
+        },
+      },
+      "method": "PATCH",
+      "type": "update-global-plugin",
+    },
+    "status": 200,
+    "statusText": "OK",
+    "type": "response",
+    "uri": "http://localhost:8001/plugins/2b47ba9b-761a-492d-9a0c-000000000001",
   },
 ]
 `;
 
-exports[`Integration global plugin should remove the api 2`] = `
-Object {
-  "apis": Array [],
-  "consumers": Array [],
-  "plugins": Array [],
-}
+exports[`Integration global plugin should update the global plugin 2`] = `
+"apis: []
+consumers: []
+plugins:
+  - name: cors
+    attributes:
+      enabled: false
+      config:
+        credentials: false
+        preflight_continue: false
+        max_age: 7000
+"
 `;
