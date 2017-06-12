@@ -1,6 +1,6 @@
 import execute from '../lib/core';
-import { testAdminApi, logger, ignoreKeys, getLog, tearDown } from './util';
-import readKongApi from '../lib/readKongApi';
+import { testAdminApi, exportToYaml, logger, getLog, getLocalState, tearDown } from './util';
+import readKongApi, { parseApiPostV10, parsePlugin, parseConsumer, parseAcl, parseGlobalPlugin } from '../lib/readKongApi';
 import configLoader from '../lib/configLoader';
 import fs from 'fs';
 import path from 'path';
@@ -27,10 +27,8 @@ const addExampleFile = (configPath, filename, log) => {
     const head = append(title(replaceDashWithSpace(filename.replace('.example.yml', '')) + " example"), header('Config file'), codeBlock(fs.readFileSync(configPath), 'yaml'), header('Using curl'), curlExample);
     const content = getLog().reduce((content, log) => {
         switch (log.type) {
-        case 'action': return append(content, header(replaceDashWithSpace(log.params.type), 3));
-        case 'request': return append(content, codeBlock(requestToCurl(log.uri, log.params.method, log.params.body), 'sh'));
-        case 'response': return append(content, codeBlock(`HTTP ${log.status} ${log.statusText}`));
-        case 'response-content': return append(content, codeBlock(JSON.stringify(log.content, null, 2)));
+        case 'request': return append(content, header(replaceDashWithSpace(log.params.type), 3), codeBlock(requestToCurl(log.uri, log.params.method, log.params.body), 'sh'));
+        case 'response': return append(content, codeBlock(`HTTP ${log.status} ${log.statusText}`), codeBlock(JSON.stringify(log.content, null, 2)));
 
         default: return content;
         }
@@ -45,10 +43,12 @@ fs.readdirSync(path.resolve(__dirname, './config')).forEach(filename => {
         const config = configLoader(configPath);
 
         await execute(config, testAdminApi, logger);
+        await execute(config, testAdminApi, logger); // all the actions should be no-op
         const kongState = await readKongApi(testAdminApi);
 
         expect(getLog()).toMatchSnapshot();
-        expect(ignoreKeys(kongState, ['created_at'])).toMatchSnapshot();
+        expect(exportToYaml(kongState)).toMatchSnapshot();
+        expect(getLocalState()).toEqual(kongState);
 
         if (filename.endsWith('example.yml')) {
             addExampleFile(configPath, filename, getLog());

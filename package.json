@@ -9,7 +9,7 @@
   "preferGlobal": true,
   "scripts": {
     "pretest": "yarn build",
-    "test": "jest",
+    "test": "jest --runInBand",
     "build": "babel src --out-dir lib",
     "preversion": "yarn test",
     "version": "yarn build",
@@ -39,7 +39,9 @@
     "jest": "^20.0.4"
   },
   "jest": {
-    "setupFiles": ["<rootDir>/node_modules/babel-polyfill/dist/polyfill.js"],
+    "setupFiles": [
+      "<rootDir>/node_modules/babel-polyfill/dist/polyfill.js"
+    ],
     "testMatch": [
       "<rootDir>/test/*.js",
       "<rootDir>/test-integration/*.test.js"

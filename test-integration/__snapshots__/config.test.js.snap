@@ -3,17 +3,8 @@
 exports[`should apply consumer.example.yml 1`] = `
 Array [
   Object {
-    "params": Object {
-      "body": Object {
-        "username": "iphone-app",
-      },
-      "endpoint": Object {
-        "name": "consumers",
-      },
-      "method": "POST",
-      "type": "create-customer",
-    },
-    "type": "action",
+    "type": "kong-info",
+    "version": "___version___",
   },
   Object {
     "params": Object {
@@ -27,23 +18,6 @@ Array [
       "type": "create-customer",
     },
     "type": "request",
-    "uri": "http://localhost:8001/consumers",
-  },
-  Object {
-    "ok": true,
-    "params": Object {
-      "body": Object {
-        "username": "iphone-app",
-      },
-      "endpoint": Object {
-        "name": "consumers",
-      },
-      "method": "POST",
-      "type": "create-customer",
-    },
-    "status": 201,
-    "statusText": "Created",
-    "type": "response",
     "uri": "http://localhost:8001/consumers",
   },
   Object {
@@ -52,24 +26,21 @@ Array [
       "id": "2b47ba9b-761a-492d-9a0c-000000000001",
       "username": "iphone-app",
     },
-    "type": "response-content",
-  },
-  Object {
+    "ok": true,
     "params": Object {
       "body": Object {
-        "key": "very-secret-key",
+        "username": "iphone-app",
       },
       "endpoint": Object {
-        "name": "consumer-credentials",
-        "params": Object {
-          "consumerId": "2b47ba9b-761a-492d-9a0c-000000000002",
-          "plugin": "key-auth",
-        },
+        "name": "consumers",
       },
       "method": "POST",
-      "type": "add-customer-credential",
+      "type": "create-customer",
     },
-    "type": "action",
+    "status": 201,
+    "statusText": "Created",
+    "type": "response",
+    "uri": "http://localhost:8001/consumers",
   },
   Object {
     "params": Object {
@@ -79,7 +50,7 @@ Array [
       "endpoint": Object {
         "name": "consumer-credentials",
         "params": Object {
-          "consumerId": "2b47ba9b-761a-492d-9a0c-000000000002",
+          "consumerId": "2b47ba9b-761a-492d-9a0c-000000000001",
           "plugin": "key-auth",
         },
       },
@@ -87,53 +58,34 @@ Array [
       "type": "add-customer-credential",
     },
     "type": "request",
-    "uri": "http://localhost:8001/consumers/2b47ba9b-761a-492d-9a0c-000000000002/key-auth",
-  },
-  Object {
-    "ok": true,
-    "params": Object {
-      "body": Object {
-        "key": "very-secret-key",
-      },
-      "endpoint": Object {
-        "name": "consumer-credentials",
-        "params": Object {
-          "consumerId": "2b47ba9b-761a-492d-9a0c-000000000002",
-          "plugin": "key-auth",
-        },
-      },
-      "method": "POST",
-      "type": "add-customer-credential",
-    },
-    "status": 201,
-    "statusText": "Created",
-    "type": "response",
-    "uri": "http://localhost:8001/consumers/2b47ba9b-761a-492d-9a0c-000000000002/key-auth",
+    "uri": "http://localhost:8001/consumers/2b47ba9b-761a-492d-9a0c-000000000001/key-auth",
   },
   Object {
     "content": Object {
-      "consumer_id": "2b47ba9b-761a-492d-9a0c-000000000002",
+      "consumer_id": "2b47ba9b-761a-492d-9a0c-000000000001",
       "created_at": "___created_at___",
       "id": "2b47ba9b-761a-492d-9a0c-000000000002",
       "key": "very-secret-key",
     },
-    "type": "response-content",
-  },
-  Object {
+    "ok": true,
     "params": Object {
       "body": Object {
-        "group": "foo-group",
+        "key": "very-secret-key",
       },
       "endpoint": Object {
-        "name": "consumer-acls",
+        "name": "consumer-credentials",
         "params": Object {
-          "consumerId": "2b47ba9b-761a-492d-9a0c-000000000003",
+          "consumerId": "2b47ba9b-761a-492d-9a0c-000000000001",
+          "plugin": "key-auth",
         },
       },
       "method": "POST",
-      "type": "add-customer-acls",
+      "type": "add-customer-credential",
     },
-    "type": "action",
+    "status": 201,
+    "statusText": "Created",
+    "type": "response",
+    "uri": "http://localhost:8001/consumers/2b47ba9b-761a-492d-9a0c-000000000001/key-auth",
   },
   Object {
     "params": Object {
@@ -143,16 +95,22 @@ Array [
       "endpoint": Object {
         "name": "consumer-acls",
         "params": Object {
-          "consumerId": "2b47ba9b-761a-492d-9a0c-000000000003",
+          "consumerId": "2b47ba9b-761a-492d-9a0c-000000000001",
         },
       },
       "method": "POST",
       "type": "add-customer-acls",
     },
     "type": "request",
-    "uri": "http://localhost:8001/consumers/2b47ba9b-761a-492d-9a0c-000000000003/acls",
+    "uri": "http://localhost:8001/consumers/2b47ba9b-761a-492d-9a0c-000000000001/acls",
   },
   Object {
+    "content": Object {
+      "consumer_id": "2b47ba9b-761a-492d-9a0c-000000000001",
+      "created_at": "___created_at___",
+      "group": "foo-group",
+      "id": "2b47ba9b-761a-492d-9a0c-000000000003",
+    },
     "ok": true,
     "params": Object {
       "body": Object {
@@ -161,7 +119,7 @@ Array [
       "endpoint": Object {
         "name": "consumer-acls",
         "params": Object {
-          "consumerId": "2b47ba9b-761a-492d-9a0c-000000000003",
+          "consumerId": "2b47ba9b-761a-492d-9a0c-000000000001",
         },
       },
       "method": "POST",
@@ -170,81 +128,86 @@ Array [
     "status": 201,
     "statusText": "Created",
     "type": "response",
-    "uri": "http://localhost:8001/consumers/2b47ba9b-761a-492d-9a0c-000000000003/acls",
+    "uri": "http://localhost:8001/consumers/2b47ba9b-761a-492d-9a0c-000000000001/acls",
   },
   Object {
-    "content": Object {
-      "consumer_id": "2b47ba9b-761a-492d-9a0c-000000000003",
-      "created_at": "___created_at___",
-      "group": "foo-group",
-      "id": "2b47ba9b-761a-492d-9a0c-000000000003",
+    "type": "kong-info",
+    "version": "___version___",
+  },
+  Object {
+    "params": Object {
+      "consumer": Object {
+        "acls": Array [
+          Object {
+            "ensure": "present",
+            "group": "foo-group",
+          },
+        ],
+        "credentials": Array [
+          Object {
+            "attributes": Object {
+              "key": "very-secret-key",
+            },
+            "ensure": "present",
+            "name": "key-auth",
+          },
+        ],
+        "ensure": "present",
+        "username": "iphone-app",
+      },
+      "noop": true,
+      "type": "noop-consumer",
     },
-    "type": "response-content",
+    "type": "noop",
+  },
+  Object {
+    "params": Object {
+      "credential": Object {
+        "attributes": Object {
+          "key": "very-secret-key",
+        },
+        "ensure": "present",
+        "name": "key-auth",
+      },
+      "credentialIdName": "key",
+      "noop": true,
+      "type": "noop-credential",
+    },
+    "type": "noop",
+  },
+  Object {
+    "params": Object {
+      "acl": Object {
+        "ensure": "present",
+        "group": "foo-group",
+      },
+      "noop": true,
+      "type": "noop-acl",
+    },
+    "type": "noop",
   },
 ]
 `;
 
 exports[`should apply consumer.example.yml 2`] = `
-Object {
-  "apis": Array [],
-  "consumers": Array [
-    Object {
-      "_info": Object {
-        "created_at": "___created_at___",
-        "id": "2b47ba9b-761a-492d-9a0c-000000000004",
-      },
-      "acls": Array [
-        Object {
-          "_info": Object {
-            "consumer_id": "2b47ba9b-761a-492d-9a0c-000000000004",
-            "created_at": "___created_at___",
-            "id": "2b47ba9b-761a-492d-9a0c-000000000004",
-          },
-          "group": "foo-group",
-        },
-      ],
-      "credentials": Array [
-        Object {
-          "_info": Object {
-            "consumer_id": "2b47ba9b-761a-492d-9a0c-000000000004",
-            "created_at": "___created_at___",
-            "id": "2b47ba9b-761a-492d-9a0c-000000000004",
-          },
-          "attributes": Object {
-            "key": "very-secret-key",
-          },
-          "name": "key-auth",
-        },
-      ],
-      "username": "iphone-app",
-    },
-  ],
-  "plugins": Array [],
-}
+"apis: []
+consumers:
+  - username: iphone-app
+    acls:
+      - group: foo-group
+    credentials:
+      - name: key-auth
+        attributes:
+          key: very-secret-key
+plugins: []
+"
 `;
 
 exports[`should apply global-plugin.example.yml 1`] = `
 Array [
   Object {
-    "params": Object {
-      "body": Object {
-        "config": Object {
-          "credentials": false,
-          "max_age": 7000,
-          "preflight_continue": false,
-        },
-        "name": "cors",
-      },
-      "endpoint": Object {
-        "name": "plugins",
-        "params": Object {
-          "pluginName": "cors",
-        },
-      },
-      "method": "POST",
-      "type": "add-global-plugin",
-    },
-    "type": "action",
+    "type": "kong-info",
+    "version": "___version___",
   },
   Object {
     "params": Object {
@@ -266,31 +229,6 @@ Array [
       "type": "add-global-plugin",
     },
     "type": "request",
-    "uri": "http://localhost:8001/plugins",
-  },
-  Object {
-    "ok": true,
-    "params": Object {
-      "body": Object {
-        "config": Object {
-          "credentials": false,
-          "max_age": 7000,
-          "preflight_continue": false,
-        },
-        "name": "cors",
-      },
-      "endpoint": Object {
-        "name": "plugins",
-        "params": Object {
-          "pluginName": "cors",
-        },
-      },
-      "method": "POST",
-      "type": "add-global-plugin",
-    },
-    "status": 201,
-    "statusText": "Created",
-    "type": "response",
     "uri": "http://localhost:8001/plugins",
   },
   Object {
@@ -305,49 +243,73 @@ Array [
       "id": "2b47ba9b-761a-492d-9a0c-000000000001",
       "name": "cors",
     },
-    "type": "response-content",
-  },
-]
-`;
-
-exports[`should apply global-plugin.example.yml 2`] = `
-Object {
-  "apis": Array [],
-  "consumers": Array [],
-  "plugins": Array [
-    Object {
-      "_info": Object {
-        "created_at": "___created_at___",
-        "id": "2b47ba9b-761a-492d-9a0c-000000000002",
-      },
-      "attributes": Object {
+    "ok": true,
+    "params": Object {
+      "body": Object {
         "config": Object {
           "credentials": false,
           "max_age": 7000,
           "preflight_continue": false,
         },
-        "enabled": true,
+        "name": "cors",
       },
-      "name": "cors",
+      "endpoint": Object {
+        "name": "plugins",
+        "params": Object {
+          "pluginName": "cors",
+        },
+      },
+      "method": "POST",
+      "type": "add-global-plugin",
     },
-  ],
-}
+    "status": 201,
+    "statusText": "Created",
+    "type": "response",
+    "uri": "http://localhost:8001/plugins",
+  },
+  Object {
+    "type": "kong-info",
+    "version": "___version___",
+  },
+  Object {
+    "params": Object {
+      "noop": true,
+      "plugin": Object {
+        "attributes": Object {
+          "config": Object {
+            "credentials": false,
+            "max_age": 7000,
+            "preflight_continue": false,
+          },
+        },
+        "name": "cors",
+      },
+      "type": "noop-global-plugin",
+    },
+    "type": "noop",
+  },
+]
+`;
+
+exports[`should apply global-plugin.example.yml 2`] = `
+"apis: []
+consumers: []
+plugins:
+  - name: cors
+    attributes:
+      enabled: true
+      config:
+        credentials: false
+        preflight_continue: false
+        max_age: 7000
+"
 `;
 
 exports[`should apply key-auth.example.yml 1`] = `
 Array [
   Object {
-    "params": Object {
-      "body": Object {
-        "username": "iphone-app",
-      },
-      "endpoint": Object {
-        "name": "consumers",
-      },
-      "method": "POST",
-      "type": "create-customer",
-    },
-    "type": "action",
+    "type": "kong-info",
+    "version": "___version___",
   },
   Object {
     "params": Object {
@@ -361,23 +323,6 @@ Array [
       "type": "create-customer",
     },
     "type": "request",
-    "uri": "http://localhost:8001/consumers",
-  },
-  Object {
-    "ok": true,
-    "params": Object {
-      "body": Object {
-        "username": "iphone-app",
-      },
-      "endpoint": Object {
-        "name": "consumers",
-      },
-      "method": "POST",
-      "type": "create-customer",
-    },
-    "status": 201,
-    "statusText": "Created",
-    "type": "response",
     "uri": "http://localhost:8001/consumers",
   },
   Object {
@@ -386,24 +331,21 @@ Array [
       "id": "2b47ba9b-761a-492d-9a0c-000000000001",
       "username": "iphone-app",
     },
-    "type": "response-content",
-  },
-  Object {
+    "ok": true,
     "params": Object {
       "body": Object {
-        "key": "very-secret-key",
+        "username": "iphone-app",
       },
       "endpoint": Object {
-        "name": "consumer-credentials",
-        "params": Object {
-          "consumerId": "2b47ba9b-761a-492d-9a0c-000000000002",
-          "plugin": "key-auth",
-        },
+        "name": "consumers",
       },
       "method": "POST",
-      "type": "add-customer-credential",
+      "type": "create-customer",
     },
-    "type": "action",
+    "status": 201,
+    "statusText": "Created",
+    "type": "response",
+    "uri": "http://localhost:8001/consumers",
   },
   Object {
     "params": Object {
@@ -413,7 +355,7 @@ Array [
       "endpoint": Object {
         "name": "consumer-credentials",
         "params": Object {
-          "consumerId": "2b47ba9b-761a-492d-9a0c-000000000002",
+          "consumerId": "2b47ba9b-761a-492d-9a0c-000000000001",
           "plugin": "key-auth",
         },
       },
@@ -421,54 +363,34 @@ Array [
       "type": "add-customer-credential",
     },
     "type": "request",
-    "uri": "http://localhost:8001/consumers/2b47ba9b-761a-492d-9a0c-000000000002/key-auth",
-  },
-  Object {
-    "ok": true,
-    "params": Object {
-      "body": Object {
-        "key": "very-secret-key",
-      },
-      "endpoint": Object {
-        "name": "consumer-credentials",
-        "params": Object {
-          "consumerId": "2b47ba9b-761a-492d-9a0c-000000000002",
-          "plugin": "key-auth",
-        },
-      },
-      "method": "POST",
-      "type": "add-customer-credential",
-    },
-    "status": 201,
-    "statusText": "Created",
-    "type": "response",
-    "uri": "http://localhost:8001/consumers/2b47ba9b-761a-492d-9a0c-000000000002/key-auth",
+    "uri": "http://localhost:8001/consumers/2b47ba9b-761a-492d-9a0c-000000000001/key-auth",
   },
   Object {
     "content": Object {
-      "consumer_id": "2b47ba9b-761a-492d-9a0c-000000000002",
+      "consumer_id": "2b47ba9b-761a-492d-9a0c-000000000001",
       "created_at": "___created_at___",
       "id": "2b47ba9b-761a-492d-9a0c-000000000002",
       "key": "very-secret-key",
     },
-    "type": "response-content",
-  },
-  Object {
+    "ok": true,
     "params": Object {
       "body": Object {
-        "hosts": Array [
-          "mockbin.com",
-        ],
-        "name": "mockbin",
-        "upstream_url": "http://mockbin.com",
+        "key": "very-secret-key",
       },
       "endpoint": Object {
-        "name": "apis",
+        "name": "consumer-credentials",
+        "params": Object {
+          "consumerId": "2b47ba9b-761a-492d-9a0c-000000000001",
+          "plugin": "key-auth",
+        },
       },
       "method": "POST",
-      "type": "create-api",
+      "type": "add-customer-credential",
     },
-    "type": "action",
+    "status": 201,
+    "statusText": "Created",
+    "type": "response",
+    "uri": "http://localhost:8001/consumers/2b47ba9b-761a-492d-9a0c-000000000001/key-auth",
   },
   Object {
     "params": Object {
@@ -486,27 +408,6 @@ Array [
       "type": "create-api",
     },
     "type": "request",
-    "uri": "http://localhost:8001/apis",
-  },
-  Object {
-    "ok": true,
-    "params": Object {
-      "body": Object {
-        "hosts": Array [
-          "mockbin.com",
-        ],
-        "name": "mockbin",
-        "upstream_url": "http://mockbin.com",
-      },
-      "endpoint": Object {
-        "name": "apis",
-      },
-      "method": "POST",
-      "type": "create-api",
-    },
-    "status": 201,
-    "statusText": "Created",
-    "type": "response",
     "uri": "http://localhost:8001/apis",
   },
   Object {
@@ -527,29 +428,25 @@ Array [
       "upstream_send_timeout": 60000,
       "upstream_url": "http://mockbin.com",
     },
-    "type": "response-content",
-  },
-  Object {
+    "ok": true,
     "params": Object {
       "body": Object {
-        "config": Object {
-          "key_names": Array [
-            "very-secret-key",
-          ],
-        },
-        "name": "key-auth",
+        "hosts": Array [
+          "mockbin.com",
+        ],
+        "name": "mockbin",
+        "upstream_url": "http://mockbin.com",
       },
       "endpoint": Object {
-        "name": "api-plugins",
-        "params": Object {
-          "apiId": "2b47ba9b-761a-492d-9a0c-000000000004",
-          "pluginName": "key-auth",
-        },
+        "name": "apis",
       },
       "method": "POST",
-      "type": "add-api-plugin",
+      "type": "create-api",
     },
-    "type": "action",
+    "status": 201,
+    "statusText": "Created",
+    "type": "response",
+    "uri": "http://localhost:8001/apis",
   },
   Object {
     "params": Object {
@@ -564,7 +461,7 @@ Array [
       "endpoint": Object {
         "name": "api-plugins",
         "params": Object {
-          "apiId": "2b47ba9b-761a-492d-9a0c-000000000004",
+          "apiId": "2b47ba9b-761a-492d-9a0c-000000000003",
           "pluginName": "key-auth",
         },
       },
@@ -572,37 +469,11 @@ Array [
       "type": "add-api-plugin",
     },
     "type": "request",
-    "uri": "http://localhost:8001/apis/2b47ba9b-761a-492d-9a0c-000000000004/plugins",
-  },
-  Object {
-    "ok": true,
-    "params": Object {
-      "body": Object {
-        "config": Object {
-          "key_names": Array [
-            "very-secret-key",
-          ],
-        },
-        "name": "key-auth",
-      },
-      "endpoint": Object {
-        "name": "api-plugins",
-        "params": Object {
-          "apiId": "2b47ba9b-761a-492d-9a0c-000000000004",
-          "pluginName": "key-auth",
-        },
-      },
-      "method": "POST",
-      "type": "add-api-plugin",
-    },
-    "status": 201,
-    "statusText": "Created",
-    "type": "response",
-    "uri": "http://localhost:8001/apis/2b47ba9b-761a-492d-9a0c-000000000004/plugins",
+    "uri": "http://localhost:8001/apis/2b47ba9b-761a-492d-9a0c-000000000003/plugins",
   },
   Object {
     "content": Object {
-      "api_id": "2b47ba9b-761a-492d-9a0c-000000000004",
+      "api_id": "2b47ba9b-761a-492d-9a0c-000000000003",
       "config": Object {
         "anonymous": "",
         "hide_credentials": false,
@@ -616,101 +487,160 @@ Array [
       "id": "2b47ba9b-761a-492d-9a0c-000000000004",
       "name": "key-auth",
     },
-    "type": "response-content",
+    "ok": true,
+    "params": Object {
+      "body": Object {
+        "config": Object {
+          "key_names": Array [
+            "very-secret-key",
+          ],
+        },
+        "name": "key-auth",
+      },
+      "endpoint": Object {
+        "name": "api-plugins",
+        "params": Object {
+          "apiId": "2b47ba9b-761a-492d-9a0c-000000000003",
+          "pluginName": "key-auth",
+        },
+      },
+      "method": "POST",
+      "type": "add-api-plugin",
+    },
+    "status": 201,
+    "statusText": "Created",
+    "type": "response",
+    "uri": "http://localhost:8001/apis/2b47ba9b-761a-492d-9a0c-000000000003/plugins",
+  },
+  Object {
+    "type": "kong-info",
+    "version": "___version___",
+  },
+  Object {
+    "params": Object {
+      "consumer": Object {
+        "credentials": Array [
+          Object {
+            "attributes": Object {
+              "key": "very-secret-key",
+            },
+            "ensure": "present",
+            "name": "key-auth",
+          },
+        ],
+        "ensure": "present",
+        "username": "iphone-app",
+      },
+      "noop": true,
+      "type": "noop-consumer",
+    },
+    "type": "noop",
+  },
+  Object {
+    "params": Object {
+      "credential": Object {
+        "attributes": Object {
+          "key": "very-secret-key",
+        },
+        "ensure": "present",
+        "name": "key-auth",
+      },
+      "credentialIdName": "key",
+      "noop": true,
+      "type": "noop-credential",
+    },
+    "type": "noop",
+  },
+  Object {
+    "params": Object {
+      "api": Object {
+        "attributes": Object {
+          "hosts": Array [
+            "mockbin.com",
+          ],
+          "upstream_url": "http://mockbin.com",
+        },
+        "ensure": "present",
+        "name": "mockbin",
+        "plugins": Array [
+          Object {
+            "attributes": Object {
+              "config": Object {
+                "key_names": Array [
+                  "very-secret-key",
+                ],
+              },
+            },
+            "name": "key-auth",
+          },
+        ],
+      },
+      "noop": true,
+      "type": "noop-api",
+    },
+    "type": "noop",
+  },
+  Object {
+    "params": Object {
+      "noop": true,
+      "plugin": Object {
+        "attributes": Object {
+          "config": Object {
+            "key_names": Array [
+              "very-secret-key",
+            ],
+          },
+        },
+        "name": "key-auth",
+      },
+      "type": "noop-plugin",
+    },
+    "type": "noop",
   },
 ]
 `;
 
 exports[`should apply key-auth.example.yml 2`] = `
-Object {
-  "apis": Array [
-    Object {
-      "_info": Object {
-        "created_at": "___created_at___",
-        "id": "2b47ba9b-761a-492d-9a0c-000000000005",
-      },
-      "attributes": Object {
-        "hosts": Array [
-          "mockbin.com",
-        ],
-        "http_if_terminated": true,
-        "https_only": false,
-        "preserve_host": false,
-        "retries": 5,
-        "strip_uri": true,
-        "upstream_connect_timeout": 60000,
-        "upstream_read_timeout": 60000,
-        "upstream_send_timeout": 60000,
-        "upstream_url": "http://mockbin.com",
-      },
-      "name": "mockbin",
-      "plugins": Array [
-        Object {
-          "_info": Object {
-            "created_at": "___created_at___",
-            "id": "2b47ba9b-761a-492d-9a0c-000000000005",
-          },
-          "attributes": Object {
-            "config": Object {
-              "anonymous": "",
-              "hide_credentials": false,
-              "key_in_body": false,
-              "key_names": Array [
-                "very-secret-key",
-              ],
-            },
-            "enabled": true,
-          },
-          "name": "key-auth",
-        },
-      ],
-    },
-  ],
-  "consumers": Array [
-    Object {
-      "_info": Object {
-        "created_at": "___created_at___",
-        "id": "2b47ba9b-761a-492d-9a0c-000000000005",
-      },
-      "acls": Array [],
-      "credentials": Array [
-        Object {
-          "_info": Object {
-            "consumer_id": "2b47ba9b-761a-492d-9a0c-000000000005",
-            "created_at": "___created_at___",
-            "id": "2b47ba9b-761a-492d-9a0c-000000000005",
-          },
-          "attributes": Object {
-            "key": "very-secret-key",
-          },
-          "name": "key-auth",
-        },
-      ],
-      "username": "iphone-app",
-    },
-  ],
-  "plugins": Array [],
-}
+"apis:
+  - name: mockbin
+    plugins:
+      - name: key-auth
+        attributes:
+          enabled: true
+          config:
+            hide_credentials: false
+            anonymous: ''
+            key_names:
+              - very-secret-key
+            key_in_body: false
+    attributes:
+      hosts:
+        - mockbin.com
+      strip_uri: true
+      preserve_host: false
+      upstream_url: 'http://mockbin.com'
+      retries: 5
+      upstream_connect_timeout: 60000
+      upstream_read_timeout: 60000
+      upstream_send_timeout: 60000
+      https_only: false
+      http_if_terminated: true
+consumers:
+  - username: iphone-app
+    acls: []
+    credentials:
+      - name: key-auth
+        attributes:
+          key: very-secret-key
+plugins: []
+"
 `;
 
 exports[`should apply simple-api.example.yml 1`] = `
 Array [
   Object {
-    "params": Object {
-      "body": Object {
-        "hosts": Array [
-          "mockbin.com",
-        ],
-        "name": "mockbin",
-        "upstream_url": "http://mockbin.com",
-      },
-      "endpoint": Object {
-        "name": "apis",
-      },
-      "method": "POST",
-      "type": "create-api",
-    },
-    "type": "action",
+    "type": "kong-info",
+    "version": "___version___",
   },
   Object {
     "params": Object {
@@ -728,27 +658,6 @@ Array [
       "type": "create-api",
     },
     "type": "request",
-    "uri": "http://localhost:8001/apis",
-  },
-  Object {
-    "ok": true,
-    "params": Object {
-      "body": Object {
-        "hosts": Array [
-          "mockbin.com",
-        ],
-        "name": "mockbin",
-        "upstream_url": "http://mockbin.com",
-      },
-      "endpoint": Object {
-        "name": "apis",
-      },
-      "method": "POST",
-      "type": "create-api",
-    },
-    "status": 201,
-    "statusText": "Created",
-    "type": "response",
     "uri": "http://localhost:8001/apis",
   },
   Object {
@@ -769,38 +678,67 @@ Array [
       "upstream_send_timeout": 60000,
       "upstream_url": "http://mockbin.com",
     },
-    "type": "response-content",
+    "ok": true,
+    "params": Object {
+      "body": Object {
+        "hosts": Array [
+          "mockbin.com",
+        ],
+        "name": "mockbin",
+        "upstream_url": "http://mockbin.com",
+      },
+      "endpoint": Object {
+        "name": "apis",
+      },
+      "method": "POST",
+      "type": "create-api",
+    },
+    "status": 201,
+    "statusText": "Created",
+    "type": "response",
+    "uri": "http://localhost:8001/apis",
+  },
+  Object {
+    "type": "kong-info",
+    "version": "___version___",
+  },
+  Object {
+    "params": Object {
+      "api": Object {
+        "attributes": Object {
+          "hosts": Array [
+            "mockbin.com",
+          ],
+          "upstream_url": "http://mockbin.com",
+        },
+        "ensure": "present",
+        "name": "mockbin",
+      },
+      "noop": true,
+      "type": "noop-api",
+    },
+    "type": "noop",
   },
 ]
 `;
 
 exports[`should apply simple-api.example.yml 2`] = `
-Object {
-  "apis": Array [
-    Object {
-      "_info": Object {
-        "created_at": "___created_at___",
-        "id": "2b47ba9b-761a-492d-9a0c-000000000002",
-      },
-      "attributes": Object {
-        "hosts": Array [
-          "mockbin.com",
-        ],
-        "http_if_terminated": true,
-        "https_only": false,
-        "preserve_host": false,
-        "retries": 5,
-        "strip_uri": true,
-        "upstream_connect_timeout": 60000,
-        "upstream_read_timeout": 60000,
-        "upstream_send_timeout": 60000,
-        "upstream_url": "http://mockbin.com",
-      },
-      "name": "mockbin",
-      "plugins": Array [],
-    },
-  ],
-  "consumers": Array [],
-  "plugins": Array [],
-}
+"apis:
+  - name: mockbin
+    plugins: []
+    attributes:
+      hosts:
+        - mockbin.com
+      strip_uri: true
+      preserve_host: false
+      upstream_url: 'http://mockbin.com'
+      retries: 5
+      upstream_connect_timeout: 60000
+      upstream_read_timeout: 60000
+      upstream_send_timeout: 60000
+      https_only: false
+      http_if_terminated: true
+consumers: []
+plugins: []
+"
 `;
