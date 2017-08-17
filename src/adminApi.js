@@ -96,8 +96,9 @@ function getPaginatedJson(uri) {
             // FIXME an hopeful hack to prevent a loop
             return json.data;
         }
-
-        return getPaginatedJson(json.next).then(data => json.data.concat(data));
+        
+        const nextUri = `${uri}?${json.next.split('?')[1]}`;
+        return getPaginatedJson(nextUri).then(data => json.data.concat(data));
     });
 }
 
