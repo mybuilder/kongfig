@@ -1,5 +1,6 @@
 import semVer from 'semver';
 import kongState from './kongState';
+import { parseUpstreams } from './parsers/upstreams';
 
 export default async (adminApi) => {
     return Promise.all([kongState(adminApi), adminApi.fetchPluginSchemas(), adminApi.fetchKongVersion()])
@@ -8,7 +9,8 @@ export default async (adminApi) => {
                 _info: { version },
                 apis: parseApis(state.apis, version),
                 consumers: parseConsumers(state.consumers),
-                plugins: parseGlobalPlugins(state.plugins)
+                plugins: parseGlobalPlugins(state.plugins),
+                upstreams: parseUpstreams(state.upstreams)
             }
         })
 };

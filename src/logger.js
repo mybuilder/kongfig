@@ -13,6 +13,8 @@ export const screenLogger = createLogHandler({
         'noop-global-plugin': ({ plugin }) => console.log(`global plugin ${plugin.name.bold} ${'is up to date'.bold.green}`),
         'noop-consumer': ({ consumer }) => console.log(`consumer ${consumer.username.bold} ${'is up to date'.bold.green}`),
         'noop-credential': ({ credential, credentialIdName }) => console.log(`- credential ${credential.name.bold} with ${credentialIdName.bold}: ${credential.attributes[credentialIdName].bold} ${'is up to date'.bold.green}`),
+        'noop-upstream': ({ upstream }) => console.log(`upstream ${upstream.name.bold} ${'is up to date'.bold.green}`),
+        'noop-target': ({ target }) => console.log(`target ${target.target.bold} ${'is up to date'.bold.green}`),
 
         unknown: action => console.log('unknown action', action),
     })(message.params),

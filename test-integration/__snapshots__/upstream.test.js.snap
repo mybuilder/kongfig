@@ -1,0 +1,732 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Upstream Targets should add mockbin upstream with target 1`] = `
+Array [
+  Object {
+    "type": "kong-info",
+    "version": "___version___",
+  },
+  Object {
+    "params": Object {
+      "body": Object {
+        "name": "mockbinUpstream",
+        "slots": 10,
+      },
+      "endpoint": Object {
+        "name": "upstreams",
+      },
+      "method": "POST",
+      "type": "create-upstream",
+    },
+    "type": "request",
+    "uri": "http://localhost:8001/upstreams",
+  },
+  Object {
+    "content": Object {
+      "created_at": "___created_at___",
+      "id": "2b47ba9b-761a-492d-9a0c-000000000001",
+      "name": "mockbinUpstream",
+      "orderlist": "___orderlist___",
+      "slots": 10,
+    },
+    "ok": true,
+    "params": Object {
+      "body": Object {
+        "name": "mockbinUpstream",
+        "slots": 10,
+      },
+      "endpoint": Object {
+        "name": "upstreams",
+      },
+      "method": "POST",
+      "type": "create-upstream",
+    },
+    "status": 201,
+    "statusText": "Created",
+    "type": "response",
+    "uri": "http://localhost:8001/upstreams",
+  },
+  Object {
+    "params": Object {
+      "body": Object {
+        "target": "server1.mockbin:8080",
+        "weight": 50,
+      },
+      "endpoint": Object {
+        "name": "upstream-targets",
+        "params": Object {
+          "targetName": "server1.mockbin:8080",
+          "upstreamId": "2b47ba9b-761a-492d-9a0c-000000000001",
+        },
+      },
+      "method": "POST",
+      "type": "add-upstream-target",
+    },
+    "type": "request",
+    "uri": "http://localhost:8001/upstreams/2b47ba9b-761a-492d-9a0c-000000000001/targets",
+  },
+  Object {
+    "content": Object {
+      "created_at": "___created_at___",
+      "id": "2b47ba9b-761a-492d-9a0c-000000000002",
+      "target": "server1.mockbin:8080",
+      "upstream_id": "2b47ba9b-761a-492d-9a0c-000000000001",
+      "weight": 50,
+    },
+    "ok": true,
+    "params": Object {
+      "body": Object {
+        "target": "server1.mockbin:8080",
+        "weight": 50,
+      },
+      "endpoint": Object {
+        "name": "upstream-targets",
+        "params": Object {
+          "targetName": "server1.mockbin:8080",
+          "upstreamId": "2b47ba9b-761a-492d-9a0c-000000000001",
+        },
+      },
+      "method": "POST",
+      "type": "add-upstream-target",
+    },
+    "status": 201,
+    "statusText": "Created",
+    "type": "response",
+    "uri": "http://localhost:8001/upstreams/2b47ba9b-761a-492d-9a0c-000000000001/targets",
+  },
+]
+`;
+
+exports[`Upstream Targets should add mockbin upstream with target 2`] = `
+"apis: []
+consumers: []
+plugins: []
+upstreams:
+  - name: mockbinUpstream
+    targets:
+      - target: 'server1.mockbin:8080'
+        attributes:
+          weight: 50
+    attributes:
+      slots: 10
+"
+`;
+
+exports[`Upstream Targets should remove target from mockbin upstream 1`] = `
+Array [
+  Object {
+    "type": "kong-info",
+    "version": "___version___",
+  },
+  Object {
+    "params": Object {
+      "body": Object {
+        "name": "mockbinUpstream",
+        "slots": 10,
+      },
+      "endpoint": Object {
+        "name": "upstreams",
+      },
+      "method": "POST",
+      "type": "create-upstream",
+    },
+    "type": "request",
+    "uri": "http://localhost:8001/upstreams",
+  },
+  Object {
+    "content": Object {
+      "created_at": "___created_at___",
+      "id": "2b47ba9b-761a-492d-9a0c-000000000001",
+      "name": "mockbinUpstream",
+      "orderlist": "___orderlist___",
+      "slots": 10,
+    },
+    "ok": true,
+    "params": Object {
+      "body": Object {
+        "name": "mockbinUpstream",
+        "slots": 10,
+      },
+      "endpoint": Object {
+        "name": "upstreams",
+      },
+      "method": "POST",
+      "type": "create-upstream",
+    },
+    "status": 201,
+    "statusText": "Created",
+    "type": "response",
+    "uri": "http://localhost:8001/upstreams",
+  },
+  Object {
+    "params": Object {
+      "body": Object {
+        "target": "server1.mockbin:8080",
+        "weight": 50,
+      },
+      "endpoint": Object {
+        "name": "upstream-targets",
+        "params": Object {
+          "targetName": "server1.mockbin:8080",
+          "upstreamId": "2b47ba9b-761a-492d-9a0c-000000000001",
+        },
+      },
+      "method": "POST",
+      "type": "add-upstream-target",
+    },
+    "type": "request",
+    "uri": "http://localhost:8001/upstreams/2b47ba9b-761a-492d-9a0c-000000000001/targets",
+  },
+  Object {
+    "content": Object {
+      "created_at": "___created_at___",
+      "id": "2b47ba9b-761a-492d-9a0c-000000000002",
+      "target": "server1.mockbin:8080",
+      "upstream_id": "2b47ba9b-761a-492d-9a0c-000000000001",
+      "weight": 50,
+    },
+    "ok": true,
+    "params": Object {
+      "body": Object {
+        "target": "server1.mockbin:8080",
+        "weight": 50,
+      },
+      "endpoint": Object {
+        "name": "upstream-targets",
+        "params": Object {
+          "targetName": "server1.mockbin:8080",
+          "upstreamId": "2b47ba9b-761a-492d-9a0c-000000000001",
+        },
+      },
+      "method": "POST",
+      "type": "add-upstream-target",
+    },
+    "status": 201,
+    "statusText": "Created",
+    "type": "response",
+    "uri": "http://localhost:8001/upstreams/2b47ba9b-761a-492d-9a0c-000000000001/targets",
+  },
+  Object {
+    "type": "kong-info",
+    "version": "___version___",
+  },
+  Object {
+    "params": Object {
+      "noop": true,
+      "type": "noop-upstream",
+      "upstream": Object {
+        "attributes": Object {
+          "slots": 10,
+        },
+        "ensure": "present",
+        "name": "mockbinUpstream",
+        "targets": Array [
+          Object {
+            "attributes": Object {
+              "weight": 50,
+            },
+            "ensure": "removed",
+            "target": "server1.mockbin:8080",
+          },
+        ],
+      },
+    },
+    "type": "noop",
+  },
+  Object {
+    "params": Object {
+      "body": Object {
+        "target": "server1.mockbin:8080",
+        "weight": 0,
+      },
+      "endpoint": Object {
+        "name": "upstream-targets",
+        "params": Object {
+          "targetName": "server1.mockbin:8080",
+          "upstreamId": "2b47ba9b-761a-492d-9a0c-000000000001",
+        },
+      },
+      "method": "POST",
+      "type": "remove-upstream-target",
+    },
+    "type": "request",
+    "uri": "http://localhost:8001/upstreams/2b47ba9b-761a-492d-9a0c-000000000001/targets",
+  },
+  Object {
+    "content": Object {
+      "created_at": "___created_at___",
+      "id": "2b47ba9b-761a-492d-9a0c-000000000003",
+      "target": "server1.mockbin:8080",
+      "upstream_id": "2b47ba9b-761a-492d-9a0c-000000000001",
+      "weight": 0,
+    },
+    "ok": true,
+    "params": Object {
+      "body": Object {
+        "target": "server1.mockbin:8080",
+        "weight": 0,
+      },
+      "endpoint": Object {
+        "name": "upstream-targets",
+        "params": Object {
+          "targetName": "server1.mockbin:8080",
+          "upstreamId": "2b47ba9b-761a-492d-9a0c-000000000001",
+        },
+      },
+      "method": "POST",
+      "type": "remove-upstream-target",
+    },
+    "status": 201,
+    "statusText": "Created",
+    "type": "response",
+    "uri": "http://localhost:8001/upstreams/2b47ba9b-761a-492d-9a0c-000000000001/targets",
+  },
+]
+`;
+
+exports[`Upstream Targets should remove target from mockbin upstream 2`] = `
+"apis: []
+consumers: []
+plugins: []
+upstreams:
+  - name: mockbinUpstream
+    targets: []
+    attributes:
+      slots: 10
+"
+`;
+
+exports[`Upstream Targets should update mockbin upstream target 1`] = `
+Array [
+  Object {
+    "type": "kong-info",
+    "version": "___version___",
+  },
+  Object {
+    "params": Object {
+      "body": Object {
+        "name": "mockbinUpstream",
+        "slots": 10,
+      },
+      "endpoint": Object {
+        "name": "upstreams",
+      },
+      "method": "POST",
+      "type": "create-upstream",
+    },
+    "type": "request",
+    "uri": "http://localhost:8001/upstreams",
+  },
+  Object {
+    "content": Object {
+      "created_at": "___created_at___",
+      "id": "2b47ba9b-761a-492d-9a0c-000000000001",
+      "name": "mockbinUpstream",
+      "orderlist": "___orderlist___",
+      "slots": 10,
+    },
+    "ok": true,
+    "params": Object {
+      "body": Object {
+        "name": "mockbinUpstream",
+        "slots": 10,
+      },
+      "endpoint": Object {
+        "name": "upstreams",
+      },
+      "method": "POST",
+      "type": "create-upstream",
+    },
+    "status": 201,
+    "statusText": "Created",
+    "type": "response",
+    "uri": "http://localhost:8001/upstreams",
+  },
+  Object {
+    "params": Object {
+      "body": Object {
+        "target": "server1.mockbin:8080",
+        "weight": 50,
+      },
+      "endpoint": Object {
+        "name": "upstream-targets",
+        "params": Object {
+          "targetName": "server1.mockbin:8080",
+          "upstreamId": "2b47ba9b-761a-492d-9a0c-000000000001",
+        },
+      },
+      "method": "POST",
+      "type": "add-upstream-target",
+    },
+    "type": "request",
+    "uri": "http://localhost:8001/upstreams/2b47ba9b-761a-492d-9a0c-000000000001/targets",
+  },
+  Object {
+    "content": Object {
+      "created_at": "___created_at___",
+      "id": "2b47ba9b-761a-492d-9a0c-000000000002",
+      "target": "server1.mockbin:8080",
+      "upstream_id": "2b47ba9b-761a-492d-9a0c-000000000001",
+      "weight": 50,
+    },
+    "ok": true,
+    "params": Object {
+      "body": Object {
+        "target": "server1.mockbin:8080",
+        "weight": 50,
+      },
+      "endpoint": Object {
+        "name": "upstream-targets",
+        "params": Object {
+          "targetName": "server1.mockbin:8080",
+          "upstreamId": "2b47ba9b-761a-492d-9a0c-000000000001",
+        },
+      },
+      "method": "POST",
+      "type": "add-upstream-target",
+    },
+    "status": 201,
+    "statusText": "Created",
+    "type": "response",
+    "uri": "http://localhost:8001/upstreams/2b47ba9b-761a-492d-9a0c-000000000001/targets",
+  },
+  Object {
+    "type": "kong-info",
+    "version": "___version___",
+  },
+  Object {
+    "params": Object {
+      "noop": true,
+      "type": "noop-upstream",
+      "upstream": Object {
+        "attributes": Object {
+          "slots": 10,
+        },
+        "ensure": "present",
+        "name": "mockbinUpstream",
+        "targets": Array [
+          Object {
+            "attributes": Object {
+              "weight": 100,
+            },
+            "ensure": "present",
+            "target": "server1.mockbin:8080",
+          },
+        ],
+      },
+    },
+    "type": "noop",
+  },
+  Object {
+    "params": Object {
+      "noop": true,
+      "target": Object {
+        "attributes": Object {
+          "weight": 100,
+        },
+        "ensure": "present",
+        "target": "server1.mockbin:8080",
+      },
+      "type": "noop-target",
+    },
+    "type": "noop",
+  },
+]
+`;
+
+exports[`Upstream Targets should update mockbin upstream target 2`] = `
+"apis: []
+consumers: []
+plugins: []
+upstreams:
+  - name: mockbinUpstream
+    targets:
+      - target: 'server1.mockbin:8080'
+        attributes:
+          weight: 50
+    attributes:
+      slots: 10
+"
+`;
+
+exports[`Upstream should add the upstream 1`] = `
+Array [
+  Object {
+    "type": "kong-info",
+    "version": "___version___",
+  },
+  Object {
+    "params": Object {
+      "body": Object {
+        "name": "mockbinUpstream",
+        "slots": 10,
+      },
+      "endpoint": Object {
+        "name": "upstreams",
+      },
+      "method": "POST",
+      "type": "create-upstream",
+    },
+    "type": "request",
+    "uri": "http://localhost:8001/upstreams",
+  },
+  Object {
+    "content": Object {
+      "created_at": "___created_at___",
+      "id": "2b47ba9b-761a-492d-9a0c-000000000001",
+      "name": "mockbinUpstream",
+      "orderlist": "___orderlist___",
+      "slots": 10,
+    },
+    "ok": true,
+    "params": Object {
+      "body": Object {
+        "name": "mockbinUpstream",
+        "slots": 10,
+      },
+      "endpoint": Object {
+        "name": "upstreams",
+      },
+      "method": "POST",
+      "type": "create-upstream",
+    },
+    "status": 201,
+    "statusText": "Created",
+    "type": "response",
+    "uri": "http://localhost:8001/upstreams",
+  },
+]
+`;
+
+exports[`Upstream should add the upstream 2`] = `
+"apis: []
+consumers: []
+plugins: []
+upstreams:
+  - name: mockbinUpstream
+    targets: []
+    attributes:
+      slots: 10
+"
+`;
+
+exports[`Upstream should not update if already up to date 1`] = `
+Array [
+  Object {
+    "type": "kong-info",
+    "version": "___version___",
+  },
+  Object {
+    "params": Object {
+      "body": Object {
+        "name": "mockbinUpstream",
+        "slots": 10,
+      },
+      "endpoint": Object {
+        "name": "upstreams",
+      },
+      "method": "POST",
+      "type": "create-upstream",
+    },
+    "type": "request",
+    "uri": "http://localhost:8001/upstreams",
+  },
+  Object {
+    "content": Object {
+      "created_at": "___created_at___",
+      "id": "2b47ba9b-761a-492d-9a0c-000000000001",
+      "name": "mockbinUpstream",
+      "orderlist": "___orderlist___",
+      "slots": 10,
+    },
+    "ok": true,
+    "params": Object {
+      "body": Object {
+        "name": "mockbinUpstream",
+        "slots": 10,
+      },
+      "endpoint": Object {
+        "name": "upstreams",
+      },
+      "method": "POST",
+      "type": "create-upstream",
+    },
+    "status": 201,
+    "statusText": "Created",
+    "type": "response",
+    "uri": "http://localhost:8001/upstreams",
+  },
+  Object {
+    "type": "kong-info",
+    "version": "___version___",
+  },
+  Object {
+    "params": Object {
+      "noop": true,
+      "type": "noop-upstream",
+      "upstream": Object {
+        "attributes": Object {
+          "slots": 10,
+        },
+        "ensure": "present",
+        "name": "mockbinUpstream",
+      },
+    },
+    "type": "noop",
+  },
+]
+`;
+
+exports[`Upstream should not update if already up to date 2`] = `
+"apis: []
+consumers: []
+plugins: []
+upstreams:
+  - name: mockbinUpstream
+    targets: []
+    attributes:
+      slots: 10
+"
+`;
+
+exports[`Upstream should remove the upstream 1`] = `
+Array [
+  Object {
+    "type": "kong-info",
+    "version": "___version___",
+  },
+  Object {
+    "params": Object {
+      "noop": true,
+      "type": "noop-upstream",
+      "upstream": Object {
+        "attributes": Object {
+          "slots": 10,
+        },
+        "ensure": "removed",
+        "name": "mockbinUpstream",
+      },
+    },
+    "type": "noop",
+  },
+]
+`;
+
+exports[`Upstream should remove the upstream 2`] = `
+"apis: []
+consumers: []
+plugins: []
+upstreams: []
+"
+`;
+
+exports[`Upstream should update the upstream 1`] = `
+Array [
+  Object {
+    "type": "kong-info",
+    "version": "___version___",
+  },
+  Object {
+    "params": Object {
+      "body": Object {
+        "name": "mockbinUpstream",
+        "slots": 10,
+      },
+      "endpoint": Object {
+        "name": "upstreams",
+      },
+      "method": "POST",
+      "type": "create-upstream",
+    },
+    "type": "request",
+    "uri": "http://localhost:8001/upstreams",
+  },
+  Object {
+    "content": Object {
+      "created_at": "___created_at___",
+      "id": "2b47ba9b-761a-492d-9a0c-000000000001",
+      "name": "mockbinUpstream",
+      "orderlist": "___orderlist___",
+      "slots": 10,
+    },
+    "ok": true,
+    "params": Object {
+      "body": Object {
+        "name": "mockbinUpstream",
+        "slots": 10,
+      },
+      "endpoint": Object {
+        "name": "upstreams",
+      },
+      "method": "POST",
+      "type": "create-upstream",
+    },
+    "status": 201,
+    "statusText": "Created",
+    "type": "response",
+    "uri": "http://localhost:8001/upstreams",
+  },
+  Object {
+    "type": "kong-info",
+    "version": "___version___",
+  },
+  Object {
+    "params": Object {
+      "body": Object {
+        "orderlist": "___orderlist___",
+        "slots": 20,
+      },
+      "endpoint": Object {
+        "name": "upstream",
+        "params": Object {
+          "name": "mockbinUpstream",
+        },
+      },
+      "method": "PATCH",
+      "type": "update-upstream",
+    },
+    "type": "request",
+    "uri": "http://localhost:8001/upstreams/mockbinUpstream",
+  },
+  Object {
+    "content": Object {
+      "created_at": "___created_at___",
+      "id": "2b47ba9b-761a-492d-9a0c-000000000001",
+      "name": "mockbinUpstream",
+      "orderlist": "___orderlist___",
+      "slots": 20,
+    },
+    "ok": true,
+    "params": Object {
+      "body": Object {
+        "orderlist": "___orderlist___",
+        "slots": 20,
+      },
+      "endpoint": Object {
+        "name": "upstream",
+        "params": Object {
+          "name": "mockbinUpstream",
+        },
+      },
+      "method": "PATCH",
+      "type": "update-upstream",
+    },
+    "status": 200,
+    "statusText": "OK",
+    "type": "response",
+    "uri": "http://localhost:8001/upstreams/mockbinUpstream",
+  },
+]
+`;
+
+exports[`Upstream should update the upstream 2`] = `
+"apis: []
+consumers: []
+plugins: []
+upstreams:
+  - name: mockbinUpstream
+    targets: []
+    attributes:
+      slots: 20
+"
+`;

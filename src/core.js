@@ -30,6 +30,15 @@ import {
     removeConsumerAcls
 } from './actions';
 
+import {
+    createUpstream,
+    removeUpstream,
+    updateUpstream,
+    addUpstreamTarget,
+    removeUpstreamTarget,
+    updateUpstreamTarget
+} from './actions/upstreams'
+
 export const consumerAclSchema = {
     id: 'group'
 };
@@ -68,7 +77,8 @@ export default async function execute(config, adminApi, logger = () => {}) {
     const actions = [
         ...consumers(config.consumers),
         ...apis(config.apis),
-        ...globalPlugins(config.plugins)
+        ...globalPlugins(config.plugins),
+        ...upstreams(config.upstreams)
     ];
 
     internalLogger.subscribe(logger);
@@ -85,7 +95,7 @@ export default async function execute(config, adminApi, logger = () => {}) {
 
 export function apis(apis = []) {
     return apis.reduce((actions, api) => [...actions, _api(api), ..._apiPlugins(api)], []);
-};
+}
 
 export function globalPlugins(globalPlugins = []) {
     return globalPlugins.reduce((actions, plugin) => [...actions, _globalPlugin(plugin)], []);
@@ -105,6 +115,14 @@ export function credentials(username, credentials) {
 
 export function acls(username, acls) {
     return acls.reduce((actions, acl) => [...actions, _consumerAcl(username, acl)], []);
+}
+
+export function upstreams(upstreams = []) {
+    return upstreams.reduce((actions, upstream) => [...actions, _upstream(upstream), ..._upstreamTargets(upstream)], []);
+}
+
+export function targets(upstreamName, targets) {
+    return targets.reduce((actions, target) => [...actions, _target(upstreamName, target)], []);
 }
 
 function parseResponseContent(content) {
@@ -161,7 +179,7 @@ function _bindWorldState(adminApi) {
     }
 }
 
-function _createWorld({apis, consumers, plugins, _info: { version }}) {
+function _createWorld({apis, consumers, plugins, upstreams, _info: { version }}) {
     const world = {
         getVersion: () => version,
 
@@ -323,6 +341,71 @@ function _createWorld({apis, consumers, plugins, _info: { version }}) {
 
             return isAttributesWithConfigUpToDate(credential.attributes, current.attributes);
         },
+
+        hasUpstream: upstreamName => Array.isArray(upstreams) && upstreams.some(upstream => upstream.name === upstreamName),
+        getUpstream: upstreamName => {
+            const upstream = upstreams.find(upstream => upstream.name === upstreamName);
+
+            invariant(upstream, `Unable to find upstream ${upstreamName}`);
+
+            return upstream;
+        },
+        getUpstreamId: upstreamName => {
+            const id = world.getUpstream(upstreamName)._info.id;
+
+            invariant(id, `Upstream ${upstreamName} doesn't have an Id`);
+
+            return id;
+        },
+        isUpstreamUpToDate: (upstream) => {
+            return diff(upstream.attributes, world.getUpstream(upstream.name).attributes).length === 0;
+        },
+        hasUpstreamTarget: (upstreamName, targetName) => {
+            let target = null;
+            const upstream = upstreams.find(upstream => upstream.name === upstreamName);
+
+            if (upstream) {
+                target = upstream.targets.find(target => {
+                    return target.target === targetName
+                });
+            }
+
+            return target !== null;
+        },
+        getUpstreamTarget: (upstreamName, targetName) => {
+            const target = world.getActiveUpstreamTarget(upstreamName, targetName);
+
+            invariant(target, `Unable to find target ${targetName}`);
+
+            return target;
+        },
+        isUpstreamTargetUpToDate: (upstreamName, target) => {
+            if (!target.attributes) {
+                return false;
+            }
+
+            const existing = upstreams.find(upstream => upstream.name === upstreamName)
+                .targets.find(t => {
+                    return t.target === target.target;
+                });
+
+            return !!existing && diff(target.attributes, existing.attributes);
+        },
+        getActiveUpstreamTarget: (upstreamName, targetName) => {
+            let target = null;
+            const upstream = upstreams.find(upstream => upstream.name === upstreamName && Array.isArray(upstream.targets) && upstream.targets.some(target => (target.target === targetName)));
+
+            if (upstream) {
+                const targets = upstream.targets.filter(target => target.target === targetName);
+
+                // sort descending - newest to oldest
+                targets.sort((a, b) => a.created_at < b.created_at);
+
+                target = (targets[0].weight > 0) ? targets[0] : null;
+            }
+
+            return target;
+        }
     };
 
     return world;
@@ -583,5 +666,64 @@ function _consumerAcl(username, acl) {
         }
 
         return addConsumerAcls(world.getConsumerId(username), acl.group);
+    }
+}
+
+function _upstream(upstream) {
+    validateEnsure(upstream.ensure);
+    validateUpstreamRequiredAttributes(upstream);
+
+    return world => {
+        if (upstream.ensure == 'removed') {
+            if (world.hasUpstream(upstream.name)) {
+                return removeUpstream(upstream.name)
+            }
+
+            return noop({ type: 'noop-upstream', upstream });
+        }
+
+        if (world.hasUpstream(upstream.name)) {
+            if ( world.isUpstreamUpToDate(upstream)) {
+                return noop({ type: 'noop-upstream', upstream });
+            }
+
+            return updateUpstream(upstream.name, upstream.attributes);
+        }
+
+        return createUpstream(upstream.name, upstream.attributes);
+    };
+}
+
+function _target(upstreamName, target) {
+    validateEnsure(target.ensure);
+
+    return world => {
+        if (target.ensure == 'removed') {
+            if (world.hasUpstreamTarget(upstreamName, target.target)) {
+                return removeUpstreamTarget(world.getUpstreamId(upstreamName), target.target);
+            }
+
+            return noop({type: 'noop-target', target});
+        }
+
+        if (world.hasUpstreamTarget(upstreamName, target.target)) {
+            if (world.isUpstreamTargetUpToDate(upstreamName, target)) {
+                return noop({type: 'noop-target', target});
+            }
+
+            return updateUpstreamTarget(world.getUpstreamId(upstreamName), target.target, target.attributes);
+        }
+
+        return addUpstreamTarget(world.getUpstreamId(upstreamName), target.target, target.attributes);
+    }
+}
+
+function _upstreamTargets(upstream) {
+    return upstream.targets && upstream.ensure != 'removed' ? targets(upstream.name, upstream.targets) : [];
+}
+
+function validateUpstreamRequiredAttributes(upstream) {
+    if (false == upstream.hasOwnProperty('name')) {
+        throw Error(`Upstream name is required: ${JSON.stringify(upstream, null, '  ')}`);
     }
 }

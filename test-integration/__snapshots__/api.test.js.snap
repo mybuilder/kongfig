@@ -158,6 +158,7 @@ exports[`API plugins should add mockbin API with a plugins 2`] = `
       http_if_terminated: false
 consumers: []
 plugins: []
+upstreams: []
 "
 `;
 
@@ -377,6 +378,7 @@ exports[`API plugins should remove mockbin api plugin 2`] = `
       http_if_terminated: false
 consumers: []
 plugins: []
+upstreams: []
 "
 `;
 
@@ -637,6 +639,7 @@ exports[`API plugins should update mockbin api plugin 2`] = `
       http_if_terminated: false
 consumers: []
 plugins: []
+upstreams: []
 "
 `;
 
@@ -723,6 +726,7 @@ exports[`API should add the API 2`] = `
       http_if_terminated: false
 consumers: []
 plugins: []
+upstreams: []
 "
 `;
 
@@ -830,6 +834,7 @@ exports[`API should not update if already up to date 2`] = `
       http_if_terminated: false
 consumers: []
 plugins: []
+upstreams: []
 "
 `;
 
@@ -938,6 +943,7 @@ exports[`API should remove the api 2`] = `
 "apis: []
 consumers: []
 plugins: []
+upstreams: []
 "
 `;
 
@@ -1090,5 +1096,6 @@ exports[`API should update the api 2`] = `
       http_if_terminated: false
 consumers: []
 plugins: []
+upstreams: []
 "
 `;

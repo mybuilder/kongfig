@@ -19,6 +19,12 @@ export default function createRouter(host, https) {
             case 'plugins-enabled': return `${adminApiRoot}/plugins/enabled`;
             case 'plugins-scheme': return `${adminApiRoot}/plugins/schema/${params.plugin}`;
 
+            case 'upstreams': return `${adminApiRoot}/upstreams`;
+            case 'upstream': return `${adminApiRoot}/upstreams/${params.name}`;
+            case 'upstream-targets': return `${adminApiRoot}/upstreams/${params.upstreamId}/targets`;
+            // Note: this uri must end with a slash for kong version 11
+            case 'upstream-targets-active': return `${adminApiRoot}/upstreams/${params.upstreamId}/targets/active/`;
+
             case 'root': return `${adminApiRoot}`;
 
             default:

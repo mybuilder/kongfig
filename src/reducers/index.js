@@ -1,6 +1,7 @@
 import apis from './apis';
 import plugins from './plugins';
 import consumers from './consumers';
+import upstreams from './upstreams';
 
 const combine = reducers => (state = {}, log) => {
     return Object.keys(reducers).reduce((nextState, key) => {
@@ -25,4 +26,5 @@ export default combine({
     apis,
     plugins,
     consumers,
+    upstreams
 });

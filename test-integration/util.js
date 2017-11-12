@@ -43,7 +43,7 @@ export const logger = message => {
     }
 
     rawLog.push(m);
-    log.push(ignoreKeys(m, ['created_at', 'version']));
+    log.push(ignoreKeys(m, ['created_at', 'version', 'orderlist']));
 };
 
 const _ignoreKeys = (obj, keys) => {
@@ -81,6 +81,7 @@ const cleanupKong = async () => {
         apis: results.apis.map(api => ({ ...api, ensure: 'removed' })),
         consumers: results.consumers.map(consumer => ({ ...consumer, ensure: 'removed' })),
         plugins: results.plugins.map(plugin => ({ ...plugin, ensure: 'removed' })),
+        upstreams: results.upstreams.map(upstream => ({ ...upstream, ensure: 'removed' }))
     }, testAdminApi);
 };
 

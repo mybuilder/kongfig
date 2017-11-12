@@ -96,6 +96,7 @@ consumers:
       - group: foobar
     credentials: []
 plugins: []
+upstreams: []
 "
 `;
 
@@ -249,6 +250,7 @@ consumers:
     acls: []
     credentials: []
 plugins: []
+upstreams: []
 "
 `;
 
@@ -352,6 +354,7 @@ consumers:
         attributes:
           key: very-secret-key
 plugins: []
+upstreams: []
 "
 `;
 
@@ -512,6 +515,7 @@ consumers:
     acls: []
     credentials: []
 plugins: []
+upstreams: []
 "
 `;
 
@@ -694,6 +698,7 @@ consumers:
           secret: changed-pass
           username: my-user
 plugins: []
+upstreams: []
 "
 `;
 
@@ -749,6 +754,7 @@ consumers:
     acls: []
     credentials: []
 plugins: []
+upstreams: []
 "
 `;
 
@@ -837,6 +843,7 @@ exports[`Integration consumers should remove the consumer 2`] = `
 "apis: []
 consumers: []
 plugins: []
+upstreams: []
 "
 `;
 
@@ -942,5 +949,6 @@ consumers:
     acls: []
     credentials: []
 plugins: []
+upstreams: []
 "
 `;

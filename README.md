@@ -322,6 +322,25 @@ consumers:
         ensure: "present"
 ```
 
+### Upstream/Target Schema
+
+[Kong Upstream Load Balancing Reference](https://getkong.org/docs/latest/loadbalancing/)
+
+```yaml
+upstreams:
+  - name: "mockbinUpstream"
+    ensure: "present"
+    targets: 
+      - target: "server1.mockbin:3001"
+        attributes:
+          weight: 50
+      - target: "server2.mockbin:3001"
+        attributes:
+          weight: 50
+    attributes:
+      slots: 100
+```
+
 
 ## Migrating from Kong <=0.9 to >=0.10
 
