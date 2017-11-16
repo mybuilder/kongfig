@@ -83,7 +83,7 @@ plugins:
     attributes:
       enabled: true
       config:
-        preflight_continue: false
         credentials: false
+        preflight_continue: false
 "
 `;

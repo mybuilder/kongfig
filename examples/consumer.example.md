@@ -36,8 +36,8 @@ HTTP 201 Created
 
 ```
 {
-  "username": "iphone-app",
   "created_at": "___created_at___",
+  "username": "iphone-app",
   "id": "2b47ba9b-761a-492d-9a0c-000000000001"
 }
 ```
@@ -56,10 +56,10 @@ HTTP 201 Created
 
 ```
 {
+  "id": "2b47ba9b-761a-492d-9a0c-000000000002",
   "created_at": "___created_at___",
-  "consumer_id": "2b47ba9b-761a-492d-9a0c-000000000001",
   "key": "very-secret-key",
-  "id": "2b47ba9b-761a-492d-9a0c-000000000002"
+  "consumer_id": "2b47ba9b-761a-492d-9a0c-000000000001"
 }
 ```
 
@@ -78,8 +78,8 @@ HTTP 201 Created
 ```
 {
   "group": "foo-group",
-  "consumer_id": "2b47ba9b-761a-492d-9a0c-000000000001",
   "created_at": "___created_at___",
-  "id": "2b47ba9b-761a-492d-9a0c-000000000003"
+  "id": "2b47ba9b-761a-492d-9a0c-000000000003",
+  "consumer_id": "2b47ba9b-761a-492d-9a0c-000000000001"
 }
 ```

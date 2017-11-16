@@ -32,20 +32,20 @@ HTTP 201 Created
 
 ```
 {
-  "http_if_terminated": true,
-  "id": "2b47ba9b-761a-492d-9a0c-000000000001",
-  "retries": 5,
-  "preserve_host": false,
   "created_at": "___created_at___",
-  "upstream_connect_timeout": 60000,
-  "upstream_url": "http://mockbin.com",
-  "upstream_read_timeout": 60000,
-  "https_only": false,
-  "upstream_send_timeout": 60000,
   "strip_uri": true,
-  "name": "mockbin",
+  "id": "2b47ba9b-761a-492d-9a0c-000000000001",
   "hosts": [
     "mockbin.com"
-  ]
+  ],
+  "name": "mockbin",
+  "http_if_terminated": false,
+  "preserve_host": false,
+  "upstream_url": "http://mockbin.com",
+  "upstream_connect_timeout": 60000,
+  "upstream_send_timeout": 60000,
+  "upstream_read_timeout": 60000,
+  "retries": 5,
+  "https_only": false
 }
 ```

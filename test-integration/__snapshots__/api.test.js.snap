@@ -30,7 +30,7 @@ Array [
       "hosts": Array [
         "mockbin.com",
       ],
-      "http_if_terminated": true,
+      "http_if_terminated": false,
       "https_only": false,
       "id": "2b47ba9b-761a-492d-9a0c-000000000001",
       "name": "mockbin",
@@ -95,6 +95,7 @@ Array [
         "key_names": Array [
           "foobar",
         ],
+        "run_on_preflight": true,
       },
       "created_at": "___created_at___",
       "enabled": true,
@@ -137,11 +138,12 @@ exports[`API plugins should add mockbin API with a plugins 2`] = `
         attributes:
           enabled: true
           config:
-            hide_credentials: false
-            anonymous: ''
             key_names:
               - foobar
             key_in_body: false
+            anonymous: ''
+            run_on_preflight: true
+            hide_credentials: false
     attributes:
       hosts:
         - mockbin.com
@@ -153,7 +155,7 @@ exports[`API plugins should add mockbin API with a plugins 2`] = `
       upstream_read_timeout: 60000
       upstream_send_timeout: 60000
       https_only: false
-      http_if_terminated: true
+      http_if_terminated: false
 consumers: []
 plugins: []
 "
@@ -189,7 +191,7 @@ Array [
       "hosts": Array [
         "mockbin.com",
       ],
-      "http_if_terminated": true,
+      "http_if_terminated": false,
       "https_only": false,
       "id": "2b47ba9b-761a-492d-9a0c-000000000001",
       "name": "mockbin",
@@ -254,6 +256,7 @@ Array [
         "key_names": Array [
           "foobar",
         ],
+        "run_on_preflight": true,
       },
       "created_at": "___created_at___",
       "enabled": true,
@@ -371,7 +374,7 @@ exports[`API plugins should remove mockbin api plugin 2`] = `
       upstream_read_timeout: 60000
       upstream_send_timeout: 60000
       https_only: false
-      http_if_terminated: true
+      http_if_terminated: false
 consumers: []
 plugins: []
 "
@@ -407,7 +410,7 @@ Array [
       "hosts": Array [
         "mockbin.com",
       ],
-      "http_if_terminated": true,
+      "http_if_terminated": false,
       "https_only": false,
       "id": "2b47ba9b-761a-492d-9a0c-000000000001",
       "name": "mockbin",
@@ -472,6 +475,7 @@ Array [
         "key_names": Array [
           "foobar",
         ],
+        "run_on_preflight": true,
       },
       "created_at": "___created_at___",
       "enabled": true,
@@ -570,6 +574,7 @@ Array [
         "key_names": Array [
           "foobar",
         ],
+        "run_on_preflight": true,
       },
       "created_at": "___created_at___",
       "enabled": false,
@@ -612,11 +617,12 @@ exports[`API plugins should update mockbin api plugin 2`] = `
         attributes:
           enabled: false
           config:
-            hide_credentials: false
-            anonymous: ''
             key_names:
               - foobar
             key_in_body: false
+            anonymous: ''
+            run_on_preflight: true
+            hide_credentials: false
     attributes:
       hosts:
         - mockbin.com
@@ -628,7 +634,7 @@ exports[`API plugins should update mockbin api plugin 2`] = `
       upstream_read_timeout: 60000
       upstream_send_timeout: 60000
       https_only: false
-      http_if_terminated: true
+      http_if_terminated: false
 consumers: []
 plugins: []
 "
@@ -664,7 +670,7 @@ Array [
       "hosts": Array [
         "mockbin.com",
       ],
-      "http_if_terminated": true,
+      "http_if_terminated": false,
       "https_only": false,
       "id": "2b47ba9b-761a-492d-9a0c-000000000001",
       "name": "mockbin",
@@ -714,7 +720,7 @@ exports[`API should add the API 2`] = `
       upstream_read_timeout: 60000
       upstream_send_timeout: 60000
       https_only: false
-      http_if_terminated: true
+      http_if_terminated: false
 consumers: []
 plugins: []
 "
@@ -750,7 +756,7 @@ Array [
       "hosts": Array [
         "mockbin.com",
       ],
-      "http_if_terminated": true,
+      "http_if_terminated": false,
       "https_only": false,
       "id": "2b47ba9b-761a-492d-9a0c-000000000001",
       "name": "mockbin",
@@ -821,7 +827,7 @@ exports[`API should not update if already up to date 2`] = `
       upstream_read_timeout: 60000
       upstream_send_timeout: 60000
       https_only: false
-      http_if_terminated: true
+      http_if_terminated: false
 consumers: []
 plugins: []
 "
@@ -857,7 +863,7 @@ Array [
       "hosts": Array [
         "mockbin.com",
       ],
-      "http_if_terminated": true,
+      "http_if_terminated": false,
       "https_only": false,
       "id": "2b47ba9b-761a-492d-9a0c-000000000001",
       "name": "mockbin",
@@ -965,7 +971,7 @@ Array [
       "hosts": Array [
         "mockbin.com",
       ],
-      "http_if_terminated": true,
+      "http_if_terminated": false,
       "https_only": false,
       "id": "2b47ba9b-761a-492d-9a0c-000000000001",
       "name": "mockbin",
@@ -1028,7 +1034,7 @@ Array [
       "hosts": Array [
         "mockbin.com",
       ],
-      "http_if_terminated": true,
+      "http_if_terminated": false,
       "https_only": false,
       "id": "2b47ba9b-761a-492d-9a0c-000000000001",
       "name": "mockbin",
@@ -1081,7 +1087,7 @@ exports[`API should update the api 2`] = `
       upstream_read_timeout: 60000
       upstream_send_timeout: 60000
       https_only: false
-      http_if_terminated: true
+      http_if_terminated: false
 consumers: []
 plugins: []
 "

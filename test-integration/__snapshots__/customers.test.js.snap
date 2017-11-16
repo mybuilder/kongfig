@@ -691,8 +691,8 @@ consumers:
     credentials:
       - name: hmac-auth
         attributes:
-          username: my-user
           secret: changed-pass
+          username: my-user
 plugins: []
 "
 `;

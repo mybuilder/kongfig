@@ -32,14 +32,14 @@ HTTP 201 Created
 
 ```
 {
-  "id": "2b47ba9b-761a-492d-9a0c-000000000001",
   "created_at": "___created_at___",
-  "enabled": true,
-  "name": "cors",
   "config": {
     "credentials": false,
-    "preflight_continue": false,
-    "max_age": 7000
-  }
+    "max_age": 7000,
+    "preflight_continue": false
+  },
+  "id": "2b47ba9b-761a-492d-9a0c-000000000001",
+  "enabled": true,
+  "name": "cors"
 }
 ```
