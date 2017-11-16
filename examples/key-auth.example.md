@@ -47,8 +47,8 @@ HTTP 201 Created
 
 ```
 {
-  "username": "iphone-app",
   "created_at": "___created_at___",
+  "username": "iphone-app",
   "id": "2b47ba9b-761a-492d-9a0c-000000000001"
 }
 ```
@@ -67,10 +67,10 @@ HTTP 201 Created
 
 ```
 {
+  "id": "2b47ba9b-761a-492d-9a0c-000000000002",
   "created_at": "___created_at___",
-  "consumer_id": "2b47ba9b-761a-492d-9a0c-000000000001",
   "key": "very-secret-key",
-  "id": "2b47ba9b-761a-492d-9a0c-000000000002"
+  "consumer_id": "2b47ba9b-761a-492d-9a0c-000000000001"
 }
 ```
 
@@ -88,21 +88,21 @@ HTTP 201 Created
 
 ```
 {
-  "http_if_terminated": true,
-  "id": "2b47ba9b-761a-492d-9a0c-000000000003",
-  "retries": 5,
-  "preserve_host": false,
   "created_at": "___created_at___",
-  "upstream_connect_timeout": 60000,
-  "upstream_url": "http://mockbin.com",
-  "upstream_read_timeout": 60000,
-  "https_only": false,
-  "upstream_send_timeout": 60000,
   "strip_uri": true,
-  "name": "mockbin",
+  "id": "2b47ba9b-761a-492d-9a0c-000000000003",
   "hosts": [
     "mockbin.com"
-  ]
+  ],
+  "name": "mockbin",
+  "http_if_terminated": false,
+  "preserve_host": false,
+  "upstream_url": "http://mockbin.com",
+  "upstream_connect_timeout": 60000,
+  "upstream_send_timeout": 60000,
+  "upstream_read_timeout": 60000,
+  "retries": 5,
+  "https_only": false
 }
 ```
 
@@ -120,18 +120,19 @@ HTTP 201 Created
 
 ```
 {
-  "api_id": "2b47ba9b-761a-492d-9a0c-000000000003",
-  "id": "2b47ba9b-761a-492d-9a0c-000000000004",
   "created_at": "___created_at___",
-  "enabled": true,
-  "name": "key-auth",
   "config": {
-    "hide_credentials": false,
-    "anonymous": "",
     "key_names": [
       "very-secret-key"
     ],
-    "key_in_body": false
-  }
+    "key_in_body": false,
+    "anonymous": "",
+    "run_on_preflight": true,
+    "hide_credentials": false
+  },
+  "id": "2b47ba9b-761a-492d-9a0c-000000000004",
+  "name": "key-auth",
+  "api_id": "2b47ba9b-761a-492d-9a0c-000000000003",
+  "enabled": true
 }
 ```
