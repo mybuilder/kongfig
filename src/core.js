@@ -389,7 +389,7 @@ function _createWorld({apis, consumers, plugins, upstreams, _info: { version }})
                     return t.target === target.target;
                 });
 
-            return !!existing && diff(target.attributes, existing.attributes);
+            return !!existing && diff(target.attributes, existing.attributes).length === 0;
         },
         getActiveUpstreamTarget: (upstreamName, targetName) => {
             let target = null;
