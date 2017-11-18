@@ -361,16 +361,7 @@ function _createWorld({apis, consumers, plugins, upstreams, _info: { version }})
             return diff(upstream.attributes, world.getUpstream(upstream.name).attributes).length === 0;
         },
         hasUpstreamTarget: (upstreamName, targetName) => {
-            let target = null;
-            const upstream = upstreams.find(upstream => upstream.name === upstreamName);
-
-            if (upstream) {
-                target = upstream.targets.find(target => {
-                    return target.target === targetName
-                });
-            }
-
-            return target !== null;
+            return !!world.getActiveUpstreamTarget(upstreamName, targetName);
         },
         getUpstreamTarget: (upstreamName, targetName) => {
             const target = world.getActiveUpstreamTarget(upstreamName, targetName);
@@ -381,7 +372,7 @@ function _createWorld({apis, consumers, plugins, upstreams, _info: { version }})
         },
         isUpstreamTargetUpToDate: (upstreamName, target) => {
             if (!target.attributes) {
-                return false;
+                return true;
             }
 
             const existing = upstreams.find(upstream => upstream.name === upstreamName)
@@ -392,7 +383,6 @@ function _createWorld({apis, consumers, plugins, upstreams, _info: { version }})
             return !!existing && diff(target.attributes, existing.attributes).length === 0;
         },
         getActiveUpstreamTarget: (upstreamName, targetName) => {
-            let target = null;
             const upstream = upstreams.find(upstream => upstream.name === upstreamName && Array.isArray(upstream.targets) && upstream.targets.some(target => (target.target === targetName)));
 
             if (upstream) {
@@ -401,10 +391,8 @@ function _createWorld({apis, consumers, plugins, upstreams, _info: { version }})
                 // sort descending - newest to oldest
                 targets.sort((a, b) => a.created_at < b.created_at);
 
-                target = (targets[0].weight > 0) ? targets[0] : null;
+                return targets[0];
             }
-
-            return target;
         }
     };
 
@@ -698,7 +686,7 @@ function _target(upstreamName, target) {
     validateEnsure(target.ensure);
 
     return world => {
-        if (target.ensure == 'removed') {
+        if (target.ensure == 'removed' || (target.attributes && target.attributes.weight === 0)) {
             if (world.hasUpstreamTarget(upstreamName, target.target)) {
                 return removeUpstreamTarget(world.getUpstreamId(upstreamName), target.target);
             }
