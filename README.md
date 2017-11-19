@@ -103,7 +103,7 @@ apis:
       - name: rate-limiting # kong plugin name
         ensure: "present" # Set to "removed" to have Kongfig ensure the plugin is removed. Default is present.
         attributes: # the plugin attributes
-          consumer_id:
+          username: # optional, to reference a consumer, same as consumer_id in kong documentation
           config:
 
 ```
@@ -114,6 +114,7 @@ Global plugin schema:
 plugins:
   - name: cors
     attributes:
+      username: # optional, to reference a consumer, same as consumer_id in kong documentation
       enabled: true
       config:
         credentials: false

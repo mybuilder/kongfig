@@ -1,15 +1,16 @@
 import semVer from 'semver';
 import kongState from './kongState';
+import getCurrentStateSelector from './stateSelector';
 
 export default async (adminApi) => {
     return Promise.all([kongState(adminApi), adminApi.fetchPluginSchemas(), adminApi.fetchKongVersion()])
         .then(([state, schemas, version]) => {
-            return {
+            return getCurrentStateSelector({
                 _info: { version },
                 apis: parseApis(state.apis, version),
                 consumers: parseConsumers(state.consumers),
                 plugins: parseGlobalPlugins(state.plugins)
-            }
+            });
         })
 };
 

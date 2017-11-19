@@ -1,0 +1,36 @@
+consumers:
+  - username: user-john
+
+apis:
+  - name: mockbin-foo
+    attributes:
+      upstream_url: http://mockbin.com
+      uris:
+        - /foo
+    plugins:
+      - name: rate-limiting
+        ensure: "present"
+        attributes:
+          username: user-john
+          config:
+            second: 10
+
+  - name: mockbin-bar
+    attributes:
+      upstream_url: http://mockbin.com
+      uris:
+        - /bar
+
+plugins:
+  - name: rate-limiting
+    attributes:
+      username: user-john
+      enabled: true
+      config:
+        minute: 60
+
+  - name: rate-limiting
+    attributes:
+      enabled: true
+      config:
+        minute: 30

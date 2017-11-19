@@ -1,0 +1,1247 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`per user api plugins by username should add an api rate limiting plugin for a user 1`] = `
+Array [
+  Object {
+    "type": "kong-info",
+    "version": "___version___",
+  },
+  Object {
+    "params": Object {
+      "body": Object {
+        "username": "user-limited",
+      },
+      "endpoint": Object {
+        "name": "consumers",
+      },
+      "method": "POST",
+      "type": "create-customer",
+    },
+    "type": "request",
+    "uri": "http://localhost:8001/consumers",
+  },
+  Object {
+    "content": Object {
+      "created_at": "___created_at___",
+      "id": "2b47ba9b-761a-492d-9a0c-000000000001",
+      "username": "user-limited",
+    },
+    "ok": true,
+    "params": Object {
+      "body": Object {
+        "username": "user-limited",
+      },
+      "endpoint": Object {
+        "name": "consumers",
+      },
+      "method": "POST",
+      "type": "create-customer",
+    },
+    "status": 201,
+    "statusText": "Created",
+    "type": "response",
+    "uri": "http://localhost:8001/consumers",
+  },
+  Object {
+    "params": Object {
+      "body": Object {
+        "hosts": Array [
+          "mockbin.com",
+        ],
+        "name": "mockbin",
+        "upstream_url": "http://mockbin.com",
+      },
+      "endpoint": Object {
+        "name": "apis",
+      },
+      "method": "POST",
+      "type": "create-api",
+    },
+    "type": "request",
+    "uri": "http://localhost:8001/apis",
+  },
+  Object {
+    "content": Object {
+      "created_at": "___created_at___",
+      "hosts": Array [
+        "mockbin.com",
+      ],
+      "http_if_terminated": false,
+      "https_only": false,
+      "id": "2b47ba9b-761a-492d-9a0c-000000000002",
+      "name": "mockbin",
+      "preserve_host": false,
+      "retries": 5,
+      "strip_uri": true,
+      "upstream_connect_timeout": 60000,
+      "upstream_read_timeout": 60000,
+      "upstream_send_timeout": 60000,
+      "upstream_url": "http://mockbin.com",
+    },
+    "ok": true,
+    "params": Object {
+      "body": Object {
+        "hosts": Array [
+          "mockbin.com",
+        ],
+        "name": "mockbin",
+        "upstream_url": "http://mockbin.com",
+      },
+      "endpoint": Object {
+        "name": "apis",
+      },
+      "method": "POST",
+      "type": "create-api",
+    },
+    "status": 201,
+    "statusText": "Created",
+    "type": "response",
+    "uri": "http://localhost:8001/apis",
+  },
+  Object {
+    "params": Object {
+      "body": Object {
+        "config": Object {
+          "minute": 1,
+        },
+        "consumer_id": "2b47ba9b-761a-492d-9a0c-000000000001",
+        "name": "rate-limiting",
+      },
+      "endpoint": Object {
+        "name": "api-plugins",
+        "params": Object {
+          "apiId": "2b47ba9b-761a-492d-9a0c-000000000002",
+          "pluginName": "rate-limiting",
+        },
+      },
+      "method": "POST",
+      "type": "add-api-plugin",
+    },
+    "type": "request",
+    "uri": "http://localhost:8001/apis/2b47ba9b-761a-492d-9a0c-000000000002/plugins",
+  },
+  Object {
+    "content": Object {
+      "api_id": "2b47ba9b-761a-492d-9a0c-000000000002",
+      "config": Object {
+        "fault_tolerant": true,
+        "hide_client_headers": false,
+        "limit_by": "consumer",
+        "minute": 1,
+        "policy": "cluster",
+        "redis_database": 0,
+        "redis_port": 6379,
+        "redis_timeout": 2000,
+      },
+      "consumer_id": "2b47ba9b-761a-492d-9a0c-000000000001",
+      "created_at": "___created_at___",
+      "enabled": true,
+      "id": "2b47ba9b-761a-492d-9a0c-000000000003",
+      "name": "rate-limiting",
+    },
+    "ok": true,
+    "params": Object {
+      "body": Object {
+        "config": Object {
+          "minute": 1,
+        },
+        "consumer_id": "2b47ba9b-761a-492d-9a0c-000000000001",
+        "name": "rate-limiting",
+      },
+      "endpoint": Object {
+        "name": "api-plugins",
+        "params": Object {
+          "apiId": "2b47ba9b-761a-492d-9a0c-000000000002",
+          "pluginName": "rate-limiting",
+        },
+      },
+      "method": "POST",
+      "type": "add-api-plugin",
+    },
+    "status": 201,
+    "statusText": "Created",
+    "type": "response",
+    "uri": "http://localhost:8001/apis/2b47ba9b-761a-492d-9a0c-000000000002/plugins",
+  },
+]
+`;
+
+exports[`per user api plugins by username should add an api rate limiting plugin for a user 2`] = `
+"apis:
+  - name: mockbin
+    plugins:
+      - name: rate-limiting
+        attributes:
+          username: user-limited
+          enabled: true
+          config:
+            hide_client_headers: false
+            minute: 1
+            policy: cluster
+            redis_database: 0
+            redis_timeout: 2000
+            redis_port: 6379
+            limit_by: consumer
+            fault_tolerant: true
+    attributes:
+      hosts:
+        - mockbin.com
+      strip_uri: true
+      preserve_host: false
+      upstream_url: 'http://mockbin.com'
+      retries: 5
+      upstream_connect_timeout: 60000
+      upstream_read_timeout: 60000
+      upstream_send_timeout: 60000
+      https_only: false
+      http_if_terminated: false
+consumers:
+  - username: user-limited
+    acls: []
+    credentials: []
+plugins: []
+"
+`;
+
+exports[`per user global plugins by username should add global rate limiting plugin for a user 1`] = `
+Array [
+  Object {
+    "type": "kong-info",
+    "version": "___version___",
+  },
+  Object {
+    "params": Object {
+      "body": Object {
+        "username": "user-limited",
+      },
+      "endpoint": Object {
+        "name": "consumers",
+      },
+      "method": "POST",
+      "type": "create-customer",
+    },
+    "type": "request",
+    "uri": "http://localhost:8001/consumers",
+  },
+  Object {
+    "content": Object {
+      "created_at": "___created_at___",
+      "id": "2b47ba9b-761a-492d-9a0c-000000000001",
+      "username": "user-limited",
+    },
+    "ok": true,
+    "params": Object {
+      "body": Object {
+        "username": "user-limited",
+      },
+      "endpoint": Object {
+        "name": "consumers",
+      },
+      "method": "POST",
+      "type": "create-customer",
+    },
+    "status": 201,
+    "statusText": "Created",
+    "type": "response",
+    "uri": "http://localhost:8001/consumers",
+  },
+  Object {
+    "params": Object {
+      "body": Object {
+        "config": Object {
+          "minute": 1,
+        },
+        "consumer_id": "2b47ba9b-761a-492d-9a0c-000000000001",
+        "name": "rate-limiting",
+      },
+      "endpoint": Object {
+        "name": "plugins",
+        "params": Object {
+          "pluginName": "rate-limiting",
+        },
+      },
+      "method": "POST",
+      "type": "add-global-plugin",
+    },
+    "type": "request",
+    "uri": "http://localhost:8001/plugins",
+  },
+  Object {
+    "content": Object {
+      "config": Object {
+        "fault_tolerant": true,
+        "hide_client_headers": false,
+        "limit_by": "consumer",
+        "minute": 1,
+        "policy": "cluster",
+        "redis_database": 0,
+        "redis_port": 6379,
+        "redis_timeout": 2000,
+      },
+      "consumer_id": "2b47ba9b-761a-492d-9a0c-000000000001",
+      "created_at": "___created_at___",
+      "enabled": true,
+      "id": "2b47ba9b-761a-492d-9a0c-000000000002",
+      "name": "rate-limiting",
+    },
+    "ok": true,
+    "params": Object {
+      "body": Object {
+        "config": Object {
+          "minute": 1,
+        },
+        "consumer_id": "2b47ba9b-761a-492d-9a0c-000000000001",
+        "name": "rate-limiting",
+      },
+      "endpoint": Object {
+        "name": "plugins",
+        "params": Object {
+          "pluginName": "rate-limiting",
+        },
+      },
+      "method": "POST",
+      "type": "add-global-plugin",
+    },
+    "status": 201,
+    "statusText": "Created",
+    "type": "response",
+    "uri": "http://localhost:8001/plugins",
+  },
+]
+`;
+
+exports[`per user global plugins by username should add global rate limiting plugin for a user 2`] = `
+"apis: []
+consumers:
+  - username: user-limited
+    acls: []
+    credentials: []
+plugins:
+  - name: rate-limiting
+    attributes:
+      username: user-limited
+      enabled: true
+      config:
+        hide_client_headers: false
+        minute: 1
+        policy: cluster
+        redis_database: 0
+        redis_timeout: 2000
+        redis_port: 6379
+        limit_by: consumer
+        fault_tolerant: true
+"
+`;
+
+exports[`per user global plugins by username should add global rate limiting plugin for multiple users 1`] = `
+Array [
+  Object {
+    "type": "kong-info",
+    "version": "___version___",
+  },
+  Object {
+    "params": Object {
+      "body": Object {
+        "username": "user-limited",
+      },
+      "endpoint": Object {
+        "name": "consumers",
+      },
+      "method": "POST",
+      "type": "create-customer",
+    },
+    "type": "request",
+    "uri": "http://localhost:8001/consumers",
+  },
+  Object {
+    "content": Object {
+      "created_at": "___created_at___",
+      "id": "2b47ba9b-761a-492d-9a0c-000000000001",
+      "username": "user-limited",
+    },
+    "ok": true,
+    "params": Object {
+      "body": Object {
+        "username": "user-limited",
+      },
+      "endpoint": Object {
+        "name": "consumers",
+      },
+      "method": "POST",
+      "type": "create-customer",
+    },
+    "status": 201,
+    "statusText": "Created",
+    "type": "response",
+    "uri": "http://localhost:8001/consumers",
+  },
+  Object {
+    "params": Object {
+      "body": Object {
+        "username": "user-limited-another",
+      },
+      "endpoint": Object {
+        "name": "consumers",
+      },
+      "method": "POST",
+      "type": "create-customer",
+    },
+    "type": "request",
+    "uri": "http://localhost:8001/consumers",
+  },
+  Object {
+    "content": Object {
+      "created_at": "___created_at___",
+      "id": "2b47ba9b-761a-492d-9a0c-000000000002",
+      "username": "user-limited-another",
+    },
+    "ok": true,
+    "params": Object {
+      "body": Object {
+        "username": "user-limited-another",
+      },
+      "endpoint": Object {
+        "name": "consumers",
+      },
+      "method": "POST",
+      "type": "create-customer",
+    },
+    "status": 201,
+    "statusText": "Created",
+    "type": "response",
+    "uri": "http://localhost:8001/consumers",
+  },
+  Object {
+    "params": Object {
+      "body": Object {
+        "config": Object {
+          "minute": 1,
+        },
+        "consumer_id": "2b47ba9b-761a-492d-9a0c-000000000001",
+        "name": "rate-limiting",
+      },
+      "endpoint": Object {
+        "name": "plugins",
+        "params": Object {
+          "pluginName": "rate-limiting",
+        },
+      },
+      "method": "POST",
+      "type": "add-global-plugin",
+    },
+    "type": "request",
+    "uri": "http://localhost:8001/plugins",
+  },
+  Object {
+    "content": Object {
+      "config": Object {
+        "fault_tolerant": true,
+        "hide_client_headers": false,
+        "limit_by": "consumer",
+        "minute": 1,
+        "policy": "cluster",
+        "redis_database": 0,
+        "redis_port": 6379,
+        "redis_timeout": 2000,
+      },
+      "consumer_id": "2b47ba9b-761a-492d-9a0c-000000000001",
+      "created_at": "___created_at___",
+      "enabled": true,
+      "id": "2b47ba9b-761a-492d-9a0c-000000000003",
+      "name": "rate-limiting",
+    },
+    "ok": true,
+    "params": Object {
+      "body": Object {
+        "config": Object {
+          "minute": 1,
+        },
+        "consumer_id": "2b47ba9b-761a-492d-9a0c-000000000001",
+        "name": "rate-limiting",
+      },
+      "endpoint": Object {
+        "name": "plugins",
+        "params": Object {
+          "pluginName": "rate-limiting",
+        },
+      },
+      "method": "POST",
+      "type": "add-global-plugin",
+    },
+    "status": 201,
+    "statusText": "Created",
+    "type": "response",
+    "uri": "http://localhost:8001/plugins",
+  },
+  Object {
+    "params": Object {
+      "body": Object {
+        "config": Object {
+          "minute": 10,
+        },
+        "consumer_id": "2b47ba9b-761a-492d-9a0c-000000000002",
+        "name": "rate-limiting",
+      },
+      "endpoint": Object {
+        "name": "plugins",
+        "params": Object {
+          "pluginName": "rate-limiting",
+        },
+      },
+      "method": "POST",
+      "type": "add-global-plugin",
+    },
+    "type": "request",
+    "uri": "http://localhost:8001/plugins",
+  },
+  Object {
+    "content": Object {
+      "config": Object {
+        "fault_tolerant": true,
+        "hide_client_headers": false,
+        "limit_by": "consumer",
+        "minute": 10,
+        "policy": "cluster",
+        "redis_database": 0,
+        "redis_port": 6379,
+        "redis_timeout": 2000,
+      },
+      "consumer_id": "2b47ba9b-761a-492d-9a0c-000000000002",
+      "created_at": "___created_at___",
+      "enabled": true,
+      "id": "2b47ba9b-761a-492d-9a0c-000000000004",
+      "name": "rate-limiting",
+    },
+    "ok": true,
+    "params": Object {
+      "body": Object {
+        "config": Object {
+          "minute": 10,
+        },
+        "consumer_id": "2b47ba9b-761a-492d-9a0c-000000000002",
+        "name": "rate-limiting",
+      },
+      "endpoint": Object {
+        "name": "plugins",
+        "params": Object {
+          "pluginName": "rate-limiting",
+        },
+      },
+      "method": "POST",
+      "type": "add-global-plugin",
+    },
+    "status": 201,
+    "statusText": "Created",
+    "type": "response",
+    "uri": "http://localhost:8001/plugins",
+  },
+]
+`;
+
+exports[`per user global plugins by username should add global rate limiting plugin for multiple users 2`] = `
+"apis: []
+consumers:
+  - username: user-limited
+    acls: []
+    credentials: []
+  - username: user-limited-another
+    acls: []
+    credentials: []
+plugins:
+  - name: rate-limiting
+    attributes:
+      username: user-limited
+      enabled: true
+      config:
+        hide_client_headers: false
+        minute: 1
+        policy: cluster
+        redis_database: 0
+        redis_timeout: 2000
+        redis_port: 6379
+        limit_by: consumer
+        fault_tolerant: true
+  - name: rate-limiting
+    attributes:
+      username: user-limited-another
+      enabled: true
+      config:
+        hide_client_headers: false
+        minute: 10
+        policy: cluster
+        redis_database: 0
+        redis_timeout: 2000
+        redis_port: 6379
+        limit_by: consumer
+        fault_tolerant: true
+"
+`;
+
+exports[`per user global plugins by username should remove global rate limiting plugin for the user 1`] = `
+Array [
+  Object {
+    "type": "kong-info",
+    "version": "___version___",
+  },
+  Object {
+    "params": Object {
+      "body": Object {
+        "username": "user-limited",
+      },
+      "endpoint": Object {
+        "name": "consumers",
+      },
+      "method": "POST",
+      "type": "create-customer",
+    },
+    "type": "request",
+    "uri": "http://localhost:8001/consumers",
+  },
+  Object {
+    "content": Object {
+      "created_at": "___created_at___",
+      "id": "2b47ba9b-761a-492d-9a0c-000000000001",
+      "username": "user-limited",
+    },
+    "ok": true,
+    "params": Object {
+      "body": Object {
+        "username": "user-limited",
+      },
+      "endpoint": Object {
+        "name": "consumers",
+      },
+      "method": "POST",
+      "type": "create-customer",
+    },
+    "status": 201,
+    "statusText": "Created",
+    "type": "response",
+    "uri": "http://localhost:8001/consumers",
+  },
+  Object {
+    "params": Object {
+      "body": Object {
+        "username": "user-limited-another",
+      },
+      "endpoint": Object {
+        "name": "consumers",
+      },
+      "method": "POST",
+      "type": "create-customer",
+    },
+    "type": "request",
+    "uri": "http://localhost:8001/consumers",
+  },
+  Object {
+    "content": Object {
+      "created_at": "___created_at___",
+      "id": "2b47ba9b-761a-492d-9a0c-000000000002",
+      "username": "user-limited-another",
+    },
+    "ok": true,
+    "params": Object {
+      "body": Object {
+        "username": "user-limited-another",
+      },
+      "endpoint": Object {
+        "name": "consumers",
+      },
+      "method": "POST",
+      "type": "create-customer",
+    },
+    "status": 201,
+    "statusText": "Created",
+    "type": "response",
+    "uri": "http://localhost:8001/consumers",
+  },
+  Object {
+    "params": Object {
+      "body": Object {
+        "config": Object {
+          "minute": 1,
+        },
+        "consumer_id": "2b47ba9b-761a-492d-9a0c-000000000001",
+        "name": "rate-limiting",
+      },
+      "endpoint": Object {
+        "name": "plugins",
+        "params": Object {
+          "pluginName": "rate-limiting",
+        },
+      },
+      "method": "POST",
+      "type": "add-global-plugin",
+    },
+    "type": "request",
+    "uri": "http://localhost:8001/plugins",
+  },
+  Object {
+    "content": Object {
+      "config": Object {
+        "fault_tolerant": true,
+        "hide_client_headers": false,
+        "limit_by": "consumer",
+        "minute": 1,
+        "policy": "cluster",
+        "redis_database": 0,
+        "redis_port": 6379,
+        "redis_timeout": 2000,
+      },
+      "consumer_id": "2b47ba9b-761a-492d-9a0c-000000000001",
+      "created_at": "___created_at___",
+      "enabled": true,
+      "id": "2b47ba9b-761a-492d-9a0c-000000000003",
+      "name": "rate-limiting",
+    },
+    "ok": true,
+    "params": Object {
+      "body": Object {
+        "config": Object {
+          "minute": 1,
+        },
+        "consumer_id": "2b47ba9b-761a-492d-9a0c-000000000001",
+        "name": "rate-limiting",
+      },
+      "endpoint": Object {
+        "name": "plugins",
+        "params": Object {
+          "pluginName": "rate-limiting",
+        },
+      },
+      "method": "POST",
+      "type": "add-global-plugin",
+    },
+    "status": 201,
+    "statusText": "Created",
+    "type": "response",
+    "uri": "http://localhost:8001/plugins",
+  },
+  Object {
+    "params": Object {
+      "body": Object {
+        "config": Object {
+          "minute": 10,
+        },
+        "consumer_id": "2b47ba9b-761a-492d-9a0c-000000000002",
+        "name": "rate-limiting",
+      },
+      "endpoint": Object {
+        "name": "plugins",
+        "params": Object {
+          "pluginName": "rate-limiting",
+        },
+      },
+      "method": "POST",
+      "type": "add-global-plugin",
+    },
+    "type": "request",
+    "uri": "http://localhost:8001/plugins",
+  },
+  Object {
+    "content": Object {
+      "config": Object {
+        "fault_tolerant": true,
+        "hide_client_headers": false,
+        "limit_by": "consumer",
+        "minute": 10,
+        "policy": "cluster",
+        "redis_database": 0,
+        "redis_port": 6379,
+        "redis_timeout": 2000,
+      },
+      "consumer_id": "2b47ba9b-761a-492d-9a0c-000000000002",
+      "created_at": "___created_at___",
+      "enabled": true,
+      "id": "2b47ba9b-761a-492d-9a0c-000000000004",
+      "name": "rate-limiting",
+    },
+    "ok": true,
+    "params": Object {
+      "body": Object {
+        "config": Object {
+          "minute": 10,
+        },
+        "consumer_id": "2b47ba9b-761a-492d-9a0c-000000000002",
+        "name": "rate-limiting",
+      },
+      "endpoint": Object {
+        "name": "plugins",
+        "params": Object {
+          "pluginName": "rate-limiting",
+        },
+      },
+      "method": "POST",
+      "type": "add-global-plugin",
+    },
+    "status": 201,
+    "statusText": "Created",
+    "type": "response",
+    "uri": "http://localhost:8001/plugins",
+  },
+  Object {
+    "type": "kong-info",
+    "version": "___version___",
+  },
+  Object {
+    "params": Object {
+      "consumer": Object {
+        "ensure": "present",
+        "username": "user-limited-another",
+      },
+      "noop": true,
+      "type": "noop-consumer",
+    },
+    "type": "noop",
+  },
+  Object {
+    "params": Object {
+      "endpoint": Object {
+        "name": "plugin",
+        "params": Object {
+          "pluginId": "2b47ba9b-761a-492d-9a0c-000000000003",
+        },
+      },
+      "method": "DELETE",
+      "type": "remove-global-plugin",
+    },
+    "type": "request",
+    "uri": "http://localhost:8001/plugins/2b47ba9b-761a-492d-9a0c-000000000003",
+  },
+  Object {
+    "content": "",
+    "ok": true,
+    "params": Object {
+      "endpoint": Object {
+        "name": "plugin",
+        "params": Object {
+          "pluginId": "2b47ba9b-761a-492d-9a0c-000000000003",
+        },
+      },
+      "method": "DELETE",
+      "type": "remove-global-plugin",
+    },
+    "status": 204,
+    "statusText": "No Content",
+    "type": "response",
+    "uri": "http://localhost:8001/plugins/2b47ba9b-761a-492d-9a0c-000000000003",
+  },
+  Object {
+    "params": Object {
+      "noop": true,
+      "plugin": Object {
+        "attributes": Object {
+          "config": Object {
+            "minute": 10,
+          },
+          "username": "user-limited-another",
+        },
+        "name": "rate-limiting",
+      },
+      "type": "noop-global-plugin",
+    },
+    "type": "noop",
+  },
+  Object {
+    "params": Object {
+      "endpoint": Object {
+        "name": "consumer",
+        "params": Object {
+          "consumerId": "2b47ba9b-761a-492d-9a0c-000000000001",
+        },
+      },
+      "method": "DELETE",
+      "type": "remove-customer",
+    },
+    "type": "request",
+    "uri": "http://localhost:8001/consumers/2b47ba9b-761a-492d-9a0c-000000000001",
+  },
+  Object {
+    "content": "",
+    "ok": true,
+    "params": Object {
+      "endpoint": Object {
+        "name": "consumer",
+        "params": Object {
+          "consumerId": "2b47ba9b-761a-492d-9a0c-000000000001",
+        },
+      },
+      "method": "DELETE",
+      "type": "remove-customer",
+    },
+    "status": 204,
+    "statusText": "No Content",
+    "type": "response",
+    "uri": "http://localhost:8001/consumers/2b47ba9b-761a-492d-9a0c-000000000001",
+  },
+]
+`;
+
+exports[`per user global plugins by username should remove global rate limiting plugin for the user 2`] = `
+"apis: []
+consumers:
+  - username: user-limited-another
+    acls: []
+    credentials: []
+plugins:
+  - name: rate-limiting
+    attributes:
+      username: user-limited-another
+      enabled: true
+      config:
+        hide_client_headers: false
+        minute: 10
+        policy: cluster
+        redis_database: 0
+        redis_timeout: 2000
+        redis_port: 6379
+        limit_by: consumer
+        fault_tolerant: true
+"
+`;
+
+exports[`per user global plugins by username should update global rate limiting plugin for the user 1`] = `
+Array [
+  Object {
+    "type": "kong-info",
+    "version": "___version___",
+  },
+  Object {
+    "params": Object {
+      "body": Object {
+        "username": "user-limited",
+      },
+      "endpoint": Object {
+        "name": "consumers",
+      },
+      "method": "POST",
+      "type": "create-customer",
+    },
+    "type": "request",
+    "uri": "http://localhost:8001/consumers",
+  },
+  Object {
+    "content": Object {
+      "created_at": "___created_at___",
+      "id": "2b47ba9b-761a-492d-9a0c-000000000001",
+      "username": "user-limited",
+    },
+    "ok": true,
+    "params": Object {
+      "body": Object {
+        "username": "user-limited",
+      },
+      "endpoint": Object {
+        "name": "consumers",
+      },
+      "method": "POST",
+      "type": "create-customer",
+    },
+    "status": 201,
+    "statusText": "Created",
+    "type": "response",
+    "uri": "http://localhost:8001/consumers",
+  },
+  Object {
+    "params": Object {
+      "body": Object {
+        "username": "user-limited-another",
+      },
+      "endpoint": Object {
+        "name": "consumers",
+      },
+      "method": "POST",
+      "type": "create-customer",
+    },
+    "type": "request",
+    "uri": "http://localhost:8001/consumers",
+  },
+  Object {
+    "content": Object {
+      "created_at": "___created_at___",
+      "id": "2b47ba9b-761a-492d-9a0c-000000000002",
+      "username": "user-limited-another",
+    },
+    "ok": true,
+    "params": Object {
+      "body": Object {
+        "username": "user-limited-another",
+      },
+      "endpoint": Object {
+        "name": "consumers",
+      },
+      "method": "POST",
+      "type": "create-customer",
+    },
+    "status": 201,
+    "statusText": "Created",
+    "type": "response",
+    "uri": "http://localhost:8001/consumers",
+  },
+  Object {
+    "params": Object {
+      "body": Object {
+        "config": Object {
+          "minute": 1,
+        },
+        "consumer_id": "2b47ba9b-761a-492d-9a0c-000000000001",
+        "name": "rate-limiting",
+      },
+      "endpoint": Object {
+        "name": "plugins",
+        "params": Object {
+          "pluginName": "rate-limiting",
+        },
+      },
+      "method": "POST",
+      "type": "add-global-plugin",
+    },
+    "type": "request",
+    "uri": "http://localhost:8001/plugins",
+  },
+  Object {
+    "content": Object {
+      "config": Object {
+        "fault_tolerant": true,
+        "hide_client_headers": false,
+        "limit_by": "consumer",
+        "minute": 1,
+        "policy": "cluster",
+        "redis_database": 0,
+        "redis_port": 6379,
+        "redis_timeout": 2000,
+      },
+      "consumer_id": "2b47ba9b-761a-492d-9a0c-000000000001",
+      "created_at": "___created_at___",
+      "enabled": true,
+      "id": "2b47ba9b-761a-492d-9a0c-000000000003",
+      "name": "rate-limiting",
+    },
+    "ok": true,
+    "params": Object {
+      "body": Object {
+        "config": Object {
+          "minute": 1,
+        },
+        "consumer_id": "2b47ba9b-761a-492d-9a0c-000000000001",
+        "name": "rate-limiting",
+      },
+      "endpoint": Object {
+        "name": "plugins",
+        "params": Object {
+          "pluginName": "rate-limiting",
+        },
+      },
+      "method": "POST",
+      "type": "add-global-plugin",
+    },
+    "status": 201,
+    "statusText": "Created",
+    "type": "response",
+    "uri": "http://localhost:8001/plugins",
+  },
+  Object {
+    "params": Object {
+      "body": Object {
+        "config": Object {
+          "minute": 10,
+        },
+        "consumer_id": "2b47ba9b-761a-492d-9a0c-000000000002",
+        "name": "rate-limiting",
+      },
+      "endpoint": Object {
+        "name": "plugins",
+        "params": Object {
+          "pluginName": "rate-limiting",
+        },
+      },
+      "method": "POST",
+      "type": "add-global-plugin",
+    },
+    "type": "request",
+    "uri": "http://localhost:8001/plugins",
+  },
+  Object {
+    "content": Object {
+      "config": Object {
+        "fault_tolerant": true,
+        "hide_client_headers": false,
+        "limit_by": "consumer",
+        "minute": 10,
+        "policy": "cluster",
+        "redis_database": 0,
+        "redis_port": 6379,
+        "redis_timeout": 2000,
+      },
+      "consumer_id": "2b47ba9b-761a-492d-9a0c-000000000002",
+      "created_at": "___created_at___",
+      "enabled": true,
+      "id": "2b47ba9b-761a-492d-9a0c-000000000004",
+      "name": "rate-limiting",
+    },
+    "ok": true,
+    "params": Object {
+      "body": Object {
+        "config": Object {
+          "minute": 10,
+        },
+        "consumer_id": "2b47ba9b-761a-492d-9a0c-000000000002",
+        "name": "rate-limiting",
+      },
+      "endpoint": Object {
+        "name": "plugins",
+        "params": Object {
+          "pluginName": "rate-limiting",
+        },
+      },
+      "method": "POST",
+      "type": "add-global-plugin",
+    },
+    "status": 201,
+    "statusText": "Created",
+    "type": "response",
+    "uri": "http://localhost:8001/plugins",
+  },
+  Object {
+    "type": "kong-info",
+    "version": "___version___",
+  },
+  Object {
+    "params": Object {
+      "consumer": Object {
+        "ensure": "present",
+        "username": "user-limited",
+      },
+      "noop": true,
+      "type": "noop-consumer",
+    },
+    "type": "noop",
+  },
+  Object {
+    "params": Object {
+      "consumer": Object {
+        "ensure": "present",
+        "username": "user-limited-another",
+      },
+      "noop": true,
+      "type": "noop-consumer",
+    },
+    "type": "noop",
+  },
+  Object {
+    "params": Object {
+      "noop": true,
+      "plugin": Object {
+        "attributes": Object {
+          "config": Object {
+            "minute": 1,
+          },
+          "username": "user-limited",
+        },
+        "name": "rate-limiting",
+      },
+      "type": "noop-global-plugin",
+    },
+    "type": "noop",
+  },
+  Object {
+    "params": Object {
+      "body": Object {
+        "config": Object {
+          "minute": 20,
+        },
+        "consumer_id": "2b47ba9b-761a-492d-9a0c-000000000002",
+      },
+      "endpoint": Object {
+        "name": "plugin",
+        "params": Object {
+          "pluginId": "2b47ba9b-761a-492d-9a0c-000000000004",
+        },
+      },
+      "method": "PATCH",
+      "type": "update-global-plugin",
+    },
+    "type": "request",
+    "uri": "http://localhost:8001/plugins/2b47ba9b-761a-492d-9a0c-000000000004",
+  },
+  Object {
+    "content": Object {
+      "config": Object {
+        "fault_tolerant": true,
+        "hide_client_headers": false,
+        "limit_by": "consumer",
+        "minute": 20,
+        "policy": "cluster",
+        "redis_database": 0,
+        "redis_port": 6379,
+        "redis_timeout": 2000,
+      },
+      "consumer_id": "2b47ba9b-761a-492d-9a0c-000000000002",
+      "created_at": "___created_at___",
+      "enabled": true,
+      "id": "2b47ba9b-761a-492d-9a0c-000000000004",
+      "name": "rate-limiting",
+    },
+    "ok": true,
+    "params": Object {
+      "body": Object {
+        "config": Object {
+          "minute": 20,
+        },
+        "consumer_id": "2b47ba9b-761a-492d-9a0c-000000000002",
+      },
+      "endpoint": Object {
+        "name": "plugin",
+        "params": Object {
+          "pluginId": "2b47ba9b-761a-492d-9a0c-000000000004",
+        },
+      },
+      "method": "PATCH",
+      "type": "update-global-plugin",
+    },
+    "status": 200,
+    "statusText": "OK",
+    "type": "response",
+    "uri": "http://localhost:8001/plugins/2b47ba9b-761a-492d-9a0c-000000000004",
+  },
+]
+`;
+
+exports[`per user global plugins by username should update global rate limiting plugin for the user 2`] = `
+"apis: []
+consumers:
+  - username: user-limited
+    acls: []
+    credentials: []
+  - username: user-limited-another
+    acls: []
+    credentials: []
+plugins:
+  - name: rate-limiting
+    attributes:
+      username: user-limited
+      enabled: true
+      config:
+        hide_client_headers: false
+        minute: 1
+        policy: cluster
+        redis_database: 0
+        redis_timeout: 2000
+        redis_port: 6379
+        limit_by: consumer
+        fault_tolerant: true
+  - name: rate-limiting
+    attributes:
+      username: user-limited-another
+      enabled: true
+      config:
+        hide_client_headers: false
+        minute: 20
+        policy: cluster
+        redis_database: 0
+        redis_timeout: 2000
+        redis_port: 6379
+        limit_by: consumer
+        fault_tolerant: true
+"
+`;
