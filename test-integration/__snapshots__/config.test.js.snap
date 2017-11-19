@@ -1095,6 +1095,20 @@ Array [
 
 exports[`should apply plugin-per-consumer.example.yml 2`] = `
 "apis:
+  - name: mockbin-bar
+    plugins: []
+    attributes:
+      uris:
+        - /bar
+      strip_uri: true
+      preserve_host: false
+      upstream_url: 'http://mockbin.com'
+      retries: 5
+      upstream_connect_timeout: 60000
+      upstream_read_timeout: 60000
+      upstream_send_timeout: 60000
+      https_only: false
+      http_if_terminated: false
   - name: mockbin-foo
     plugins:
       - name: rate-limiting
@@ -1122,20 +1136,6 @@ exports[`should apply plugin-per-consumer.example.yml 2`] = `
       upstream_send_timeout: 60000
       https_only: false
       http_if_terminated: false
-  - name: mockbin-bar
-    plugins: []
-    attributes:
-      uris:
-        - /bar
-      strip_uri: true
-      preserve_host: false
-      upstream_url: 'http://mockbin.com'
-      retries: 5
-      upstream_connect_timeout: 60000
-      upstream_read_timeout: 60000
-      upstream_send_timeout: 60000
-      https_only: false
-      http_if_terminated: false
 consumers:
   - username: user-john
     acls: []
@@ -1143,11 +1143,10 @@ consumers:
 plugins:
   - name: rate-limiting
     attributes:
-      username: user-john
       enabled: true
       config:
         hide_client_headers: false
-        minute: 60
+        minute: 30
         policy: cluster
         redis_database: 0
         redis_timeout: 2000
@@ -1156,10 +1155,11 @@ plugins:
         fault_tolerant: true
   - name: rate-limiting
     attributes:
+      username: user-john
       enabled: true
       config:
         hide_client_headers: false
-        minute: 30
+        minute: 60
         policy: cluster
         redis_database: 0
         redis_timeout: 2000

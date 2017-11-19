@@ -15,6 +15,13 @@ const requestToCurl = (uri, method, body) => {
     }
 };
 
+const ignoreConfigOrder = state => ({
+    ...state,
+    apis: state.apis.sort((a, b) => a.name > b.name ? 1 : -1),
+    consumers: state.consumers.sort((a, b) => a.username > b.username ? 1 : -1),
+    plugins: state.plugins.sort((a, b) => a.attributes.config.minute - b.attributes.config.minute),
+});
+
 const codeBlock = (code, lang = '') => `\`\`\`${lang}\n${code}\n\`\`\``;
 const title = text => `${text}\n${'-'.repeat(text.length)}`;
 const header = (text, level = 2) => `${'#'.repeat(level)} ${text}`;
@@ -44,11 +51,11 @@ fs.readdirSync(path.resolve(__dirname, './config')).forEach(filename => {
 
         await execute(config, testAdminApi, logger);
         await execute(config, testAdminApi, logger); // all the actions should be no-op
-        const kongState = await readKongApi(testAdminApi);
+        const kongState = ignoreConfigOrder(await readKongApi(testAdminApi));
 
         expect(getLog()).toMatchSnapshot();
         expect(exportToYaml(kongState)).toMatchSnapshot();
-        expect(getLocalState()).toEqual(kongState);
+        expect(ignoreConfigOrder(getLocalState())).toEqual(kongState);
 
         if (filename.endsWith('example.yml')) {
             addExampleFile(configPath, filename, getLog());
