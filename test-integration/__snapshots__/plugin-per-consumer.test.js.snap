@@ -201,6 +201,7 @@ consumers:
     credentials: []
 plugins: []
 upstreams: []
+certificates: []
 "
 `;
 
@@ -332,6 +333,7 @@ plugins:
         limit_by: consumer
         fault_tolerant: true
 upstreams: []
+certificates: []
 "
 `;
 
@@ -577,6 +579,7 @@ plugins:
         limit_by: consumer
         fault_tolerant: true
 upstreams: []
+certificates: []
 "
 `;
 
@@ -901,6 +904,7 @@ plugins:
         limit_by: consumer
         fault_tolerant: true
 upstreams: []
+certificates: []
 "
 `;
 
@@ -1248,5 +1252,6 @@ plugins:
         limit_by: consumer
         fault_tolerant: true
 upstreams: []
+certificates: []
 "
 `;

@@ -86,7 +86,8 @@ const cleanupKong = async () => {
         apis: results.apis.map(api => ({ ...api, ensure: 'removed' })),
         consumers: results.consumers.map(consumer => ({ ...consumer, ensure: 'removed' })),
         plugins: results.plugins.map(plugin => ({ ...plugin, ensure: 'removed' })),
-        upstreams: results.upstreams.map(upstream => ({ ...upstream, ensure: 'removed' }))
+        upstreams: results.upstreams.map(upstream => ({ ...upstream, ensure: 'removed' })),
+        certificates: results.certificates.map(certificate => ({ ...certificate, ensure: 'removed' })),
     }, testAdminApi);
 };
 

@@ -336,7 +336,7 @@ consumers:
 upstreams:
   - name: "mockbinUpstream"
     ensure: "present"
-    targets: 
+    targets:
       - target: "server1.mockbin:3001"
         attributes:
           weight: 50
@@ -346,6 +346,36 @@ upstreams:
     attributes:
       slots: 100
 ```
+
+### Certificates & SNIs
+
+*A certificate object represents a public certificate/private key pair for an SSL certificate. These objects are used by Kong to handle SSL/TLS termination for encrypted requests. Certificates are optionally associated with SNI objects to tie a cert/key pair to one or more hostnames.*
+
+[Kong Certificate Object Reference](https://getkong.org/docs/0.11.x/admin-api/#certificate-object)
+
+*An SNI object represents a many-to-one mapping of hostnames to a certificate. That is, a certificate object can have many hostnames associated with it; when Kong receives an SSL request, it uses the SNI field in the Client Hello to lookup the certificate object based on the SNI associated with the certificate.*
+
+[Kong SNI Objects Reference](https://getkong.org/docs/0.11.x/admin-api/#sni-objects)
+
+```yaml
+certificates:
+  - ensure: present
+    cert: >-
+      -----BEGIN CERTIFICATE-----
+      MIIDMjCCAhqgAwIBAgIJAPgRdnOdnX/SMA0GCSqGSIb3DQEBBQUAMBoxGDAWBgNV
+      ....
+    key: >-
+      -----BEGIN RSA PRIVATE KEY-----
+      MIIEpAIBAAKCAQEAo5BpOQY2AV/1L2QEdSip75rHh3Khs2knNtMLIrP26MHyidtX
+      ....
+    snis:
+      - name: example.com
+        ensure: present
+      - name: www.example.com
+        ensure: present
+```
+
+> Notice that SNIs are an list of object e.g. `{ name: example.com, ensure: present }` different Kong api itself where it is a list of hostnames
 
 
 ## Migrating from Kong <=0.9 to >=0.10

@@ -17,7 +17,15 @@ const fetchUpstreamsWithTargets = async ({ version, fetchUpstreams, fetchTargets
     );
 };
 
-export default async ({fetchApis, fetchPlugins, fetchGlobalPlugins, fetchConsumers, fetchConsumerCredentials, fetchConsumerAcls, fetchUpstreams, fetchTargets, fetchTargetsV11Active, fetchKongVersion}) => {
+const fetchCertificatesForVersion = async ({ version, fetchCertificates }) => {
+    if (semVer.lte(version, '0.10.0')) {
+        return Promise.resolve([]);
+    }
+
+    return await fetchCertificates();
+};
+
+export default async ({fetchApis, fetchPlugins, fetchGlobalPlugins, fetchConsumers, fetchConsumerCredentials, fetchConsumerAcls, fetchUpstreams, fetchTargets, fetchTargetsV11Active, fetchCertificates, fetchKongVersion}) => {
     const version = await fetchKongVersion();
     const apis = await fetchApis();
     const apisWithPlugins = await Promise.all(apis.map(async item => {
@@ -63,12 +71,14 @@ export default async ({fetchApis, fetchPlugins, fetchGlobalPlugins, fetchConsume
     });
 
     const upstreamsWithTargets = await fetchUpstreamsWithTargets({ version, fetchUpstreams, fetchTargets: semVer.gte(version, '0.12.0') ? fetchTargets : fetchTargetsV11Active });
+    const certificates = await fetchCertificatesForVersion({ version, fetchCertificates });
 
     return {
         apis: apisWithPlugins,
         consumers: consumersWithCredentialsAndAcls,
         plugins: globalPlugins,
         upstreams: upstreamsWithTargets,
+        certificates,
         version,
     };
 };

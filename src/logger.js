@@ -15,6 +15,9 @@ export const screenLogger = createLogHandler({
         'noop-credential': ({ credential, credentialIdName }) => console.log(`- credential ${credential.name.bold} with ${credentialIdName.bold}: ${credential.attributes[credentialIdName].bold} ${'is up to date'.bold.green}`),
         'noop-upstream': ({ upstream }) => console.log(`upstream ${upstream.name.bold} ${'is up to date'.bold.green}`),
         'noop-target': ({ target }) => console.log(`target ${target.target.bold} ${'is up to date'.bold.green}`),
+        'noop-certificate': ({ identityClue }) => console.log(`certificate ${identityClue}... ${'is up to date'.bold.green}`),
+        'noop-certificate-sni': ({ sni }) => console.log(`certificate sni ${sni.name} ${'is up to date'.bold.green}`),
+        'noop-certificate-sni-removed': ({ sni }) => console.log(`certificate sni ${sni.name} ${'is NOT present'.bold.green}`),
 
         unknown: action => console.log('unknown action', action),
     })(message.params),

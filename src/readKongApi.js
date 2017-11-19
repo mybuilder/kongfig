@@ -1,6 +1,7 @@
 import semVer from 'semver';
 import kongState from './kongState';
 import { parseUpstreams } from './parsers/upstreams';
+import { parseCertificates } from './parsers/certificates';
 import getCurrentStateSelector from './stateSelector';
 
 export default async (adminApi) => {
@@ -12,6 +13,7 @@ export default async (adminApi) => {
                 consumers: parseConsumers(state.consumers),
                 plugins: parseGlobalPlugins(state.plugins),
                 upstreams: semVer.gte(version, '0.10.0') ? parseUpstreams(state.upstreams) : undefined,
+                certificates: semVer.gte(version, '0.10.0') ? parseCertificates(state.certificates) : undefined,
             });
         })
 };
