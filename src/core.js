@@ -425,14 +425,23 @@ const swapConsumerReference = (world, plugin) => {
         return plugin;
     }
 
-    if (plugin.attributes.hasOwnProperty('username') && plugin.attributes.username) {
-        const consumer_id = world.getConsumerId(plugin.attributes.username);
-        const { username, custom_id, ...attributes } = plugin.attributes; // remove username, custom_id
+    let newPluginDef = plugin;
 
-        return { ...plugin, attributes: { consumer_id, ...attributes } };
+    if (plugin.attributes.hasOwnProperty('config') && plugin.attributes.config.anonymous_username) {
+        const { config: { anonymous_username, ...config }, ...attributes } = plugin.attributes;
+        const anonymous = world.getConsumerId(anonymous_username);
+
+        newPluginDef = { ...plugin, attributes: { config: { anonymous, ...config }, ...attributes } };
     }
 
-    return plugin;
+    if (plugin.attributes.hasOwnProperty('username') && plugin.attributes.username) {
+        const { username, ...attributes } = plugin.attributes; // remove username
+        const consumer_id = world.getConsumerId(username);
+
+        newPluginDef = { ...plugin, attributes: { consumer_id, ...attributes } };
+    }
+
+    return newPluginDef;
 }
 
 function _plugin(apiName, plugin) {

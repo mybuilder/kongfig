@@ -40,7 +40,6 @@ readKongApi(adminApi({ host: program.host, https: program.https, ignoreConsumers
     .then(results => {
         return {host: program.host, https: program.https, headers, ...results};
     })
-    .then(mapConsumers(program.ignoreConsumers, program.mapConsumers))
     .then(pretty(program.format))
     .then(config => {
         process.stdout.write(config + '\n');

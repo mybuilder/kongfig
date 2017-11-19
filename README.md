@@ -71,6 +71,8 @@ kongfig apply --path config.yml --host localhost:8001 --credential-schema "custo
 
 Note: If you change the name of an API/Plugin/Consumer and want to ensure the old one is removed automatically, do not delete or modify the old API/Plugin/Consumer section, other than to add the `ensure: "removed"` flag. Examples shown below.
 
+> Notice the `attributes.username` config parameter below, this is used to map given username to consumer uuid
+
 Api schema:
 
 ```yaml
@@ -153,6 +155,8 @@ consumers:
 
 ### Supported consumer credentials
 
+> Notice the `anonymous_username` config parameter below, this is used to map username to consumer uuid
+
 [Key Authentication](https://getkong.org/plugins/key-authentication/)
 
 ```yaml
@@ -163,6 +167,7 @@ apis:
       - name: key-auth
         attributes:
           config:
+            anonymous_username: # optional, same as just anonymous in kong api, maps given username to consumer uuid
             key_names:
             hide_credentials:
 

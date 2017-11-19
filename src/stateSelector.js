@@ -1,6 +1,17 @@
 const getConsumerById = (id, consumers) => consumers.find(x => x._info.id === id) || {};
 
 export default state => {
+    const fixPluginAnonymous = ({ name, attributes: { config, ...attributes }, ...plugin }) => {
+        if (config && config.anonymous) {
+            const { anonymous, ...restOfConfig } = config;
+            const { username } = getConsumerById(anonymous, state.consumers);
+
+            return { name, attributes: { ...attributes, config: { anonymous_username: username, ...restOfConfig } }, ...plugin };
+        }
+
+        return { name, attributes: { ...attributes, config }, ...plugin };
+    }
+
     const fixPluginUsername = ({ name, attributes: { consumer_id, ...attributes }, ...plugin }) => {
         const { username } = getConsumerById(consumer_id, state.consumers);
 
@@ -9,7 +20,7 @@ export default state => {
 
     const fixApiPluginUsername = api => ({
         ...api,
-        plugins: (api.plugins || []).map(fixPluginUsername),
+        plugins: (api.plugins || []).map(fixPluginUsername).map(fixPluginAnonymous),
     });
 
     return {
