@@ -4,7 +4,11 @@ const targets = (state, log) => {
     const { params: { type, endpoint: { params, body } }, content } = log;
 
     switch(type) {
-        case 'add-upstream-target': return [ ...state, parseTarget(content) ];
+        case 'add-upstream-target': return [
+            // target with the same name overrides the previous target
+            ...state.filter(target => target.target !== params.targetName),
+            parseTarget(content)
+        ];
         case 'update-upstream-target': return state.map(state => {
             if (state._info.id !== content.id) {
                 return state;
