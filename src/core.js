@@ -8,6 +8,7 @@ import {getSchema as getConsumerCredentialSchema} from './consumerCredentials';
 import {normalize as normalizeAttributes} from './utils';
 import { migrateApiDefinition } from './migrate';
 import { logReducer } from './kongStateLocal';
+import getCurrentStateSelector from './stateSelector';
 import diff from './diff';
 import {
     noop,
@@ -66,19 +67,32 @@ const selectWorldStateBind = async (adminApi, internalLogger) => {
             state = logReducer(state, log);
         });
 
-        return f => async () => f(_createWorld(state));
+        return f => async () => f(_createWorld(getCurrentStateSelector(state)));
     }
 
     return _bindWorldState(adminApi);
 };
 
+// there is an issue with dependency by other definitions to consumers
+// so they need to be added first and removed last
+const splitConsumersByRemoved = consumers => (consumers || []).reduce((results, consumer) => {
+    if (consumer.ensure === 'removed') {
+        return { ...results, removed: [...results.removed, consumer] };
+    }
+
+    return { ...results, added: [...results.added, consumer] };
+}, { removed: [], added: [] });
+
 export default async function execute(config, adminApi, logger = () => {}) {
     const internalLogger = logFanout();
+    const splitConsumersConfig = splitConsumersByRemoved(config.consumers);
+
     const actions = [
-        ...consumers(config.consumers),
+        ...consumers(splitConsumersConfig.added),
+        ...upstreams(config.upstreams),
         ...apis(config.apis),
         ...globalPlugins(config.plugins),
-        ...upstreams(config.upstreams)
+        ...consumers(splitConsumersConfig.removed),
     ];
 
     internalLogger.subscribe(logger);
@@ -198,39 +212,39 @@ function _createWorld({apis, consumers, plugins, upstreams, _info: { version }})
 
             return id;
         },
-        getGlobalPlugin: (pluginName) => {
-            const plugin = plugins.find(plugin => plugin.api_id === undefined && plugin.name === pluginName);
+        getGlobalPlugin: (pluginName, pluginConsumerID) => {
+            const plugin = plugins.find(plugin => plugin.api_id === undefined && plugin.name === pluginName && plugin._info.consumer_id == pluginConsumerID);
 
-            invariant(plugin, `Unable to find global plugin ${pluginName}`);
+            invariant(plugin, `Unable to find global plugin ${pluginName} for consumer ${pluginConsumerID}`);
 
             return plugin;
         },
-        getPlugin: (apiName, pluginName) => {
-            const plugin = world.getApi(apiName).plugins.find(plugin => plugin.name == pluginName);
+        getPlugin: (apiName, pluginName, pluginConsumerID) => {
+            const plugin = world.getApi(apiName).plugins.find(plugin => plugin.name == pluginName && plugin._info.consumer_id == pluginConsumerID);
 
             invariant(plugin, `Unable to find plugin ${pluginName}`);
 
             return plugin;
         },
-        getPluginId: (apiName, pluginName) => {
-            const pluginId = world.getPlugin(apiName, pluginName)._info.id;
+        getPluginId: (apiName, pluginName, pluginConsumerID) => {
+            const pluginId = world.getPlugin(apiName, pluginName, pluginConsumerID)._info.id;
 
             invariant(pluginId, `Unable to find plugin id for ${apiName} and ${pluginName}`);
 
             return pluginId;
         },
-        getGlobalPluginId: (pluginName) => {
-            const globalPluginId = world.getGlobalPlugin(pluginName)._info.id
+        getGlobalPluginId: (pluginName, pluginConsumerID) => {
+            const globalPluginId = world.getGlobalPlugin(pluginName, pluginConsumerID)._info.id
 
             invariant(globalPluginId, `Unable to find global plugin id ${pluginName}`);
 
             return globalPluginId;
         },
-        hasPlugin: (apiName, pluginName) => {
-            return Array.isArray(apis) && apis.some(api => api.name === apiName && Array.isArray(api.plugins) && api.plugins.some(plugin => plugin.name == pluginName));
+        hasPlugin: (apiName, pluginName, pluginConsumerID) => {
+            return Array.isArray(apis) && apis.some(api => api.name === apiName && Array.isArray(api.plugins) && api.plugins.some(plugin => plugin.name == pluginName && plugin._info.consumer_id == pluginConsumerID));
         },
-        hasGlobalPlugin: (pluginName) => {
-            return Array.isArray(plugins) && plugins.some(plugin => plugin.api_id === undefined && plugin.name === pluginName);
+        hasGlobalPlugin: (pluginName, pluginConsumerID) => {
+            return Array.isArray(plugins) && plugins.some(plugin => plugin.api_id === undefined && plugin.name === pluginName && plugin._info.consumer_id === pluginConsumerID);
         },
         hasConsumer: (username) => {
             return Array.isArray(consumers) && consumers.some(consumer => consumer.username === username);
@@ -251,6 +265,8 @@ function _createWorld({apis, consumers, plugins, upstreams, _info: { version }})
         },
 
         getConsumer: username => {
+            invariant(username, `Username is required`);
+
             const consumer = consumers.find(c => c.username === username);
 
             invariant(consumer, `Unable to find consumer ${username}`);
@@ -259,9 +275,11 @@ function _createWorld({apis, consumers, plugins, upstreams, _info: { version }})
         },
 
         getConsumerId: username => {
+            invariant(username, `Username is required`);
+
             const consumerId = world.getConsumer(username)._info.id;
 
-            invariant(consumerId, `Unable to find consumer id ${username}`);
+            invariant(consumerId, `Unable to find consumer id ${username} ${consumerId}`);
 
             return consumerId;
         },
@@ -312,25 +330,25 @@ function _createWorld({apis, consumers, plugins, upstreams, _info: { version }})
             return diff(api.attributes, world.getApi(api.name).attributes).length == 0;
         },
 
-        isApiPluginUpToDate: (apiName, plugin) => {
+        isApiPluginUpToDate: (apiName, plugin, consumerID) => {
             if (false == plugin.hasOwnProperty('attributes')) {
                 // of a plugin has no attributes, and its been added then it is up to date
                 return true;
             }
 
-            let current = world.getPlugin(apiName, plugin.name);
+            let current = world.getPlugin(apiName, plugin.name, consumerID);
             let attributes = normalizeAttributes(plugin.attributes);
 
             return isAttributesWithConfigUpToDate(attributes, current.attributes);
         },
 
-        isGlobalPluginUpToDate: (plugin) => {
+        isGlobalPluginUpToDate: (plugin, consumerID) => {
             if (false == plugin.hasOwnProperty('attributes')) {
                 // of a plugin has no attributes, and its been added then it is up to date
                 return true;
             }
 
-            let current = world.getGlobalPlugin(plugin.name);
+            let current = world.getGlobalPlugin(plugin.name, consumerID);
             let attributes = normalizeAttributes(plugin.attributes);
 
             return isAttributesWithConfigUpToDate(attributes, current.attributes);
@@ -473,27 +491,54 @@ function validateApiRequiredAttributes(api) {
 
 }
 
+const swapConsumerReference = (world, plugin) => {
+    if (!plugin.hasOwnProperty('attributes')) {
+        return plugin;
+    }
+
+    let newPluginDef = plugin;
+
+    if (plugin.attributes.hasOwnProperty('config') && plugin.attributes.config.anonymous_username) {
+        const { config: { anonymous_username, ...config }, ...attributes } = plugin.attributes;
+        const anonymous = world.getConsumerId(anonymous_username);
+
+        newPluginDef = { ...plugin, attributes: { config: { anonymous, ...config }, ...attributes } };
+    }
+
+    if (plugin.attributes.hasOwnProperty('username') && plugin.attributes.username) {
+        const { username, ...attributes } = plugin.attributes; // remove username
+        const consumer_id = world.getConsumerId(username);
+
+        newPluginDef = { ...plugin, attributes: { consumer_id, ...attributes } };
+    }
+
+    return newPluginDef;
+}
+
 function _plugin(apiName, plugin) {
     validateEnsure(plugin.ensure);
 
     return world => {
+        const finalPlugin = swapConsumerReference(world, plugin);
+        const consumerID = finalPlugin.attributes && finalPlugin.attributes.consumer_id;
+
         if (plugin.ensure == 'removed') {
-            if (world.hasPlugin(apiName, plugin.name)) {
-                return removeApiPlugin(world.getApiId(apiName), world.getPluginId(apiName, plugin.name));
+            if (world.hasPlugin(apiName, plugin.name, consumerID)) {
+                return removeApiPlugin(world.getApiId(apiName), world.getPluginId(apiName, plugin.name, consumerID));
             }
 
             return noop({ type: 'noop-plugin', plugin });
         }
 
-        if (world.hasPlugin(apiName, plugin.name)) {
-            if (world.isApiPluginUpToDate(apiName, plugin)) {
+        if (world.hasPlugin(apiName, plugin.name, consumerID)) {
+            if (world.isApiPluginUpToDate(apiName, plugin, consumerID)) {
                 return noop({ type: 'noop-plugin', plugin });
             }
 
-            return updateApiPlugin(world.getApiId(apiName), world.getPluginId(apiName, plugin.name), plugin.attributes);
+            return updateApiPlugin(world.getApiId(apiName), world.getPluginId(apiName, plugin.name, consumerID), finalPlugin.attributes);
         }
 
-        return addApiPlugin(world.getApiId(apiName), plugin.name, plugin.attributes);
+        return addApiPlugin(world.getApiId(apiName), plugin.name, finalPlugin.attributes);
     }
 }
 
@@ -501,23 +546,26 @@ function _globalPlugin(plugin) {
     validateEnsure(plugin.ensure);
 
     return world => {
+        const finalPlugin = swapConsumerReference(world, plugin);
+        const consumerID = finalPlugin.attributes && finalPlugin.attributes.consumer_id;
+
         if (plugin.ensure == 'removed') {
-            if (world.hasGlobalPlugin(plugin.name)) {
-                return removeGlobalPlugin(world.getGlobalPluginId(plugin.name));
+            if (world.hasGlobalPlugin(plugin.name, consumerID)) {
+                return removeGlobalPlugin(world.getGlobalPluginId(plugin.name, consumerID));
             }
 
             return noop({ type: 'noop-global-plugin', plugin });
         }
 
-        if (world.hasGlobalPlugin(plugin.name)) {
-            if (world.isGlobalPluginUpToDate(plugin)) {
+        if (world.hasGlobalPlugin(plugin.name, consumerID)) {
+            if (world.isGlobalPluginUpToDate(plugin, consumerID)) {
                 return noop({ type: 'noop-global-plugin', plugin });
             }
 
-            return updateGlobalPlugin(world.getGlobalPluginId(plugin.name), plugin.attributes);
+            return updateGlobalPlugin(world.getGlobalPluginId(plugin.name, consumerID), finalPlugin.attributes);
         }
 
-        return addGlobalPlugin(plugin.name, plugin.attributes);
+        return addGlobalPlugin(plugin.name, finalPlugin.attributes);
     }
 }
 

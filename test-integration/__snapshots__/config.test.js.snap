@@ -641,6 +641,926 @@ upstreams: []
 "
 `;
 
+exports[`should apply key-auth-anonymous.example.yml 1`] = `
+Array [
+  Object {
+    "type": "kong-info",
+    "version": "___version___",
+  },
+  Object {
+    "params": Object {
+      "body": Object {
+        "username": "anonymous-user",
+      },
+      "endpoint": Object {
+        "name": "consumers",
+      },
+      "method": "POST",
+      "type": "create-customer",
+    },
+    "type": "request",
+    "uri": "http://localhost:8001/consumers",
+  },
+  Object {
+    "content": Object {
+      "created_at": "___created_at___",
+      "id": "2b47ba9b-761a-492d-9a0c-000000000001",
+      "username": "anonymous-user",
+    },
+    "ok": true,
+    "params": Object {
+      "body": Object {
+        "username": "anonymous-user",
+      },
+      "endpoint": Object {
+        "name": "consumers",
+      },
+      "method": "POST",
+      "type": "create-customer",
+    },
+    "status": 201,
+    "statusText": "Created",
+    "type": "response",
+    "uri": "http://localhost:8001/consumers",
+  },
+  Object {
+    "params": Object {
+      "body": Object {
+        "username": "iphone-app",
+      },
+      "endpoint": Object {
+        "name": "consumers",
+      },
+      "method": "POST",
+      "type": "create-customer",
+    },
+    "type": "request",
+    "uri": "http://localhost:8001/consumers",
+  },
+  Object {
+    "content": Object {
+      "created_at": "___created_at___",
+      "id": "2b47ba9b-761a-492d-9a0c-000000000002",
+      "username": "iphone-app",
+    },
+    "ok": true,
+    "params": Object {
+      "body": Object {
+        "username": "iphone-app",
+      },
+      "endpoint": Object {
+        "name": "consumers",
+      },
+      "method": "POST",
+      "type": "create-customer",
+    },
+    "status": 201,
+    "statusText": "Created",
+    "type": "response",
+    "uri": "http://localhost:8001/consumers",
+  },
+  Object {
+    "params": Object {
+      "body": Object {
+        "key": "very-secret-key",
+      },
+      "endpoint": Object {
+        "name": "consumer-credentials",
+        "params": Object {
+          "consumerId": "2b47ba9b-761a-492d-9a0c-000000000002",
+          "plugin": "key-auth",
+        },
+      },
+      "method": "POST",
+      "type": "add-customer-credential",
+    },
+    "type": "request",
+    "uri": "http://localhost:8001/consumers/2b47ba9b-761a-492d-9a0c-000000000002/key-auth",
+  },
+  Object {
+    "content": Object {
+      "consumer_id": "2b47ba9b-761a-492d-9a0c-000000000002",
+      "created_at": "___created_at___",
+      "id": "2b47ba9b-761a-492d-9a0c-000000000003",
+      "key": "very-secret-key",
+    },
+    "ok": true,
+    "params": Object {
+      "body": Object {
+        "key": "very-secret-key",
+      },
+      "endpoint": Object {
+        "name": "consumer-credentials",
+        "params": Object {
+          "consumerId": "2b47ba9b-761a-492d-9a0c-000000000002",
+          "plugin": "key-auth",
+        },
+      },
+      "method": "POST",
+      "type": "add-customer-credential",
+    },
+    "status": 201,
+    "statusText": "Created",
+    "type": "response",
+    "uri": "http://localhost:8001/consumers/2b47ba9b-761a-492d-9a0c-000000000002/key-auth",
+  },
+  Object {
+    "params": Object {
+      "body": Object {
+        "hosts": Array [
+          "mockbin.com",
+        ],
+        "name": "mockbin",
+        "upstream_url": "http://mockbin.com",
+      },
+      "endpoint": Object {
+        "name": "apis",
+      },
+      "method": "POST",
+      "type": "create-api",
+    },
+    "type": "request",
+    "uri": "http://localhost:8001/apis",
+  },
+  Object {
+    "content": Object {
+      "created_at": "___created_at___",
+      "hosts": Array [
+        "mockbin.com",
+      ],
+      "http_if_terminated": false,
+      "https_only": false,
+      "id": "2b47ba9b-761a-492d-9a0c-000000000004",
+      "name": "mockbin",
+      "preserve_host": false,
+      "retries": 5,
+      "strip_uri": true,
+      "upstream_connect_timeout": 60000,
+      "upstream_read_timeout": 60000,
+      "upstream_send_timeout": 60000,
+      "upstream_url": "http://mockbin.com",
+    },
+    "ok": true,
+    "params": Object {
+      "body": Object {
+        "hosts": Array [
+          "mockbin.com",
+        ],
+        "name": "mockbin",
+        "upstream_url": "http://mockbin.com",
+      },
+      "endpoint": Object {
+        "name": "apis",
+      },
+      "method": "POST",
+      "type": "create-api",
+    },
+    "status": 201,
+    "statusText": "Created",
+    "type": "response",
+    "uri": "http://localhost:8001/apis",
+  },
+  Object {
+    "params": Object {
+      "body": Object {
+        "config": Object {
+          "anonymous": "2b47ba9b-761a-492d-9a0c-000000000001",
+          "key_names": Array [
+            "very-secret-key",
+          ],
+        },
+        "name": "key-auth",
+      },
+      "endpoint": Object {
+        "name": "api-plugins",
+        "params": Object {
+          "apiId": "2b47ba9b-761a-492d-9a0c-000000000004",
+          "pluginName": "key-auth",
+        },
+      },
+      "method": "POST",
+      "type": "add-api-plugin",
+    },
+    "type": "request",
+    "uri": "http://localhost:8001/apis/2b47ba9b-761a-492d-9a0c-000000000004/plugins",
+  },
+  Object {
+    "content": Object {
+      "api_id": "2b47ba9b-761a-492d-9a0c-000000000004",
+      "config": Object {
+        "anonymous": "2b47ba9b-761a-492d-9a0c-000000000001",
+        "hide_credentials": false,
+        "key_in_body": false,
+        "key_names": Array [
+          "very-secret-key",
+        ],
+        "run_on_preflight": true,
+      },
+      "created_at": "___created_at___",
+      "enabled": true,
+      "id": "2b47ba9b-761a-492d-9a0c-000000000005",
+      "name": "key-auth",
+    },
+    "ok": true,
+    "params": Object {
+      "body": Object {
+        "config": Object {
+          "anonymous": "2b47ba9b-761a-492d-9a0c-000000000001",
+          "key_names": Array [
+            "very-secret-key",
+          ],
+        },
+        "name": "key-auth",
+      },
+      "endpoint": Object {
+        "name": "api-plugins",
+        "params": Object {
+          "apiId": "2b47ba9b-761a-492d-9a0c-000000000004",
+          "pluginName": "key-auth",
+        },
+      },
+      "method": "POST",
+      "type": "add-api-plugin",
+    },
+    "status": 201,
+    "statusText": "Created",
+    "type": "response",
+    "uri": "http://localhost:8001/apis/2b47ba9b-761a-492d-9a0c-000000000004/plugins",
+  },
+  Object {
+    "type": "kong-info",
+    "version": "___version___",
+  },
+  Object {
+    "params": Object {
+      "consumer": Object {
+        "ensure": "present",
+        "username": "anonymous-user",
+      },
+      "noop": true,
+      "type": "noop-consumer",
+    },
+    "type": "noop",
+  },
+  Object {
+    "params": Object {
+      "consumer": Object {
+        "credentials": Array [
+          Object {
+            "attributes": Object {
+              "key": "very-secret-key",
+            },
+            "ensure": "present",
+            "name": "key-auth",
+          },
+        ],
+        "ensure": "present",
+        "username": "iphone-app",
+      },
+      "noop": true,
+      "type": "noop-consumer",
+    },
+    "type": "noop",
+  },
+  Object {
+    "params": Object {
+      "credential": Object {
+        "attributes": Object {
+          "key": "very-secret-key",
+        },
+        "ensure": "present",
+        "name": "key-auth",
+      },
+      "credentialIdName": "key",
+      "noop": true,
+      "type": "noop-credential",
+    },
+    "type": "noop",
+  },
+  Object {
+    "params": Object {
+      "api": Object {
+        "attributes": Object {
+          "hosts": Array [
+            "mockbin.com",
+          ],
+          "upstream_url": "http://mockbin.com",
+        },
+        "ensure": "present",
+        "name": "mockbin",
+        "plugins": Array [
+          Object {
+            "attributes": Object {
+              "config": Object {
+                "anonymous_username": "anonymous-user",
+                "key_names": Array [
+                  "very-secret-key",
+                ],
+              },
+            },
+            "name": "key-auth",
+          },
+        ],
+      },
+      "noop": true,
+      "type": "noop-api",
+    },
+    "type": "noop",
+  },
+  Object {
+    "params": Object {
+      "noop": true,
+      "plugin": Object {
+        "attributes": Object {
+          "config": Object {
+            "anonymous_username": "anonymous-user",
+            "key_names": Array [
+              "very-secret-key",
+            ],
+          },
+        },
+        "name": "key-auth",
+      },
+      "type": "noop-plugin",
+    },
+    "type": "noop",
+  },
+]
+`;
+
+exports[`should apply key-auth-anonymous.example.yml 2`] = `
+"apis:
+  - name: mockbin
+    plugins:
+      - name: key-auth
+        attributes:
+          enabled: true
+          config:
+            anonymous_username: anonymous-user
+            key_names:
+              - very-secret-key
+            key_in_body: false
+            run_on_preflight: true
+            hide_credentials: false
+    attributes:
+      hosts:
+        - mockbin.com
+      strip_uri: true
+      preserve_host: false
+      upstream_url: 'http://mockbin.com'
+      retries: 5
+      upstream_connect_timeout: 60000
+      upstream_read_timeout: 60000
+      upstream_send_timeout: 60000
+      https_only: false
+      http_if_terminated: false
+consumers:
+  - username: anonymous-user
+    acls: []
+    credentials: []
+  - username: iphone-app
+    acls: []
+    credentials:
+      - name: key-auth
+        attributes:
+          key: very-secret-key
+plugins: []
+upstreams: []
+"
+`;
+
+exports[`should apply plugin-per-consumer.example.yml 1`] = `
+Array [
+  Object {
+    "type": "kong-info",
+    "version": "___version___",
+  },
+  Object {
+    "params": Object {
+      "body": Object {
+        "username": "user-john",
+      },
+      "endpoint": Object {
+        "name": "consumers",
+      },
+      "method": "POST",
+      "type": "create-customer",
+    },
+    "type": "request",
+    "uri": "http://localhost:8001/consumers",
+  },
+  Object {
+    "content": Object {
+      "created_at": "___created_at___",
+      "id": "2b47ba9b-761a-492d-9a0c-000000000001",
+      "username": "user-john",
+    },
+    "ok": true,
+    "params": Object {
+      "body": Object {
+        "username": "user-john",
+      },
+      "endpoint": Object {
+        "name": "consumers",
+      },
+      "method": "POST",
+      "type": "create-customer",
+    },
+    "status": 201,
+    "statusText": "Created",
+    "type": "response",
+    "uri": "http://localhost:8001/consumers",
+  },
+  Object {
+    "params": Object {
+      "body": Object {
+        "name": "mockbin-foo",
+        "upstream_url": "http://mockbin.com",
+        "uris": Array [
+          "/foo",
+        ],
+      },
+      "endpoint": Object {
+        "name": "apis",
+      },
+      "method": "POST",
+      "type": "create-api",
+    },
+    "type": "request",
+    "uri": "http://localhost:8001/apis",
+  },
+  Object {
+    "content": Object {
+      "created_at": "___created_at___",
+      "http_if_terminated": false,
+      "https_only": false,
+      "id": "2b47ba9b-761a-492d-9a0c-000000000002",
+      "name": "mockbin-foo",
+      "preserve_host": false,
+      "retries": 5,
+      "strip_uri": true,
+      "upstream_connect_timeout": 60000,
+      "upstream_read_timeout": 60000,
+      "upstream_send_timeout": 60000,
+      "upstream_url": "http://mockbin.com",
+      "uris": Array [
+        "/foo",
+      ],
+    },
+    "ok": true,
+    "params": Object {
+      "body": Object {
+        "name": "mockbin-foo",
+        "upstream_url": "http://mockbin.com",
+        "uris": Array [
+          "/foo",
+        ],
+      },
+      "endpoint": Object {
+        "name": "apis",
+      },
+      "method": "POST",
+      "type": "create-api",
+    },
+    "status": 201,
+    "statusText": "Created",
+    "type": "response",
+    "uri": "http://localhost:8001/apis",
+  },
+  Object {
+    "params": Object {
+      "body": Object {
+        "config": Object {
+          "second": 10,
+        },
+        "consumer_id": "2b47ba9b-761a-492d-9a0c-000000000001",
+        "name": "rate-limiting",
+      },
+      "endpoint": Object {
+        "name": "api-plugins",
+        "params": Object {
+          "apiId": "2b47ba9b-761a-492d-9a0c-000000000002",
+          "pluginName": "rate-limiting",
+        },
+      },
+      "method": "POST",
+      "type": "add-api-plugin",
+    },
+    "type": "request",
+    "uri": "http://localhost:8001/apis/2b47ba9b-761a-492d-9a0c-000000000002/plugins",
+  },
+  Object {
+    "content": Object {
+      "api_id": "2b47ba9b-761a-492d-9a0c-000000000002",
+      "config": Object {
+        "fault_tolerant": true,
+        "hide_client_headers": false,
+        "limit_by": "consumer",
+        "policy": "cluster",
+        "redis_database": 0,
+        "redis_port": 6379,
+        "redis_timeout": 2000,
+        "second": 10,
+      },
+      "consumer_id": "2b47ba9b-761a-492d-9a0c-000000000001",
+      "created_at": "___created_at___",
+      "enabled": true,
+      "id": "2b47ba9b-761a-492d-9a0c-000000000003",
+      "name": "rate-limiting",
+    },
+    "ok": true,
+    "params": Object {
+      "body": Object {
+        "config": Object {
+          "second": 10,
+        },
+        "consumer_id": "2b47ba9b-761a-492d-9a0c-000000000001",
+        "name": "rate-limiting",
+      },
+      "endpoint": Object {
+        "name": "api-plugins",
+        "params": Object {
+          "apiId": "2b47ba9b-761a-492d-9a0c-000000000002",
+          "pluginName": "rate-limiting",
+        },
+      },
+      "method": "POST",
+      "type": "add-api-plugin",
+    },
+    "status": 201,
+    "statusText": "Created",
+    "type": "response",
+    "uri": "http://localhost:8001/apis/2b47ba9b-761a-492d-9a0c-000000000002/plugins",
+  },
+  Object {
+    "params": Object {
+      "body": Object {
+        "name": "mockbin-bar",
+        "upstream_url": "http://mockbin.com",
+        "uris": Array [
+          "/bar",
+        ],
+      },
+      "endpoint": Object {
+        "name": "apis",
+      },
+      "method": "POST",
+      "type": "create-api",
+    },
+    "type": "request",
+    "uri": "http://localhost:8001/apis",
+  },
+  Object {
+    "content": Object {
+      "created_at": "___created_at___",
+      "http_if_terminated": false,
+      "https_only": false,
+      "id": "2b47ba9b-761a-492d-9a0c-000000000004",
+      "name": "mockbin-bar",
+      "preserve_host": false,
+      "retries": 5,
+      "strip_uri": true,
+      "upstream_connect_timeout": 60000,
+      "upstream_read_timeout": 60000,
+      "upstream_send_timeout": 60000,
+      "upstream_url": "http://mockbin.com",
+      "uris": Array [
+        "/bar",
+      ],
+    },
+    "ok": true,
+    "params": Object {
+      "body": Object {
+        "name": "mockbin-bar",
+        "upstream_url": "http://mockbin.com",
+        "uris": Array [
+          "/bar",
+        ],
+      },
+      "endpoint": Object {
+        "name": "apis",
+      },
+      "method": "POST",
+      "type": "create-api",
+    },
+    "status": 201,
+    "statusText": "Created",
+    "type": "response",
+    "uri": "http://localhost:8001/apis",
+  },
+  Object {
+    "params": Object {
+      "body": Object {
+        "config": Object {
+          "minute": 60,
+        },
+        "consumer_id": "2b47ba9b-761a-492d-9a0c-000000000001",
+        "enabled": true,
+        "name": "rate-limiting",
+      },
+      "endpoint": Object {
+        "name": "plugins",
+        "params": Object {
+          "pluginName": "rate-limiting",
+        },
+      },
+      "method": "POST",
+      "type": "add-global-plugin",
+    },
+    "type": "request",
+    "uri": "http://localhost:8001/plugins",
+  },
+  Object {
+    "content": Object {
+      "config": Object {
+        "fault_tolerant": true,
+        "hide_client_headers": false,
+        "limit_by": "consumer",
+        "minute": 60,
+        "policy": "cluster",
+        "redis_database": 0,
+        "redis_port": 6379,
+        "redis_timeout": 2000,
+      },
+      "consumer_id": "2b47ba9b-761a-492d-9a0c-000000000001",
+      "created_at": "___created_at___",
+      "enabled": true,
+      "id": "2b47ba9b-761a-492d-9a0c-000000000005",
+      "name": "rate-limiting",
+    },
+    "ok": true,
+    "params": Object {
+      "body": Object {
+        "config": Object {
+          "minute": 60,
+        },
+        "consumer_id": "2b47ba9b-761a-492d-9a0c-000000000001",
+        "enabled": true,
+        "name": "rate-limiting",
+      },
+      "endpoint": Object {
+        "name": "plugins",
+        "params": Object {
+          "pluginName": "rate-limiting",
+        },
+      },
+      "method": "POST",
+      "type": "add-global-plugin",
+    },
+    "status": 201,
+    "statusText": "Created",
+    "type": "response",
+    "uri": "http://localhost:8001/plugins",
+  },
+  Object {
+    "params": Object {
+      "body": Object {
+        "config": Object {
+          "minute": 30,
+        },
+        "enabled": true,
+        "name": "rate-limiting",
+      },
+      "endpoint": Object {
+        "name": "plugins",
+        "params": Object {
+          "pluginName": "rate-limiting",
+        },
+      },
+      "method": "POST",
+      "type": "add-global-plugin",
+    },
+    "type": "request",
+    "uri": "http://localhost:8001/plugins",
+  },
+  Object {
+    "content": Object {
+      "config": Object {
+        "fault_tolerant": true,
+        "hide_client_headers": false,
+        "limit_by": "consumer",
+        "minute": 30,
+        "policy": "cluster",
+        "redis_database": 0,
+        "redis_port": 6379,
+        "redis_timeout": 2000,
+      },
+      "created_at": "___created_at___",
+      "enabled": true,
+      "id": "2b47ba9b-761a-492d-9a0c-000000000006",
+      "name": "rate-limiting",
+    },
+    "ok": true,
+    "params": Object {
+      "body": Object {
+        "config": Object {
+          "minute": 30,
+        },
+        "enabled": true,
+        "name": "rate-limiting",
+      },
+      "endpoint": Object {
+        "name": "plugins",
+        "params": Object {
+          "pluginName": "rate-limiting",
+        },
+      },
+      "method": "POST",
+      "type": "add-global-plugin",
+    },
+    "status": 201,
+    "statusText": "Created",
+    "type": "response",
+    "uri": "http://localhost:8001/plugins",
+  },
+  Object {
+    "type": "kong-info",
+    "version": "___version___",
+  },
+  Object {
+    "params": Object {
+      "consumer": Object {
+        "username": "user-john",
+      },
+      "noop": true,
+      "type": "noop-consumer",
+    },
+    "type": "noop",
+  },
+  Object {
+    "params": Object {
+      "api": Object {
+        "attributes": Object {
+          "upstream_url": "http://mockbin.com",
+          "uris": Array [
+            "/foo",
+          ],
+        },
+        "name": "mockbin-foo",
+        "plugins": Array [
+          Object {
+            "attributes": Object {
+              "config": Object {
+                "second": 10,
+              },
+              "username": "user-john",
+            },
+            "ensure": "present",
+            "name": "rate-limiting",
+          },
+        ],
+      },
+      "noop": true,
+      "type": "noop-api",
+    },
+    "type": "noop",
+  },
+  Object {
+    "params": Object {
+      "noop": true,
+      "plugin": Object {
+        "attributes": Object {
+          "config": Object {
+            "second": 10,
+          },
+          "username": "user-john",
+        },
+        "ensure": "present",
+        "name": "rate-limiting",
+      },
+      "type": "noop-plugin",
+    },
+    "type": "noop",
+  },
+  Object {
+    "params": Object {
+      "api": Object {
+        "attributes": Object {
+          "upstream_url": "http://mockbin.com",
+          "uris": Array [
+            "/bar",
+          ],
+        },
+        "name": "mockbin-bar",
+      },
+      "noop": true,
+      "type": "noop-api",
+    },
+    "type": "noop",
+  },
+  Object {
+    "params": Object {
+      "noop": true,
+      "plugin": Object {
+        "attributes": Object {
+          "config": Object {
+            "minute": 60,
+          },
+          "enabled": true,
+          "username": "user-john",
+        },
+        "name": "rate-limiting",
+      },
+      "type": "noop-global-plugin",
+    },
+    "type": "noop",
+  },
+  Object {
+    "params": Object {
+      "noop": true,
+      "plugin": Object {
+        "attributes": Object {
+          "config": Object {
+            "minute": 30,
+          },
+          "enabled": true,
+        },
+        "name": "rate-limiting",
+      },
+      "type": "noop-global-plugin",
+    },
+    "type": "noop",
+  },
+]
+`;
+
+exports[`should apply plugin-per-consumer.example.yml 2`] = `
+"apis:
+  - name: mockbin-bar
+    plugins: []
+    attributes:
+      uris:
+        - /bar
+      strip_uri: true
+      preserve_host: false
+      upstream_url: 'http://mockbin.com'
+      retries: 5
+      upstream_connect_timeout: 60000
+      upstream_read_timeout: 60000
+      upstream_send_timeout: 60000
+      https_only: false
+      http_if_terminated: false
+  - name: mockbin-foo
+    plugins:
+      - name: rate-limiting
+        attributes:
+          username: user-john
+          enabled: true
+          config:
+            second: 10
+            redis_database: 0
+            policy: cluster
+            hide_client_headers: false
+            redis_timeout: 2000
+            redis_port: 6379
+            limit_by: consumer
+            fault_tolerant: true
+    attributes:
+      uris:
+        - /foo
+      strip_uri: true
+      preserve_host: false
+      upstream_url: 'http://mockbin.com'
+      retries: 5
+      upstream_connect_timeout: 60000
+      upstream_read_timeout: 60000
+      upstream_send_timeout: 60000
+      https_only: false
+      http_if_terminated: false
+consumers:
+  - username: user-john
+    acls: []
+    credentials: []
+plugins:
+  - name: rate-limiting
+    attributes:
+      enabled: true
+      config:
+        hide_client_headers: false
+        minute: 30
+        policy: cluster
+        redis_database: 0
+        redis_timeout: 2000
+        redis_port: 6379
+        limit_by: consumer
+        fault_tolerant: true
+  - name: rate-limiting
+    attributes:
+      username: user-john
+      enabled: true
+      config:
+        hide_client_headers: false
+        minute: 60
+        policy: cluster
+        redis_database: 0
+        redis_timeout: 2000
+        redis_port: 6379
+        limit_by: consumer
+        fault_tolerant: true
+upstreams: []
+"
+`;
+
 exports[`should apply simple-api.example.yml 1`] = `
 Array [
   Object {

@@ -1,17 +1,18 @@
 import semVer from 'semver';
 import kongState from './kongState';
 import { parseUpstreams } from './parsers/upstreams';
+import getCurrentStateSelector from './stateSelector';
 
 export default async (adminApi) => {
     return Promise.all([kongState(adminApi), adminApi.fetchPluginSchemas(), adminApi.fetchKongVersion()])
         .then(([state, schemas, version]) => {
-            return {
+            return getCurrentStateSelector({
                 _info: { version },
                 apis: parseApis(state.apis, version),
                 consumers: parseConsumers(state.consumers),
                 plugins: parseGlobalPlugins(state.plugins),
-                upstreams: parseUpstreams(state.upstreams)
-            }
+                upstreams: parseUpstreams(state.upstreams),
+            });
         })
 };
 
@@ -136,6 +137,7 @@ export const parsePlugin = ({
         name,
         attributes: {
             enabled,
+            consumer_id,
             config: stripConfig(config)
         },
         _info: {
@@ -165,6 +167,7 @@ export const parseGlobalPlugin = ({
         name,
         attributes: {
             enabled,
+            consumer_id,
             config: stripConfig(config)
         },
         _info: {

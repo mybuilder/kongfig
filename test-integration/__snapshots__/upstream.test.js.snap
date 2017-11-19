@@ -419,17 +419,51 @@ Array [
   },
   Object {
     "params": Object {
-      "noop": true,
-      "target": Object {
-        "attributes": Object {
-          "weight": 100,
-        },
-        "ensure": "present",
+      "body": Object {
         "target": "server1.mockbin:8080",
+        "weight": 100,
       },
-      "type": "noop-target",
+      "endpoint": Object {
+        "name": "upstream-targets",
+        "params": Object {
+          "targetName": "server1.mockbin:8080",
+          "upstreamId": "2b47ba9b-761a-492d-9a0c-000000000001",
+        },
+      },
+      "method": "POST",
+      "type": "add-upstream-target",
     },
-    "type": "noop",
+    "type": "request",
+    "uri": "http://localhost:8001/upstreams/2b47ba9b-761a-492d-9a0c-000000000001/targets",
+  },
+  Object {
+    "content": Object {
+      "created_at": "___created_at___",
+      "id": "2b47ba9b-761a-492d-9a0c-000000000003",
+      "target": "server1.mockbin:8080",
+      "upstream_id": "2b47ba9b-761a-492d-9a0c-000000000001",
+      "weight": 100,
+    },
+    "ok": true,
+    "params": Object {
+      "body": Object {
+        "target": "server1.mockbin:8080",
+        "weight": 100,
+      },
+      "endpoint": Object {
+        "name": "upstream-targets",
+        "params": Object {
+          "targetName": "server1.mockbin:8080",
+          "upstreamId": "2b47ba9b-761a-492d-9a0c-000000000001",
+        },
+      },
+      "method": "POST",
+      "type": "add-upstream-target",
+    },
+    "status": 201,
+    "statusText": "Created",
+    "type": "response",
+    "uri": "http://localhost:8001/upstreams/2b47ba9b-761a-492d-9a0c-000000000001/targets",
   },
 ]
 `;
@@ -443,7 +477,7 @@ upstreams:
     targets:
       - target: 'server1.mockbin:8080'
         attributes:
-          weight: 50
+          weight: 100
     attributes:
       slots: 10
 "
