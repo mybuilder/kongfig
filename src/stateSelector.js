@@ -1,4 +1,12 @@
-const getConsumerById = (id, consumers) => consumers.find(x => x._info.id === id) || {};
+import invariant from 'invariant';
+
+const getConsumerById = (id, consumers) => {
+    const consumer = consumers.find(x => x._info.id === id);
+
+    invariant(consumer, `Unable to find a consumer for ${id}`);
+
+    return consumer;
+};
 
 export default state => {
     const fixPluginAnonymous = ({ name, attributes: { config, ...attributes }, ...plugin }) => {
@@ -13,6 +21,10 @@ export default state => {
     }
 
     const fixPluginUsername = ({ name, attributes: { consumer_id, ...attributes }, ...plugin }) => {
+        if (!consumer_id) {
+            return { name, attributes, ...plugin };
+        }
+
         const { username } = getConsumerById(consumer_id, state.consumers);
 
         return { name, attributes: { username, ...attributes }, ...plugin };
