@@ -11,7 +11,7 @@ export default async (adminApi) => {
                 apis: parseApis(state.apis, version),
                 consumers: parseConsumers(state.consumers),
                 plugins: parseGlobalPlugins(state.plugins),
-                upstreams: parseUpstreams(state.upstreams),
+                upstreams: semVer.gte(version, '0.10.0') ? parseUpstreams(state.upstreams) : undefined,
             });
         })
 };

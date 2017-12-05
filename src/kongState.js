@@ -1,4 +1,21 @@
+import semVer from 'semver';
 import {getSupportedCredentials} from './consumerCredentials'
+
+const fetchUpstreamsWithTargets = async ({ version, fetchUpstreams, fetchTargets }) => {
+    if (semVer.lte(version, '0.10.0')) {
+        return Promise.resolve([]);
+    }
+
+    const upstreams = await fetchUpstreams();
+
+    return await Promise.all(
+        upstreams.map(async item => {
+            const targets = await fetchTargets(item.id);
+
+            return { ...item, targets };
+        })
+    );
+};
 
 export default async ({fetchApis, fetchPlugins, fetchGlobalPlugins, fetchConsumers, fetchConsumerCredentials, fetchConsumerAcls, fetchUpstreams, fetchTargets, fetchKongVersion}) => {
     const version = await fetchKongVersion();
@@ -45,12 +62,7 @@ export default async ({fetchApis, fetchPlugins, fetchGlobalPlugins, fetchConsume
         return plugin.api_id === undefined;
     });
 
-    const upstreams = await fetchUpstreams();
-    const upstreamsWithTargets = await Promise.all(upstreams.map(async item => {
-        const targets = await fetchTargets(item.id);
-
-        return {...item, targets};
-    }));
+    const upstreamsWithTargets = await fetchUpstreamsWithTargets({ version, fetchUpstreams, fetchTargets });
 
     return {
         apis: apisWithPlugins,
