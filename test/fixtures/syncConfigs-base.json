@@ -1,0 +1,119 @@
+{
+  "apis": [
+    {
+      "name": "placement-service",
+      "plugins": []
+    },
+    {
+      "name": "testAPI1",
+      "plugins": [
+        { "name": "request-termination" },
+        { "name": "key-auth" }
+      ]
+    },{
+      "name": "lookup-service",
+      "plugins": []
+    },
+    {
+      "name": "testAPI2",
+      "plugins": [
+        { "name": "key-auth" }
+      ]
+    }
+  ],
+
+  "consumers": [
+    {
+      "username": "testConsumer1",
+      "credentials": [
+        {
+          "name": "key-auth",
+          "attributes": { "key": "1234A" }
+        }
+      ]
+    },
+    {
+      "username": "testConsumer2",
+      "credentials": [
+        {
+          "name": "basic-auth",
+          "attributes": { "username": "jdoe" }
+        },
+        {
+          "name": "key-auth",
+          "attributes": { "key": "5678B" }
+        }
+      ]
+    },
+    {
+      "username": "anonymous",
+      "credentials": [
+        {
+          "name": "key-auth",
+          "attributes": { "key": "9012C" }
+        }
+      ]
+    },
+    {
+      "username": "iosapp",
+      "credentials": [
+        {
+          "name": "key-auth",
+          "attributes": { "key": "3456D" }
+        }
+      ]
+    },
+    {
+      "username": "android",
+      "credentials": [
+        {
+          "name": "key-auth",
+          "attributes": { "key": "7890E" }
+        },
+        {
+          "name": "key-auth",
+          "attributes": { "key": "1234F" }
+        }
+      ]
+    },
+    {
+      "username": "testConsumer3",
+      "credentials": [
+        {
+          "name": "oauth2",
+          "attributes": { "client_id": "5678G" }
+        }
+      ]
+    }
+  ],
+
+  "plugins": [
+    { "name": "testPlugin1" },
+    { "name": "basic-auth" },
+    { "name": "testPlugin2" },
+    { "name": "response-transformer" },
+    { "name": "testPlugin3" }
+  ],
+
+  "upstreams": [
+    {
+      "name": "lookupService",
+      "targets": [
+        { "target": "app.lookup.service.mydomain.io:8080" }
+      ]
+    },
+    {
+      "name": "testUpstream1",
+      "targets": [
+        { "target": "test.target1.com:8080" }
+      ]
+    },
+    {
+      "name": "testUpstream2",
+      "targets": [
+        { "target": "test.target2a.com:8080" },
+        { "target": "test.target2b.com:8080" }
+      ]
+    }
+  ]
+}
