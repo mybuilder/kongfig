@@ -1,5 +1,6 @@
 import createRouter from './router';
 import requester from './requester';
+import { parseVersion } from './utils.js'
 
 let pluginSchemasCache;
 let kongVersionCache;
@@ -44,7 +45,7 @@ function createApi({ router, getPaginatedJson, ignoreConsumers }) {
 
             return getPaginatedJson(router({name: 'root'}))
                 .then(json => Promise.resolve(json.version))
-                .then(version => kongVersionCache = version);
+                .then(version => kongVersionCache = parseVersion(version));
         },
         requestEndpoint: (endpoint, params) => {
             resultsCache = {};
