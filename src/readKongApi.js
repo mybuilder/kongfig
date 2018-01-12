@@ -57,7 +57,7 @@ function parseCredential([credentialName, credentials]) {
 }
 
 function parseApis(apis, kongVersion) {
-    if (semVer.gte(kongVersion, '0.10.0')) {
+    if (kongVersion.includes("rc") || semVer.gte(kongVersion, '0.10.0')) {
         return parseApisV10(apis);
     }
 
