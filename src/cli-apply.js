@@ -1,5 +1,7 @@
 import execute from './core';
 import adminApi from './adminApi';
+import readKongApi from './readKongApi';
+import sync from './syncConfigs';
 import colors from 'colors';
 import configLoader from './configLoader';
 import program from 'commander';
@@ -13,6 +15,7 @@ program
     .option('--path <value>', 'Path to the configuration file')
     .option('--host <value>', 'Kong admin host (default: localhost:8001)')
     .option('--https', 'Use https for admin API requests')
+    .option('--force', 'remove any items from the host that are not in the local config')
     .option('--no-cache', 'Do not cache kong state in memory')
     .option('--ignore-consumers', 'Do not sync consumers')
     .option('--header [value]', 'Custom headers to be added to all requests', (nextHeader, headers) => { headers.push(nextHeader); return headers }, [])
@@ -68,8 +71,25 @@ else {
 
 console.log(`Apply config to ${host}`.green);
 
-execute(config, adminApi({host, https, ignoreConsumers, cache}), screenLogger)
-  .catch(error => {
-      console.error(`${error}`.red, '\n', error.stack);
-      process.exit(1);
-  });
+if (program.force) {
+    (async () => {
+        try {
+            let remoteConfig = await readKongApi(adminApi({host, https, ignoreConsumers}));
+            config = sync(config, remoteConfig, ignoreConsumers);
+            run();
+        } catch (error) {
+            console.error(`${error}`.red, '\n', error.stack);
+        }
+    })();
+} else {
+    run();
+}
+
+
+function run() {
+    execute(config, adminApi({host, https, ignoreConsumers, cache}), screenLogger)
+    .catch(error => {
+        console.error(`${error}`.red, '\n', error.stack);
+        process.exit(1);
+    });
+}
