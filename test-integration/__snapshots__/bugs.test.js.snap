@@ -86,5 +86,6 @@ plugins:
         credentials: false
         preflight_continue: false
 upstreams: []
+certificates: []
 "
 `;

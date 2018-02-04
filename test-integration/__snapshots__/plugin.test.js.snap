@@ -79,6 +79,7 @@ plugins:
         max_age: 7000
         preflight_continue: false
 upstreams: []
+certificates: []
 "
 `;
 
@@ -182,6 +183,7 @@ plugins:
         max_age: 7000
         preflight_continue: false
 upstreams: []
+certificates: []
 "
 `;
 
@@ -293,6 +295,7 @@ exports[`Integration global plugin should remove the global plugin 2`] = `
 consumers: []
 plugins: []
 upstreams: []
+certificates: []
 "
 `;
 
@@ -437,5 +440,6 @@ plugins:
         max_age: 7000
         preflight_continue: false
 upstreams: []
+certificates: []
 "
 `;

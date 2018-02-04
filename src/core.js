@@ -40,6 +40,13 @@ import {
     updateUpstreamTarget
 } from './actions/upstreams'
 
+import {
+    addCertificate,
+    removeCertificate,
+    addCertificateSNI,
+    removeCertificateSNI,
+} from './actions/certificates';
+
 export const consumerAclSchema = {
     id: 'group'
 };
@@ -92,6 +99,7 @@ export default async function execute(config, adminApi, logger = () => {}) {
         ...upstreams(config.upstreams),
         ...apis(config.apis),
         ...globalPlugins(config.plugins),
+        ...certificates(config.certificates),
         ...consumers(splitConsumersConfig.removed),
     ];
 
@@ -137,6 +145,18 @@ export function upstreams(upstreams = []) {
 
 export function targets(upstreamName, targets) {
     return targets.reduce((actions, target) => [...actions, _target(upstreamName, target)], []);
+}
+
+export function certificates(certificates = []) {
+    return certificates.reduce((actions, cert) => [...actions, _certificate(cert), ...certificatesSNIs(cert, cert.snis)], []);
+}
+
+export function certificatesSNIs(certificate, snis) {
+    if (certificate.ensure === 'removed') {
+        return [];
+    }
+
+    return snis.reduce((actions, sni) => [...actions, _sni(certificate, sni)], []);
 }
 
 function parseResponseContent(content) {
@@ -193,7 +213,7 @@ function _bindWorldState(adminApi) {
     }
 }
 
-function _createWorld({apis, consumers, plugins, upstreams, _info: { version }}) {
+function _createWorld({apis, consumers, plugins, upstreams, certificates, _info: { version }}) {
     const world = {
         getVersion: () => version,
 
@@ -411,7 +431,34 @@ function _createWorld({apis, consumers, plugins, upstreams, _info: { version }})
 
                 return targets[0];
             }
-        }
+        },
+        getCertificate: ({ key }) => {
+            const certificate = certificates.find(x => x.key === key);
+
+            invariant(certificate, `Unable to find certificate for ${key.substr(1, 50)}`);
+
+            return certificate;
+        },
+
+        getCertificateId: certificate => {
+            return world.getCertificate(certificate)._info.id;
+        },
+
+        hasCertificate: ({ key }) => {
+            return certificates.some(x => x.key === key);
+        },
+
+        isCertificateUpToDate: certificate => {
+            const { key, cert } = world.getCertificate(certificate);
+
+            return certificate.key == key && certificate.cert == cert;
+        },
+
+        getCertificateSNIs: certificate => {
+            const { snis } = world.getCertificate(certificate);
+
+            return snis;
+        },
     };
 
     return world;
@@ -762,4 +809,54 @@ function validateUpstreamRequiredAttributes(upstream) {
     if (false == upstream.hasOwnProperty('name')) {
         throw Error(`Upstream name is required: ${JSON.stringify(upstream, null, '  ')}`);
     }
+}
+
+const _certificate = certificate => {
+    validateEnsure(certificate.ensure);
+
+    return world => {
+        const identityClue = certificate.key.substr(1, 50);
+
+        if (certificate.ensure == 'removed') {
+            if (world.hasCertificate(certificate)) {
+                return removeCertificate(world.getCertificateId(certificate));
+            }
+
+            return noop({type: 'noop-certificate', identityClue});
+        }
+
+        if (world.hasCertificate(certificate)) {
+            if (world.isCertificateUpToDate(certificate)) {
+                return noop({type: 'noop-certificate', identityClue});
+            }
+
+            return updateCertificate(world.getCertificateId(certificate), certificate);
+        }
+
+        return addCertificate(certificate);
+    }
+}
+
+const _sni = (certificate, sni) => {
+    validateEnsure(sni.ensure);
+    invariant(sni.name, 'sni must have a name');
+
+    return world => {
+        const currentSNIs = world.getCertificateSNIs(certificate).map(x => x.name);
+        const hasSNI = currentSNIs.indexOf(sni.name) !== -1;
+
+        if (sni.ensure == 'removed') {
+            if (hasSNI) {
+                return removeCertificateSNI(sni.name);
+            }
+
+            return noop({type: 'noop-certificate-sni-removed', sni});
+        }
+
+        if (hasSNI) {
+            return noop({type: 'noop-certificate-sni', sni});
+        }
+
+        return addCertificateSNI(world.getCertificateId(certificate), sni.name);
+    };
 }

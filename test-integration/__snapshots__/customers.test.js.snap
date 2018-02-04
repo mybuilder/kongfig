@@ -97,6 +97,7 @@ consumers:
     credentials: []
 plugins: []
 upstreams: []
+certificates: []
 "
 `;
 
@@ -251,6 +252,7 @@ consumers:
     credentials: []
 plugins: []
 upstreams: []
+certificates: []
 "
 `;
 
@@ -355,6 +357,7 @@ consumers:
           key: very-secret-key
 plugins: []
 upstreams: []
+certificates: []
 "
 `;
 
@@ -516,6 +519,7 @@ consumers:
     credentials: []
 plugins: []
 upstreams: []
+certificates: []
 "
 `;
 
@@ -699,6 +703,7 @@ consumers:
           username: my-user
 plugins: []
 upstreams: []
+certificates: []
 "
 `;
 
@@ -755,6 +760,7 @@ consumers:
     credentials: []
 plugins: []
 upstreams: []
+certificates: []
 "
 `;
 
@@ -844,6 +850,7 @@ exports[`Integration consumers should remove the consumer 2`] = `
 consumers: []
 plugins: []
 upstreams: []
+certificates: []
 "
 `;
 
@@ -950,5 +957,6 @@ consumers:
     credentials: []
 plugins: []
 upstreams: []
+certificates: []
 "
 `;
