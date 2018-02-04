@@ -38,6 +38,6 @@ export default state => {
     return {
         ...state,
         apis: state.apis && state.apis.map(fixApiPluginUsername),
-        plugins: state.plugins && state.plugins.map(fixPluginUsername),
+        plugins: state.plugins && state.plugins.map(fixPluginUsername).map(fixPluginAnonymous),
     };
 };
