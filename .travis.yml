@@ -6,21 +6,17 @@ env:
   global:
     - TEST_INTEGRATION_KONG_HOST="127.0.0.1:8001"
   matrix:
-    - KONG_VERSION=0.9 EXPERIMENTAL_USE_LOCAL_STATE=0
-    - KONG_VERSION=0.10 EXPERIMENTAL_USE_LOCAL_STATE=0
     - KONG_VERSION=0.11 EXPERIMENTAL_USE_LOCAL_STATE=0
-    - KONG_VERSION=latest EXPERIMENTAL_USE_LOCAL_STATE=0
-    - KONG_VERSION=0.9 EXPERIMENTAL_USE_LOCAL_STATE=1
-    - KONG_VERSION=0.10 EXPERIMENTAL_USE_LOCAL_STATE=1
+    - KONG_VERSION=0.12 EXPERIMENTAL_USE_LOCAL_STATE=0
+
     - KONG_VERSION=0.11 EXPERIMENTAL_USE_LOCAL_STATE=1
-    - KONG_VERSION=latest EXPERIMENTAL_USE_LOCAL_STATE=1
+    - KONG_VERSION=0.12 EXPERIMENTAL_USE_LOCAL_STATE=1
 node_js:
-    - "stable"
-    - "4"
-    - "6"
+    - "8"
+    - "7"
 before_install:
     -  docker run -d --name kong-database -e "POSTGRES_USER=kong" -e "POSTGRES_DB=kong"  postgres:9.4
     -  sleep 5
     -  docker run --rm --link kong-database:kong-database -e "KONG_DATABASE=postgres" -e "KONG_PG_HOST=kong-database" kong:$KONG_VERSION kong migrations up
-    -  docker run -d --name kong --link kong-database:kong-database -e "KONG_DATABASE=postgres" -e "KONG_PG_HOST=kong-database" -e "KONG_ADMIN_LISTEN=0.0.0.0:8001" -p 8001:8001 -p8000:8000 kong:$KONG_VERSION
+    -  docker run -d --name kong --link kong-database:kong-database -e "KONG_DATABASE=postgres" -e "KONG_PG_HOST=kong-database" -e "KONG_ADMIN_LISTEN=0.0.0.0:8001" -p 127.0.0.1:8001:8001 -p 127.0.0.1:8000:8000 kong:$KONG_VERSION
     -  sleep 5
