@@ -12,8 +12,9 @@ env:
     - KONG_VERSION=0.11 EXPERIMENTAL_USE_LOCAL_STATE=1
     - KONG_VERSION=0.12 EXPERIMENTAL_USE_LOCAL_STATE=1
 node_js:
+    - stable
     - "8"
-    - "7"
+    - "6"
 before_install:
     -  docker run -d --name kong-database -e "POSTGRES_USER=kong" -e "POSTGRES_DB=kong"  postgres:9.4
     -  sleep 5
