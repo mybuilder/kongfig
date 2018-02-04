@@ -17,7 +17,7 @@ const fetchUpstreamsWithTargets = async ({ version, fetchUpstreams, fetchTargets
     );
 };
 
-export default async ({fetchApis, fetchPlugins, fetchGlobalPlugins, fetchConsumers, fetchConsumerCredentials, fetchConsumerAcls, fetchUpstreams, fetchTargets, fetchKongVersion}) => {
+export default async ({fetchApis, fetchPlugins, fetchGlobalPlugins, fetchConsumers, fetchConsumerCredentials, fetchConsumerAcls, fetchUpstreams, fetchTargets, fetchTargetsV11Active, fetchKongVersion}) => {
     const version = await fetchKongVersion();
     const apis = await fetchApis();
     const apisWithPlugins = await Promise.all(apis.map(async item => {
@@ -62,7 +62,7 @@ export default async ({fetchApis, fetchPlugins, fetchGlobalPlugins, fetchConsume
         return plugin.api_id === undefined;
     });
 
-    const upstreamsWithTargets = await fetchUpstreamsWithTargets({ version, fetchUpstreams, fetchTargets });
+    const upstreamsWithTargets = await fetchUpstreamsWithTargets({ version, fetchUpstreams, fetchTargets: semVer.gte(version, '0.12.0') ? fetchTargets : fetchTargetsV11Active });
 
     return {
         apis: apisWithPlugins,
