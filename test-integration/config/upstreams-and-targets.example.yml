@@ -1,0 +1,12 @@
+upstreams:
+  - name: "mockbinUpstream"
+    ensure: "present"
+    targets:
+      - target: "server1.mockbin:3001"
+        attributes:
+          weight: 50
+      - target: "server2.mockbin:3001"
+        attributes:
+          weight: 50
+    attributes:
+      slots: 10

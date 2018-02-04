@@ -1,5 +1,5 @@
-upstream example
-------------------
+upstreams and targets example
+-----------------------------
 
 ## Config file
 
@@ -16,15 +16,12 @@ upstreams:
           weight: 50
     attributes:
       slots: 10
+
 ```
 
-Please note that the port is required. If the port is not provided, then Kong will automatically provide a port using it's logic and your config will have a mismatch (see [details here](https://getkong.org/docs/latest/admin-api/#add-target)).
+## Using curl
 
-For more information regarding upstreams and targets in Kong, read their [load balancing reference](https://getkong.org/docs/latest/loadbalancing/).
-
-## Using cURL
-
-For illustrative purpose a cURL call would be the following
+For illustrative purpose a cURL calls would be the following
 
 ### create upstream
 
@@ -38,7 +35,7 @@ $ curl -i -X POST -H "Content-Type: application/json" \
 HTTP 201 Created
 ```
 
-```json
+```
 {
   "created_at": "___created_at___",
   "hash_on": "none",
@@ -116,19 +113,19 @@ HTTP 201 Created
 }
 ```
 
-### create first target
+### add upstream target
 
 ```sh
 $ curl -i -X POST -H "Content-Type: application/json" \
   --url http://localhost:8001/upstreams/2b47ba9b-761a-492d-9a0c-000000000001/targets \
-  --data '{"weight":60,"target":"server1.mockbin:3001"}'
+  --data '{"weight":50,"target":"server1.mockbin:3001"}'
 ```
 
-```bash
+```
 HTTP 201 Created
 ```
 
-```json
+```
 {
   "created_at": "___created_at___",
   "weight": 50,
@@ -138,61 +135,24 @@ HTTP 201 Created
 }
 ```
 
-### create second target
+### add upstream target
 
-```bash
-curl -X POST \
-  http://localhost:8001/upstreams/mockbinUpstream/targets \
-  -H 'content-type: application/json' \
-  -d '{
-	"target": "server2.mockbin:3001",
-	"weight": 50
-}'
+```sh
+$ curl -i -X POST -H "Content-Type: application/json" \
+  --url http://localhost:8001/upstreams/2b47ba9b-761a-492d-9a0c-000000000001/targets \
+  --data '{"weight":50,"target":"server2.mockbin:3001"}'
 ```
 
-```bash
+```
 HTTP 201 Created
 ```
 
-```json
+```
 {
   "created_at": "___created_at___",
   "weight": 50,
   "upstream_id": "2b47ba9b-761a-492d-9a0c-000000000001",
   "target": "server2.mockbin:3001",
   "id": "2b47ba9b-761a-492d-9a0c-000000000003"
-}
-```
-
-Kong, by design, does not delete targets but keeps adding them. So, if there are two targets with a value of "server1.mockbin:3001", Kong chooses the most recently created one. If the most recent one has a weight of 0 (zero), then the target does not get used. To see the active targets, use the [active targets api](https://getkong.org/docs/0.12.x/admin-api/#list-targets):
-
-```bash
-curl -X GET \
-  http://localhost:8001/upstreams/mockbinUpstream/targets
-```
-
-```bash
-HTTP 200 OK
-```
-
-```json
-{
-    "data": [
-        {
-            "created_at": "___created_at___",
-            "id": "2b47ba9b-761a-492d-9a0c-000000000003",
-            "upstream_id": "2b47ba9b-761a-492d-9a0c-000000000001",
-            "target": "server2.mockbin:3001",
-            "weight": 50
-        },
-        {
-            "created_at": "___created_at___",
-            "id": "a0c27d4f-3bcd-4c63-a666-29b491e99e48",
-            "upstream_id": "2b47ba9b-761a-492d-9a0c-000000000001",
-            "target": "server1.mockbin:3001",
-            "weight": 50
-        }
-    ],
-    "total": 2
 }
 ```

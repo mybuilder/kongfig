@@ -73,7 +73,7 @@ describe("upstreams", () => {
         expect(actual).to.be.an('array');
         expect(actual).to.have.length(1);
 
-        expectActualToBeAnUpdateAction(actual[0], updateUpstream('leadsUpstream', {slots: 10}));
+        expect(actual[0]).to.be.eql(updateUpstream('leadsUpstream', {slots: 10}));
     });
 
     it("should validate ensure enum", () => {
@@ -192,25 +192,3 @@ describe("upstreams", () => {
         ]);
     });
 });
-
-function expectActualToBeAnUpdateAction(actual, expected) {
-    // make copies, don't mutate originals
-    actual = Object.assign({}, actual);
-    expected = Object.assign({}, expected);
-
-    let orderlist = actual.body.orderlist;
-
-    expect(orderlist).to.have.length(expected.body.slots);
-
-    for(let i = 1; i <= expected.body.slots; i++) {
-       expect(orderlist).to.contain(i);
-       orderlist.splice(orderlist.indexOf(i), 1);
-    }
-
-    expect(orderlist).to.be.empty();
-
-    delete actual.body.orderlist;
-    delete expected.body.orderlist;
-
-    expect(actual).to.be.eql(expected);
-}
