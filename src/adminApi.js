@@ -94,8 +94,16 @@ function getPaginatedJson(uri) {
     })
     .then(r => r.json())
     .then(json => {
-        if (!json.data) return json;
-        if (!json.next) return json.data;
+        if (!json.hasOwnProperty('data')) return json;
+        if (!json.hasOwnProperty('next')) {
+            if (Object.keys(json.data).length === 0 && json.data.constructor === Object) {
+                // when no results were found
+                // sometimes the data attribute is set to an empty object `{}` rather than a list `[]`
+                return [];
+            }
+
+            return json.data;
+        }
 
         if (json.data.length < 100) {
             // FIXME an hopeful hack to prevent a loop
