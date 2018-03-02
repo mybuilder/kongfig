@@ -1,3 +1,5 @@
+import semVer from 'semver';
+
 export function normalize(attr) {
     if (attr === null || typeof attr !== 'object' || Object.prototype.toString.call(attr) === '[object Array]') {
         return attr;
@@ -42,7 +44,7 @@ export function repeatableOptionCallback(val, result) {
 export function parseVersion(version) {
     if (!version.includes("enterprise-edition")) {
         // remove any postfix, i.e., 0.11.0-rc1 should be 0.11.0
-        return version.split("-")[0];
+        return semVer.coerce(version).version;
     }
 
     // Kong EE versioning is X.Y(-Z)-enterprise-edition
@@ -59,5 +61,5 @@ export function parseVersion(version) {
         version = version + ".0"
     }
 
-    return version
+    return semVer.coerce(version).version;
 }

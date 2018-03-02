@@ -56,4 +56,8 @@ describe("parseVersion utils", () => {
     it("should return the EE version with no patch", () => {
         expect(parseVersion("0.29-enterprise-edition")).to.be.eql("0.29.0");
     });
+
+    it("should fix pre-release versions", () => {
+        expect(parseVersion("0.13.1rc")).to.be.eql('0.13.1');
+    });
 });
