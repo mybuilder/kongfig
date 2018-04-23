@@ -57,6 +57,10 @@ describe("parseVersion utils", () => {
         expect(parseVersion("0.29-enterprise-edition")).to.be.eql("0.29.0");
     });
 
+    it("should return the EE version with additional build number", () => {
+        expect(parseVersion("0.11.0.3-enterprise-edition")).to.be.eql("0.11.0");
+    });
+
     it("should fix pre-release versions", () => {
         expect(parseVersion("0.13.1rc")).to.be.eql('0.13.1');
     });
