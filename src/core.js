@@ -681,6 +681,8 @@ function _consumerCredential(username, credential) {
                 return removeConsumerCredentials(world.getConsumerId(username), credential.name, credentialId);
             }
 
+            const credentialIdName = getConsumerCredentialSchema(credential.name).id;
+            
             return noop({ type: 'noop-credential', credential, credentialIdName });
         }
 
