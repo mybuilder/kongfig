@@ -2,6 +2,7 @@
 export const parseUpstream = ({
     name,
     slots,
+    healthchecks,
     id,
     created_at,
     orderlist
@@ -9,7 +10,8 @@ export const parseUpstream = ({
     return {
         name,
         attributes: {
-            slots
+            slots,
+            healthchecks
         },
         _info: {
             id,
