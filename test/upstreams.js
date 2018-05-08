@@ -16,13 +16,52 @@ describe("upstreams", () => {
             "ensure": "present",
             "name": "leadsUpstream",
             "attributes": {
-                "slots": 10
+                "slots": 10,
+                "healthchecks": {
+                  "active": {
+                    "unhealthy": {
+                      "http_statuses": [
+                        404
+                      ],
+                      "tcp_failures": 1,
+                      "timeouts": 1,
+                      "http_failures": 1,
+                      "interval": 1
+                    },
+                    "http_path": "/health",
+                    "healthy": {
+                      "http_statuses": [
+                        200
+                      ],
+                      "interval": 1,
+                      "successes": 1
+                    },
+                    "timeout": 1,
+                    "concurrency": 1
+                  },
+                  "passive": {
+                    "unhealthy": {
+                      "http_failures": 1,
+                      "http_statuses": [
+                        404
+                      ],
+                      "tcp_failures": 1,
+                      "timeouts": 1
+                    },
+                    "healthy": {
+                      "successes": 1,
+                      "http_statuses": [
+                        200
+                      ]
+                    }
+                  }
+                }
             }
         }])
         .map(x => x({hasUpstream: () => false}));
 
         expect(actual).to.be.eql([
-            createUpstream('leadsUpstream', {slots: 10})
+            createUpstream('leadsUpstream', { slots: 10, healthchecks: { active: { unhealthy: { http_statuses: [ 404 ], tcp_failures: 1, timeouts: 1, http_failures: 1, interval: 1 }, http_path: '/health', healthy: { http_statuses: [ 200 ], interval: 1, successes: 1 }, timeout: 1, concurrency: 1 }, passive: {unhealthy: { http_failures: 1, http_statuses: [ 404 ], tcp_failures: 1, timeouts: 1 }, healthy: { successes: 1, http_statuses: [ 200 ] } } }})
         ]);
     });
 
@@ -31,7 +70,46 @@ describe("upstreams", () => {
             "name": "leadsUpstream",
             "ensure": "removed",
             "attributes": {
-                "slots": 10
+                "slots": 10,
+                "healthchecks": {
+                  "active": {
+                    "unhealthy": {
+                      "http_statuses": [
+                        404
+                      ],
+                      "tcp_failures": 1,
+                      "timeouts": 1,
+                      "http_failures": 1,
+                      "interval": 1
+                    },
+                    "http_path": "/health",
+                    "healthy": {
+                      "http_statuses": [
+                        200
+                      ],
+                      "interval": 1,
+                      "successes": 1
+                    },
+                    "timeout": 1,
+                    "concurrency": 1
+                  },
+                  "passive": {
+                    "unhealthy": {
+                      "http_failures": 1,
+                      "http_statuses": [
+                        404
+                      ],
+                      "tcp_failures": 1,
+                      "timeouts": 1
+                    },
+                    "healthy": {
+                      "successes": 1,
+                      "http_statuses": [
+                        200
+                      ]
+                    }
+                  }
+                }
             }
         }])
         .map(x => x({
@@ -48,7 +126,46 @@ describe("upstreams", () => {
             "name": "leadsUpstream",
             "ensure": "removed",
             "attributes": {
-                "slots": 10
+                "slots": 10,
+                "healthchecks": {
+                  "active": {
+                    "unhealthy": {
+                      "http_statuses": [
+                        404
+                      ],
+                      "tcp_failures": 1,
+                      "timeouts": 1,
+                      "http_failures": 1,
+                      "interval": 1
+                    },
+                    "http_path": "/health",
+                    "healthy": {
+                      "http_statuses": [
+                        200
+                      ],
+                      "interval": 1,
+                      "successes": 1
+                    },
+                    "timeout": 1,
+                    "concurrency": 1
+                  },
+                  "passive": {
+                    "unhealthy": {
+                      "http_failures": 1,
+                      "http_statuses": [
+                        404
+                      ],
+                      "tcp_failures": 1,
+                      "timeouts": 1
+                    },
+                    "healthy": {
+                      "successes": 1,
+                      "http_statuses": [
+                        200
+                      ]
+                    }
+                  }
+                }
             }
         };
         const actual = upstreams([upstream])
@@ -63,7 +180,46 @@ describe("upstreams", () => {
         const actual = upstreams([{
             "name": "leadsUpstream",
             "attributes": {
-                "slots": 10
+                "slots": 10,
+                "healthchecks": {
+                  "active": {
+                    "unhealthy": {
+                      "http_statuses": [
+                        404
+                      ],
+                      "tcp_failures": 1,
+                      "timeouts": 1,
+                      "http_failures": 1,
+                      "interval": 1
+                    },
+                    "http_path": "/health",
+                    "healthy": {
+                      "http_statuses": [
+                        200
+                      ],
+                      "interval": 1,
+                      "successes": 1
+                    },
+                    "timeout": 1,
+                    "concurrency": 1
+                  },
+                  "passive": {
+                    "unhealthy": {
+                      "http_failures": 1,
+                      "http_statuses": [
+                        404
+                      ],
+                      "tcp_failures": 1,
+                      "timeouts": 1
+                    },
+                    "healthy": {
+                      "successes": 1,
+                      "http_statuses": [
+                        200
+                      ]
+                    }
+                  }
+                }
             }
         }])
         .map(x => x({hasUpstream: () => true,
@@ -73,8 +229,10 @@ describe("upstreams", () => {
         expect(actual).to.be.an('array');
         expect(actual).to.have.length(1);
 
-        expect(actual[0]).to.be.eql(updateUpstream('leadsUpstream', {slots: 10}));
+        expect(actual[0]).to.be.eql(updateUpstream('leadsUpstream', { slots: 10, healthchecks: { active: { unhealthy: { http_statuses: [ 404 ], tcp_failures: 1, timeouts: 1, http_failures: 1, interval: 1 }, http_path: '/health', healthy: { http_statuses: [ 200 ], interval: 1, successes: 1 }, timeout: 1, concurrency: 1 }, passive: {unhealthy: { http_failures: 1, http_statuses: [ 404 ], tcp_failures: 1, timeouts: 1 }, healthy: { successes: 1, http_statuses: [ 200 ] } } }}));
+
     });
+
 
     it("should validate ensure enum", () => {
         expect(() => upstreams([{
@@ -88,7 +246,46 @@ describe("upstreams", () => {
             "ensure": "present",
             "name": "leadsUpstream",
             "attributes": {
-                "slots": 10
+                "slots": 10,
+                "healthchecks": {
+                  "active": {
+                    "unhealthy": {
+                      "http_statuses": [
+                        404
+                      ],
+                      "tcp_failures": 1,
+                      "timeouts": 1,
+                      "http_failures": 1,
+                      "interval": 1
+                    },
+                    "http_path": "/health",
+                    "healthy": {
+                      "http_statuses": [
+                        200
+                      ],
+                      "interval": 1,
+                      "successes": 1
+                    },
+                    "timeout": 1,
+                    "concurrency": 1
+                  },
+                  "passive": {
+                    "unhealthy": {
+                      "http_failures": 1,
+                      "http_statuses": [
+                        404
+                      ],
+                      "tcp_failures": 1,
+                      "timeouts": 1
+                    },
+                    "healthy": {
+                      "successes": 1,
+                      "http_statuses": [
+                        200
+                      ]
+                    }
+                  }
+                }
             },
             "targets": [{
                 "target": "server1.leads:8080",
@@ -104,7 +301,7 @@ describe("upstreams", () => {
         }));
 
         expect(actual).to.be.eql([
-            createUpstream('leadsUpstream', {slots: 10}),
+            createUpstream('leadsUpstream', {slots: 10, healthchecks: { active: { unhealthy: { http_statuses: [ 404 ], tcp_failures: 1, timeouts: 1, http_failures: 1, interval: 1 }, http_path: '/health', healthy: { http_statuses: [ 200 ], interval: 1, successes: 1 }, timeout: 1, concurrency: 1 }, passive: { unhealthy: { http_failures: 1, http_statuses: [ 404 ], tcp_failures: 1, timeouts: 1 }, healthy: { successes: 1, http_statuses: [ 200 ] } } }}),
             addUpstreamTarget('abcd-1234', 'server1.leads:8080', {weight: 50})
         ]);
     });
@@ -113,7 +310,46 @@ describe("upstreams", () => {
         const upstream = {
             "name": "leadsUpstream",
             "attributes": {
-                "slots": 10
+                "slots": 10,
+                "healthchecks": {
+                  "active": {
+                    "unhealthy": {
+                      "http_statuses": [
+                        404
+                      ],
+                      "tcp_failures": 1,
+                      "timeouts": 1,
+                      "http_failures": 1,
+                      "interval": 1
+                    },
+                    "http_path": "/health",
+                    "healthy": {
+                      "http_statuses": [
+                        200
+                      ],
+                      "interval": 1,
+                      "successes": 1
+                    },
+                    "timeout": 1,
+                    "concurrency": 1
+                  },
+                  "passive": {
+                    "unhealthy": {
+                      "http_failures": 1,
+                      "http_statuses": [
+                        404
+                      ],
+                      "tcp_failures": 1,
+                      "timeouts": 1
+                    },
+                    "healthy": {
+                      "successes": 1,
+                      "http_statuses": [
+                        200
+                      ]
+                    }
+                  }
+                }
             },
             "targets": [{
                 "target": "server1.leads:8080",
@@ -141,7 +377,46 @@ describe("upstreams", () => {
         const upstream = {
             "name": "leadsUpstream",
             "attributes": {
-                "slots": 10
+                "slots": 10,
+                "healthchecks": {
+                  "active": {
+                    "unhealthy": {
+                      "http_statuses": [
+                        404
+                      ],
+                      "tcp_failures": 1,
+                      "timeouts": 1,
+                      "http_failures": 1,
+                      "interval": 1
+                    },
+                    "http_path": "/health",
+                    "healthy": {
+                      "http_statuses": [
+                        200
+                      ],
+                      "interval": 1,
+                      "successes": 1
+                    },
+                    "timeout": 1,
+                    "concurrency": 1
+                  },
+                  "passive": {
+                    "unhealthy": {
+                      "http_failures": 1,
+                      "http_statuses": [
+                        404
+                      ],
+                      "tcp_failures": 1,
+                      "timeouts": 1
+                    },
+                    "healthy": {
+                      "successes": 1,
+                      "http_statuses": [
+                        200
+                      ]
+                    }
+                  }
+                }
             },
             "targets": [{
                 "target": "server1.leads:8080",
@@ -169,7 +444,46 @@ describe("upstreams", () => {
         const upstream = {
             "name": "leadsUpstream",
             "attributes": {
-                "slots": 10
+                "slots": 10,
+                "healthchecks": {
+                  "active": {
+                    "unhealthy": {
+                      "http_statuses": [
+                        404
+                      ],
+                      "tcp_failures": 1,
+                      "timeouts": 1,
+                      "http_failures": 1,
+                      "interval": 1
+                    },
+                    "http_path": "/health",
+                    "healthy": {
+                      "http_statuses": [
+                        200
+                      ],
+                      "interval": 1,
+                      "successes": 1
+                    },
+                    "timeout": 1,
+                    "concurrency": 1
+                  },
+                  "passive": {
+                    "unhealthy": {
+                      "http_failures": 1,
+                      "http_statuses": [
+                        404
+                      ],
+                      "tcp_failures": 1,
+                      "timeouts": 1
+                    },
+                    "healthy": {
+                      "successes": 1,
+                      "http_statuses": [
+                        200
+                      ]
+                    }
+                  }
+                }
             },
             "targets": [{
                 "target": "server1.leads:8080",

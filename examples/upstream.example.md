@@ -16,6 +16,63 @@ upstreams:
           weight: 50
     attributes:
       slots: 10
+      healthchecks:
+        active:
+          unhealthy:
+            http_statuses:
+              - 229
+              - 204
+              - 200
+              - 201
+              - 202
+              - 203
+              - 204
+              - 205
+            tcp_failures: 5
+            timeouts: 4
+            http_failures: 4
+            interval: 5
+          http_path: /health
+          healthy:
+            http_statuses:
+              - 200
+              - 302
+              - 500
+            interval: 3
+            successes: 5
+          timeout: 12
+          concurrency: 12
+        passive:
+          unhealthy:
+            http_failures: 4
+            http_statuses:
+              - 429
+              - 500
+              - 503
+            tcp_failures: 4
+            timeouts: 4
+          healthy:
+            successes: 4
+            http_statuses:
+              - 200
+              - 201
+              - 202
+              - 203
+              - 204
+              - 205
+              - 206
+              - 207
+              - 208
+              - 226
+              - 300
+              - 301
+              - 302
+              - 303
+              - 304
+              - 305
+              - 306
+              - 307
+              - 308      
 ```
 
 Please note that the port is required. If the port is not provided, then Kong will automatically provide a port using it's logic and your config will have a mismatch (see [details here](https://getkong.org/docs/latest/admin-api/#add-target)).
