@@ -49,7 +49,17 @@ function fetchWithRetry(url, options) {
     var wrappedFetch = (n) => {
       fetch(url, options)
         .then(response => {
-          resolve(response);
+          if(options.method == "GET" && !response.ok) {
+            if(n <= retries) {
+              setTimeout(() => {
+                wrappedFetch(n + 1);
+              }, retryDelay * Math.pow(2, n));
+            } else {
+              reject(error);
+            }
+          } else {
+            resolve(response);
+          }
         })
         .catch(error => {
           if (n <= retries) {
