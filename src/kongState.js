@@ -28,11 +28,6 @@ const fetchCertificatesForVersion = async ({ version, fetchCertificates }) => {
 export default async ({fetchApis, fetchPlugins, fetchGlobalPlugins, fetchConsumers, fetchConsumerCredentials, fetchConsumerAcls, fetchUpstreams, fetchTargets, fetchTargetsV11Active, fetchCertificates, fetchKongVersion}) => {
     const version = await fetchKongVersion();
     const apis = await fetchApis();
-    const apisWithPlugins = await Promise.all(apis.map(async item => {
-        const plugins =  await fetchPlugins(item.id);
-
-        return {...item, plugins};
-    }));
 
     const consumers = await fetchConsumers();
     const consumersWithCredentialsAndAcls = await Promise.all(consumers.map(async consumer => {
@@ -69,6 +64,13 @@ export default async ({fetchApis, fetchPlugins, fetchGlobalPlugins, fetchConsume
     const globalPlugins = allPlugins.filter(plugin => {
         return plugin.api_id === undefined;
     });
+    const apisWithPlugins = await Promise.all(apis.map(async item => {
+        const plugins = allPlugins.filter(plugin => {
+            return plugin.api_id === item.id;
+        });
+
+        return {...item, plugins};
+    }));
 
     const upstreamsWithTargets = await fetchUpstreamsWithTargets({ version, fetchUpstreams, fetchTargets: semVer.gte(version, '0.12.0') ? fetchTargets : fetchTargetsV11Active });
     const certificates = await fetchCertificatesForVersion({ version, fetchCertificates });
