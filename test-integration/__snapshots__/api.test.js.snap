@@ -156,6 +156,7 @@ exports[`API plugins should add mockbin API with a plugins 2`] = `
       upstream_send_timeout: 60000
       https_only: false
       http_if_terminated: false
+services: []
 consumers: []
 plugins: []
 upstreams: []
@@ -377,6 +378,7 @@ exports[`API plugins should remove mockbin api plugin 2`] = `
       upstream_send_timeout: 60000
       https_only: false
       http_if_terminated: false
+services: []
 consumers: []
 plugins: []
 upstreams: []
@@ -639,6 +641,7 @@ exports[`API plugins should update mockbin api plugin 2`] = `
       upstream_send_timeout: 60000
       https_only: false
       http_if_terminated: false
+services: []
 consumers: []
 plugins: []
 upstreams: []
@@ -727,6 +730,7 @@ exports[`API should add the API 2`] = `
       upstream_send_timeout: 60000
       https_only: false
       http_if_terminated: false
+services: []
 consumers: []
 plugins: []
 upstreams: []
@@ -836,6 +840,7 @@ exports[`API should not update if already up to date 2`] = `
       upstream_send_timeout: 60000
       https_only: false
       http_if_terminated: false
+services: []
 consumers: []
 plugins: []
 upstreams: []
@@ -946,6 +951,7 @@ Array [
 
 exports[`API should remove the api 2`] = `
 "apis: []
+services: []
 consumers: []
 plugins: []
 upstreams: []
@@ -1100,6 +1106,7 @@ exports[`API should update the api 2`] = `
       upstream_send_timeout: 60000
       https_only: false
       http_if_terminated: false
+services: []
 consumers: []
 plugins: []
 upstreams: []

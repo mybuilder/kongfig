@@ -49,32 +49,47 @@ Array [
   Object {
     "params": Object {
       "body": Object {
+        "certificate": Object {
+          "id": "2b47ba9b-761a-492d-9a0c-000000000001",
+        },
         "name": "example.com",
-        "ssl_certificate_id": "2b47ba9b-761a-492d-9a0c-000000000001",
       },
       "endpoint": Object {
         "name": "certificate-snis",
+        "params": Object {
+          "certificateId": "2b47ba9b-761a-492d-9a0c-000000000001",
+          "sniName": "example.com",
+        },
       },
       "method": "POST",
       "type": "add-certificate-sni",
     },
     "type": "request",
-    "uri": "http://localhost:8001/snis/",
+    "uri": "http://localhost:8001/certificates/2b47ba9b-761a-492d-9a0c-000000000001/snis",
   },
   Object {
     "content": Object {
+      "certificate": Object {
+        "id": "2b47ba9b-761a-492d-9a0c-000000000001",
+      },
       "created_at": "___created_at___",
+      "id": "2b47ba9b-761a-492d-9a0c-000000000002",
       "name": "example.com",
-      "ssl_certificate_id": "2b47ba9b-761a-492d-9a0c-000000000001",
     },
     "ok": true,
     "params": Object {
       "body": Object {
+        "certificate": Object {
+          "id": "2b47ba9b-761a-492d-9a0c-000000000001",
+        },
         "name": "example.com",
-        "ssl_certificate_id": "2b47ba9b-761a-492d-9a0c-000000000001",
       },
       "endpoint": Object {
         "name": "certificate-snis",
+        "params": Object {
+          "certificateId": "2b47ba9b-761a-492d-9a0c-000000000001",
+          "sniName": "example.com",
+        },
       },
       "method": "POST",
       "type": "add-certificate-sni",
@@ -82,37 +97,52 @@ Array [
     "status": 201,
     "statusText": "Created",
     "type": "response",
-    "uri": "http://localhost:8001/snis/",
+    "uri": "http://localhost:8001/certificates/2b47ba9b-761a-492d-9a0c-000000000001/snis",
   },
   Object {
     "params": Object {
       "body": Object {
+        "certificate": Object {
+          "id": "2b47ba9b-761a-492d-9a0c-000000000001",
+        },
         "name": "www.example.com",
-        "ssl_certificate_id": "2b47ba9b-761a-492d-9a0c-000000000001",
       },
       "endpoint": Object {
         "name": "certificate-snis",
+        "params": Object {
+          "certificateId": "2b47ba9b-761a-492d-9a0c-000000000001",
+          "sniName": "www.example.com",
+        },
       },
       "method": "POST",
       "type": "add-certificate-sni",
     },
     "type": "request",
-    "uri": "http://localhost:8001/snis/",
+    "uri": "http://localhost:8001/certificates/2b47ba9b-761a-492d-9a0c-000000000001/snis",
   },
   Object {
     "content": Object {
+      "certificate": Object {
+        "id": "2b47ba9b-761a-492d-9a0c-000000000001",
+      },
       "created_at": "___created_at___",
+      "id": "2b47ba9b-761a-492d-9a0c-000000000003",
       "name": "www.example.com",
-      "ssl_certificate_id": "2b47ba9b-761a-492d-9a0c-000000000001",
     },
     "ok": true,
     "params": Object {
       "body": Object {
+        "certificate": Object {
+          "id": "2b47ba9b-761a-492d-9a0c-000000000001",
+        },
         "name": "www.example.com",
-        "ssl_certificate_id": "2b47ba9b-761a-492d-9a0c-000000000001",
       },
       "endpoint": Object {
         "name": "certificate-snis",
+        "params": Object {
+          "certificateId": "2b47ba9b-761a-492d-9a0c-000000000001",
+          "sniName": "www.example.com",
+        },
       },
       "method": "POST",
       "type": "add-certificate-sni",
@@ -120,7 +150,7 @@ Array [
     "status": 201,
     "statusText": "Created",
     "type": "response",
-    "uri": "http://localhost:8001/snis/",
+    "uri": "http://localhost:8001/certificates/2b47ba9b-761a-492d-9a0c-000000000001/snis",
   },
   Object {
     "type": "kong-info",
@@ -161,6 +191,7 @@ Array [
 
 exports[`should apply certificates.example.yml 2`] = `
 "apis: []
+services: []
 consumers: []
 plugins: []
 upstreams: []
@@ -242,6 +273,7 @@ Array [
   Object {
     "content": Object {
       "created_at": "___created_at___",
+      "custom_id": null,
       "id": "2b47ba9b-761a-492d-9a0c-000000000001",
       "username": "iphone-app",
     },
@@ -410,8 +442,10 @@ Array [
 
 exports[`should apply consumer.example.yml 2`] = `
 "apis: []
+services: []
 consumers:
   - username: iphone-app
+    custom_id: null
     acls:
       - group: foo-group
     credentials:
@@ -514,6 +548,7 @@ Array [
 
 exports[`should apply global-plugin.example.yml 2`] = `
 "apis: []
+services: []
 consumers: []
 plugins:
   - name: cors
@@ -551,6 +586,7 @@ Array [
   Object {
     "content": Object {
       "created_at": "___created_at___",
+      "custom_id": null,
       "id": "2b47ba9b-761a-492d-9a0c-000000000001",
       "username": "iphone-app",
     },
@@ -850,8 +886,10 @@ exports[`should apply key-auth.example.yml 2`] = `
       upstream_send_timeout: 60000
       https_only: false
       http_if_terminated: false
+services: []
 consumers:
   - username: iphone-app
+    custom_id: null
     acls: []
     credentials:
       - name: key-auth
@@ -886,6 +924,7 @@ Array [
   Object {
     "content": Object {
       "created_at": "___created_at___",
+      "custom_id": null,
       "id": "2b47ba9b-761a-492d-9a0c-000000000001",
       "username": "anonymous-user",
     },
@@ -922,6 +961,7 @@ Array [
   Object {
     "content": Object {
       "created_at": "___created_at___",
+      "custom_id": null,
       "id": "2b47ba9b-761a-492d-9a0c-000000000002",
       "username": "iphone-app",
     },
@@ -1236,11 +1276,14 @@ exports[`should apply key-auth-anonymous.example.yml 2`] = `
       upstream_send_timeout: 60000
       https_only: false
       http_if_terminated: false
+services: []
 consumers:
   - username: anonymous-user
+    custom_id: null
     acls: []
     credentials: []
   - username: iphone-app
+    custom_id: null
     acls: []
     credentials:
       - name: key-auth
@@ -1275,6 +1318,7 @@ Array [
   Object {
     "content": Object {
       "created_at": "___created_at___",
+      "custom_id": null,
       "id": "2b47ba9b-761a-492d-9a0c-000000000001",
       "username": "user-john",
     },
@@ -1750,8 +1794,10 @@ exports[`should apply plugin-per-consumer.example.yml 2`] = `
       upstream_send_timeout: 60000
       https_only: false
       http_if_terminated: false
+services: []
 consumers:
   - username: user-john
+    custom_id: null
     acls: []
     credentials: []
 plugins:
@@ -1887,6 +1933,285 @@ exports[`should apply simple-api.example.yml 2`] = `
       upstream_send_timeout: 60000
       https_only: false
       http_if_terminated: false
+services: []
+consumers: []
+plugins: []
+upstreams: []
+certificates: []
+"
+`;
+
+exports[`should apply simple-service-route.example.yml 1`] = `
+Array [
+  Object {
+    "type": "kong-info",
+    "version": "___version___",
+  },
+  Object {
+    "params": Object {
+      "body": Object {
+        "name": "mockbin",
+        "url": "http://mockbin.com",
+      },
+      "endpoint": Object {
+        "name": "services",
+      },
+      "method": "POST",
+      "type": "create-service",
+    },
+    "type": "request",
+    "uri": "http://localhost:8001/services",
+  },
+  Object {
+    "content": Object {
+      "connect_timeout": 60000,
+      "created_at": "___created_at___",
+      "host": "mockbin.com",
+      "id": "2b47ba9b-761a-492d-9a0c-000000000001",
+      "name": "mockbin",
+      "path": null,
+      "port": 80,
+      "protocol": "http",
+      "read_timeout": 60000,
+      "retries": 5,
+      "updated_at": "___updated_at___",
+      "write_timeout": 60000,
+    },
+    "ok": true,
+    "params": Object {
+      "body": Object {
+        "name": "mockbin",
+        "url": "http://mockbin.com",
+      },
+      "endpoint": Object {
+        "name": "services",
+      },
+      "method": "POST",
+      "type": "create-service",
+    },
+    "status": 201,
+    "statusText": "Created",
+    "type": "response",
+    "uri": "http://localhost:8001/services",
+  },
+  Object {
+    "params": Object {
+      "body": Object {
+        "hosts": Array [
+          "mockbin.com",
+        ],
+        "service": Object {
+          "id": "2b47ba9b-761a-492d-9a0c-000000000001",
+        },
+      },
+      "endpoint": Object {
+        "name": "route",
+        "params": Object {
+          "routeId": "7c92cf1e-ee8d-39cc-85f8-355a3d6e4b86",
+          "serviceId": "2b47ba9b-761a-492d-9a0c-000000000001",
+        },
+      },
+      "method": "PUT",
+      "type": "add-route",
+    },
+    "type": "request",
+    "uri": "http://localhost:8001/routes/7c92cf1e-ee8d-39cc-85f8-355a3d6e4b86",
+  },
+  Object {
+    "content": Object {
+      "created_at": "___created_at___",
+      "hosts": Array [
+        "mockbin.com",
+      ],
+      "id": "7c92cf1e-ee8d-39cc-85f8-355a3d6e4b86",
+      "methods": null,
+      "paths": null,
+      "preserve_host": false,
+      "protocols": Array [
+        "http",
+        "https",
+      ],
+      "regex_priority": 0,
+      "service": Object {
+        "id": "2b47ba9b-761a-492d-9a0c-000000000001",
+      },
+      "strip_path": true,
+      "updated_at": "___updated_at___",
+    },
+    "ok": true,
+    "params": Object {
+      "body": Object {
+        "hosts": Array [
+          "mockbin.com",
+        ],
+        "service": Object {
+          "id": "2b47ba9b-761a-492d-9a0c-000000000001",
+        },
+      },
+      "endpoint": Object {
+        "name": "route",
+        "params": Object {
+          "routeId": "7c92cf1e-ee8d-39cc-85f8-355a3d6e4b86",
+          "serviceId": "2b47ba9b-761a-492d-9a0c-000000000001",
+        },
+      },
+      "method": "PUT",
+      "type": "add-route",
+    },
+    "status": 200,
+    "statusText": "OK",
+    "type": "response",
+    "uri": "http://localhost:8001/routes/7c92cf1e-ee8d-39cc-85f8-355a3d6e4b86",
+  },
+  Object {
+    "type": "kong-info",
+    "version": "___version___",
+  },
+  Object {
+    "params": Object {
+      "body": Object {
+        "url": "http://mockbin.com",
+      },
+      "endpoint": Object {
+        "name": "service",
+        "params": Object {
+          "name": "mockbin",
+        },
+      },
+      "method": "PATCH",
+      "type": "update-service",
+    },
+    "type": "request",
+    "uri": "http://localhost:8001/services/mockbin",
+  },
+  Object {
+    "content": Object {
+      "connect_timeout": 60000,
+      "created_at": "___created_at___",
+      "host": "mockbin.com",
+      "id": "2b47ba9b-761a-492d-9a0c-000000000001",
+      "name": "mockbin",
+      "path": null,
+      "port": 80,
+      "protocol": "http",
+      "read_timeout": 60000,
+      "retries": 5,
+      "updated_at": "___updated_at___",
+      "write_timeout": 60000,
+    },
+    "ok": true,
+    "params": Object {
+      "body": Object {
+        "url": "http://mockbin.com",
+      },
+      "endpoint": Object {
+        "name": "service",
+        "params": Object {
+          "name": "mockbin",
+        },
+      },
+      "method": "PATCH",
+      "type": "update-service",
+    },
+    "status": 200,
+    "statusText": "OK",
+    "type": "response",
+    "uri": "http://localhost:8001/services/mockbin",
+  },
+  Object {
+    "params": Object {
+      "body": Object {
+        "hosts": Array [
+          "mockbin.com",
+        ],
+        "service": Object {
+          "id": "2b47ba9b-761a-492d-9a0c-000000000001",
+        },
+      },
+      "endpoint": Object {
+        "name": "route",
+        "params": Object {
+          "routeId": "7c92cf1e-ee8d-39cc-85f8-355a3d6e4b86",
+          "serviceId": "2b47ba9b-761a-492d-9a0c-000000000001",
+        },
+      },
+      "method": "PUT",
+      "type": "update-route",
+    },
+    "type": "request",
+    "uri": "http://localhost:8001/routes/7c92cf1e-ee8d-39cc-85f8-355a3d6e4b86",
+  },
+  Object {
+    "content": Object {
+      "created_at": "___created_at___",
+      "hosts": Array [
+        "mockbin.com",
+      ],
+      "id": "7c92cf1e-ee8d-39cc-85f8-355a3d6e4b86",
+      "methods": null,
+      "paths": null,
+      "preserve_host": false,
+      "protocols": Array [
+        "http",
+        "https",
+      ],
+      "regex_priority": 0,
+      "service": Object {
+        "id": "2b47ba9b-761a-492d-9a0c-000000000001",
+      },
+      "strip_path": true,
+      "updated_at": "___updated_at___",
+    },
+    "ok": true,
+    "params": Object {
+      "body": Object {
+        "hosts": Array [
+          "mockbin.com",
+        ],
+        "service": Object {
+          "id": "2b47ba9b-761a-492d-9a0c-000000000001",
+        },
+      },
+      "endpoint": Object {
+        "name": "route",
+        "params": Object {
+          "routeId": "7c92cf1e-ee8d-39cc-85f8-355a3d6e4b86",
+          "serviceId": "2b47ba9b-761a-492d-9a0c-000000000001",
+        },
+      },
+      "method": "PUT",
+      "type": "update-route",
+    },
+    "status": 200,
+    "statusText": "OK",
+    "type": "response",
+    "uri": "http://localhost:8001/routes/7c92cf1e-ee8d-39cc-85f8-355a3d6e4b86",
+  },
+]
+`;
+
+exports[`should apply simple-service-route.example.yml 2`] = `
+"apis: []
+services:
+  - name: mockbin
+    plugins: []
+    routes:
+      - attributes:
+          strip_path: true
+          hosts: []
+          paths: []
+          methods: []
+          protocols:
+            - http
+            - https
+    attributes:
+      protocol: http
+      host: mockbin.com
+      port: 80
+      retries: 5
+      connect_timeout: 60000
+      read_timeout: 60000
+      write_timeout: 60000
 consumers: []
 plugins: []
 upstreams: []
@@ -1920,6 +2245,7 @@ Array [
       "created_at": "___created_at___",
       "hash_fallback": "none",
       "hash_on": "none",
+      "hash_on_cookie_path": "/",
       "healthchecks": Object {
         "active": Object {
           "concurrency": 10,
@@ -2167,6 +2493,7 @@ Array [
 
 exports[`should apply upstreams-and-targets.example.yml 2`] = `
 "apis: []
+services: []
 consumers: []
 plugins: []
 upstreams:

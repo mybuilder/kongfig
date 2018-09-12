@@ -1,6 +1,7 @@
 import apis from './apis';
 import plugins from './plugins';
 import consumers from './consumers';
+import services from './services';
 import upstreams from './upstreams';
 import certificates from './certificates';
 
@@ -27,6 +28,7 @@ export default combine({
     apis,
     plugins,
     consumers,
+    services,
     upstreams,
     certificates,
 });
