@@ -2,21 +2,19 @@ import execute from '../lib/core';
 import { testAdminApi, logger, exportToYaml, getLog, getLocalState, tearDown } from './util';
 import readKongApi from '../lib/readKongApi';
 
-describe("API", () => {
+describe("Service", () => {
     beforeEach(tearDown);
 
-    it("should add the API", async () => {
+    it("should add the Service", async () => {
         const config = {
-            apis: [{
+            services: [{
                 name: "mockbin",
                 ensure: "present",
                 attributes: {
-                    upstream_url: "http://mockbin.com",
-                    hosts: ["mockbin.com"]
+                    url: "http://mockbin.com/test"
                 }
             }]
         };
-
         await execute(config, testAdminApi, logger);
         const kongState = await readKongApi(testAdminApi);
 
@@ -27,12 +25,11 @@ describe("API", () => {
 
     it("should not update if already up to date", async () => {
         const config = {
-            apis: [{
+            services: [{
                 name: "mockbin",
                 ensure: "present",
                 attributes: {
-                    upstream_url: "http://mockbin.com",
-                    hosts: ["mockbin.com"]
+                    url: "http://mockbin.com/test"
                 }
             }]
         };
@@ -46,21 +43,20 @@ describe("API", () => {
         expect(getLocalState()).toEqual(kongState);
     });
 
-    it("should remove the api", async () => {
+    it("should remove the service", async () => {
         const config = {
-            apis: [{
+            services: [{
                 name: "mockbin",
                 ensure: "present",
                 attributes: {
-                    upstream_url: "http://mockbin.com",
-                    hosts: ["mockbin.com"]
+                    url: "http://mockbin.com/test"
                 }
             }]
         };
 
         await execute(config, testAdminApi, logger);
 
-        config.apis[0].ensure = 'removed';
+        config.services[0].ensure = 'removed';
 
         await execute(config, testAdminApi, logger);
         const kongState = await readKongApi(testAdminApi);
@@ -70,21 +66,20 @@ describe("API", () => {
         expect(getLocalState()).toEqual(kongState);
     });
 
-    it("should update the api", async () => {
+    it("should update the service", async () => {
         const config = {
-            apis: [{
+            services: [{
                 name: "mockbin",
                 ensure: "present",
                 attributes: {
-                    upstream_url: "http://mockbin.com",
-                    hosts: ["mockbin.com"]
+                    url: "http://mockbin.com/test"
                 }
             }]
         };
 
         await execute(config, testAdminApi, logger);
 
-        config.apis[0].attributes.preserve_host = true;
+        config.services[0].attributes.protocol = true;
 
         await execute(config, testAdminApi, logger);
         const kongState = await readKongApi(testAdminApi);
@@ -95,17 +90,16 @@ describe("API", () => {
     });
 });
 
-describe("API plugins", () => {
+describe("Service plugins", () => {
     beforeEach(tearDown);
 
-    it("should add mockbin API with a plugins", async () => {
+    it("should add mockbin service with a plugins", async () => {
         const config = {
-            apis: [{
+            services: [{
                 name: "mockbin",
                 ensure: "present",
                 attributes: {
-                    upstream_url: "http://mockbin.com",
-                    hosts: ["mockbin.com"]
+                    url: "http://mockbin.com/test"
                 },
                 plugins: [{
                     name: "key-auth",
@@ -126,14 +120,13 @@ describe("API plugins", () => {
         expect(getLocalState()).toEqual(kongState);
     });
 
-    it("should remove mockbin api plugin", async () => {
+    it("should remove mockbin service plugin", async () => {
         const config = {
-            apis: [{
+            services: [{
                 name: "mockbin",
                 ensure: "present",
                 attributes: {
-                    upstream_url: "http://mockbin.com",
-                    hosts: ["mockbin.com"]
+                    url: "http://mockbin.com/test"
                 },
                 plugins: [{
                     name: "key-auth",
@@ -148,7 +141,7 @@ describe("API plugins", () => {
 
         await execute(config, testAdminApi, logger);
 
-        config.apis[0].plugins[0].ensure = 'removed';
+        config.services[0].plugins[0].ensure = 'removed';
 
         await execute(config, testAdminApi, logger);
 
@@ -159,14 +152,13 @@ describe("API plugins", () => {
         expect(getLocalState()).toEqual(kongState);
     });
 
-    it("should update mockbin api plugin", async () => {
+    it("should update mockbin service plugin", async () => {
         const config = {
-            apis: [{
+            services: [{
                 name: "mockbin",
                 ensure: "present",
                 attributes: {
-                    upstream_url: "http://mockbin.com",
-                    hosts: ["mockbin.com"]
+                    url: "http://mockbin.com/test"
                 },
                 plugins: [{
                     name: "key-auth",
@@ -181,7 +173,7 @@ describe("API plugins", () => {
 
         await execute(config, testAdminApi, logger);
 
-        config.apis[0].plugins[0].attributes.enabled = false;
+        config.services[0].plugins[0].attributes.enabled = false;
 
         await execute(config, testAdminApi, logger);
 
@@ -192,7 +184,99 @@ describe("API plugins", () => {
         expect(getLocalState()).toEqual(kongState);
     });
 
-    it('should add a customer specific plugin', () => {});
-    it('should update a customer specific plugin', () => {});
-    it('should remove a customer specific plugin', () => {});
+});
+describe("Service routes", () => {
+    beforeEach(tearDown);
+
+    it("should add mockbin service with a route", async () => {
+        const config = {
+            services: [{
+                name: "mockbin",
+                ensure: "present",
+                attributes: {
+                    url: "http://mockbin.com/test"
+                },
+                routes: [{
+                    name: "r1",
+                    attributes: {
+                        hosts: ["foo.com"],
+                        paths: [],
+                        methods: []
+                    }
+                }]
+            }]
+        };
+
+        await execute(config, testAdminApi, logger);
+        const kongState = await readKongApi(testAdminApi);
+
+        expect(getLog()).toMatchSnapshot();
+        expect(exportToYaml(kongState)).toMatchSnapshot();
+        expect(getLocalState()).toEqual(kongState);
+    });
+
+    it("should remove mockbin service route", async () => {
+        const config = {
+            services: [{
+                name: "mockbin",
+                ensure: "present",
+                attributes: {
+                    url: "http://mockbin.com/test"
+                },
+                routes: [{
+                    name: "r1",
+                    attributes: {
+                        hosts: ["foo.com"],
+                        paths: [],
+                        methods: []
+                    }
+                }]
+            }]
+        };
+
+        await execute(config, testAdminApi, logger);
+
+        config.services[0].routes[0].ensure = 'removed';
+
+        await execute(config, testAdminApi, logger);
+
+        const kongState = await readKongApi(testAdminApi);
+
+        expect(getLog()).toMatchSnapshot();
+        expect(exportToYaml(kongState)).toMatchSnapshot();
+        expect(getLocalState()).toEqual(kongState);
+    });
+
+    it("should update mockbin service route", async () => {
+        const config = {
+            services: [{
+                name: "mockbin",
+                ensure: "present",
+                attributes: {
+                    url: "http://mockbin.com/test"
+                },
+                routes: [{
+                    name: "r1",
+                    attributes: {
+                        hosts: ["foo.com"],
+                        paths: [],
+                        methods: []
+                    }
+                }]
+            }]
+        };
+
+        await execute(config, testAdminApi, logger);
+
+        config.services[0].routes[0].attributes.paths = ['/api'];
+
+        await execute(config, testAdminApi, logger);
+
+        const kongState = await readKongApi(testAdminApi);
+
+        expect(getLog()).toMatchSnapshot();
+        expect(exportToYaml(kongState)).toMatchSnapshot();
+        expect(getLocalState()).toEqual(kongState);
+    });
+
 });

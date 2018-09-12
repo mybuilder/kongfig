@@ -69,6 +69,7 @@ Array [
 
 exports[`Integration global plugin should add the plugin 2`] = `
 "apis: []
+services: []
 consumers: []
 plugins:
   - name: cors
@@ -173,6 +174,7 @@ Array [
 
 exports[`Integration global plugin should not update if already up to date 2`] = `
 "apis: []
+services: []
 consumers: []
 plugins:
   - name: cors
@@ -292,6 +294,7 @@ Array [
 
 exports[`Integration global plugin should remove the global plugin 2`] = `
 "apis: []
+services: []
 consumers: []
 plugins: []
 upstreams: []
@@ -430,6 +433,7 @@ Array [
 
 exports[`Integration global plugin should update the global plugin 2`] = `
 "apis: []
+services: []
 consumers: []
 plugins:
   - name: cors

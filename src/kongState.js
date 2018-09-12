@@ -25,7 +25,22 @@ const fetchCertificatesForVersion = async ({ version, fetchCertificates }) => {
     return await fetchCertificates();
 };
 
-export default async ({fetchApis, fetchPlugins, fetchGlobalPlugins, fetchConsumers, fetchConsumerCredentials, fetchConsumerAcls, fetchUpstreams, fetchTargets, fetchTargetsV11Active, fetchCertificates, fetchKongVersion}) => {
+const fetchServicesWithPluginsAndRoutes = async ({ version, fetchServices, fetchServicePlugins, fetchRoutes}) => {
+    if (semVer.lt(version, '0.14.0')) {
+        return Promise.resolve([]);
+    }
+    const services = await fetchServices();
+
+    return await Promise.all(services.map(async item => {
+
+        const plugins =  await fetchServicePlugins(item.id);
+        const routes = await fetchRoutes(item.id);
+
+        return {...item, plugins, routes};
+      }));
+}
+
+export default async ({fetchApis, fetchPlugins, fetchServices, fetchServicePlugins, fetchRoutes, fetchGlobalPlugins, fetchConsumers, fetchConsumerCredentials, fetchConsumerAcls, fetchUpstreams, fetchTargets, fetchTargetsV11Active, fetchCertificates, fetchKongVersion}) => {
     const version = await fetchKongVersion();
     const apis = await fetchApis();
     const apisWithPlugins = await Promise.all(apis.map(async item => {
@@ -33,6 +48,8 @@ export default async ({fetchApis, fetchPlugins, fetchGlobalPlugins, fetchConsume
 
         return {...item, plugins};
     }));
+
+    const servicesWithPluginsAndRoutes = await fetchServicesWithPluginsAndRoutes({ version, fetchServices, fetchServicePlugins, fetchRoutes });
 
     const consumers = await fetchConsumers();
     const consumersWithCredentialsAndAcls = await Promise.all(consumers.map(async consumer => {
@@ -67,7 +84,7 @@ export default async ({fetchApis, fetchPlugins, fetchGlobalPlugins, fetchConsume
 
     const allPlugins = await fetchGlobalPlugins();
     const globalPlugins = allPlugins.filter(plugin => {
-        return plugin.api_id === undefined;
+        return (plugin.api_id === undefined && plugin.service_id === undefined);
     });
 
     const upstreamsWithTargets = await fetchUpstreamsWithTargets({ version, fetchUpstreams, fetchTargets: semVer.gte(version, '0.12.0') ? fetchTargets : fetchTargetsV11Active });
@@ -75,6 +92,7 @@ export default async ({fetchApis, fetchPlugins, fetchGlobalPlugins, fetchConsume
 
     return {
         apis: apisWithPlugins,
+        services: servicesWithPluginsAndRoutes,
         consumers: consumersWithCredentialsAndAcls,
         plugins: globalPlugins,
         upstreams: upstreamsWithTargets,

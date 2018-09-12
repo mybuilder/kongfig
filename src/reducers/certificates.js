@@ -3,7 +3,7 @@ import { parseCertificates } from '../parsers/certificates';
 const sni = (state, log) => {
     const { params: { type, endpoint: { params, body } }, content } = log;
 
-    if (state._info.id != content.ssl_certificate_id) {
+    if (state._info.id != content.certificate.id) {
         return state;
     }
 

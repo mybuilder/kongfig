@@ -5,7 +5,7 @@ language: node_js
 env:
   global:
     - TEST_INTEGRATION_KONG_HOST="127.0.0.1:8001"
-    - KONG_VERSION=0.12.1
+    - KONG_VERSION=0.14.0
   matrix:
     - EXPERIMENTAL_USE_LOCAL_STATE=0
     - EXPERIMENTAL_USE_LOCAL_STATE=1
