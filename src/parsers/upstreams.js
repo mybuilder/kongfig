@@ -4,12 +4,24 @@ export const parseUpstream = ({
     slots,
     id,
     created_at,
-    orderlist
+    orderlist,
+    hash_on,
+    hash_fallback,
+    hash_on_header,
+    hash_fallback_header,
+    hash_on_cookie,
+    hash_on_cookie_path
 }) => {
     return {
         name,
         attributes: {
-            slots
+            slots,
+            hash_on,
+            hash_fallback,
+            hash_on_header,
+            hash_fallback_header,
+            hash_on_cookie,
+            hash_on_cookie_path
         },
         _info: {
             id,
