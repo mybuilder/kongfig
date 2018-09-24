@@ -56,6 +56,10 @@ const _ignoreKeys = (obj, keys) => {
         return obj;
     }
 
+    if (!obj) {
+        return obj;
+    }
+
     return Object.keys(obj).reduce((x, key) => {
         if (typeof obj[key] === 'string' && obj[key].match(UUIDRegex)) {
             const value = obj[key].match(UUIDRegex).reduce((value, uuid) => {
@@ -84,6 +88,7 @@ const cleanupKong = async () => {
     const results = await readKongApi(testAdminApi);
     await execute({
         apis: results.apis.map(api => ({ ...api, ensure: 'removed' })),
+        services: results.services.map(service => ({ ...service, ensure: 'removed' })),
         consumers: results.consumers.map(consumer => ({ ...consumer, ensure: 'removed' })),
         plugins: results.plugins.map(plugin => ({ ...plugin, ensure: 'removed' })),
         upstreams: results.upstreams.map(upstream => ({ ...upstream, ensure: 'removed' })),

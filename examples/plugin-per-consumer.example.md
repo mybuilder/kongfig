@@ -61,6 +61,7 @@ HTTP 201 Created
 
 ```
 {
+  "custom_id": null,
   "created_at": "___created_at___",
   "username": "user-john",
   "id": "2b47ba9b-761a-492d-9a0c-000000000001"

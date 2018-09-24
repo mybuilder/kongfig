@@ -92,8 +92,8 @@ HTTP 201 Created
 
 ```sh
 $ curl -i -X POST -H "Content-Type: application/json" \
-  --url http://localhost:8001/snis/ \
-  --data '{"name":"example.com","ssl_certificate_id":"2b47ba9b-761a-492d-9a0c-000000000001"}'
+  --url http://localhost:8001/certificates/2b47ba9b-761a-492d-9a0c-000000000001/snis \
+  --data '{"name":"example.com","certificate":{"id":"2b47ba9b-761a-492d-9a0c-000000000001"}}'
 ```
 
 ```
@@ -102,9 +102,12 @@ HTTP 201 Created
 
 ```
 {
-  "name": "example.com",
+  "certificate": {
+    "id": "2b47ba9b-761a-492d-9a0c-000000000001"
+  },
   "created_at": "___created_at___",
-  "ssl_certificate_id": "2b47ba9b-761a-492d-9a0c-000000000001"
+  "name": "example.com",
+  "id": "2b47ba9b-761a-492d-9a0c-000000000002"
 }
 ```
 
@@ -112,8 +115,8 @@ HTTP 201 Created
 
 ```sh
 $ curl -i -X POST -H "Content-Type: application/json" \
-  --url http://localhost:8001/snis/ \
-  --data '{"name":"www.example.com","ssl_certificate_id":"2b47ba9b-761a-492d-9a0c-000000000001"}'
+  --url http://localhost:8001/certificates/2b47ba9b-761a-492d-9a0c-000000000001/snis \
+  --data '{"name":"www.example.com","certificate":{"id":"2b47ba9b-761a-492d-9a0c-000000000001"}}'
 ```
 
 ```
@@ -122,8 +125,11 @@ HTTP 201 Created
 
 ```
 {
-  "name": "www.example.com",
+  "certificate": {
+    "id": "2b47ba9b-761a-492d-9a0c-000000000001"
+  },
   "created_at": "___created_at___",
-  "ssl_certificate_id": "2b47ba9b-761a-492d-9a0c-000000000001"
+  "name": "www.example.com",
+  "id": "2b47ba9b-761a-492d-9a0c-000000000003"
 }
 ```
