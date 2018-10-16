@@ -14,7 +14,9 @@
     "preversion": "yarn test",
     "version": "yarn build",
     "postversion": "git push && git push --tags",
-    "publish-patch": "npm version patch && npm publish"
+    "publish-patch": "npm version patch && npm publish",
+    "snyk-protect": "snyk protect",
+    "prepare": "npm run snyk-protect"
   },
   "author": "MyBuilder Ltd",
   "license": "MIT",
@@ -29,7 +31,8 @@
     "object-assign": "^4.0.1",
     "pad": "^2.0.3",
     "prettyjson": "^1.1.3",
-    "semver": "^5.5.0"
+    "semver": "^5.5.0",
+    "snyk": "^1.103.4"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
@@ -51,5 +54,6 @@
       "<rootDir>/node_modules/",
       "<rootDir>/lib/"
     ]
-  }
+  },
+  "snyk": true
 }
