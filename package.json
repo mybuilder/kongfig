@@ -1,6 +1,6 @@
 {
-  "name": "kongfig",
-  "version": "1.5.3",
+  "name": "cloud-elements/kongfig",
+  "version": "1.6.0",
   "description": "A tool for Kong to allow declarative configuration.",
   "repository": "https://github.com/mybuilder/kongfig",
   "bin": {
@@ -20,6 +20,7 @@
   "license": "MIT",
   "dependencies": {
     "babel-polyfill": "^6.26.0",
+    "bluebird": "^3.5.3",
     "colors": "^1.1.2",
     "commander": "^2.13.0",
     "invariant": "^2.2.2",
@@ -50,6 +51,7 @@
     "transformIgnorePatterns": [
       "<rootDir>/node_modules/",
       "<rootDir>/lib/"
-    ]
+    ],
+    "testURL": "http://localhost/"
   }
 }

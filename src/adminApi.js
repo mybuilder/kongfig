@@ -1,3 +1,4 @@
+import Promise from 'bluebird';
 import createRouter from './router';
 import requester from './requester';
 import { parseVersion } from './utils.js'
@@ -37,7 +38,7 @@ function createApi({ router, getPaginatedJson, ignoreConsumers }) {
             }
 
             return getPaginatedJson(router({name: 'plugins-enabled'}))
-                .then(json => Promise.all(getEnabledPluginNames(json.enabled_plugins).map(plugin => getPluginScheme(plugin, plugin => router({name: 'plugins-scheme', params: {plugin}})))))
+                .then(json => Promise.map(getEnabledPluginNames(json.enabled_plugins), plugin => getPluginScheme(plugin, plugin => router({name: 'plugins-scheme', params: {plugin}})), {concurrency: 5}))
                 .then(all => pluginSchemasCache = new Map(all));
         },
         fetchKongVersion: () => {
