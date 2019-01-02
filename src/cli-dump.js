@@ -16,7 +16,7 @@ program
     .option('--ignore-consumers', 'Ignore consumers in kong')
     .option('--header [value]', 'Custom headers to be added to all requests', (nextHeader, headers) => { headers.push(nextHeader); return headers }, [])
     .option('--credential-schema <value>', 'Add custom auth plugin in <name>:<key> format. Ex: custom_jwt:key. Repeat option for multiple custom plugins', repeatableOptionCallback, [])
-    .option('--concurrency <value>', 'Limit concurrent requests (default: 8)', 8)
+    .option('--concurrency <value>', 'Limit concurrent requests (default: 8)', parseInt)
     .parse(process.argv);
 
 if (!program.host) {
