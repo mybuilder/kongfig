@@ -7,17 +7,18 @@ let pluginSchemasCache;
 let kongVersionCache;
 let resultsCache = {};
 
-export default ({host, https, ignoreConsumers, cache}) => {
+export default ({host, https, ignoreConsumers, cache, concurrency}) => {
     const router = createRouter(host, https);
 
     return createApi({
         router,
         ignoreConsumers,
         getPaginatedJson: cache ? getPaginatedJsonCache : getPaginatedJson,
+        concurrency,
     });
 }
 
-function createApi({ router, getPaginatedJson, ignoreConsumers }) {
+function createApi({ router, getPaginatedJson, ignoreConsumers, concurrency }) {
     return {
         router,
         fetchApis: () => getPaginatedJson(router({name: 'apis'})),
@@ -38,7 +39,7 @@ function createApi({ router, getPaginatedJson, ignoreConsumers }) {
             }
 
             return getPaginatedJson(router({name: 'plugins-enabled'}))
-                .then(json => Promise.map(getEnabledPluginNames(json.enabled_plugins), plugin => getPluginScheme(plugin, plugin => router({name: 'plugins-scheme', params: {plugin}})), {concurrency: 5}))
+                .then(json => Promise.map(getEnabledPluginNames(json.enabled_plugins), plugin => getPluginScheme(plugin, plugin => router({name: 'plugins-scheme', params: {plugin}})), {concurrency}))
                 .then(all => pluginSchemasCache = new Map(all));
         },
         fetchKongVersion: () => {
