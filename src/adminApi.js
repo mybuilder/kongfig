@@ -54,7 +54,8 @@ function createApi({ router, getPaginatedJson, ignoreConsumers, concurrency }) {
         requestEndpoint: (endpoint, params) => {
             resultsCache = {};
             return requester.request(router(endpoint), prepareOptions(params));
-        }
+        },
+        concurrency
     };
 }
 

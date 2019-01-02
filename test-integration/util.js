@@ -28,6 +28,7 @@ export const testAdminApi = adminApi({
     https: false,
     ignoreConsumers: false,
     cache: false,
+    concurrency: 8,
 });
 
 export const getLog = () => log;
