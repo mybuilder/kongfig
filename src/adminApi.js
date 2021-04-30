@@ -110,6 +110,13 @@ function getPaginatedJson(uri) {
             return json.data;
         }
 
+        if(process.argv.indexOf("--host") > -1) {
+            if(json.next.indexOf('localhost') > -1) {
+                const uri = `http${process.argv.indexOf("--https") > -1 ? 's' : ''}://${process.argv[process.argv.indexOf("--host")+1]}`;
+                json.next = `${uri}${json.next.substr(json.next.indexOf(json.next.split('/')[3])-1)}`;
+            }
+        }
+
         return getPaginatedJson(json.next).then(data => json.data.concat(data));
     });
 }
