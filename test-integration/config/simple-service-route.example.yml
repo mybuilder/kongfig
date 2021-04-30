@@ -1,0 +1,10 @@
+services:
+- name: "mockbin"
+  ensure: "present"
+  attributes:
+    url: "http://mockbin.com"
+  routes:
+  - name: r1
+    attributes:
+      hosts:
+      - 'mockbin.com'

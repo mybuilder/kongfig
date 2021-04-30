@@ -7,6 +7,12 @@ export default function createRouter(host, https) {
             case 'api': return `${adminApiRoot}/apis/${params.name}`;
             case 'api-plugins': return `${adminApiRoot}/apis/${params.apiId}/plugins`;
             case 'api-plugin': return `${adminApiRoot}/apis/${params.apiId}/plugins/${params.pluginId}`;
+            case 'services': return `${adminApiRoot}/services`;
+            case 'service': return `${adminApiRoot}/services/${params.name}`;
+            case 'service-plugins': return `${adminApiRoot}/services/${params.serviceId}/plugins`;
+            case 'service-plugin': return `${adminApiRoot}/plugins/${params.pluginId}`;
+            case 'routes': return `${adminApiRoot}/services/${params.serviceId}/routes`;
+            case 'route': return `${adminApiRoot}/routes/${params.routeId}`;
             case 'consumers': return `${adminApiRoot}/consumers`;
             case 'consumer': return `${adminApiRoot}/consumers/${params.consumerId}`;
             case 'consumer-credentials': return `${adminApiRoot}/consumers/${params.consumerId}/${params.plugin}`;
@@ -27,8 +33,8 @@ export default function createRouter(host, https) {
 
             case 'certificates': return `${adminApiRoot}/certificates`;
             case 'certificate': return `${adminApiRoot}/certificates/${params.certificateId}`;
-            case 'certificate-snis': return `${adminApiRoot}/snis/`;
-            case 'certificate-sni': return `${adminApiRoot}/snis/${params.sniName}`;
+            case 'certificate-snis': return `${adminApiRoot}/certificates/${params.certificateId}/snis`;
+            case 'certificate-sni': return `${adminApiRoot}/certificates/${params.certificateId}/snis/${params.sniName}`;
 
             case 'root': return `${adminApiRoot}`;
 

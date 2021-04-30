@@ -44,7 +44,7 @@ export const logger = message => {
     }
 
     rawLog.push(m);
-    log.push(ignoreKeys(m, ['created_at', 'version', 'orderlist']));
+    log.push(ignoreKeys(m, ['created_at', 'version', 'orderlist', 'updated_at']));
 };
 
 const _ignoreKeys = (obj, keys) => {
@@ -53,6 +53,10 @@ const _ignoreKeys = (obj, keys) => {
     }
 
     if (typeof obj !== 'object') {
+        return obj;
+    }
+
+    if (!obj) {
         return obj;
     }
 
@@ -84,6 +88,7 @@ const cleanupKong = async () => {
     const results = await readKongApi(testAdminApi);
     await execute({
         apis: results.apis.map(api => ({ ...api, ensure: 'removed' })),
+        services: results.services.map(service => ({ ...service, ensure: 'removed' })),
         consumers: results.consumers.map(consumer => ({ ...consumer, ensure: 'removed' })),
         plugins: results.plugins.map(plugin => ({ ...plugin, ensure: 'removed' })),
         upstreams: results.upstreams.map(upstream => ({ ...upstream, ensure: 'removed' })),

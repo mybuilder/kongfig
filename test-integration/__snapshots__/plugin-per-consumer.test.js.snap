@@ -23,6 +23,7 @@ Array [
   Object {
     "content": Object {
       "created_at": "___created_at___",
+      "custom_id": null,
       "id": "2b47ba9b-761a-492d-9a0c-000000000001",
       "username": "user-limited",
     },
@@ -195,8 +196,10 @@ exports[`per user api plugins by username should add an api rate limiting plugin
       upstream_send_timeout: 60000
       https_only: false
       http_if_terminated: false
+services: []
 consumers:
   - username: user-limited
+    custom_id: null
     acls: []
     credentials: []
 plugins: []
@@ -228,6 +231,7 @@ Array [
   Object {
     "content": Object {
       "created_at": "___created_at___",
+      "custom_id": null,
       "id": "2b47ba9b-761a-492d-9a0c-000000000001",
       "username": "user-limited",
     },
@@ -314,8 +318,10 @@ Array [
 
 exports[`per user global plugins by username should add global rate limiting plugin for a user 2`] = `
 "apis: []
+services: []
 consumers:
   - username: user-limited
+    custom_id: null
     acls: []
     credentials: []
 plugins:
@@ -360,6 +366,7 @@ Array [
   Object {
     "content": Object {
       "created_at": "___created_at___",
+      "custom_id": null,
       "id": "2b47ba9b-761a-492d-9a0c-000000000001",
       "username": "user-limited",
     },
@@ -396,6 +403,7 @@ Array [
   Object {
     "content": Object {
       "created_at": "___created_at___",
+      "custom_id": null,
       "id": "2b47ba9b-761a-492d-9a0c-000000000002",
       "username": "user-limited-another",
     },
@@ -544,11 +552,14 @@ Array [
 
 exports[`per user global plugins by username should add global rate limiting plugin for multiple users 2`] = `
 "apis: []
+services: []
 consumers:
   - username: user-limited
+    custom_id: null
     acls: []
     credentials: []
   - username: user-limited-another
+    custom_id: null
     acls: []
     credentials: []
 plugins:
@@ -606,6 +617,7 @@ Array [
   Object {
     "content": Object {
       "created_at": "___created_at___",
+      "custom_id": null,
       "id": "2b47ba9b-761a-492d-9a0c-000000000001",
       "username": "user-limited",
     },
@@ -642,6 +654,7 @@ Array [
   Object {
     "content": Object {
       "created_at": "___created_at___",
+      "custom_id": null,
       "id": "2b47ba9b-761a-492d-9a0c-000000000002",
       "username": "user-limited-another",
     },
@@ -885,8 +898,10 @@ Array [
 
 exports[`per user global plugins by username should remove global rate limiting plugin for the user 2`] = `
 "apis: []
+services: []
 consumers:
   - username: user-limited-another
+    custom_id: null
     acls: []
     credentials: []
 plugins:
@@ -931,6 +946,7 @@ Array [
   Object {
     "content": Object {
       "created_at": "___created_at___",
+      "custom_id": null,
       "id": "2b47ba9b-761a-492d-9a0c-000000000001",
       "username": "user-limited",
     },
@@ -967,6 +983,7 @@ Array [
   Object {
     "content": Object {
       "created_at": "___created_at___",
+      "custom_id": null,
       "id": "2b47ba9b-761a-492d-9a0c-000000000002",
       "username": "user-limited-another",
     },
@@ -1217,11 +1234,14 @@ Array [
 
 exports[`per user global plugins by username should update global rate limiting plugin for the user 2`] = `
 "apis: []
+services: []
 consumers:
   - username: user-limited
+    custom_id: null
     acls: []
     credentials: []
   - username: user-limited-another
+    custom_id: null
     acls: []
     credentials: []
 plugins:

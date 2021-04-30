@@ -10,6 +10,7 @@ export default async (adminApi) => {
             return getCurrentStateSelector({
                 _info: { version },
                 apis: parseApis(state.apis, version),
+                services: semVer.gte(version, '0.13.0') ? parseServices(state.services) : undefined,
                 consumers: parseConsumers(state.consumers),
                 plugins: parseGlobalPlugins(state.plugins),
                 upstreams: semVer.gte(version, '0.10.0') ? parseUpstreams(state.upstreams) : undefined,
@@ -129,6 +130,89 @@ function parseApisBeforeV10(apis) {
 function parseApisV10(apis) {
     return apis.map(withParseApiPlugins(parseApiPostV10));
 }
+export const parseService = ({
+    name, plugins, host, created_at,
+    connect_timeout, id, protocol,
+    read_timeout, port, path, 
+    retries, write_timeout}) => {
+    return removeNullAttributes({
+        name,
+        attributes: {
+            protocol,
+            host,
+            port,
+            path,
+            retries,
+            connect_timeout,
+            read_timeout,
+            write_timeout
+        },
+        _info: {
+            id,
+            created_at
+        }
+    });
+}
+
+function parseServices(services) {
+  if (!Array.isArray(services)) {
+    return [];
+  }
+
+  return services.map(withParseServicePluginsAndRoutes(parseService));
+}
+const withParseServicePluginsAndRoutes = (parseService) => service => {
+    const { name, ...rest} = parseService(service);
+    return { name, plugins: parseServicePlugins(service.plugins), routes: parseRoutes(service.routes), ...rest };
+};
+
+function parseServicePlugins(plugins) {
+    if (!Array.isArray(plugins)) {
+      return [];
+    }
+
+    return plugins.map(parsePlugin);
+}
+function parseRoutes(routes) {
+    if (!Array.isArray(routes)) {
+      return [];
+    }
+
+    return routes.map(parseRoute);
+}
+
+export const parseRoute = ({
+    id, created_at, strip_path,
+    hosts, preserve_host, regex_priority,
+    paths, methods, protocols
+}) => {
+    if (!Array.isArray(paths)) {
+        hosts = [];
+    }
+    if (!Array.isArray(paths)) {
+        paths = [];
+    }
+    if (!Array.isArray(methods)) {
+        methods = [];
+    }
+    return removeNullAttributes({
+        attributes: {
+            strip_path,
+            hosts,
+            preserve_host,
+            regex_priority,
+            paths,
+            methods,
+            protocols
+        },
+        _info: {
+            id,
+            created_at
+        }
+    });
+};
+
+
 
 export const parsePlugin = ({
     name,
@@ -199,4 +283,8 @@ function stripConfig(config) {
     delete mutableConfig['_cert_der_cache'];
 
     return mutableConfig;
+}
+function removeNullAttributes(resource) {
+  Object.keys(resource.attributes).forEach(k => (!resource.attributes[k] && resource.attributes[k] !== undefined) && delete resource.attributes[k]);
+  return resource;
 }

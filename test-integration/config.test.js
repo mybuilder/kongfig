@@ -49,6 +49,7 @@ const addExampleFile = (configPath, filename, log) => {
 };
 
 fs.readdirSync(path.resolve(__dirname, './config')).forEach(filename => {
+    // if (filename == 'consumer.example.yml') {
     it(`should apply ${filename}`, async () => {
         const configPath = path.resolve(__dirname, './config', filename);
         const config = configLoader(configPath);
@@ -65,4 +66,5 @@ fs.readdirSync(path.resolve(__dirname, './config')).forEach(filename => {
             addExampleFile(configPath, filename, getLog());
         }
     });
+// }
 });

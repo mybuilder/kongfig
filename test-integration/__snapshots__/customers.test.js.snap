@@ -23,6 +23,7 @@ Array [
   Object {
     "content": Object {
       "created_at": "___created_at___",
+      "custom_id": null,
       "id": "2b47ba9b-761a-492d-9a0c-000000000001",
       "username": "iphone-app",
     },
@@ -90,8 +91,10 @@ Array [
 
 exports[`Integration consumers acls should add the acl 2`] = `
 "apis: []
+services: []
 consumers:
   - username: iphone-app
+    custom_id: null
     acls:
       - group: foobar
     credentials: []
@@ -124,6 +127,7 @@ Array [
   Object {
     "content": Object {
       "created_at": "___created_at___",
+      "custom_id": null,
       "id": "2b47ba9b-761a-492d-9a0c-000000000001",
       "username": "iphone-app",
     },
@@ -246,8 +250,10 @@ Array [
 
 exports[`Integration consumers acls should remove the acl 2`] = `
 "apis: []
+services: []
 consumers:
   - username: iphone-app
+    custom_id: null
     acls: []
     credentials: []
 plugins: []
@@ -279,6 +285,7 @@ Array [
   Object {
     "content": Object {
       "created_at": "___created_at___",
+      "custom_id": null,
       "id": "2b47ba9b-761a-492d-9a0c-000000000001",
       "username": "iphone-app",
     },
@@ -348,8 +355,10 @@ Array [
 
 exports[`Integration consumers credentials should add the credential 2`] = `
 "apis: []
+services: []
 consumers:
   - username: iphone-app
+    custom_id: null
     acls: []
     credentials:
       - name: key-auth
@@ -384,6 +393,7 @@ Array [
   Object {
     "content": Object {
       "created_at": "___created_at___",
+      "custom_id": null,
       "id": "2b47ba9b-761a-492d-9a0c-000000000001",
       "username": "iphone-app",
     },
@@ -513,8 +523,10 @@ Array [
 
 exports[`Integration consumers credentials should remove the credential 2`] = `
 "apis: []
+services: []
 consumers:
   - username: iphone-app
+    custom_id: null
     acls: []
     credentials: []
 plugins: []
@@ -546,6 +558,7 @@ Array [
   Object {
     "content": Object {
       "created_at": "___created_at___",
+      "custom_id": null,
       "id": "2b47ba9b-761a-492d-9a0c-000000000001",
       "username": "iphone-app",
     },
@@ -693,8 +706,10 @@ Array [
 
 exports[`Integration consumers credentials should update the credential 2`] = `
 "apis: []
+services: []
 consumers:
   - username: iphone-app
+    custom_id: null
     acls: []
     credentials:
       - name: hmac-auth
@@ -730,6 +745,7 @@ Array [
   Object {
     "content": Object {
       "created_at": "___created_at___",
+      "custom_id": null,
       "id": "2b47ba9b-761a-492d-9a0c-000000000001",
       "username": "iphone-app",
     },
@@ -754,8 +770,10 @@ Array [
 
 exports[`Integration consumers should add the consumer 2`] = `
 "apis: []
+services: []
 consumers:
   - username: iphone-app
+    custom_id: null
     acls: []
     credentials: []
 plugins: []
@@ -787,6 +805,7 @@ Array [
   Object {
     "content": Object {
       "created_at": "___created_at___",
+      "custom_id": null,
       "id": "2b47ba9b-761a-492d-9a0c-000000000001",
       "username": "iphone-app",
     },
@@ -847,6 +866,7 @@ Array [
 
 exports[`Integration consumers should remove the consumer 2`] = `
 "apis: []
+services: []
 consumers: []
 plugins: []
 upstreams: []
@@ -877,6 +897,7 @@ Array [
   Object {
     "content": Object {
       "created_at": "___created_at___",
+      "custom_id": null,
       "id": "2b47ba9b-761a-492d-9a0c-000000000001",
       "username": "iphone-app",
     },
@@ -950,6 +971,7 @@ Array [
 
 exports[`Integration consumers should update the consumer 2`] = `
 "apis: []
+services: []
 consumers:
   - username: iphone-app
     custom_id: foobar123

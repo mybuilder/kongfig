@@ -63,6 +63,86 @@ export function updateApiPlugin(apiId, pluginId, params) {
     };
 }
 
+export function createService(name, params) {
+    return {
+        type: 'create-service',
+        endpoint: {name: 'services'},
+        method: 'POST',
+        body: assign({}, params, {name})
+    };
+};
+
+export function removeService(name) {
+    return {
+        type: 'remove-service',
+        endpoint: {name: 'service', params: {name}},
+        method: 'DELETE',
+    };
+}
+
+export function updateService(name, params) {
+    return {
+        type: 'update-service',
+        endpoint: {name: 'service', params: {name}},
+        method: 'PATCH',
+        body: params
+    };
+}
+
+export function addServicePlugin(serviceId, pluginName, params) {
+    return {
+        type: 'add-service-plugin',
+        endpoint: {name: 'service-plugins', params: {serviceId, pluginName}},
+        method: 'POST',
+        body: assign({}, params, {name: pluginName})
+    };
+}
+
+export function removeServicePlugin(serviceId, pluginId) {
+    return {
+        type: 'remove-service-plugin',
+        endpoint: {name: 'service-plugin', params: {serviceId, pluginId}},
+        method: 'DELETE',
+    };
+}
+
+export function updateServicePlugin(serviceId, pluginId, params) {
+    return {
+        type: 'update-service-plugin',
+        endpoint: {name: 'service-plugin', params: {serviceId, pluginId}},
+        method: 'PATCH',
+        body: params
+    };
+}
+
+export function addRoute(serviceId, routeId, params) {
+    const service = { service: {id: serviceId} };
+    return {
+        type: 'add-route',
+        endpoint: {name: 'route', params: {serviceId, routeId}},
+        method: 'PUT',
+        body: assign({}, params, service)
+    };
+}
+
+export function removeRoute(serviceId, routeId) {
+    return {
+        type: 'remove-route',
+        endpoint: {name: 'route', params: {serviceId, routeId}},
+        method: 'DELETE',
+    };
+}
+
+export function updateRoute(serviceId, routeId, params) {
+    const service = { service: {id: serviceId} };
+    return {
+        type: 'update-route',
+        endpoint: {name: 'route', params: {serviceId, routeId}},
+        method: 'PUT',
+        body: assign({}, params, service)
+    };
+}
+
 export function addGlobalPlugin(pluginName, params) {
     return {
         type: 'add-global-plugin',

@@ -1,0 +1,1802 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Service plugins should add mockbin service with a plugins 1`] = `
+Array [
+  Object {
+    "type": "kong-info",
+    "version": "___version___",
+  },
+  Object {
+    "params": Object {
+      "body": Object {
+        "name": "mockbin",
+        "url": "http://mockbin.com/test",
+      },
+      "endpoint": Object {
+        "name": "services",
+      },
+      "method": "POST",
+      "type": "create-service",
+    },
+    "type": "request",
+    "uri": "http://localhost:8001/services",
+  },
+  Object {
+    "content": Object {
+      "connect_timeout": 60000,
+      "created_at": "___created_at___",
+      "host": "mockbin.com",
+      "id": "2b47ba9b-761a-492d-9a0c-000000000001",
+      "name": "mockbin",
+      "path": "/test",
+      "port": 80,
+      "protocol": "http",
+      "read_timeout": 60000,
+      "retries": 5,
+      "updated_at": "___updated_at___",
+      "write_timeout": 60000,
+    },
+    "ok": true,
+    "params": Object {
+      "body": Object {
+        "name": "mockbin",
+        "url": "http://mockbin.com/test",
+      },
+      "endpoint": Object {
+        "name": "services",
+      },
+      "method": "POST",
+      "type": "create-service",
+    },
+    "status": 201,
+    "statusText": "Created",
+    "type": "response",
+    "uri": "http://localhost:8001/services",
+  },
+  Object {
+    "params": Object {
+      "body": Object {
+        "config": Object {
+          "key_names": Array [
+            "foobar",
+          ],
+        },
+        "name": "key-auth",
+      },
+      "endpoint": Object {
+        "name": "service-plugins",
+        "params": Object {
+          "pluginName": "key-auth",
+          "serviceId": "2b47ba9b-761a-492d-9a0c-000000000001",
+        },
+      },
+      "method": "POST",
+      "type": "add-service-plugin",
+    },
+    "type": "request",
+    "uri": "http://localhost:8001/services/2b47ba9b-761a-492d-9a0c-000000000001/plugins",
+  },
+  Object {
+    "content": Object {
+      "config": Object {
+        "anonymous": "",
+        "hide_credentials": false,
+        "key_in_body": false,
+        "key_names": Array [
+          "foobar",
+        ],
+        "run_on_preflight": true,
+      },
+      "created_at": "___created_at___",
+      "enabled": true,
+      "id": "2b47ba9b-761a-492d-9a0c-000000000002",
+      "name": "key-auth",
+      "service_id": "2b47ba9b-761a-492d-9a0c-000000000001",
+    },
+    "ok": true,
+    "params": Object {
+      "body": Object {
+        "config": Object {
+          "key_names": Array [
+            "foobar",
+          ],
+        },
+        "name": "key-auth",
+      },
+      "endpoint": Object {
+        "name": "service-plugins",
+        "params": Object {
+          "pluginName": "key-auth",
+          "serviceId": "2b47ba9b-761a-492d-9a0c-000000000001",
+        },
+      },
+      "method": "POST",
+      "type": "add-service-plugin",
+    },
+    "status": 201,
+    "statusText": "Created",
+    "type": "response",
+    "uri": "http://localhost:8001/services/2b47ba9b-761a-492d-9a0c-000000000001/plugins",
+  },
+]
+`;
+
+exports[`Service plugins should add mockbin service with a plugins 2`] = `
+"apis: []
+services:
+  - name: mockbin
+    plugins:
+      - name: key-auth
+        attributes:
+          enabled: true
+          config:
+            key_names:
+              - foobar
+            key_in_body: false
+            anonymous: ''
+            run_on_preflight: true
+            hide_credentials: false
+    routes: []
+    attributes:
+      protocol: http
+      host: mockbin.com
+      port: 80
+      path: /test
+      retries: 5
+      connect_timeout: 60000
+      read_timeout: 60000
+      write_timeout: 60000
+consumers: []
+plugins: []
+upstreams: []
+certificates: []
+"
+`;
+
+exports[`Service plugins should remove mockbin service plugin 1`] = `
+Array [
+  Object {
+    "type": "kong-info",
+    "version": "___version___",
+  },
+  Object {
+    "params": Object {
+      "body": Object {
+        "name": "mockbin",
+        "url": "http://mockbin.com/test",
+      },
+      "endpoint": Object {
+        "name": "services",
+      },
+      "method": "POST",
+      "type": "create-service",
+    },
+    "type": "request",
+    "uri": "http://localhost:8001/services",
+  },
+  Object {
+    "content": Object {
+      "connect_timeout": 60000,
+      "created_at": "___created_at___",
+      "host": "mockbin.com",
+      "id": "2b47ba9b-761a-492d-9a0c-000000000001",
+      "name": "mockbin",
+      "path": "/test",
+      "port": 80,
+      "protocol": "http",
+      "read_timeout": 60000,
+      "retries": 5,
+      "updated_at": "___updated_at___",
+      "write_timeout": 60000,
+    },
+    "ok": true,
+    "params": Object {
+      "body": Object {
+        "name": "mockbin",
+        "url": "http://mockbin.com/test",
+      },
+      "endpoint": Object {
+        "name": "services",
+      },
+      "method": "POST",
+      "type": "create-service",
+    },
+    "status": 201,
+    "statusText": "Created",
+    "type": "response",
+    "uri": "http://localhost:8001/services",
+  },
+  Object {
+    "params": Object {
+      "body": Object {
+        "config": Object {
+          "key_names": Array [
+            "foobar",
+          ],
+        },
+        "name": "key-auth",
+      },
+      "endpoint": Object {
+        "name": "service-plugins",
+        "params": Object {
+          "pluginName": "key-auth",
+          "serviceId": "2b47ba9b-761a-492d-9a0c-000000000001",
+        },
+      },
+      "method": "POST",
+      "type": "add-service-plugin",
+    },
+    "type": "request",
+    "uri": "http://localhost:8001/services/2b47ba9b-761a-492d-9a0c-000000000001/plugins",
+  },
+  Object {
+    "content": Object {
+      "config": Object {
+        "anonymous": "",
+        "hide_credentials": false,
+        "key_in_body": false,
+        "key_names": Array [
+          "foobar",
+        ],
+        "run_on_preflight": true,
+      },
+      "created_at": "___created_at___",
+      "enabled": true,
+      "id": "2b47ba9b-761a-492d-9a0c-000000000002",
+      "name": "key-auth",
+      "service_id": "2b47ba9b-761a-492d-9a0c-000000000001",
+    },
+    "ok": true,
+    "params": Object {
+      "body": Object {
+        "config": Object {
+          "key_names": Array [
+            "foobar",
+          ],
+        },
+        "name": "key-auth",
+      },
+      "endpoint": Object {
+        "name": "service-plugins",
+        "params": Object {
+          "pluginName": "key-auth",
+          "serviceId": "2b47ba9b-761a-492d-9a0c-000000000001",
+        },
+      },
+      "method": "POST",
+      "type": "add-service-plugin",
+    },
+    "status": 201,
+    "statusText": "Created",
+    "type": "response",
+    "uri": "http://localhost:8001/services/2b47ba9b-761a-492d-9a0c-000000000001/plugins",
+  },
+  Object {
+    "type": "kong-info",
+    "version": "___version___",
+  },
+  Object {
+    "params": Object {
+      "body": Object {
+        "url": "http://mockbin.com/test",
+      },
+      "endpoint": Object {
+        "name": "service",
+        "params": Object {
+          "name": "mockbin",
+        },
+      },
+      "method": "PATCH",
+      "type": "update-service",
+    },
+    "type": "request",
+    "uri": "http://localhost:8001/services/mockbin",
+  },
+  Object {
+    "content": Object {
+      "connect_timeout": 60000,
+      "created_at": "___created_at___",
+      "host": "mockbin.com",
+      "id": "2b47ba9b-761a-492d-9a0c-000000000001",
+      "name": "mockbin",
+      "path": "/test",
+      "port": 80,
+      "protocol": "http",
+      "read_timeout": 60000,
+      "retries": 5,
+      "updated_at": "___updated_at___",
+      "write_timeout": 60000,
+    },
+    "ok": true,
+    "params": Object {
+      "body": Object {
+        "url": "http://mockbin.com/test",
+      },
+      "endpoint": Object {
+        "name": "service",
+        "params": Object {
+          "name": "mockbin",
+        },
+      },
+      "method": "PATCH",
+      "type": "update-service",
+    },
+    "status": 200,
+    "statusText": "OK",
+    "type": "response",
+    "uri": "http://localhost:8001/services/mockbin",
+  },
+  Object {
+    "params": Object {
+      "endpoint": Object {
+        "name": "service-plugin",
+        "params": Object {
+          "pluginId": "2b47ba9b-761a-492d-9a0c-000000000002",
+          "serviceId": "2b47ba9b-761a-492d-9a0c-000000000001",
+        },
+      },
+      "method": "DELETE",
+      "type": "remove-service-plugin",
+    },
+    "type": "request",
+    "uri": "http://localhost:8001/plugins/2b47ba9b-761a-492d-9a0c-000000000002",
+  },
+  Object {
+    "content": "",
+    "ok": true,
+    "params": Object {
+      "endpoint": Object {
+        "name": "service-plugin",
+        "params": Object {
+          "pluginId": "2b47ba9b-761a-492d-9a0c-000000000002",
+          "serviceId": "2b47ba9b-761a-492d-9a0c-000000000001",
+        },
+      },
+      "method": "DELETE",
+      "type": "remove-service-plugin",
+    },
+    "status": 204,
+    "statusText": "No Content",
+    "type": "response",
+    "uri": "http://localhost:8001/plugins/2b47ba9b-761a-492d-9a0c-000000000002",
+  },
+]
+`;
+
+exports[`Service plugins should remove mockbin service plugin 2`] = `
+"apis: []
+services:
+  - name: mockbin
+    plugins: []
+    routes: []
+    attributes:
+      protocol: http
+      host: mockbin.com
+      port: 80
+      path: /test
+      retries: 5
+      connect_timeout: 60000
+      read_timeout: 60000
+      write_timeout: 60000
+consumers: []
+plugins: []
+upstreams: []
+certificates: []
+"
+`;
+
+exports[`Service plugins should update mockbin service plugin 1`] = `
+Array [
+  Object {
+    "type": "kong-info",
+    "version": "___version___",
+  },
+  Object {
+    "params": Object {
+      "body": Object {
+        "name": "mockbin",
+        "url": "http://mockbin.com/test",
+      },
+      "endpoint": Object {
+        "name": "services",
+      },
+      "method": "POST",
+      "type": "create-service",
+    },
+    "type": "request",
+    "uri": "http://localhost:8001/services",
+  },
+  Object {
+    "content": Object {
+      "connect_timeout": 60000,
+      "created_at": "___created_at___",
+      "host": "mockbin.com",
+      "id": "2b47ba9b-761a-492d-9a0c-000000000001",
+      "name": "mockbin",
+      "path": "/test",
+      "port": 80,
+      "protocol": "http",
+      "read_timeout": 60000,
+      "retries": 5,
+      "updated_at": "___updated_at___",
+      "write_timeout": 60000,
+    },
+    "ok": true,
+    "params": Object {
+      "body": Object {
+        "name": "mockbin",
+        "url": "http://mockbin.com/test",
+      },
+      "endpoint": Object {
+        "name": "services",
+      },
+      "method": "POST",
+      "type": "create-service",
+    },
+    "status": 201,
+    "statusText": "Created",
+    "type": "response",
+    "uri": "http://localhost:8001/services",
+  },
+  Object {
+    "params": Object {
+      "body": Object {
+        "config": Object {
+          "key_names": Array [
+            "foobar",
+          ],
+        },
+        "name": "key-auth",
+      },
+      "endpoint": Object {
+        "name": "service-plugins",
+        "params": Object {
+          "pluginName": "key-auth",
+          "serviceId": "2b47ba9b-761a-492d-9a0c-000000000001",
+        },
+      },
+      "method": "POST",
+      "type": "add-service-plugin",
+    },
+    "type": "request",
+    "uri": "http://localhost:8001/services/2b47ba9b-761a-492d-9a0c-000000000001/plugins",
+  },
+  Object {
+    "content": Object {
+      "config": Object {
+        "anonymous": "",
+        "hide_credentials": false,
+        "key_in_body": false,
+        "key_names": Array [
+          "foobar",
+        ],
+        "run_on_preflight": true,
+      },
+      "created_at": "___created_at___",
+      "enabled": true,
+      "id": "2b47ba9b-761a-492d-9a0c-000000000002",
+      "name": "key-auth",
+      "service_id": "2b47ba9b-761a-492d-9a0c-000000000001",
+    },
+    "ok": true,
+    "params": Object {
+      "body": Object {
+        "config": Object {
+          "key_names": Array [
+            "foobar",
+          ],
+        },
+        "name": "key-auth",
+      },
+      "endpoint": Object {
+        "name": "service-plugins",
+        "params": Object {
+          "pluginName": "key-auth",
+          "serviceId": "2b47ba9b-761a-492d-9a0c-000000000001",
+        },
+      },
+      "method": "POST",
+      "type": "add-service-plugin",
+    },
+    "status": 201,
+    "statusText": "Created",
+    "type": "response",
+    "uri": "http://localhost:8001/services/2b47ba9b-761a-492d-9a0c-000000000001/plugins",
+  },
+  Object {
+    "type": "kong-info",
+    "version": "___version___",
+  },
+  Object {
+    "params": Object {
+      "body": Object {
+        "url": "http://mockbin.com/test",
+      },
+      "endpoint": Object {
+        "name": "service",
+        "params": Object {
+          "name": "mockbin",
+        },
+      },
+      "method": "PATCH",
+      "type": "update-service",
+    },
+    "type": "request",
+    "uri": "http://localhost:8001/services/mockbin",
+  },
+  Object {
+    "content": Object {
+      "connect_timeout": 60000,
+      "created_at": "___created_at___",
+      "host": "mockbin.com",
+      "id": "2b47ba9b-761a-492d-9a0c-000000000001",
+      "name": "mockbin",
+      "path": "/test",
+      "port": 80,
+      "protocol": "http",
+      "read_timeout": 60000,
+      "retries": 5,
+      "updated_at": "___updated_at___",
+      "write_timeout": 60000,
+    },
+    "ok": true,
+    "params": Object {
+      "body": Object {
+        "url": "http://mockbin.com/test",
+      },
+      "endpoint": Object {
+        "name": "service",
+        "params": Object {
+          "name": "mockbin",
+        },
+      },
+      "method": "PATCH",
+      "type": "update-service",
+    },
+    "status": 200,
+    "statusText": "OK",
+    "type": "response",
+    "uri": "http://localhost:8001/services/mockbin",
+  },
+  Object {
+    "params": Object {
+      "body": Object {
+        "config": Object {
+          "key_names": Array [
+            "foobar",
+          ],
+        },
+        "enabled": false,
+      },
+      "endpoint": Object {
+        "name": "service-plugin",
+        "params": Object {
+          "pluginId": "2b47ba9b-761a-492d-9a0c-000000000002",
+          "serviceId": "2b47ba9b-761a-492d-9a0c-000000000001",
+        },
+      },
+      "method": "PATCH",
+      "type": "update-service-plugin",
+    },
+    "type": "request",
+    "uri": "http://localhost:8001/plugins/2b47ba9b-761a-492d-9a0c-000000000002",
+  },
+  Object {
+    "content": Object {
+      "config": Object {
+        "anonymous": "",
+        "hide_credentials": false,
+        "key_in_body": false,
+        "key_names": Array [
+          "foobar",
+        ],
+        "run_on_preflight": true,
+      },
+      "created_at": "___created_at___",
+      "enabled": false,
+      "id": "2b47ba9b-761a-492d-9a0c-000000000002",
+      "name": "key-auth",
+      "service_id": "2b47ba9b-761a-492d-9a0c-000000000001",
+    },
+    "ok": true,
+    "params": Object {
+      "body": Object {
+        "config": Object {
+          "key_names": Array [
+            "foobar",
+          ],
+        },
+        "enabled": false,
+      },
+      "endpoint": Object {
+        "name": "service-plugin",
+        "params": Object {
+          "pluginId": "2b47ba9b-761a-492d-9a0c-000000000002",
+          "serviceId": "2b47ba9b-761a-492d-9a0c-000000000001",
+        },
+      },
+      "method": "PATCH",
+      "type": "update-service-plugin",
+    },
+    "status": 200,
+    "statusText": "OK",
+    "type": "response",
+    "uri": "http://localhost:8001/plugins/2b47ba9b-761a-492d-9a0c-000000000002",
+  },
+]
+`;
+
+exports[`Service plugins should update mockbin service plugin 2`] = `
+"apis: []
+services:
+  - name: mockbin
+    plugins:
+      - name: key-auth
+        attributes:
+          enabled: false
+          config:
+            key_names:
+              - foobar
+            key_in_body: false
+            anonymous: ''
+            run_on_preflight: true
+            hide_credentials: false
+    routes: []
+    attributes:
+      protocol: http
+      host: mockbin.com
+      port: 80
+      path: /test
+      retries: 5
+      connect_timeout: 60000
+      read_timeout: 60000
+      write_timeout: 60000
+consumers: []
+plugins: []
+upstreams: []
+certificates: []
+"
+`;
+
+exports[`Service routes should add mockbin service with a route 1`] = `
+Array [
+  Object {
+    "type": "kong-info",
+    "version": "___version___",
+  },
+  Object {
+    "params": Object {
+      "body": Object {
+        "name": "mockbin",
+        "url": "http://mockbin.com/test",
+      },
+      "endpoint": Object {
+        "name": "services",
+      },
+      "method": "POST",
+      "type": "create-service",
+    },
+    "type": "request",
+    "uri": "http://localhost:8001/services",
+  },
+  Object {
+    "content": Object {
+      "connect_timeout": 60000,
+      "created_at": "___created_at___",
+      "host": "mockbin.com",
+      "id": "2b47ba9b-761a-492d-9a0c-000000000001",
+      "name": "mockbin",
+      "path": "/test",
+      "port": 80,
+      "protocol": "http",
+      "read_timeout": 60000,
+      "retries": 5,
+      "updated_at": "___updated_at___",
+      "write_timeout": 60000,
+    },
+    "ok": true,
+    "params": Object {
+      "body": Object {
+        "name": "mockbin",
+        "url": "http://mockbin.com/test",
+      },
+      "endpoint": Object {
+        "name": "services",
+      },
+      "method": "POST",
+      "type": "create-service",
+    },
+    "status": 201,
+    "statusText": "Created",
+    "type": "response",
+    "uri": "http://localhost:8001/services",
+  },
+  Object {
+    "params": Object {
+      "body": Object {
+        "hosts": Array [
+          "foo.com",
+        ],
+        "methods": Array [],
+        "paths": Array [],
+        "service": Object {
+          "id": "2b47ba9b-761a-492d-9a0c-000000000001",
+        },
+      },
+      "endpoint": Object {
+        "name": "route",
+        "params": Object {
+          "routeId": "7c92cf1e-ee8d-39cc-85f8-355a3d6e4b86",
+          "serviceId": "2b47ba9b-761a-492d-9a0c-000000000001",
+        },
+      },
+      "method": "PUT",
+      "type": "add-route",
+    },
+    "type": "request",
+    "uri": "http://localhost:8001/routes/7c92cf1e-ee8d-39cc-85f8-355a3d6e4b86",
+  },
+  Object {
+    "content": Object {
+      "created_at": "___created_at___",
+      "hosts": Array [
+        "foo.com",
+      ],
+      "id": "7c92cf1e-ee8d-39cc-85f8-355a3d6e4b86",
+      "methods": Array [],
+      "paths": Array [],
+      "preserve_host": false,
+      "protocols": Array [
+        "http",
+        "https",
+      ],
+      "regex_priority": 0,
+      "service": Object {
+        "id": "2b47ba9b-761a-492d-9a0c-000000000001",
+      },
+      "strip_path": true,
+      "updated_at": "___updated_at___",
+    },
+    "ok": true,
+    "params": Object {
+      "body": Object {
+        "hosts": Array [
+          "foo.com",
+        ],
+        "methods": Array [],
+        "paths": Array [],
+        "service": Object {
+          "id": "2b47ba9b-761a-492d-9a0c-000000000001",
+        },
+      },
+      "endpoint": Object {
+        "name": "route",
+        "params": Object {
+          "routeId": "7c92cf1e-ee8d-39cc-85f8-355a3d6e4b86",
+          "serviceId": "2b47ba9b-761a-492d-9a0c-000000000001",
+        },
+      },
+      "method": "PUT",
+      "type": "add-route",
+    },
+    "status": 200,
+    "statusText": "OK",
+    "type": "response",
+    "uri": "http://localhost:8001/routes/7c92cf1e-ee8d-39cc-85f8-355a3d6e4b86",
+  },
+]
+`;
+
+exports[`Service routes should add mockbin service with a route 2`] = `
+"apis: []
+services:
+  - name: mockbin
+    plugins: []
+    routes:
+      - attributes:
+          strip_path: true
+          hosts:
+            - foo.com
+          paths: []
+          methods: []
+          protocols:
+            - http
+            - https
+    attributes:
+      protocol: http
+      host: mockbin.com
+      port: 80
+      path: /test
+      retries: 5
+      connect_timeout: 60000
+      read_timeout: 60000
+      write_timeout: 60000
+consumers: []
+plugins: []
+upstreams: []
+certificates: []
+"
+`;
+
+exports[`Service routes should remove mockbin service route 1`] = `
+Array [
+  Object {
+    "type": "kong-info",
+    "version": "___version___",
+  },
+  Object {
+    "params": Object {
+      "body": Object {
+        "name": "mockbin",
+        "url": "http://mockbin.com/test",
+      },
+      "endpoint": Object {
+        "name": "services",
+      },
+      "method": "POST",
+      "type": "create-service",
+    },
+    "type": "request",
+    "uri": "http://localhost:8001/services",
+  },
+  Object {
+    "content": Object {
+      "connect_timeout": 60000,
+      "created_at": "___created_at___",
+      "host": "mockbin.com",
+      "id": "2b47ba9b-761a-492d-9a0c-000000000001",
+      "name": "mockbin",
+      "path": "/test",
+      "port": 80,
+      "protocol": "http",
+      "read_timeout": 60000,
+      "retries": 5,
+      "updated_at": "___updated_at___",
+      "write_timeout": 60000,
+    },
+    "ok": true,
+    "params": Object {
+      "body": Object {
+        "name": "mockbin",
+        "url": "http://mockbin.com/test",
+      },
+      "endpoint": Object {
+        "name": "services",
+      },
+      "method": "POST",
+      "type": "create-service",
+    },
+    "status": 201,
+    "statusText": "Created",
+    "type": "response",
+    "uri": "http://localhost:8001/services",
+  },
+  Object {
+    "params": Object {
+      "body": Object {
+        "hosts": Array [
+          "foo.com",
+        ],
+        "methods": Array [],
+        "paths": Array [],
+        "service": Object {
+          "id": "2b47ba9b-761a-492d-9a0c-000000000001",
+        },
+      },
+      "endpoint": Object {
+        "name": "route",
+        "params": Object {
+          "routeId": "7c92cf1e-ee8d-39cc-85f8-355a3d6e4b86",
+          "serviceId": "2b47ba9b-761a-492d-9a0c-000000000001",
+        },
+      },
+      "method": "PUT",
+      "type": "add-route",
+    },
+    "type": "request",
+    "uri": "http://localhost:8001/routes/7c92cf1e-ee8d-39cc-85f8-355a3d6e4b86",
+  },
+  Object {
+    "content": Object {
+      "created_at": "___created_at___",
+      "hosts": Array [
+        "foo.com",
+      ],
+      "id": "7c92cf1e-ee8d-39cc-85f8-355a3d6e4b86",
+      "methods": Array [],
+      "paths": Array [],
+      "preserve_host": false,
+      "protocols": Array [
+        "http",
+        "https",
+      ],
+      "regex_priority": 0,
+      "service": Object {
+        "id": "2b47ba9b-761a-492d-9a0c-000000000001",
+      },
+      "strip_path": true,
+      "updated_at": "___updated_at___",
+    },
+    "ok": true,
+    "params": Object {
+      "body": Object {
+        "hosts": Array [
+          "foo.com",
+        ],
+        "methods": Array [],
+        "paths": Array [],
+        "service": Object {
+          "id": "2b47ba9b-761a-492d-9a0c-000000000001",
+        },
+      },
+      "endpoint": Object {
+        "name": "route",
+        "params": Object {
+          "routeId": "7c92cf1e-ee8d-39cc-85f8-355a3d6e4b86",
+          "serviceId": "2b47ba9b-761a-492d-9a0c-000000000001",
+        },
+      },
+      "method": "PUT",
+      "type": "add-route",
+    },
+    "status": 200,
+    "statusText": "OK",
+    "type": "response",
+    "uri": "http://localhost:8001/routes/7c92cf1e-ee8d-39cc-85f8-355a3d6e4b86",
+  },
+  Object {
+    "type": "kong-info",
+    "version": "___version___",
+  },
+  Object {
+    "params": Object {
+      "body": Object {
+        "url": "http://mockbin.com/test",
+      },
+      "endpoint": Object {
+        "name": "service",
+        "params": Object {
+          "name": "mockbin",
+        },
+      },
+      "method": "PATCH",
+      "type": "update-service",
+    },
+    "type": "request",
+    "uri": "http://localhost:8001/services/mockbin",
+  },
+  Object {
+    "content": Object {
+      "connect_timeout": 60000,
+      "created_at": "___created_at___",
+      "host": "mockbin.com",
+      "id": "2b47ba9b-761a-492d-9a0c-000000000001",
+      "name": "mockbin",
+      "path": "/test",
+      "port": 80,
+      "protocol": "http",
+      "read_timeout": 60000,
+      "retries": 5,
+      "updated_at": "___updated_at___",
+      "write_timeout": 60000,
+    },
+    "ok": true,
+    "params": Object {
+      "body": Object {
+        "url": "http://mockbin.com/test",
+      },
+      "endpoint": Object {
+        "name": "service",
+        "params": Object {
+          "name": "mockbin",
+        },
+      },
+      "method": "PATCH",
+      "type": "update-service",
+    },
+    "status": 200,
+    "statusText": "OK",
+    "type": "response",
+    "uri": "http://localhost:8001/services/mockbin",
+  },
+  Object {
+    "params": Object {
+      "endpoint": Object {
+        "name": "route",
+        "params": Object {
+          "routeId": "7c92cf1e-ee8d-39cc-85f8-355a3d6e4b86",
+          "serviceId": "2b47ba9b-761a-492d-9a0c-000000000001",
+        },
+      },
+      "method": "DELETE",
+      "type": "remove-route",
+    },
+    "type": "request",
+    "uri": "http://localhost:8001/routes/7c92cf1e-ee8d-39cc-85f8-355a3d6e4b86",
+  },
+  Object {
+    "content": "",
+    "ok": true,
+    "params": Object {
+      "endpoint": Object {
+        "name": "route",
+        "params": Object {
+          "routeId": "7c92cf1e-ee8d-39cc-85f8-355a3d6e4b86",
+          "serviceId": "2b47ba9b-761a-492d-9a0c-000000000001",
+        },
+      },
+      "method": "DELETE",
+      "type": "remove-route",
+    },
+    "status": 204,
+    "statusText": "No Content",
+    "type": "response",
+    "uri": "http://localhost:8001/routes/7c92cf1e-ee8d-39cc-85f8-355a3d6e4b86",
+  },
+]
+`;
+
+exports[`Service routes should remove mockbin service route 2`] = `
+"apis: []
+services:
+  - name: mockbin
+    plugins: []
+    routes: []
+    attributes:
+      protocol: http
+      host: mockbin.com
+      port: 80
+      path: /test
+      retries: 5
+      connect_timeout: 60000
+      read_timeout: 60000
+      write_timeout: 60000
+consumers: []
+plugins: []
+upstreams: []
+certificates: []
+"
+`;
+
+exports[`Service routes should update mockbin service route 1`] = `
+Array [
+  Object {
+    "type": "kong-info",
+    "version": "___version___",
+  },
+  Object {
+    "params": Object {
+      "body": Object {
+        "name": "mockbin",
+        "url": "http://mockbin.com/test",
+      },
+      "endpoint": Object {
+        "name": "services",
+      },
+      "method": "POST",
+      "type": "create-service",
+    },
+    "type": "request",
+    "uri": "http://localhost:8001/services",
+  },
+  Object {
+    "content": Object {
+      "connect_timeout": 60000,
+      "created_at": "___created_at___",
+      "host": "mockbin.com",
+      "id": "2b47ba9b-761a-492d-9a0c-000000000001",
+      "name": "mockbin",
+      "path": "/test",
+      "port": 80,
+      "protocol": "http",
+      "read_timeout": 60000,
+      "retries": 5,
+      "updated_at": "___updated_at___",
+      "write_timeout": 60000,
+    },
+    "ok": true,
+    "params": Object {
+      "body": Object {
+        "name": "mockbin",
+        "url": "http://mockbin.com/test",
+      },
+      "endpoint": Object {
+        "name": "services",
+      },
+      "method": "POST",
+      "type": "create-service",
+    },
+    "status": 201,
+    "statusText": "Created",
+    "type": "response",
+    "uri": "http://localhost:8001/services",
+  },
+  Object {
+    "params": Object {
+      "body": Object {
+        "hosts": Array [
+          "foo.com",
+        ],
+        "methods": Array [],
+        "paths": Array [],
+        "service": Object {
+          "id": "2b47ba9b-761a-492d-9a0c-000000000001",
+        },
+      },
+      "endpoint": Object {
+        "name": "route",
+        "params": Object {
+          "routeId": "7c92cf1e-ee8d-39cc-85f8-355a3d6e4b86",
+          "serviceId": "2b47ba9b-761a-492d-9a0c-000000000001",
+        },
+      },
+      "method": "PUT",
+      "type": "add-route",
+    },
+    "type": "request",
+    "uri": "http://localhost:8001/routes/7c92cf1e-ee8d-39cc-85f8-355a3d6e4b86",
+  },
+  Object {
+    "content": Object {
+      "created_at": "___created_at___",
+      "hosts": Array [
+        "foo.com",
+      ],
+      "id": "7c92cf1e-ee8d-39cc-85f8-355a3d6e4b86",
+      "methods": Array [],
+      "paths": Array [],
+      "preserve_host": false,
+      "protocols": Array [
+        "http",
+        "https",
+      ],
+      "regex_priority": 0,
+      "service": Object {
+        "id": "2b47ba9b-761a-492d-9a0c-000000000001",
+      },
+      "strip_path": true,
+      "updated_at": "___updated_at___",
+    },
+    "ok": true,
+    "params": Object {
+      "body": Object {
+        "hosts": Array [
+          "foo.com",
+        ],
+        "methods": Array [],
+        "paths": Array [],
+        "service": Object {
+          "id": "2b47ba9b-761a-492d-9a0c-000000000001",
+        },
+      },
+      "endpoint": Object {
+        "name": "route",
+        "params": Object {
+          "routeId": "7c92cf1e-ee8d-39cc-85f8-355a3d6e4b86",
+          "serviceId": "2b47ba9b-761a-492d-9a0c-000000000001",
+        },
+      },
+      "method": "PUT",
+      "type": "add-route",
+    },
+    "status": 200,
+    "statusText": "OK",
+    "type": "response",
+    "uri": "http://localhost:8001/routes/7c92cf1e-ee8d-39cc-85f8-355a3d6e4b86",
+  },
+  Object {
+    "type": "kong-info",
+    "version": "___version___",
+  },
+  Object {
+    "params": Object {
+      "body": Object {
+        "url": "http://mockbin.com/test",
+      },
+      "endpoint": Object {
+        "name": "service",
+        "params": Object {
+          "name": "mockbin",
+        },
+      },
+      "method": "PATCH",
+      "type": "update-service",
+    },
+    "type": "request",
+    "uri": "http://localhost:8001/services/mockbin",
+  },
+  Object {
+    "content": Object {
+      "connect_timeout": 60000,
+      "created_at": "___created_at___",
+      "host": "mockbin.com",
+      "id": "2b47ba9b-761a-492d-9a0c-000000000001",
+      "name": "mockbin",
+      "path": "/test",
+      "port": 80,
+      "protocol": "http",
+      "read_timeout": 60000,
+      "retries": 5,
+      "updated_at": "___updated_at___",
+      "write_timeout": 60000,
+    },
+    "ok": true,
+    "params": Object {
+      "body": Object {
+        "url": "http://mockbin.com/test",
+      },
+      "endpoint": Object {
+        "name": "service",
+        "params": Object {
+          "name": "mockbin",
+        },
+      },
+      "method": "PATCH",
+      "type": "update-service",
+    },
+    "status": 200,
+    "statusText": "OK",
+    "type": "response",
+    "uri": "http://localhost:8001/services/mockbin",
+  },
+  Object {
+    "params": Object {
+      "body": Object {
+        "hosts": Array [
+          "foo.com",
+        ],
+        "methods": Array [],
+        "paths": Array [
+          "/api",
+        ],
+        "service": Object {
+          "id": "2b47ba9b-761a-492d-9a0c-000000000001",
+        },
+      },
+      "endpoint": Object {
+        "name": "route",
+        "params": Object {
+          "routeId": "7c92cf1e-ee8d-39cc-85f8-355a3d6e4b86",
+          "serviceId": "2b47ba9b-761a-492d-9a0c-000000000001",
+        },
+      },
+      "method": "PUT",
+      "type": "update-route",
+    },
+    "type": "request",
+    "uri": "http://localhost:8001/routes/7c92cf1e-ee8d-39cc-85f8-355a3d6e4b86",
+  },
+  Object {
+    "content": Object {
+      "created_at": "___created_at___",
+      "hosts": Array [
+        "foo.com",
+      ],
+      "id": "7c92cf1e-ee8d-39cc-85f8-355a3d6e4b86",
+      "methods": Array [],
+      "paths": Array [
+        "/api",
+      ],
+      "preserve_host": false,
+      "protocols": Array [
+        "http",
+        "https",
+      ],
+      "regex_priority": 0,
+      "service": Object {
+        "id": "2b47ba9b-761a-492d-9a0c-000000000001",
+      },
+      "strip_path": true,
+      "updated_at": "___updated_at___",
+    },
+    "ok": true,
+    "params": Object {
+      "body": Object {
+        "hosts": Array [
+          "foo.com",
+        ],
+        "methods": Array [],
+        "paths": Array [
+          "/api",
+        ],
+        "service": Object {
+          "id": "2b47ba9b-761a-492d-9a0c-000000000001",
+        },
+      },
+      "endpoint": Object {
+        "name": "route",
+        "params": Object {
+          "routeId": "7c92cf1e-ee8d-39cc-85f8-355a3d6e4b86",
+          "serviceId": "2b47ba9b-761a-492d-9a0c-000000000001",
+        },
+      },
+      "method": "PUT",
+      "type": "update-route",
+    },
+    "status": 200,
+    "statusText": "OK",
+    "type": "response",
+    "uri": "http://localhost:8001/routes/7c92cf1e-ee8d-39cc-85f8-355a3d6e4b86",
+  },
+]
+`;
+
+exports[`Service routes should update mockbin service route 2`] = `
+"apis: []
+services:
+  - name: mockbin
+    plugins: []
+    routes:
+      - attributes:
+          strip_path: true
+          hosts:
+            - foo.com
+          paths:
+            - /api
+          methods: []
+          protocols:
+            - http
+            - https
+    attributes:
+      protocol: http
+      host: mockbin.com
+      port: 80
+      path: /test
+      retries: 5
+      connect_timeout: 60000
+      read_timeout: 60000
+      write_timeout: 60000
+consumers: []
+plugins: []
+upstreams: []
+certificates: []
+"
+`;
+
+exports[`Service should add the Service 1`] = `
+Array [
+  Object {
+    "type": "kong-info",
+    "version": "___version___",
+  },
+  Object {
+    "params": Object {
+      "body": Object {
+        "name": "mockbin",
+        "url": "http://mockbin.com/test",
+      },
+      "endpoint": Object {
+        "name": "services",
+      },
+      "method": "POST",
+      "type": "create-service",
+    },
+    "type": "request",
+    "uri": "http://localhost:8001/services",
+  },
+  Object {
+    "content": Object {
+      "connect_timeout": 60000,
+      "created_at": "___created_at___",
+      "host": "mockbin.com",
+      "id": "2b47ba9b-761a-492d-9a0c-000000000001",
+      "name": "mockbin",
+      "path": "/test",
+      "port": 80,
+      "protocol": "http",
+      "read_timeout": 60000,
+      "retries": 5,
+      "updated_at": "___updated_at___",
+      "write_timeout": 60000,
+    },
+    "ok": true,
+    "params": Object {
+      "body": Object {
+        "name": "mockbin",
+        "url": "http://mockbin.com/test",
+      },
+      "endpoint": Object {
+        "name": "services",
+      },
+      "method": "POST",
+      "type": "create-service",
+    },
+    "status": 201,
+    "statusText": "Created",
+    "type": "response",
+    "uri": "http://localhost:8001/services",
+  },
+]
+`;
+
+exports[`Service should add the Service 2`] = `
+"apis: []
+services:
+  - name: mockbin
+    plugins: []
+    routes: []
+    attributes:
+      protocol: http
+      host: mockbin.com
+      port: 80
+      path: /test
+      retries: 5
+      connect_timeout: 60000
+      read_timeout: 60000
+      write_timeout: 60000
+consumers: []
+plugins: []
+upstreams: []
+certificates: []
+"
+`;
+
+exports[`Service should not update if already up to date 1`] = `
+Array [
+  Object {
+    "type": "kong-info",
+    "version": "___version___",
+  },
+  Object {
+    "params": Object {
+      "body": Object {
+        "name": "mockbin",
+        "url": "http://mockbin.com/test",
+      },
+      "endpoint": Object {
+        "name": "services",
+      },
+      "method": "POST",
+      "type": "create-service",
+    },
+    "type": "request",
+    "uri": "http://localhost:8001/services",
+  },
+  Object {
+    "content": Object {
+      "connect_timeout": 60000,
+      "created_at": "___created_at___",
+      "host": "mockbin.com",
+      "id": "2b47ba9b-761a-492d-9a0c-000000000001",
+      "name": "mockbin",
+      "path": "/test",
+      "port": 80,
+      "protocol": "http",
+      "read_timeout": 60000,
+      "retries": 5,
+      "updated_at": "___updated_at___",
+      "write_timeout": 60000,
+    },
+    "ok": true,
+    "params": Object {
+      "body": Object {
+        "name": "mockbin",
+        "url": "http://mockbin.com/test",
+      },
+      "endpoint": Object {
+        "name": "services",
+      },
+      "method": "POST",
+      "type": "create-service",
+    },
+    "status": 201,
+    "statusText": "Created",
+    "type": "response",
+    "uri": "http://localhost:8001/services",
+  },
+  Object {
+    "type": "kong-info",
+    "version": "___version___",
+  },
+  Object {
+    "params": Object {
+      "body": Object {
+        "url": "http://mockbin.com/test",
+      },
+      "endpoint": Object {
+        "name": "service",
+        "params": Object {
+          "name": "mockbin",
+        },
+      },
+      "method": "PATCH",
+      "type": "update-service",
+    },
+    "type": "request",
+    "uri": "http://localhost:8001/services/mockbin",
+  },
+  Object {
+    "content": Object {
+      "connect_timeout": 60000,
+      "created_at": "___created_at___",
+      "host": "mockbin.com",
+      "id": "2b47ba9b-761a-492d-9a0c-000000000001",
+      "name": "mockbin",
+      "path": "/test",
+      "port": 80,
+      "protocol": "http",
+      "read_timeout": 60000,
+      "retries": 5,
+      "updated_at": "___updated_at___",
+      "write_timeout": 60000,
+    },
+    "ok": true,
+    "params": Object {
+      "body": Object {
+        "url": "http://mockbin.com/test",
+      },
+      "endpoint": Object {
+        "name": "service",
+        "params": Object {
+          "name": "mockbin",
+        },
+      },
+      "method": "PATCH",
+      "type": "update-service",
+    },
+    "status": 200,
+    "statusText": "OK",
+    "type": "response",
+    "uri": "http://localhost:8001/services/mockbin",
+  },
+]
+`;
+
+exports[`Service should not update if already up to date 2`] = `
+"apis: []
+services:
+  - name: mockbin
+    plugins: []
+    routes: []
+    attributes:
+      protocol: http
+      host: mockbin.com
+      port: 80
+      path: /test
+      retries: 5
+      connect_timeout: 60000
+      read_timeout: 60000
+      write_timeout: 60000
+consumers: []
+plugins: []
+upstreams: []
+certificates: []
+"
+`;
+
+exports[`Service should remove the service 1`] = `
+Array [
+  Object {
+    "type": "kong-info",
+    "version": "___version___",
+  },
+  Object {
+    "params": Object {
+      "body": Object {
+        "name": "mockbin",
+        "url": "http://mockbin.com/test",
+      },
+      "endpoint": Object {
+        "name": "services",
+      },
+      "method": "POST",
+      "type": "create-service",
+    },
+    "type": "request",
+    "uri": "http://localhost:8001/services",
+  },
+  Object {
+    "content": Object {
+      "connect_timeout": 60000,
+      "created_at": "___created_at___",
+      "host": "mockbin.com",
+      "id": "2b47ba9b-761a-492d-9a0c-000000000001",
+      "name": "mockbin",
+      "path": "/test",
+      "port": 80,
+      "protocol": "http",
+      "read_timeout": 60000,
+      "retries": 5,
+      "updated_at": "___updated_at___",
+      "write_timeout": 60000,
+    },
+    "ok": true,
+    "params": Object {
+      "body": Object {
+        "name": "mockbin",
+        "url": "http://mockbin.com/test",
+      },
+      "endpoint": Object {
+        "name": "services",
+      },
+      "method": "POST",
+      "type": "create-service",
+    },
+    "status": 201,
+    "statusText": "Created",
+    "type": "response",
+    "uri": "http://localhost:8001/services",
+  },
+  Object {
+    "type": "kong-info",
+    "version": "___version___",
+  },
+  Object {
+    "params": Object {
+      "endpoint": Object {
+        "name": "service",
+        "params": Object {
+          "name": "mockbin",
+        },
+      },
+      "method": "DELETE",
+      "type": "remove-service",
+    },
+    "type": "request",
+    "uri": "http://localhost:8001/services/mockbin",
+  },
+  Object {
+    "content": "",
+    "ok": true,
+    "params": Object {
+      "endpoint": Object {
+        "name": "service",
+        "params": Object {
+          "name": "mockbin",
+        },
+      },
+      "method": "DELETE",
+      "type": "remove-service",
+    },
+    "status": 204,
+    "statusText": "No Content",
+    "type": "response",
+    "uri": "http://localhost:8001/services/mockbin",
+  },
+]
+`;
+
+exports[`Service should remove the service 2`] = `
+"apis: []
+services: []
+consumers: []
+plugins: []
+upstreams: []
+certificates: []
+"
+`;
+
+exports[`Service should update the service 1`] = `
+Array [
+  Object {
+    "type": "kong-info",
+    "version": "___version___",
+  },
+  Object {
+    "params": Object {
+      "body": Object {
+        "name": "mockbin",
+        "url": "http://mockbin.com/test",
+      },
+      "endpoint": Object {
+        "name": "services",
+      },
+      "method": "POST",
+      "type": "create-service",
+    },
+    "type": "request",
+    "uri": "http://localhost:8001/services",
+  },
+  Object {
+    "content": Object {
+      "connect_timeout": 60000,
+      "created_at": "___created_at___",
+      "host": "mockbin.com",
+      "id": "2b47ba9b-761a-492d-9a0c-000000000001",
+      "name": "mockbin",
+      "path": "/test",
+      "port": 80,
+      "protocol": "http",
+      "read_timeout": 60000,
+      "retries": 5,
+      "updated_at": "___updated_at___",
+      "write_timeout": 60000,
+    },
+    "ok": true,
+    "params": Object {
+      "body": Object {
+        "name": "mockbin",
+        "url": "http://mockbin.com/test",
+      },
+      "endpoint": Object {
+        "name": "services",
+      },
+      "method": "POST",
+      "type": "create-service",
+    },
+    "status": 201,
+    "statusText": "Created",
+    "type": "response",
+    "uri": "http://localhost:8001/services",
+  },
+  Object {
+    "type": "kong-info",
+    "version": "___version___",
+  },
+  Object {
+    "params": Object {
+      "body": Object {
+        "protocol": true,
+        "url": "http://mockbin.com/test",
+      },
+      "endpoint": Object {
+        "name": "service",
+        "params": Object {
+          "name": "mockbin",
+        },
+      },
+      "method": "PATCH",
+      "type": "update-service",
+    },
+    "type": "request",
+    "uri": "http://localhost:8001/services/mockbin",
+  },
+  Object {
+    "content": Object {
+      "connect_timeout": 60000,
+      "created_at": "___created_at___",
+      "host": "mockbin.com",
+      "id": "2b47ba9b-761a-492d-9a0c-000000000001",
+      "name": "mockbin",
+      "path": "/test",
+      "port": 80,
+      "protocol": "http",
+      "read_timeout": 60000,
+      "retries": 5,
+      "updated_at": "___updated_at___",
+      "write_timeout": 60000,
+    },
+    "ok": true,
+    "params": Object {
+      "body": Object {
+        "protocol": true,
+        "url": "http://mockbin.com/test",
+      },
+      "endpoint": Object {
+        "name": "service",
+        "params": Object {
+          "name": "mockbin",
+        },
+      },
+      "method": "PATCH",
+      "type": "update-service",
+    },
+    "status": 200,
+    "statusText": "OK",
+    "type": "response",
+    "uri": "http://localhost:8001/services/mockbin",
+  },
+]
+`;
+
+exports[`Service should update the service 2`] = `
+"apis: []
+services:
+  - name: mockbin
+    plugins: []
+    routes: []
+    attributes:
+      protocol: http
+      host: mockbin.com
+      port: 80
+      path: /test
+      retries: 5
+      connect_timeout: 60000
+      read_timeout: 60000
+      write_timeout: 60000
+consumers: []
+plugins: []
+upstreams: []
+certificates: []
+"
+`;
