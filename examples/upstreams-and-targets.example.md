@@ -16,6 +16,34 @@ upstreams:
           weight: 50
     attributes:
       slots: 10
+      healthchecks:
+        active:
+          unhealthy:
+            http_statuses:
+              - 404
+            tcp_failures: 1
+            timeouts: 1
+            http_failures: 1
+            interval: 1
+          http_path: /health
+          healthy:
+            http_statuses:
+              - 200
+            interval: 1
+            successes: 1
+          timeout: 1
+          concurrency: 1
+        passive:
+          unhealthy:
+            http_failures: 1
+            http_statuses:
+              - 404
+            tcp_failures: 1
+            timeouts: 1
+          healthy:
+            successes: 1
+            http_statuses:
+              - 200
 
 ```
 
@@ -28,7 +56,7 @@ For illustrative purpose a cURL calls would be the following
 ```sh
 $ curl -i -X POST -H "Content-Type: application/json" \
   --url http://localhost:8001/upstreams \
-  --data '{"slots":10,"name":"mockbinUpstream"}'
+  --data '{"slots":10,"healthchecks":{"active":{"unhealthy":{"http_statuses":[404],"tcp_failures":1,"timeouts":1,"http_failures":1,"interval":1},"http_path":"/health","healthy":{"http_statuses":[200],"interval":1,"successes":1},"timeout":1,"concurrency":1},"passive":{"unhealthy":{"http_failures":1,"http_statuses":[404],"tcp_failures":1,"timeouts":1},"healthy":{"successes":1,"http_statuses":[200]}}},"name":"mockbinUpstream"}'
 ```
 
 ```
@@ -44,66 +72,38 @@ HTTP 201 Created
     "active": {
       "unhealthy": {
         "http_statuses": [
-          429,
-          404,
-          500,
-          501,
-          502,
-          503,
-          504,
-          505
+          404
         ],
-        "tcp_failures": 0,
-        "timeouts": 0,
-        "http_failures": 0,
-        "interval": 0
+        "tcp_failures": 1,
+        "timeouts": 1,
+        "http_failures": 1,
+        "interval": 1
       },
-      "http_path": "/",
+      "http_path": "/health",
+      "timeout": 1,
       "healthy": {
         "http_statuses": [
-          200,
-          302
+          200
         ],
-        "interval": 0,
-        "successes": 0
+        "interval": 1,
+        "successes": 1
       },
-      "timeout": 1,
-      "concurrency": 10
+      "concurrency": 1
     },
     "passive": {
       "unhealthy": {
-        "http_failures": 0,
+        "http_failures": 1,
         "http_statuses": [
-          429,
-          500,
-          503
+          404
         ],
-        "tcp_failures": 0,
-        "timeouts": 0
+        "tcp_failures": 1,
+        "timeouts": 1
       },
       "healthy": {
-        "successes": 0,
         "http_statuses": [
-          200,
-          201,
-          202,
-          203,
-          204,
-          205,
-          206,
-          207,
-          208,
-          226,
-          300,
-          301,
-          302,
-          303,
-          304,
-          305,
-          306,
-          307,
-          308
-        ]
+          200
+        ],
+        "successes": 1
       }
     }
   },
@@ -154,5 +154,65 @@ HTTP 201 Created
   "upstream_id": "2b47ba9b-761a-492d-9a0c-000000000001",
   "target": "server2.mockbin:3001",
   "id": "2b47ba9b-761a-492d-9a0c-000000000003"
+}
+```
+
+### update upstream
+
+```sh
+
+```
+
+```
+HTTP 200 OK
+```
+
+```
+{
+  "created_at": "___created_at___",
+  "hash_on": "none",
+  "id": "2b47ba9b-761a-492d-9a0c-000000000001",
+  "healthchecks": {
+    "active": {
+      "unhealthy": {
+        "http_statuses": [
+          404
+        ],
+        "tcp_failures": 1,
+        "timeouts": 1,
+        "http_failures": 1,
+        "interval": 1
+      },
+      "http_path": "/health",
+      "timeout": 1,
+      "healthy": {
+        "http_statuses": [
+          200
+        ],
+        "interval": 1,
+        "successes": 1
+      },
+      "concurrency": 1
+    },
+    "passive": {
+      "unhealthy": {
+        "http_failures": 1,
+        "http_statuses": [
+          404
+        ],
+        "tcp_failures": 1,
+        "timeouts": 1
+      },
+      "healthy": {
+        "http_statuses": [
+          200
+        ],
+        "successes": 1
+      }
+    }
+  },
+  "name": "mockbinUpstream",
+  "hash_fallback": "none",
+  "slots": 10
 }
 ```

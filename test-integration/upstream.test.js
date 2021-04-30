@@ -12,7 +12,46 @@ describe("Upstream", () => {
             name: "mockbinUpstream",
             ensure: "present",
             attributes: {
-                slots: 10
+                slots: 10,
+                healthchecks: {
+                  active: {
+                    unhealthy: {
+                      http_statuses: [
+                        404
+                      ],
+                      tcp_failures: 1,
+                      timeouts: 1,
+                      http_failures: 1,
+                      interval: 1
+                    },
+                    http_path: '/health',
+                    healthy: {
+                      http_statuses: [
+                        200
+                      ],
+                      interval: 1,
+                      successes: 1
+                    },
+                    timeout: 1,
+                    concurrency: 1
+                  },
+                  passive: {
+                    unhealthy: {
+                      http_failures: 1,
+                      http_statuses: [
+                        404
+                      ],
+                      tcp_failures: 1,
+                      timeouts: 1
+                    },
+                    healthy: {
+                      successes: 1,
+                      http_statuses: [
+                        200
+                      ]
+                    }
+                  }
+                }
             }
         }];
     });
