@@ -23,7 +23,7 @@
     "colors": "^1.1.2",
     "commander": "^2.13.0",
     "invariant": "^2.2.2",
-    "isomorphic-fetch": "^2.2.0",
+    "isomorphic-fetch": "^3.0.0",
     "js-yaml": "^3.13.0",
     "minimist": "^1.2.0",
     "object-assign": "^4.0.1",
